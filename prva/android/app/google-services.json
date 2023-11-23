@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "36914786904",
+    "project_id": "dimatest-fa192",
+    "storage_bucket": "dimatest-fa192.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:36914786904:android:fd4b2f107c09637942502d",
+        "android_client_info": {
+          "package_name": "com.example.prva"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhGQqlKnwYQFVOuueUw0_xks10c87VxkI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:36914786904:android:0f15fba51d6bda6442502d",
+        "android_client_info": {
+          "package_name": "com.mycompany.dima3"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhGQqlKnwYQFVOuueUw0_xks10c87VxkI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
