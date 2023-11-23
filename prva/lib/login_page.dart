@@ -36,16 +36,22 @@ class _LoginPageState extends State<LoginPage> {
                         onSaved: (value) => _password = value!,
                       ),
                       ElevatedButton(
-                          onPressed: validateAndSave, child: Text('Login')),
-                    ]))));
+                          onPressed: validateAndSave, child: Text('Login')
+                      ),
+                    ]
+                )
+            )
+        )
+    );
   }
 
   void validateAndSave() {
     final form = formKey.currentState;
     if (form!.validate()) {
+      form.save();
       print('Form is valid. Email $_email, password $_password ');
     } else {
-      print('Form is not valid gnegne');
+      print('Form is not valid');
     }
   }
 }
