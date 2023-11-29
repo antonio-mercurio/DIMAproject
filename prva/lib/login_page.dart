@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -36,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
                         onSaved: (value) => _password = value!,
                       ),
                       ElevatedButton(
-                          onPressed: validateAndSave, child: Text('Login')
+                          onPressed: validateAndSubmit, child: Text('Login')
                       ),
                     ]
                 )
@@ -45,13 +46,26 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void validateAndSave() {
+  void validateAndSubmit() async{
+    if(validateAndSave()){
+      try{
+      UserCredential user= await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email!, password: _password!);
+      print('Sign in: ${user.credential}');
+      }catch (e){
+        print('Error: $e');
+      }
+    }
+  }
+
+  bool validateAndSave() {
     final form = formKey.currentState;
     if (form!.validate()) {
       form.save();
       print('Form is valid. Email $_email, password $_password ');
+      return true;
     } else {
       print('Form is not valid');
+      return false;
     }
   }
 }
