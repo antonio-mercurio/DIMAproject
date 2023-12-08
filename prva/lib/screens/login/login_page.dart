@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import '../../firebase_options.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
           await Firebase.initializeApp();
           UserCredential user = await FirebaseAuth.instance
               .signInWithEmailAndPassword(email: _email!, password: _password!);
-          print('signed in: ${user.credential}');
+          print('signed in: $_email');
         } else {
           UserCredential user = await FirebaseAuth.instance
               .createUserWithEmailAndPassword(
