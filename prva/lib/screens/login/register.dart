@@ -1,19 +1,17 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:prva/services/auth.dart';
 import 'package:prva/shared/constants.dart';
 import 'package:prva/shared/loading.dart';
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
   final Function toggleView;
-
-  SignIn({required this.toggleView});
+  Register({required this.toggleView});
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
@@ -30,14 +28,14 @@ class _SignInState extends State<SignIn> {
             appBar: AppBar(
                 backgroundColor: Colors.amber[400],
                 elevation: 0.0,
-                title: Text('Sign in'),
+                title: Text('Sign up'),
                 actions: <Widget>[
                   TextButton.icon(
                       onPressed: () {
                         widget.toggleView();
                       },
                       icon: Icon(Icons.person),
-                      label: Text('Register'))
+                      label: Text('Sign In'))
                 ]),
             body: Container(
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
@@ -69,13 +67,14 @@ class _SignInState extends State<SignIn> {
                     ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            print('valid');
+                            print(email);
+                            print(password);
                             setState(() => loading = true);
                             dynamic result = await _auth
-                                .signInWithEmailAndPassword(email, password);
+                                .registerWithEmailAndPassword(email, password);
                             if (result == null) {
                               setState(() {
-                                error = 'invalid credentials';
+                                error = 'invalid email';
                                 loading = false;
                               });
                             }
@@ -86,7 +85,7 @@ class _SignInState extends State<SignIn> {
                               MaterialStateProperty.all<Color>(Colors.pink),
                         ),
                         child: Text(
-                          'Sign In',
+                          'Sign Up',
                           style: TextStyle(color: Colors.white),
                         )),
                     SizedBox(height: 12.0),
