@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:prva/models/house.dart';
+import 'package:prva/models/user.dart';
 
 class DatabaseService {
   final String? uid;
@@ -15,8 +17,34 @@ class DatabaseService {
     });
   }
 
+  //house list from snapshot
+  List<House> _houseListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map<House>((doc) {
+      return House(
+          owner: doc.get('owner') ?? "",
+          city: doc.get('city') ?? "",
+          cap: doc.get('cap') ?? 0);
+    }).toList();
+  }
+
+  //user data from snapshots
+
+  UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
+    return UserData(
+      uid: uid ?? "",
+      owner: snapshot.get('owner') ?? "",
+      city: snapshot.get('city') ?? "",
+      cap: snapshot.get('cap') ?? 0,
+    );
+  }
+
   //get houses stream
-  Stream<QuerySnapshot> get getHouses {
-    return houseCollection.snapshots();
+  Stream<List<House>> get getHouses {
+    return houseCollection.snapshots().map((_houseListFromSnapshot));
+  }
+
+  // get user doc stream
+  Stream<UserData> get userData {
+    return houseCollection.doc(uid).snapshots().map((_userDataFromSnapshot));
   }
 }
