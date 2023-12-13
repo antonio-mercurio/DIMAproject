@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:prva/models/user.dart';
 import 'package:prva/screens/home/home.dart';
 import 'package:prva/screens/login/authenticate.dart';
-import 'package:prva/screens/login/login_page.dart';
 
 class Wrapper extends StatelessWidget {
   @override
