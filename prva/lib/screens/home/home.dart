@@ -42,10 +42,17 @@ class Home extends StatelessWidget {
               },
             ),
             TextButton.icon(
-              icon: Icon(Icons.settings),
-              label: Text('settings'),
-              onPressed: () => _showSettingsPanel(),
+              icon: Icon(Icons.add_circle),
+              label: Text('aggiungi profilo'),
+              onPressed: () {
+                print('ciaooo');
+              },
             ),
+            /*TextButton.icon(
+              icon: Icon(Icons.settings),
+              label: Text('FILTRI'),
+              onPressed: () => _showSettingsPanel(),
+            ),*/
           ],
         ),
         body: HousesList(),
