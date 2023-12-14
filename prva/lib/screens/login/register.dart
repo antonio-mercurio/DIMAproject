@@ -21,6 +21,7 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
+    ;
     return loading
         ? Loading()
         : Scaffold(
@@ -65,19 +66,28 @@ class _RegisterState extends State<Register> {
                         }),
                     SizedBox(height: 20.0),
                     ElevatedButton(
-                        onPressed: () async {
+                        onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             print(email);
                             print(password);
                             setState(() => loading = true);
-                            dynamic result = await _auth
-                                .registerWithEmailAndPassword(email, password);
+                            dynamic result = _auth.registerWithEmailAndPassword(
+                                email, password);
+                            print('sono qua.');
                             if (result == null) {
                               setState(() {
                                 error = 'invalid email';
                                 loading = false;
                               });
+
+                              ;
                             }
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      CreatePersonalProfile()),
+                            );
                           }
                         },
                         style: ButtonStyle(
@@ -98,5 +108,58 @@ class _RegisterState extends State<Register> {
               ),
             ),
           );
+  }
+}
+
+class CreatePersonalProfile extends StatefulWidget {
+  @override
+  State<CreatePersonalProfile> createState() => _CreatePersonalProfileState();
+}
+
+class _CreatePersonalProfileState extends State<CreatePersonalProfile> {
+  String name = '';
+  String surname = '';
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Creazione nuovo profilo in corso:'),
+        backgroundColor: Colors.red,
+      ),
+      body: Container(
+          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+          child: Form(
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: 20.0),
+                TextFormField(
+                  decoration: textInputDecoration.copyWith(
+                      hintText: 'Insert your name here'),
+                  validator: (val) => val!.isEmpty ? 'Enter your name' : null,
+                  onChanged: (val) {
+                    setState(() => name = val);
+                  },
+                ),
+                SizedBox(height: 20.0),
+                TextFormField(
+                  decoration: textInputDecoration.copyWith(
+                      hintText: 'Insert your surname here'),
+                  validator: (val) =>
+                      val!.isEmpty ? 'Enter your surname' : null,
+                  onChanged: (val) {
+                    setState(() => surname = val);
+                  },
+                ),
+                SizedBox(height: 20.0),
+                ElevatedButton(
+                    onPressed: () {
+                      print(name);
+                      print(surname);
+                    },
+                    child: Text('Nome e cognome invio')),
+              ],
+            ),
+          )),
+    );
   }
 }

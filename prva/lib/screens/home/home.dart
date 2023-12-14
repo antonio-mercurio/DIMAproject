@@ -5,7 +5,6 @@ import 'package:prva/screens/home/houses_list.dart';
 import 'package:prva/screens/home/settings_form.dart';
 import 'package:prva/services/auth.dart';
 import 'package:prva/services/database.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
@@ -23,6 +22,11 @@ class Home extends StatelessWidget {
             );
           });
     }
+
+    /*void createPersonalProfile() {
+      return CreatePersonalProfile()
+         
+    }*/
 
     return StreamProvider<List<House>>.value(
       value: DatabaseService(null).getHouses,
@@ -45,7 +49,9 @@ class Home extends StatelessWidget {
               icon: Icon(Icons.add_circle),
               label: Text('aggiungi profilo'),
               onPressed: () {
-                print('ciaooo');
+                print('ciaoPrima');
+
+                print('ciaoDopo');
               },
             ),
             /*TextButton.icon(
