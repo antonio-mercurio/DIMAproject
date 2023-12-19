@@ -48,17 +48,13 @@ class Home extends StatelessWidget {
             TextButton.icon(
               icon: Icon(Icons.add_circle),
               label: Text('aggiungi profilo'),
-              onPressed: () {
-                print('ciaoPrima');
-
-                print('ciaoDopo');
-              },
+              onPressed: () {},
             ),
-            /*TextButton.icon(
+            TextButton.icon(
               icon: Icon(Icons.settings),
               label: Text('FILTRI'),
               onPressed: () => _showSettingsPanel(),
-            ),*/
+            ),
           ],
         ),
         body: HousesList(),
