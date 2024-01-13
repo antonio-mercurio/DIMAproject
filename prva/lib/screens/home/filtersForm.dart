@@ -33,7 +33,7 @@ class _FiltersFormState extends State<FiltersForm> {
   ];
   String? _currentCity;
   String? _currentType;
-  int? _currentBudget;
+  double? _currentBudget;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,6 @@ class _FiltersFormState extends State<FiltersForm> {
       stream: DatabaseServiceFilters(user.uid).getFilters,
       builder: (context, snapshot) {
         Filters? filters = snapshot.data;
-
         print('filters has data');
         return Form(
             key: _formKey,
@@ -70,20 +69,18 @@ class _FiltersFormState extends State<FiltersForm> {
                       );
                     }).toList(),
                     onChanged: (val) => setState(() => _currentType = val)),
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                  initialValue: filters?.budget.toString(),
-                  decoration: InputDecoration(
-                      labelText: "Insert your budget",
-                      hintText: "insert your budget",
-                      icon: Icon(Icons.money)),
-                  validator: (val) =>
-                      val!.isEmpty ? 'Please enter a budget' : null,
-                  onChanged: (val) =>
-                      setState(() => _currentBudget = (int.parse(val))),
+                SizedBox(height: 20.0),
+                Slider(
+                  value: _currentBudget ?? 0.0,
+                  min: 0,
+                  max: 100,
+                  label: _currentBudget?.round().toString(),
+                  divisions: 20,
+                  onChanged: (double value) {
+                    setState(() {
+                      _currentBudget = value;
+                    });
+                  },
                 ),
                 ElevatedButton(
                     child: Text('Set filters',

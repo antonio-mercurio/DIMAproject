@@ -4,7 +4,7 @@ class Filters {
   final String userID;
   final String city;
   final String type;
-  final int budget;
+  final double budget;
 
   Filters(
       {required this.userID,
