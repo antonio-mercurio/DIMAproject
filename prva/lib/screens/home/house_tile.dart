@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:prva/models/house.dart';
+import 'package:prva/models/houseProfile.dart';
 
 class HouseTile extends StatelessWidget {
-  final House house;
+  final HouseProfile house;
   HouseTile({required this.house});
 
   @override
@@ -14,9 +15,9 @@ class HouseTile extends StatelessWidget {
           child: ListTile(
             leading: CircleAvatar(
               radius: 25.0,
-              backgroundColor: Colors.red[house.cap],
+              backgroundColor: Colors.red[house.price],
             ),
-            title: Text(house.owner),
+            title: Text(house.type),
             subtitle: Text('Si trova a ${house.city}'),
           ),
         ));

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:prva/models/houseProfile.dart';
 
 
 class DatabaseServiceHouseProfile {
@@ -8,6 +9,8 @@ class DatabaseServiceHouseProfile {
 
   //colection reference
   final CollectionReference houseProfileCollection = FirebaseFirestore.instance.collection('houseProfiles');
+
+
 
 
   Future createUserDataHouseProfile(String type, String address,String city, int price) async {
@@ -33,5 +36,21 @@ class DatabaseServiceHouseProfile {
       'price': price,
     });
   }
+
+  List<HouseProfile> _houseProfileUserFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map<HouseProfile>((doc) {
+      return HouseProfile(
+          type: doc.get('type') ?? "" ,
+          address: doc.get('address') ?? "",
+          city: doc.get('city') ?? "",
+          price: doc.get('price') ?? 0,
+          owner: doc.get('owner') ?? "");
+    }).toList();
+  }
+
+  Stream<List<HouseProfile>> get getHouses {
+    return FirebaseFirestore.instance.collection('houseProfiles').where('owner', isEqualTo: uid).snapshots().map((_houseProfileUserFromSnapshot));
+  }
+
 
 }

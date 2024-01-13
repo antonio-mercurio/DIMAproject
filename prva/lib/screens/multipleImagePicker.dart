@@ -33,8 +33,19 @@ class _MultipleImagePickerState extends State<MultipleImagePicker> {
         appBar: AppBar(
           title: Text('Multiple image picker'),
           ),
-        body: Center(
-          child: Column(
+        body: Container(
+            child: ElevatedButton(
+                        onPressed: () async {
+                         selectedImage();
+                        },
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.blue),
+                        ),
+                        child: Text(
+                          'Upload Image',
+                          style: TextStyle(color: Colors.white),
+                        ),
             ),
         ),
       );

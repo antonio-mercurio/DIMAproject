@@ -4,6 +4,7 @@ import 'package:prva/models/house.dart';
 import 'package:prva/screens/home/houses_list.dart';
 import 'package:prva/screens/home/personalProfileForm.dart';
 import 'package:prva/screens/home/settings_form.dart';
+import 'package:prva/screens/home/showHomeProfile.dart';
 import 'package:prva/screens/home/showPersonalProfile.dart';
 import 'package:prva/screens/registerForHouse/registerFormHouse.dart';
 import 'package:prva/screens/wrapperCreationProfile.dart';
@@ -59,7 +60,7 @@ class Home extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const ShowPersonalProfile()),
+                      builder: (context) => ShowHomeProfile()),
                 );
               },
               child: Text('Offri casa?')),
