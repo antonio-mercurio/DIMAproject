@@ -75,7 +75,8 @@ class _FiltersFormState extends State<FiltersForm> {
                     inputFormatters: <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly
                     ],
-                    initialValue: _currentBudget?.toString() ?? "0",
+                    initialValue: _currentBudget?.toString() ??
+                        filters?.budget.toString(),
                     decoration: InputDecoration(
                         labelText: "Insert your budget",
                         hintText: "insert your budget",
