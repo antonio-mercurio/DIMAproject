@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:prva/models/house.dart';
 import 'package:prva/screens/home/houses_list.dart';
 import 'package:prva/screens/home/settings_form.dart';
+import 'package:prva/screens/registerForHouse/registerFormHouse.dart';
 import 'package:prva/services/auth.dart';
 import 'package:prva/services/database.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +44,15 @@ class Home extends StatelessWidget {
             TextButton.icon(
               icon: Icon(Icons.add_circle),
               label: Text('aggiungi profilo'),
-              onPressed: () {},
+              onPressed: () {
+                 Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      RegisterFormHouse()),
+                 );
+                 print("premuto");
+              },
             ),
             TextButton.icon(
               icon: Icon(Icons.settings),
