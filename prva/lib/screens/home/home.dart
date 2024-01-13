@@ -23,11 +23,6 @@ class Home extends StatelessWidget {
           });
     }
 
-    /*void createPersonalProfile() {
-      return CreatePersonalProfile()
-         
-    }*/
-
     return StreamProvider<List<House>>.value(
       value: DatabaseService(null).getHouses,
       initialData: [],

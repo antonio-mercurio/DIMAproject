@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:prva/models/house.dart';
+import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/user.dart';
 
 class DatabaseService {
@@ -8,6 +9,33 @@ class DatabaseService {
   //collection reference
   final CollectionReference houseCollection =
       FirebaseFirestore.instance.collection('houses');
+  final CollectionReference persProfileCollection =
+      FirebaseFirestore.instance.collection('personalProfiles');
+
+  Future updatePersonalProfile(String name, String surname, int age) async {
+    return await persProfileCollection.doc(uid).set({
+      'name': name,
+      'surname': surname,
+      'age': age,
+    });
+  }
+
+  PersonalProfile _persProfileDataFromSnapshot(DocumentSnapshot snapshot) {
+    return PersonalProfile(
+      uid: uid ?? "",
+      name: snapshot.get('name') ?? "",
+      surname: snapshot.get('surname') ?? "",
+      age: snapshot.get('age') ?? 0,
+    );
+  }
+
+  Stream<PersonalProfile> get persProfileData {
+    return persProfileCollection
+        .doc(uid)
+        .snapshots()
+        .map((_persProfileDataFromSnapshot));
+  }
+
   Future updateUserData(String owner, String city, int cap) async {
     print('stampa prova');
     return await houseCollection.doc(uid).set({

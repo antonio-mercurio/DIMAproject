@@ -1,9 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:prva/models/personalProfile.dart';
+import 'package:prva/models/user.dart';
+import 'package:prva/screens/login/createProfile.dart';
 import 'package:prva/services/auth.dart';
+import 'package:prva/services/database.dart';
 import 'package:prva/shared/constants.dart';
 import 'package:prva/shared/loading.dart';
 
 class Register extends StatefulWidget {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final Function toggleView;
   Register({required this.toggleView});
 
@@ -12,9 +21,28 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  String name = "Giacomo";
+  String surname = "Lollipop";
+  int age = 34;
+  CollectionReference personalProfiles =
+      FirebaseFirestore.instance.collection('personalProfiles');
+  Future<void> createPersonalProfile() {
+    // Call the user's CollectionReference to add a new user
+    return personalProfiles
+        .add({
+          'name': name, // John Doe
+          'surname': surname, // Stokes and Sons
+          'age': age // 42
+        })
+        .then((value) => print("Personal Profile Created"))
+        .catchError(
+            (error) => print("Failed to create personal profile - $error"));
+  }
+
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
+  String userID = '';
   String email = '';
   String password = '';
   String error = '';
@@ -66,21 +94,21 @@ class _RegisterState extends State<Register> {
                         }),
                     SizedBox(height: 20.0),
                     ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             print(email);
                             print(password);
                             setState(() => loading = true);
                             dynamic result = _auth.registerWithEmailAndPassword(
                                 email, password);
-                            print('sono qua.');
+
+                            print('sono qua in register.dart.');
+
                             if (result == null) {
                               setState(() {
                                 error = 'invalid email';
                                 loading = false;
                               });
-
-                              ;
                             }
                             Navigator.push(
                               context,
@@ -110,17 +138,20 @@ class _RegisterState extends State<Register> {
           );
   }
 }
-
+/*
 class CreatePersonalProfile extends StatefulWidget {
   @override
   State<CreatePersonalProfile> createState() => _CreatePersonalProfileState();
 }
 
 class _CreatePersonalProfileState extends State<CreatePersonalProfile> {
+  final _formKey = GlobalKey<FormState>();
   String name = '';
   String surname = '';
+  int age = 0;
   @override
   Widget build(BuildContext context) {
+    final persProf = Provider.of<PersonalProfile>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Creazione nuovo profilo in corso:'),
@@ -151,8 +182,30 @@ class _CreatePersonalProfileState extends State<CreatePersonalProfile> {
                   },
                 ),
                 SizedBox(height: 20.0),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  initialValue: "",
+                  decoration: InputDecoration(
+                    labelText: "age",
+                    hintText: "insert your age here",
+                  ),
+                  validator: (val) =>
+                      val!.isEmpty ? 'Please enter your age' : null,
+                  onChanged: (val) => setState(() => age = (int.parse(val))),
+                ),
                 ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate())
+                        await DatabaseService(persProf?.uid)
+                            .updatePersonalProfile(
+                          persProf?.uid ?? "",
+                          name ?? 'Antonio',
+                          surname ?? 'Mercurio',
+                          age ?? 22,
+                        );
                       print(name);
                       print(surname);
                       Navigator.push(
@@ -223,3 +276,4 @@ class _CreatePersonalProfileState2 extends State<CreatePersonalProfile2> {
     );
   }
 }
+*/
