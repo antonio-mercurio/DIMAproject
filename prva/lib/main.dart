@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       initialData: null,
       child: MaterialApp(
-        home: Home(),
+        home: Wrapper(),
       ),
     );
   }
