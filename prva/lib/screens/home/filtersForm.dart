@@ -43,68 +43,64 @@ class _FiltersFormState extends State<FiltersForm> {
       stream: DatabaseServiceFilters(user.uid).getFilters,
       builder: (context, snapshot) {
         Filters? filters = snapshot.data;
-        if (snapshot.hasData) {
-          print('filters has data');
-          return Form(
-              key: _formKey,
-              child: Column(
-                children: <Widget>[
-                  Text('Set your filters.'),
-                  SizedBox(height: 20.0),
-                  DropdownButtonFormField(
-                      value: _currentCity ?? filters?.city,
-                      items: cities.map((city) {
-                        return DropdownMenuItem(
-                          value: city,
-                          child: Text('${city} - città'),
+
+        print('filters has data');
+        return Form(
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                Text('Set your filters.'),
+                SizedBox(height: 20.0),
+                DropdownButtonFormField(
+                    value: _currentCity ?? filters?.city,
+                    items: cities.map((city) {
+                      return DropdownMenuItem(
+                        value: city,
+                        child: Text('${city} - città'),
+                      );
+                    }).toList(),
+                    onChanged: (val) => setState(() => _currentCity = val)),
+                SizedBox(height: 20.0),
+                DropdownButtonFormField(
+                    value: _currentType ?? filters?.type,
+                    items: typeOfAppartament.map((type) {
+                      return DropdownMenuItem(
+                        value: type,
+                        child: Text('${type} '),
+                      );
+                    }).toList(),
+                    onChanged: (val) => setState(() => _currentType = val)),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  initialValue: filters?.budget.toString(),
+                  decoration: InputDecoration(
+                      labelText: "Insert your budget",
+                      hintText: "insert your budget",
+                      icon: Icon(Icons.money)),
+                  validator: (val) =>
+                      val!.isEmpty ? 'Please enter a budget' : null,
+                  onChanged: (val) =>
+                      setState(() => _currentBudget = (int.parse(val))),
+                ),
+                ElevatedButton(
+                    child: Text('Set filters',
+                        style: TextStyle(color: Colors.white)),
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        await DatabaseServiceFilters(user?.uid).updateFilters(
+                          _currentCity ?? filters!.city,
+                          _currentType ?? filters!.type,
+                          _currentBudget ?? filters!.budget,
                         );
-                      }).toList(),
-                      onChanged: (val) => setState(() => _currentCity = val)),
-                  SizedBox(height: 20.0),
-                  DropdownButtonFormField(
-                      value: _currentType ?? filters?.type,
-                      items: typeOfAppartament.map((type) {
-                        return DropdownMenuItem(
-                          value: type,
-                          child: Text('${type} '),
-                        );
-                      }).toList(),
-                      onChanged: (val) => setState(() => _currentType = val)),
-                  TextFormField(
-                    keyboardType: TextInputType.number,
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.digitsOnly
-                    ],
-                    initialValue: _currentBudget?.toString() ??
-                        filters?.budget.toString(),
-                    decoration: InputDecoration(
-                        labelText: "Insert your budget",
-                        hintText: "insert your budget",
-                        icon: Icon(Icons.money)),
-                    validator: (val) =>
-                        val!.isEmpty ? 'Please enter a budget' : null,
-                    onChanged: (val) =>
-                        setState(() => _currentBudget = (int.parse(val))),
-                  ),
-                  ElevatedButton(
-                      child: Text('Set filters',
-                          style: TextStyle(color: Colors.white)),
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          await DatabaseServiceFilters(user?.uid).updateFilters(
-                            _currentCity ?? filters!.city,
-                            _currentType ?? filters!.type,
-                            _currentBudget ?? filters!.budget,
-                          );
-                        }
-                        ;
-                        Navigator.pop(context);
-                      })
-                ],
-              ));
-        } else {
-          return Loading();
-        }
+                      }
+                      ;
+                      Navigator.pop(context);
+                    })
+              ],
+            ));
       },
     );
   }
