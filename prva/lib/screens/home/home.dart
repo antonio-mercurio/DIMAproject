@@ -4,7 +4,9 @@ import 'package:prva/models/house.dart';
 import 'package:prva/screens/home/houses_list.dart';
 import 'package:prva/screens/home/personalProfileForm.dart';
 import 'package:prva/screens/home/settings_form.dart';
+import 'package:prva/screens/home/showPersonalProfile.dart';
 import 'package:prva/screens/registerForHouse/registerFormHouse.dart';
+import 'package:prva/screens/wrapperCreationProfile.dart';
 import 'package:prva/services/auth.dart';
 import 'package:prva/services/database.dart';
 import 'package:provider/provider.dart';
@@ -14,22 +16,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void _showSettingsPanel() {
-      showModalBottomSheet(
-          context: context,
-          builder: (context) {
-            return Container(
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-              child: PersonalProfileForm(),
-            );
-          });
-    }
-
-    return StreamProvider<List<House>>.value(
-      value: DatabaseService(null).getHouses,
-      initialData: [],
-      child: Scaffold(
-        backgroundColor: Colors.orange[50],
+    return Scaffold(
         appBar: AppBar(
           title: Text('Affinder'),
           backgroundColor: Colors.orange[400],
@@ -53,15 +40,29 @@ class Home extends StatelessWidget {
                 print("premuto");
               },
             ),
-            TextButton.icon(
-              icon: Icon(Icons.settings),
-              label: Text('FILTRI'),
-              onPressed: () => _showSettingsPanel(),
-            ),
           ],
         ),
-        body: HousesList(),
-      ),
-    );
+        body: Column(children: <Widget>[
+          SizedBox(height: 20.0),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const WrapperCreationProfile()),
+                );
+              },
+              child: Text('Cerchi casa?')),
+          SizedBox(height: 20.0),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ShowPersonalProfile()),
+                );
+              },
+              child: Text('Offri casa?')),
+        ]));
   }
 }

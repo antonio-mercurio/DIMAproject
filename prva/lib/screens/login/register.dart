@@ -99,20 +99,14 @@ class _RegisterState extends State<Register> {
                             print(email);
                             print(password);
                             setState(() => loading = true);
-                            dynamic result = _auth.registerWithEmailAndPassword(
-                                email, password);
+                            dynamic result = await _auth
+                                .registerWithEmailAndPassword(email, password);
                             if (result == null) {
                               setState(() {
                                 error = 'invalid email';
                                 loading = false;
                               });
                             }
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const CreatePersonalProfile()),
-                            );
                           }
                         },
                         style: ButtonStyle(

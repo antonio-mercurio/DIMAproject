@@ -29,75 +29,56 @@ class _CreatePersonalProfileState extends State<CreatePersonalProfile> {
     } else {
       return Scaffold(
           appBar: AppBar(
-              backgroundColor: Colors.amber[400],
-              elevation: 0.0,
-              title: Text('Sign up')),
-          body: StreamBuilder<PersonalProfile>(
-            stream: DatabaseService(user!.uid).persProfileData,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                PersonalProfile? persProfileData = snapshot.data;
-                return Form(
-                  key: _formKey,
-                  child: Column(children: <Widget>[
-                    Text('Create your personal profile.',
-                        style: TextStyle(fontSize: 18.0)),
-                    SizedBox(height: 20.0),
-                    TextFormField(
-                      initialValue: persProfileData?.name,
-                      decoration: textInputDecoration.copyWith(
-                          hintText: 'Insert your name'),
-                      validator: (val) =>
-                          val!.isEmpty ? 'Please enter a name' : null,
-                      onChanged: (val) => setState(() => _name = val),
-                    ),
-                    SizedBox(height: 20.0),
-                    TextFormField(
-                      initialValue: persProfileData?.surname,
-                      decoration: textInputDecoration.copyWith(
-                          hintText: 'Insert your surname'),
-                      validator: (val) =>
-                          val!.isEmpty ? 'Please enter a surname' : null,
-                      onChanged: (val) => setState(() => _surname = val),
-                    ),
-                    SizedBox(height: 20.0),
-                    TextFormField(
-                      keyboardType: TextInputType.number,
-                      inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.digitsOnly
-                      ],
-                      initialValue: persProfileData?.age.toString(),
-                      decoration: InputDecoration(
-                          labelText: "age",
-                          hintText: "Insert your age.",
-                          icon: Icon(Icons.phone_iphone)),
-                      validator: (val) =>
-                          val!.isEmpty ? 'Please enter your age' : null,
-                      onChanged: (val) =>
-                          setState(() => _age = (int.parse(val))),
-                    ),
-                    ElevatedButton(
-                        child: Text('Create',
-                            style: TextStyle(color: Colors.white)),
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            await DatabaseService(user?.uid)
-                                .updatePersonalProfile(
-                              _name ?? persProfileData!.name,
-                              _surname ?? persProfileData!.surname,
-                              _age ?? persProfileData!.age,
-                            );
-                            Navigator.pop(context);
-                          }
-                          ;
-                        })
-                  ]),
-                );
-              } else {
-                return Loading();
-              }
-            },
-          ));
+            title: Text('Creating a new personal Profile'),
+          ),
+          body: Container(
+              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+              child: Form(
+                key: _formKey,
+                child: Column(children: <Widget>[
+                  Text('Create your personal profile.',
+                      style: TextStyle(fontSize: 18.0)),
+                  SizedBox(height: 20.0),
+                  TextFormField(
+                    decoration: textInputDecoration.copyWith(
+                        hintText: 'Insert your name'),
+                    validator: (val) =>
+                        val!.isEmpty ? 'Please enter a name' : null,
+                    onChanged: (val) => setState(() => _name = val),
+                  ),
+                  SizedBox(height: 20.0),
+                  TextFormField(
+                    decoration: textInputDecoration.copyWith(
+                        hintText: 'Insert your surname'),
+                    validator: (val) =>
+                        val!.isEmpty ? 'Please enter a surname' : null,
+                    onChanged: (val) => setState(() => _surname = val),
+                  ),
+                  SizedBox(height: 20.0),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                    decoration: InputDecoration(
+                        labelText: "age",
+                        hintText: "Insert your age.",
+                        icon: Icon(Icons.phone_iphone)),
+                    validator: (val) =>
+                        val!.isEmpty ? 'Please enter your age' : null,
+                    onChanged: (val) => setState(() => _age = (int.parse(val))),
+                  ),
+                  ElevatedButton(
+                    child: Text('Create profile'),
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        await DatabaseService(user?.uid).updatePersonalProfile(
+                            _name ?? '', _surname ?? '', _age ?? 0);
+                      }
+                    },
+                  )
+                ]),
+              )));
     }
   }
 }
