@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:prva/models/user.dart';
+import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/shared/constants.dart';
 
 class RegisterFormHouse extends StatefulWidget {
@@ -23,26 +26,28 @@ final List<String> typeOfAppartament = [
   String? _currentAddress;
   String? _currentCity;
   int? _currentPrice;
+  final _formKey = GlobalKey<FormState>();
+  bool loading = false;
 
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<Utente>(context);
       return Scaffold(
         appBar: AppBar(
           title: Text('Creating a new House Profile'),
           ),
-        body:
-          Column(
-              children:<Widget>[
-                Row( children: <Widget>[
-                  SizedBox(width: 5.0),
-                   Expanded(
-                     child:Text('Scegli la tipologia:',
-                     style: TextStyle(fontSize: 18.0))
-                     ),
-                     SizedBox(width: 10.0),
-                    Expanded(
-                      child: DropdownButtonFormField(
+        body: Container(
+              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+              child: Form(
+                key: _formKey,
+               child: Column(
+                 children:<Widget>[
+                 SizedBox(height: 20.0),
+                     Text('Scegli la tipologia:',
+                     style: TextStyle(fontSize: 18.0)),
+                     SizedBox(height: 20.0),
+                     DropdownButtonFormField(
                           value: _currentType ?? "Intero appartamento" ,
                             items: typeOfAppartament.map((type) {
                     return DropdownMenuItem(
@@ -51,59 +56,38 @@ final List<String> typeOfAppartament = [
                      );
                     }).toList(),
                     onChanged: (val) => setState(() => _currentType = val)
-                    )
                     ),
-                    SizedBox(width: 5.0),
-                ]
-                ),
-                SizedBox(height: 20.0),
-                Row( children: <Widget>[
-                  SizedBox(width: 5.0),
-                   Expanded(
-                     child:Text('Inserisci la città:',
-                     style: TextStyle(fontSize: 18.0))
-                     ),
-                     SizedBox(width: 10.0),
-                    Expanded(
-                      child: TextFormField(
+                    SizedBox(height: 20.0),
+                     Text('Inserisci la città:',
+                     style: TextStyle(fontSize: 18.0)),
+                     SizedBox(height: 20.0),
+                      TextFormField(
                         decoration: textInputDecoration.copyWith(hintText: "city"),
                         validator: (val) =>
                             val!.isEmpty ? 'Enter a city' : null,
                         onChanged: (val) {
                           setState(() => _currentCity = val);
                         }),
-                    ),
-                    SizedBox(width: 5.0),
-                    ]),
-                  Row( children: <Widget>[
-                  SizedBox(width: 5.0),
-                   Expanded(
-                     child:Text('Inserisci la via:',
-                     style: TextStyle(fontSize: 18.0))
-                     ),
-                     SizedBox(width: 10.0),
-                    Expanded(
-                      child: TextFormField(
+                    SizedBox(height: 20.0),
+                 
+                    Text('Inserisci la via:',
+                     style: TextStyle(fontSize: 18.0)),
+                
+                     SizedBox(height: 10.0),
+                   TextFormField(
                         decoration: textInputDecoration.copyWith(hintText: "address"),
                         validator: (val) =>
                             val!.isEmpty ? 'Enter an address' : null,
                         onChanged: (val) {
                           setState(() => _currentAddress = val);
                         }),
-                    ),
-                    SizedBox(width: 5.0),
-
-                ]
-                ),
-                 Row( children: <Widget>[
-                  SizedBox(width: 5.0),
-                   Expanded(
-                     child:Text('Inserisci il prezzo:',
-                     style: TextStyle(fontSize: 18.0))
-                     ),
-                     SizedBox(width: 10.0),
-                    Expanded(
-                      child: TextFormField(
+                    
+                     SizedBox(height: 20.0),
+                     Text('Inserisci il prezzo:',
+                     style: TextStyle(fontSize: 18.0)),
+                     
+                     SizedBox(height: 20.0),
+                     TextFormField(
                        keyboardType: TextInputType.number,
                        inputFormatters: <TextInputFormatter>[
                        FilteringTextInputFormatter.digitsOnly
@@ -115,13 +99,42 @@ final List<String> typeOfAppartament = [
                     val!.isEmpty ? 'Please enter a price' : null,
                     onChanged: (val) =>
                     setState(() => _currentPrice = (int.parse(val))),
-               )),
-                    SizedBox(width: 5.0),
-                ]
-                ),
+               ),
+
+                SizedBox(height: 20.0),
                 
+                SizedBox(height: 20.0),
+                    ElevatedButton(
+                        onPressed: ()  async {
+                          if (_formKey.currentState!.validate()) {
+                            print('valid');
+                            try{
+                            await DatabaseServiceHouseProfile(user.uid).createUserDataHouseProfile(
+                               _currentType ?? '',
+                               _currentAddress ?? '',
+                               _currentCity ?? '',
+                               _currentPrice ?? 0,
+                             );
+                             Navigator.pop(context);
+                            }catch(e){
+                              print(e.toString());
+                              return null;
+                            }
+                          }
+                        },
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.pink),
+                        ),
+                        child: Text(
+                          'Next',
+                          style: TextStyle(color: Colors.white),
+                        )
+                        ),
               ]
           ),
+              )
+              )
           );
 }
 }
