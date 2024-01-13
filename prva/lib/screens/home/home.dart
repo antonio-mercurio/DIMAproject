@@ -59,11 +59,11 @@ class Home extends StatelessWidget {
                  print("premuto");
               },
             ),
-            /*TextButton.icon(
+            TextButton.icon(
               icon: Icon(Icons.settings),
               label: Text('FILTRI'),
               onPressed: () => _showSettingsPanel(),
-            ),*/
+            ),
           ],
         ),
         body: HousesList(),

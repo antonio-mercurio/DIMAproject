@@ -155,8 +155,68 @@ class _CreatePersonalProfileState extends State<CreatePersonalProfile> {
                     onPressed: () {
                       print(name);
                       print(surname);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CreatePersonalProfile2()),
+                      );
                     },
                     child: Text('Nome e cognome invio')),
+              ],
+            ),
+          )),
+    );
+  }
+}
+
+class CreatePersonalProfile2 extends StatefulWidget {
+  @override
+  State<CreatePersonalProfile2> createState() => _CreatePersonalProfileState2();
+}
+
+class _CreatePersonalProfileState2 extends State<CreatePersonalProfile2> {
+  String name = '';
+  String surname = '';
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Creazione nuovo profilo in corso - schermata 2:'),
+        backgroundColor: Colors.red,
+      ),
+      body: Container(
+          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+          child: Form(
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: 20.0),
+                TextFormField(
+                  decoration: textInputDecoration.copyWith(
+                      hintText: 'Inserimento dati 2'),
+                  validator: (val) => val!.isEmpty ? 'Enter your name' : null,
+                  onChanged: (val) {
+                    setState(() => name = val);
+                  },
+                ),
+                SizedBox(height: 20.0),
+                TextFormField(
+                  decoration: textInputDecoration.copyWith(
+                      hintText: 'Inserimento dati 3'),
+                  validator: (val) =>
+                      val!.isEmpty ? 'Enter your surname' : null,
+                  onChanged: (val) {
+                    setState(() => surname = val);
+                  },
+                ),
+                SizedBox(height: 20.0),
+                ElevatedButton(
+                    onPressed: () {
+                      print(name);
+                      print(surname);
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    },
+                    child: Text('dati2 invio')),
               ],
             ),
           )),
