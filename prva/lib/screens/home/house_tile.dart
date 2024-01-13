@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:prva/models/house.dart';
 import 'package:prva/models/houseProfile.dart';
+import 'package:prva/screens/home/house_profile.dart';
+import 'package:prva/screens/home/showHomeProfile.dart';
+import 'package:prva/screens/home/showPersonalProfile.dart';
 
 class HouseTile extends StatelessWidget {
   final HouseProfile house;
@@ -19,6 +22,11 @@ class HouseTile extends StatelessWidget {
             ),
             title: Text(house.type),
             subtitle: Text('Si trova a ${house.city}'),
+            onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HouseProfSel(house: house)),);
+            }
           ),
         ));
   }
