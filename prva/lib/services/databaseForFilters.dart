@@ -8,7 +8,7 @@ class DatabaseServiceFilters {
   final CollectionReference filtersCollection =
       FirebaseFirestore.instance.collection('filters');
 
-  Future updateFilters(String city, String type, int budget) async {
+  Future updateFilters(String city, String type, double budget) async {
     print('modifica filtri');
     return await filtersCollection.doc(uid).set({
       'user': uid,
@@ -23,7 +23,7 @@ class DatabaseServiceFilters {
       userID: uid ?? "",
       city: snapshot.get('city') ?? "",
       type: snapshot.get('type') ?? "",
-      budget: snapshot.get('budget') ?? 0,
+      budget: snapshot.get('budget') ?? 0.0,
     );
   }
 
