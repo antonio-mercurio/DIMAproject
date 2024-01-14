@@ -44,7 +44,8 @@ class DatabaseServiceHouseProfile {
           address: doc.get('address') ?? "",
           city: doc.get('city') ?? "",
           price: doc.get('price') ?? 0,
-          owner: doc.get('owner') ?? "");
+          owner: doc.get('owner') ?? "",
+          idHouse: doc.reference.id);
     }).toList();
   }
 
