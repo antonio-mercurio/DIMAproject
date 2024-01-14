@@ -1,4 +1,4 @@
-import 'package:prva/models/user.dart';
+
 
 class Filters {
   final String userID;
@@ -11,4 +11,16 @@ class Filters {
       required this.city,
       required this.type,
       required this.budget});
+}
+
+
+class FiltersPerson {
+  final String houseID;
+  final int minAge;
+  final int maxAge;
+
+  FiltersPerson(
+      {required this.houseID,
+      required this.minAge,
+      required this.maxAge});
 }

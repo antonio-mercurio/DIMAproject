@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       initialData: null,
       child: MaterialApp(
-        home: MultipleImagePicker(),
+        home: Wrapper(),
       ),
     );
   }

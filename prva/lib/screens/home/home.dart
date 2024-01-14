@@ -30,17 +30,6 @@ class Home extends StatelessWidget {
                 await _auth.signOut();
               },
             ),
-            TextButton.icon(
-              icon: Icon(Icons.add_circle),
-              label: Text('aggiungi profilo'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RegisterFormHouse()),
-                );
-                print("premuto");
-              },
-            ),
           ],
         ),
         body: Column(children: <Widget>[

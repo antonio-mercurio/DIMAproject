@@ -8,6 +8,7 @@ class DatabaseServiceFilters {
   final CollectionReference filtersCollection =
       FirebaseFirestore.instance.collection('filters');
 
+  //filters for the house utilized by person Profile
   Future updateFilters(String city, String type, double budget) async {
     print('modifica filtri');
     return await filtersCollection.doc(uid).set({
@@ -27,7 +28,9 @@ class DatabaseServiceFilters {
     );
   }
 
+
   Stream<Filters> get getFilters {
     return filtersCollection.doc(uid).snapshots().map((_filtersFromSnapshot));
   }
+
 }
