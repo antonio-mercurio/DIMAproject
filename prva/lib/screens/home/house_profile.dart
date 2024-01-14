@@ -18,7 +18,22 @@ class _HouseProfSelState extends State<HouseProfSel> {
 
   final HouseProfile house;
   _HouseProfSelState({required this.house});
-  
+
+  int _selectedIndex = 0;
+
+  static List<Widget> _widgetOptions = <Widget>[
+    SearchLayout(),
+    ProfileLayout(),
+    ChatLayout(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     void _showFiltersPanel() {
@@ -53,28 +68,53 @@ class _HouseProfSelState extends State<HouseProfSel> {
         ),
       ],
     ),
-         body: Center(
-       child: Text('Hello, World!'),
-       ),
-  bottomNavigationBar: BottomAppBar(
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        IconButton(
-          icon: Icon(Icons.person),
-          onPressed: () {},
-        ),
-        IconButton(
-          icon: Icon(Icons.search),
-          onPressed: () {},
-        ),
-        IconButton(
-          icon: Icon(Icons.chat),
-          onPressed: () {},
-        ),
-      ],
-    ),
-  ),
-);
+      body: _widgetOptions.elementAt(_selectedIndex),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat),
+            label: 'Chat',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
+
+
+class SearchLayout extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('SEARCH'),
+    );
+  }
+}
+
+class ProfileLayout extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('PROFILE'),
+    );
+  }
+}
+
+class ChatLayout extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('CHAT'),
+    );
   }
 }
