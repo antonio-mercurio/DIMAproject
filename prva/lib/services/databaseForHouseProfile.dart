@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
+import 'package:prva/services/databaseForFilters.dart';
 
 class DatabaseServiceHouseProfile {
   final String? uid;

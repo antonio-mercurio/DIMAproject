@@ -46,49 +46,49 @@ class _HouseProfSelState extends State<HouseProfSel> {
           });
     }
 
-     return StreamProvider<HouseProfile>.value(
-      value: DatabaseServiceFiltersPerson(house.idHouse).getMyHouse,
+    return StreamProvider<HouseProfile>.value(
+        value: DatabaseServiceFiltersPerson(house.idHouse).getMyHouse,
         initialData: HouseProfile(
             type: '', address: '', city: '', price: 0, owner: '', idHouse: ''),
-      child: Scaffold(
-        backgroundColor: Colors.orange[50],
-        appBar: AppBar(
+        child: Scaffold(
+          backgroundColor: Colors.orange[50],
+          appBar: AppBar(
             backgroundColor: Colors.red,
-        title: Text('Personal page'),
-        actions: <Widget>[
-        TextButton.icon(
-          icon: Icon(Icons.settings),
-          label: Text('Filters'),
-          onPressed: () async {
-            _showFiltersPanel();
-          },
-        ),
-        TextButton.icon(
-          icon: Icon(Icons.alarm),
-          label: Text('Notifies'),
+            title: Text('Personal page'),
+            actions: <Widget>[
+              TextButton.icon(
+                icon: Icon(Icons.settings),
+                label: Text('Filters'),
+                onPressed: () async {
+                  _showFiltersPanel();
+                },
+              ),
+              TextButton.icon(
+                icon: Icon(Icons.alarm),
+                label: Text('Notifies'),
                 onPressed: () {},
-        ),
-      ],
-    ),
-      body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+          body: _widgetOptions.elementAt(_selectedIndex),
+          bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search),
+                label: 'Search',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.chat),
+                label: 'Chat',
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: 'Chat',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
         ));
   }
 }
