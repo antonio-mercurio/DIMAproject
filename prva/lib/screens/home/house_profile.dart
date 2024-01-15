@@ -4,20 +4,16 @@ import 'package:prva/models/houseProfile.dart';
 import 'package:prva/screens/home/filtersFormPerson.dart';
 import 'package:prva/services/databaseFilterPerson.dart';
 
-
 class HouseProfSel extends StatefulWidget {
-
   final HouseProfile house;
 
   HouseProfSel({required this.house});
 
   @override
-  State<HouseProfSel> createState() => _HouseProfSelState(house:  house);
+  State<HouseProfSel> createState() => _HouseProfSelState(house: house);
 }
 
 class _HouseProfSelState extends State<HouseProfSel> {
-  
-
   final HouseProfile house;
   _HouseProfSelState({required this.house});
 
@@ -35,7 +31,6 @@ class _HouseProfSelState extends State<HouseProfSel> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     void _showFiltersPanel() {
@@ -44,18 +39,21 @@ class _HouseProfSelState extends State<HouseProfSel> {
           builder: (context) {
             return Container(
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-              child: FiltersFormPerson(uidHouse: house.idHouse,),
+              child: FiltersFormPerson(
+                uidHouse: house.idHouse,
+              ),
             );
           });
     }
 
      return StreamProvider<HouseProfile>.value(
       value: DatabaseServiceFiltersPerson(house.idHouse).getMyHouse,
-      initialData: HouseProfile(type: '',address: '', city: '', price: 0, owner: '', idHouse: ''),
+        initialData: HouseProfile(
+            type: '', address: '', city: '', price: 0, owner: '', idHouse: ''),
       child: Scaffold(
         backgroundColor: Colors.orange[50],
         appBar: AppBar(
-        backgroundColor: Colors.white,
+            backgroundColor: Colors.red,
         title: Text('Personal page'),
         actions: <Widget>[
         TextButton.icon(
@@ -68,9 +66,7 @@ class _HouseProfSelState extends State<HouseProfSel> {
         TextButton.icon(
           icon: Icon(Icons.alarm),
           label: Text('Notifies'),
-          onPressed: () {
-         
-          },
+                onPressed: () {},
         ),
       ],
     ),
@@ -93,15 +89,11 @@ class _HouseProfSelState extends State<HouseProfSel> {
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
       ),
-      )
-     );
+        ));
   }
 }
 
-
 class SearchLayout extends StatelessWidget {
-  
-  
   @override
   Widget build(BuildContext context) {
     final house = Provider.of<HouseProfile>(context);
@@ -112,7 +104,6 @@ class SearchLayout extends StatelessWidget {
 }
 
 class ProfileLayout extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     final house = Provider.of<HouseProfile>(context);
