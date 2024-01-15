@@ -106,18 +106,12 @@ class SearchLayout extends StatelessWidget {
 
     //final selectedFilters = DatabaseServiceFilters(user.uid).getFilters;
     return StreamProvider<List<HouseProfile>>.value(
-        value: DatabaseServiceHouseProfile(user.uid).getAllHouses,
+        //value: DatabaseServiceHouseProfile(user.uid).getAllHouses,
+        value: DatabaseServiceHouseProfile(user.uid).getFilteredHouses,
         initialData: [],
         child: Scaffold(
-          body: HousesList(),
+          body: AllHousesList(),
         ));
-    /*StreamProvider<List<HouseProfile>>.value(
-      value: DatabaseServiceHouseProfile(null).getAllHouses,
-      initialData: [],
-      child: Scaffold(
-        body: AllHousesList(),
-      ),
-    );*/
   }
 }
 

@@ -62,4 +62,15 @@ class DatabaseServiceHouseProfile {
         .snapshots()
         .map((_houseProfileUserFromSnapshot));
   }
+
+  Stream<List<HouseProfile>> get getFilteredHouses {
+    Query query = FirebaseFirestore.instance.collection('houseProfiles');
+    Filters provaFiltri = Filters(
+        userID: "gnegne", city: "Roma", type: "Monolocale", budget: 100);
+
+    query = query.where('city', isEqualTo: provaFiltri.city);
+    query = query.where('type', isEqualTo: provaFiltri.type);
+
+    return query.snapshots().map((_houseProfileUserFromSnapshot));
+  }
 }
