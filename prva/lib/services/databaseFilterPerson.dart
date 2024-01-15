@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:prva/models/filters.dart';
+import 'package:prva/models/houseProfile.dart';
 
 class DatabaseServiceFiltersPerson {
   final String? uid;
@@ -7,6 +8,9 @@ class DatabaseServiceFiltersPerson {
 
   final CollectionReference filtersPersonCollection =
       FirebaseFirestore.instance.collection('filters');
+
+  final CollectionReference houseProfileCollection = FirebaseFirestore.instance.collection('houseProfiles');
+  
 
   //filters for people utilized by house profile
   Future updateFiltersPerson(int minAge, int maxAge) async {
@@ -28,5 +32,20 @@ class DatabaseServiceFiltersPerson {
 
   Stream<FiltersPerson> get getFiltersPerson {
     return filtersPersonCollection.doc(uid).snapshots().map((_filtersPersonFromSnapshot));
+  }
+
+
+  HouseProfile _houseProfileUserFromSnapshot(DocumentSnapshot snapshot) {
+      return HouseProfile(
+          type: snapshot.get('type') ?? "" ,
+          address: snapshot.get('address') ?? "",
+          city: snapshot.get('city') ?? "",
+          price: snapshot.get('price') ?? 0,
+          owner: snapshot.get('owner') ?? "",
+          idHouse: uid ?? "");
+  }
+
+  Stream<HouseProfile> get getMyHouse {
+    return houseProfileCollection.doc(uid).snapshots().map(( _houseProfileUserFromSnapshot));
   }
 }

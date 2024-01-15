@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/screens/home/filtersFormPerson.dart';
+import 'package:prva/services/databaseFilterPerson.dart';
 
 
 class HouseProfSel extends StatefulWidget {
@@ -47,11 +49,15 @@ class _HouseProfSelState extends State<HouseProfSel> {
           });
     }
 
-    return Scaffold(
+     return StreamProvider<HouseProfile>.value(
+      value: DatabaseServiceFiltersPerson(house.idHouse).getMyHouse,
+      initialData: HouseProfile(type: '',address: '', city: '', price: 0, owner: '', idHouse: ''),
+      child: Scaffold(
+        backgroundColor: Colors.orange[50],
         appBar: AppBar(
         backgroundColor: Colors.white,
-       title: Text('Personal page'),
-      actions: <Widget>[
+        title: Text('Personal page'),
+        actions: <Widget>[
         TextButton.icon(
           icon: Icon(Icons.settings),
           label: Text('Filters'),
@@ -87,14 +93,18 @@ class _HouseProfSelState extends State<HouseProfSel> {
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
       ),
-    );
+      )
+     );
   }
 }
 
 
 class SearchLayout extends StatelessWidget {
+  
+  
   @override
   Widget build(BuildContext context) {
+    final house = Provider.of<HouseProfile>(context);
     return Center(
       child: Text('SEARCH'),
     );
@@ -102,10 +112,13 @@ class SearchLayout extends StatelessWidget {
 }
 
 class ProfileLayout extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+    final house = Provider.of<HouseProfile>(context);
+    final id = house.type;
     return Center(
-      child: Text('PROFILE'),
+      child: Text('PROFILE $id'),
     );
   }
 }
