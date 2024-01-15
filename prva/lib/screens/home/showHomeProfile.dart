@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:prva/models/house.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/user.dart';
 import 'package:prva/screens/home/houses_list.dart';
@@ -12,10 +11,7 @@ import 'package:prva/services/database.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 
-
-
 class ShowHomeProfile extends StatelessWidget {
-
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +40,7 @@ class ShowHomeProfile extends StatelessWidget {
           ],
         ),
         body: HousesList(),
-
       ),
-
     );
-
   }
-
 }

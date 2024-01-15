@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:prva/models/house.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/user.dart';
 
@@ -45,7 +44,7 @@ class DatabaseService {
     });
   }
 
-  //house list from snapshot
+  /*house list from snapshot
   List<House> _houseListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map<House>((doc) {
       return House(
@@ -53,26 +52,26 @@ class DatabaseService {
           city: doc.get('city') ?? "",
           cap: doc.get('cap') ?? 0);
     }).toList();
-  }
+  }*/
 
   //user data from snapshots
 
-  UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
+  /*UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return UserData(
       uid: uid ?? "",
       owner: snapshot.get('owner') ?? "",
       city: snapshot.get('city') ?? "",
       cap: snapshot.get('cap') ?? 0,
     );
-  }
+  }*/
 
-  //get houses stream
+  /*get houses stream
   Stream<List<House>> get getHouses {
     return houseCollection.snapshots().map((_houseListFromSnapshot));
-  }
+  }*/
 
-  // get user doc stream
+  /*get user doc stream
   Stream<UserData> get userData {
     return houseCollection.doc(uid).snapshots().map((_userDataFromSnapshot));
-  }
+  }*/
 }

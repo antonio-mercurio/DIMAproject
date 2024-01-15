@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:prva/models/houseProfile.dart';
+import 'package:prva/models/user.dart';
+import 'package:prva/screens/home/allHouses.dart';
 import 'package:prva/screens/home/filtersForm.dart';
+import 'package:prva/screens/home/houses_list.dart';
+import 'package:prva/services/auth.dart';
+import 'package:prva/services/database.dart';
+import 'package:prva/services/databaseForHouseProfile.dart';
 
-class ShowPersonalProfile extends StatefulWidget {
-  const ShowPersonalProfile({super.key});
+class ShowPersonalProfile extends StatelessWidget {
+  final AuthService _auth = AuthService();
 
-  @override
-  State<ShowPersonalProfile> createState() => _ShowPersonalProfileState();
-}
-
-class _ShowPersonalProfileState extends State<ShowPersonalProfile> {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<Utente>(context);
     void _showFiltersPanel() {
       showModalBottomSheet(
           context: context,
@@ -22,19 +26,25 @@ class _ShowPersonalProfileState extends State<ShowPersonalProfile> {
           });
     }
 
-    return Scaffold(
+    return StreamProvider<List<HouseProfile>>.value(
+      value: DatabaseServiceHouseProfile(null).getAllHouses,
+      initialData: [],
+      child: Scaffold(
         appBar: AppBar(
-      backgroundColor: Colors.white,
-      title: Text('Personal page'),
-      actions: <Widget>[
-        TextButton.icon(
-          icon: Icon(Icons.settings),
-          label: Text('Filters'),
-          onPressed: () async {
-            _showFiltersPanel();
-          },
+          backgroundColor: Colors.white,
+          title: Text('Personal page'),
+          actions: <Widget>[
+            TextButton.icon(
+              icon: Icon(Icons.settings),
+              label: Text('Filters'),
+              onPressed: () async {
+                _showFiltersPanel();
+              },
+            ),
+          ],
         ),
-      ],
-    ));
+        body: AllHousesList(),
+      ),
+    );
   }
 }
