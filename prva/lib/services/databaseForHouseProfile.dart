@@ -5,8 +5,8 @@ import 'package:prva/services/databaseForFilters.dart';
 
 class DatabaseServiceHouseProfile {
   final String? uid;
+  Filters? filters;
   DatabaseServiceHouseProfile(this.uid);
-
   //colection reference
   final CollectionReference houseProfileCollection =
       FirebaseFirestore.instance.collection('houseProfiles');
@@ -63,13 +63,23 @@ class DatabaseServiceHouseProfile {
         .map((_houseProfileUserFromSnapshot));
   }
 
+  void setFilters(Filters selectedFilters) {
+    print('modifico filtri sul DB');
+    filters = selectedFilters;
+    print('dopo la modifica se ha funzionato:');
+    print(filters!.city);
+  }
+
   Stream<List<HouseProfile>> get getFilteredHouses {
     Query query = FirebaseFirestore.instance.collection('houseProfiles');
-    Filters provaFiltri = Filters(
+    /*Filters provaFiltri = Filters(
         userID: "gnegne", city: "Roma", type: "Monolocale", budget: 100);
 
     query = query.where('city', isEqualTo: provaFiltri.city);
     query = query.where('type', isEqualTo: provaFiltri.type);
+*/
+    print('sono nel DB dove vale citta:');
+    query = query.where('city', isEqualTo: this.filters?.city);
 
     return query.snapshots().map((_houseProfileUserFromSnapshot));
   }

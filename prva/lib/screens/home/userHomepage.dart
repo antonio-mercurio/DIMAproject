@@ -89,7 +89,14 @@ class _userHomepageState extends State<userHomepage> {
   }
 }
 
-class SearchLayout extends StatelessWidget {
+class SearchLayout extends StatefulWidget {
+  const SearchLayout({super.key});
+
+  @override
+  State<SearchLayout> createState() => _SearchLayoutState();
+}
+
+class _SearchLayoutState extends State<SearchLayout> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Utente>(context);
@@ -104,10 +111,21 @@ class SearchLayout extends StatelessWidget {
           });
     }
 
-    //final selectedFilters = DatabaseServiceFilters(user.uid).getFilters;
+    ;
+    final selectedFilters = DatabaseServiceFilters(user.uid).getFilters;
+    selectedFilters.listen((content) {
+      Filters filtri = Filters(
+          userID: content.userID,
+          budget: content.budget,
+          city: content.city,
+          type: content.type);
+
+      print('filtri inseriti e modificati:' + filtri!.city!);
+      DatabaseServiceHouseProfile(user.uid).setFilters(filtri);
+    });
     return StreamProvider<List<HouseProfile>>.value(
-        //value: DatabaseServiceHouseProfile(user.uid).getAllHouses,
-        value: DatabaseServiceHouseProfile(user.uid).getFilteredHouses,
+        value: DatabaseServiceHouseProfile(user.uid).getAllHouses,
+        //value: DatabaseServiceHouseProfile(user.uid).getFilteredHouses,
         initialData: [],
         child: Scaffold(
           body: AllHousesList(),
