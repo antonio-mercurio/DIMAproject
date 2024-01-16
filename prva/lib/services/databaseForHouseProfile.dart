@@ -75,8 +75,6 @@ class DatabaseServiceHouseProfile {
     query = query.where('city', isEqualTo: provaFiltri.city);
     query = query.where('type', isEqualTo: provaFiltri.type);
 */
-    print('stampo filtri ricevuti suldb');
-    print(selectedFilters?.city);
     if (selectedFilters != null) {
       if (selectedFilters.city != null) {
         query = query.where('city', isEqualTo: selectedFilters.city);

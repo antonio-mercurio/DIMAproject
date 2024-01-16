@@ -124,7 +124,6 @@ class _SearchLayoutState extends State<SearchLayout> {
       DatabaseServiceHouseProfile(user.uid).setFilters(filtri!);
       setState(() {});
     });
-
     return StreamProvider<List<HouseProfile>>.value(
         //value: DatabaseServiceHouseProfile(user.uid).getAllHouses,
         value: DatabaseServiceHouseProfile(user.uid).getFilteredHouses(filtri),
