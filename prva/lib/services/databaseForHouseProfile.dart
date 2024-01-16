@@ -64,13 +64,10 @@ class DatabaseServiceHouseProfile {
   }
 
   void setFilters(Filters selectedFilters) {
-    print('modifico filtri sul DB');
     filters = selectedFilters;
-    print('dopo la modifica se ha funzionato:');
-    print(filters!.city);
   }
 
-  Stream<List<HouseProfile>> get getFilteredHouses {
+  Stream<List<HouseProfile>> getFilteredHouses(Filters? selectedFilters) {
     Query query = FirebaseFirestore.instance.collection('houseProfiles');
     /*Filters provaFiltri = Filters(
         userID: "gnegne", city: "Roma", type: "Monolocale", budget: 100);
@@ -78,9 +75,16 @@ class DatabaseServiceHouseProfile {
     query = query.where('city', isEqualTo: provaFiltri.city);
     query = query.where('type', isEqualTo: provaFiltri.type);
 */
-    print('sono nel DB dove vale citta:');
-    query = query.where('city', isEqualTo: this.filters?.city);
-
+    print('stampo filtri ricevuti suldb');
+    print(selectedFilters?.city);
+    if (selectedFilters != null) {
+      if (selectedFilters.city != null) {
+        query = query.where('city', isEqualTo: selectedFilters.city);
+      }
+      if (selectedFilters.type != null) {
+        query = query.where('type', isEqualTo: selectedFilters.type);
+      }
+    }
     return query.snapshots().map((_houseProfileUserFromSnapshot));
   }
 }

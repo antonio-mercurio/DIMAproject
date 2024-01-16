@@ -97,6 +97,8 @@ class SearchLayout extends StatefulWidget {
 }
 
 class _SearchLayoutState extends State<SearchLayout> {
+  Filters? filtri;
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Utente>(context);
@@ -112,20 +114,20 @@ class _SearchLayoutState extends State<SearchLayout> {
     }
 
     ;
-    final selectedFilters = DatabaseServiceFilters(user.uid).getFilters;
-    selectedFilters.listen((content) {
-      Filters filtri = Filters(
+    final retrievedFilters = DatabaseServiceFilters(user.uid).getFilters;
+    retrievedFilters.listen((content) {
+      filtri = Filters(
           userID: content.userID,
           budget: content.budget,
           city: content.city,
           type: content.type);
-
-      print('filtri inseriti e modificati:' + filtri!.city!);
-      DatabaseServiceHouseProfile(user.uid).setFilters(filtri);
+      DatabaseServiceHouseProfile(user.uid).setFilters(filtri!);
+      setState(() {});
     });
+
     return StreamProvider<List<HouseProfile>>.value(
-        value: DatabaseServiceHouseProfile(user.uid).getAllHouses,
-        //value: DatabaseServiceHouseProfile(user.uid).getFilteredHouses,
+        //value: DatabaseServiceHouseProfile(user.uid).getAllHouses,
+        value: DatabaseServiceHouseProfile(user.uid).getFilteredHouses(filtri),
         initialData: [],
         child: Scaffold(
           body: AllHousesList(),
