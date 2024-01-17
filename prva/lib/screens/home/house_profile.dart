@@ -1,11 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
+import 'package:prva/models/personalProfile.dart';
 import 'package:prva/screens/chat/chat.dart';
+import 'package:prva/screens/home/all_profile_list.dart';
 import 'package:prva/screens/home/filtersFormPerson.dart';
 import 'package:prva/screens/home/form_modify_house.dart';
 import 'package:prva/screens/home/house_tile.dart';
+import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseFilterPerson.dart';
 import 'package:prva/shared/loading.dart';
 
@@ -102,15 +106,41 @@ class _HouseProfSelState extends State<HouseProfSel> {
   }
 }
 
-class SearchLayout extends StatelessWidget {
+class SearchLayout extends StatefulWidget {
+  const SearchLayout({super.key});
+
+  @override
+  State<SearchLayout> createState() => _SearchLayoutState();
+}
+
+class _SearchLayoutState extends State<SearchLayout> {
+  FiltersPerson? filtri;
+
   @override
   Widget build(BuildContext context) {
     final house = Provider.of<HouseProfile>(context);
-    return Center(
-      child: Text('SEARCH'),
+/*
+    final retrievedFilters = DatabaseServiceFiltersPerson(house.idHouse).getFiltersPerson ;
+    retrievedFilters.listen((content) {
+      filtri = FiltersPerson(
+          houseID: content.houseID,
+          minAge: content.minAge,
+          maxAge: content.maxAge);
+      if (this.mounted) {
+        setState(() {});
+      }
+    });*/
+    return StreamProvider<List<PersonalProfile>>.value(
+         
+        value: DatabaseService(house.idHouse).getAllProfile(),
+        initialData: [],
+        child: Scaffold(
+         body: AllProfilesList(),
+        )
     );
   }
 }
+
 
 class ProfileLayout extends StatelessWidget {
   @override
