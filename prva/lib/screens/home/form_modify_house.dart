@@ -83,7 +83,7 @@ class _ModifyHouseFormState extends State<ModifyHouseForm> {
                     textInputDecoration.copyWith(hintText: 'Insert an address'),
                 validator: (val) =>
                     val!.isEmpty ? 'Please enter an address' : null,
-                onChanged: (val) => setState(() => _currentCity = val),
+                onChanged: (val) => setState(() => _currentAddress = val),
               ),
                    TextFormField(
                 keyboardType: TextInputType.number,
