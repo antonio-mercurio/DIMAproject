@@ -1,18 +1,11 @@
-
-
 class Filters {
   final String userID;
-  final String city;
-  final String type;
-  final double budget;
+  String? city;
+  String? type;
+  double? budget;
 
-  Filters(
-      {required this.userID,
-      required this.city,
-      required this.type,
-      required this.budget});
+  Filters({required this.userID, this.city, this.type, this.budget});
 }
-
 
 class FiltersPerson {
   final String houseID;
@@ -20,7 +13,5 @@ class FiltersPerson {
   final int maxAge;
 
   FiltersPerson(
-      {required this.houseID,
-      required this.minAge,
-      required this.maxAge});
+      {required this.houseID, required this.minAge, required this.maxAge});
 }

@@ -28,9 +28,7 @@ class DatabaseServiceFilters {
     );
   }
 
-
   Stream<Filters> get getFilters {
     return filtersCollection.doc(uid).snapshots().map((_filtersFromSnapshot));
   }
-
 }

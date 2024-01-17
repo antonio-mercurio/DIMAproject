@@ -43,7 +43,6 @@ class _FiltersFormState extends State<FiltersForm> {
       stream: DatabaseServiceFilters(user.uid).getFilters,
       builder: (context, snapshot) {
         Filters? filters = snapshot.data;
-        print('filters has data');
         return Form(
             key: _formKey,
             child: Column(
@@ -88,9 +87,9 @@ class _FiltersFormState extends State<FiltersForm> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         await DatabaseServiceFilters(user?.uid).updateFilters(
-                          _currentCity ?? filters!.city,
-                          _currentType ?? filters!.type,
-                          _currentBudget ?? filters!.budget,
+                          _currentCity ?? filters!.city!,
+                          _currentType ?? filters!.type!,
+                          _currentBudget ?? filters!.budget!,
                         );
                       }
                       ;

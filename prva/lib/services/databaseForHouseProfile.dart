@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
+import 'package:prva/services/databaseForFilters.dart';
 
 class DatabaseServiceHouseProfile {
   final String? uid;
+  Filters? filters;
   DatabaseServiceHouseProfile(this.uid);
-
   //colection reference
   final CollectionReference houseProfileCollection =
       FirebaseFirestore.instance.collection('houseProfiles');
@@ -60,5 +62,28 @@ class DatabaseServiceHouseProfile {
         .collection('houseProfiles')
         .snapshots()
         .map((_houseProfileUserFromSnapshot));
+  }
+
+  void setFilters(Filters selectedFilters) {
+    filters = selectedFilters;
+  }
+
+  Stream<List<HouseProfile>> getFilteredHouses(Filters? selectedFilters) {
+    Query query = FirebaseFirestore.instance.collection('houseProfiles');
+    /*Filters provaFiltri = Filters(
+        userID: "gnegne", city: "Roma", type: "Monolocale", budget: 100);
+
+    query = query.where('city', isEqualTo: provaFiltri.city);
+    query = query.where('type', isEqualTo: provaFiltri.type);
+*/
+    if (selectedFilters != null) {
+      if (selectedFilters.city != null) {
+        query = query.where('city', isEqualTo: selectedFilters.city);
+      }
+      if (selectedFilters.type != null) {
+        query = query.where('type', isEqualTo: selectedFilters.type);
+      }
+    }
+    return query.snapshots().map((_houseProfileUserFromSnapshot));
   }
 }
