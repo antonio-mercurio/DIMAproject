@@ -60,7 +60,7 @@ class _HouseProfSelState extends State<HouseProfSel> {
     }
 
     return StreamProvider<HouseProfile>.value(
-        value: DatabaseServiceFiltersPerson(house.idHouse).getMyHouse,
+        value: DatabaseServiceFiltersPerson(uid: house.idHouse).getMyHouse,
         initialData: HouseProfile(
             type: '', address: '', city: '', price: 0, owner: '', idHouse: ''),
         child: Scaffold(
@@ -119,8 +119,14 @@ class _SearchLayoutState extends State<SearchLayout> {
   @override
   Widget build(BuildContext context) {
     final house = Provider.of<HouseProfile>(context);
-/*
-    final retrievedFilters = DatabaseServiceFiltersPerson(house.idHouse).getFiltersPerson ;
+    if (house.idHouse == "") {
+      return Loading();
+    }
+
+    final retrievedFilters =
+        DatabaseServiceFiltersPerson(uid: house.idHouse).getFiltersPerson;
+    //print(retrievedFilters);
+
     retrievedFilters.listen((content) {
       filtri = FiltersPerson(
           houseID: content.houseID,
@@ -129,18 +135,24 @@ class _SearchLayoutState extends State<SearchLayout> {
       if (this.mounted) {
         setState(() {});
       }
-    });*/
+    });
+    //print(filtri?.houseID);
+    //print(filtri?.maxAge.toString());
+    //print(filtri?.minAge.toString());
+
+    if (filtri == null) {
+      filtri?.minAge = 0;
+      filtri?.maxAge = 100;
+    }
+
     return StreamProvider<List<PersonalProfile>>.value(
-         
-        value: DatabaseService(house.idHouse).getAllProfile(),
+        value: DatabaseService(house.idHouse).getFilteredProfile(filtri),
         initialData: [],
         child: Scaffold(
-         body: AllProfilesList(),
-        )
-    );
+          body: AllProfilesList(),
+        ));
   }
 }
-
 
 class ProfileLayout extends StatelessWidget {
   @override
@@ -202,7 +214,8 @@ class ChatLayout extends StatelessWidget {
     );
   }
 
-  Widget _buildUserListItem(BuildContext context, DocumentSnapshot document, HouseProfile house) {
+  Widget _buildUserListItem(
+      BuildContext context, DocumentSnapshot document, HouseProfile house) {
     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
     return ListTile(
@@ -221,5 +234,4 @@ class ChatLayout extends StatelessWidget {
       },
     );
   }
-
 }

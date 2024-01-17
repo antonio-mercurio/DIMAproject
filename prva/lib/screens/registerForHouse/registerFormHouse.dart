@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/user.dart';
 import 'package:prva/services/databaseFilterPerson.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
@@ -99,14 +100,18 @@ class _RegisterFormHouseState extends State<RegisterFormHouse> {
                       if (_formKey.currentState!.validate()) {
                         print('valid');
                         try {
-                          await DatabaseServiceHouseProfile(user.uid)
-                              .createUserDataHouseProfile(
+                          String newHouseID =
+                              await DatabaseServiceHouseProfile(user.uid)
+                                  .createUserDataHouseProfile(
                             _currentType ?? '',
                             _currentAddress ?? '',
                             _currentCity ?? '',
                             _currentPrice ?? 0,
                           );
-
+                          print(newHouseID);
+                          //final CollectionReference filtersPersonCollection = FirebaseFirestore.instance.collection('filtersPerson');
+                          await DatabaseServiceFiltersPerson(uid: newHouseID)
+                              .updateFiltersPerson(0, 100);
                           Navigator.pop(context);
                         } catch (e) {
                           print(e.toString());

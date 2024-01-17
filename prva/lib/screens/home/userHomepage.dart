@@ -113,7 +113,7 @@ class _SearchLayoutState extends State<SearchLayout> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Utente>(context);
-    void _showFiltersPanel() {
+    /*  void _showFiltersPanel() {
       showModalBottomSheet(
           context: context,
           builder: (context) {
@@ -123,7 +123,7 @@ class _SearchLayoutState extends State<SearchLayout> {
             );
           });
     }
-
+*/
     final retrievedFilters = DatabaseServiceFilters(user.uid).getFilters;
     retrievedFilters.listen((content) {
       filtri = Filters(

@@ -4,17 +4,17 @@ import 'package:prva/models/houseProfile.dart';
 
 class DatabaseServiceFiltersPerson {
   final String? uid;
-  DatabaseServiceFiltersPerson(this.uid);
+  DatabaseServiceFiltersPerson({this.uid});
 
   final CollectionReference filtersPersonCollection =
       FirebaseFirestore.instance.collection('filtersPerson');
 
-  final CollectionReference houseProfileCollection = FirebaseFirestore.instance.collection('houseProfiles');
-  
+  final CollectionReference houseProfileCollection =
+      FirebaseFirestore.instance.collection('houseProfiles');
 
   //filters for people utilized by house profile
   Future updateFiltersPerson(int? minAge, int? maxAge) async {
-    print('modifica filtri');
+    print('modifica filtri persona xdxdxd');
     return await filtersPersonCollection.doc(uid).set({
       'house': uid,
       'maxAge': maxAge,
@@ -23,29 +23,42 @@ class DatabaseServiceFiltersPerson {
   }
 
   FiltersPerson _filtersPersonFromSnapshot(DocumentSnapshot snapshot) {
-    return FiltersPerson(
-      houseID: uid ?? "",
-      minAge: snapshot.get('minAge') ?? 0,
-      maxAge: snapshot.get('maxAge') ?? 99,
-    );
+    if (snapshot.data() == null) {
+      return FiltersPerson(
+        houseID: uid ?? "",
+        minAge: 0,
+        maxAge: 99,
+      );
+    } else {
+      return FiltersPerson(
+        houseID: uid ?? "",
+        minAge: snapshot.get('minAge') ?? 0,
+        maxAge: snapshot.get('maxAge') ?? 99,
+      );
+    }
   }
 
   Stream<FiltersPerson> get getFiltersPerson {
-    return filtersPersonCollection.doc(uid).snapshots().map((_filtersPersonFromSnapshot));
+    return filtersPersonCollection
+        .doc(uid)
+        .snapshots()
+        .map((_filtersPersonFromSnapshot));
   }
 
-
   HouseProfile _houseProfileUserFromSnapshot(DocumentSnapshot snapshot) {
-      return HouseProfile(
-          type: snapshot.get('type') ?? "" ,
-          address: snapshot.get('address') ?? "",
-          city: snapshot.get('city') ?? "",
-          price: snapshot.get('price') ?? 0,
-          owner: snapshot.get('owner') ?? "",
-          idHouse: uid ?? "");
+    return HouseProfile(
+        type: snapshot.get('type') ?? "",
+        address: snapshot.get('address') ?? "",
+        city: snapshot.get('city') ?? "",
+        price: snapshot.get('price') ?? 0,
+        owner: snapshot.get('owner') ?? "",
+        idHouse: uid ?? "");
   }
 
   Stream<HouseProfile> get getMyHouse {
-    return houseProfileCollection.doc(uid).snapshots().map(( _houseProfileUserFromSnapshot));
+    return houseProfileCollection
+        .doc(uid)
+        .snapshots()
+        .map((_houseProfileUserFromSnapshot));
   }
 }

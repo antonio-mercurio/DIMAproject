@@ -11,19 +11,20 @@ class DatabaseServiceHouseProfile {
   //colection reference
   final CollectionReference houseProfileCollection =
       FirebaseFirestore.instance.collection('houseProfiles');
-  final CollectionReference filtersPersonCollection =            FirebaseFirestore.instance.collection('filtersPerson');
+  final CollectionReference filtersPersonCollection =
+      FirebaseFirestore.instance.collection('filtersPerson');
 
-  Future createUserDataHouseProfile(
+  Future<String> createUserDataHouseProfile(
       String type, String address, String city, int price) async {
     print('creazione nuovo profilo casa andato a buon fine');
-    return await houseProfileCollection.doc().set(
-      {
+    await houseProfileCollection.doc().set({
       'owner': uid,
       'type': type,
       'address': address,
       'city': city,
       'price': price,
     });
+    return houseProfileCollection.doc().id;
   }
 
   Future updateUserDataHouseProfile(String type, String address, String city,
