@@ -94,37 +94,35 @@ class _RegisterFormHouseState extends State<RegisterFormHouse> {
                 ),
                 SizedBox(height: 20.0),
                 SizedBox(height: 20.0),
-                    ElevatedButton(
-                        onPressed: ()  async {
-                          if (_formKey.currentState!.validate()) {
-                            print('valid');
-                            try{
-                            await DatabaseServiceHouseProfile(user.uid).createUserDataHouseProfile(
-                               _currentType ?? '',
-                               _currentAddress ?? '',
-                               _currentCity ?? '',
-                               _currentPrice ?? 0,
-                             );
-                             
-                             Navigator.pop(context);
-                            }catch(e){
-                              print(e.toString());
-                              return null;
-                            }
-                          }
-                        },
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.pink),
-                        ),
-                        child: Text(
-                          'Next',
-                          style: TextStyle(color: Colors.white),
-                        )
-                        ),
-              ]
-          ),
-              )
-              )
-          );
+                ElevatedButton(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        print('valid');
+                        try {
+                          await DatabaseServiceHouseProfile(user.uid)
+                              .createUserDataHouseProfile(
+                            _currentType ?? '',
+                            _currentAddress ?? '',
+                            _currentCity ?? '',
+                            _currentPrice ?? 0,
+                          );
+
+                          Navigator.pop(context);
+                        } catch (e) {
+                          print(e.toString());
+                          return null;
+                        }
+                      }
+                    },
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.pink),
+                    ),
+                    child: Text(
+                      'Next',
+                      style: TextStyle(color: Colors.white),
+                    )),
+              ]),
+            )));
+  }
 }
