@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
+import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/user.dart';
 import 'package:prva/screens/chat/chat.dart';
 import 'package:prva/screens/home/allHousesList.dart';
@@ -10,8 +11,11 @@ import 'package:prva/screens/home/filtersForm.dart';
 import 'package:prva/screens/home/filtersFormPerson.dart';
 import 'package:prva/screens/home/houses_list.dart';
 import 'package:prva/screens/home/showPersonalProfile.dart';
+import 'package:prva/screens/home/updatePersonalProfile.dart';
+import 'package:prva/screens/login/createProfile.dart';
 import 'package:prva/screens/registerForHouse/registerFormHouse.dart';
 import 'package:prva/services/auth.dart';
+import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseFilterPerson.dart';
 import 'package:prva/services/databaseForFilters.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
@@ -49,46 +53,50 @@ class _userHomepageState extends State<userHomepage> {
           });
     }
 
-    return Scaffold(
-      backgroundColor: Colors.orange[50],
-      appBar: AppBar(
-        backgroundColor: Colors.red,
-        title: Text('Personal page'),
-        actions: <Widget>[
-          TextButton.icon(
-            icon: Icon(Icons.settings),
-            label: Text('Filters'),
-            onPressed: () async {
-              _showFiltersPanel();
-            },
+    return StreamProvider<PersonalProfile>.value(
+        value: DatabaseService(user!.uid).getMyPersonalProfile,
+        initialData:
+            PersonalProfile(uid: user!.uid, name: '', surname: '', age: 0),
+        child: Scaffold(
+          backgroundColor: Colors.orange[50],
+          appBar: AppBar(
+            backgroundColor: Colors.red,
+            title: Text('Personal page'),
+            actions: <Widget>[
+              TextButton.icon(
+                icon: Icon(Icons.settings),
+                label: Text('Filters'),
+                onPressed: () async {
+                  _showFiltersPanel();
+                },
+              ),
+              TextButton.icon(
+                icon: Icon(Icons.notifications),
+                label: Text('Notifications'),
+                onPressed: () {},
+              ),
+            ],
           ),
-          TextButton.icon(
-            icon: Icon(Icons.notifications),
-            label: Text('Notifications'),
-            onPressed: () {},
+          body: _widgetOptions.elementAt(_selectedIndex),
+          bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search),
+                label: 'Search',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.chat),
+                label: 'Chat',
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
           ),
-        ],
-      ),
-      body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: 'Chat',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
-    );
+        ));
   }
 }
 
@@ -140,10 +148,34 @@ class _SearchLayoutState extends State<SearchLayout> {
 class ProfileLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final personalData = Provider.of<PersonalProfile>(context);
+
     //return ShowPersonalProfile();
-    return Center(
-      child: Text('PROFILE'),
-    );
+
+    return Scaffold(
+        body: Center(
+            child: Column(
+      children: <Widget>[
+        SizedBox(height: 20.0),
+        Text(personalData.name, style: TextStyle(fontSize: 18.0)),
+        SizedBox(height: 20.0),
+        Text(personalData.surname, style: TextStyle(fontSize: 18.0)),
+        SizedBox(height: 20.0),
+        Text(personalData.age.toString(), style: TextStyle(fontSize: 18.0)),
+        ElevatedButton(
+          child: Text('Update'),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => UpdatePersonalProfile(
+                        personalProfile: personalData,
+                      )),
+            );
+          },
+        ),
+      ],
+    )));
   }
 }
 
@@ -174,7 +206,8 @@ class ChatLayout extends StatelessWidget {
     );
   }
 
-  Widget _buildUserListItem(BuildContext context, DocumentSnapshot document, Utente user) {
+  Widget _buildUserListItem(
+      BuildContext context, DocumentSnapshot document, Utente user) {
     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
     return ListTile(
