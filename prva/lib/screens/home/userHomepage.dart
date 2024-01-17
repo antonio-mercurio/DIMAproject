@@ -150,10 +150,11 @@ class ProfileLayout extends StatelessWidget {
 class ChatLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return _buildUserList();
+    final user = Provider.of<Utente>(context);
+    return _buildUserList(user);
   }
 
-  Widget _buildUserList() {
+  Widget _buildUserList(Utente user) {
     return StreamBuilder<QuerySnapshot>(
       stream:
           FirebaseFirestore.instance.collection('houseProfiles').snapshots(),
@@ -166,14 +167,14 @@ class ChatLayout extends StatelessWidget {
         }
         return ListView(
           children: snapshot.data!.docs
-              .map<Widget>((doc) => _buildUserListItem(context, doc))
+              .map<Widget>((doc) => _buildUserListItem(context, doc, user))
               .toList(),
         );
       },
     );
   }
 
-  Widget _buildUserListItem(BuildContext context, DocumentSnapshot document) {
+  Widget _buildUserListItem(BuildContext context, DocumentSnapshot document, Utente user) {
     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
     return ListTile(
@@ -183,6 +184,7 @@ class ChatLayout extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => ChatPage(
+              senderUserID: user.uid,
               receiverUserEmail: data['type'] + " " + data['city'],
               receiverUserID: document.reference.id,
             ),

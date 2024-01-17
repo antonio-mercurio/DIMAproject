@@ -8,11 +8,14 @@ import 'package:prva/shared/loading.dart';
 class ChatPage extends StatefulWidget {
   final String receiverUserEmail;
   final String receiverUserID;
+  final String senderUserID;
 
   const ChatPage(
       {super.key,
       required this.receiverUserEmail,
-      required this.receiverUserID});
+      required this.receiverUserID,
+      required this.senderUserID
+      });
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -26,7 +29,7 @@ class _ChatPageState extends State<ChatPage> {
   void sendMessage() async {
     if (_messageController.text.isNotEmpty) {
       await _chatService.sendMessage(
-          widget.receiverUserID, _messageController.text);
+          widget.senderUserID,widget.receiverUserID, _messageController.text);
       _messageController.clear();
       //clear the controller after sending the message
     }
@@ -51,7 +54,7 @@ class _ChatPageState extends State<ChatPage> {
   Widget _buildMessageList() {
     return StreamBuilder(
         stream: _chatService.getMessages(
-            widget.receiverUserID, _firebaseAuth.currentUser!.uid),
+            widget.receiverUserID, widget.senderUserID),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Text('Error${snapshot.error}');
@@ -73,7 +76,7 @@ class _ChatPageState extends State<ChatPage> {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
 
     //align the messages
-    var aligment = (data['senderID'] == _firebaseAuth.currentUser!.uid)
+    var aligment = (data['senderID'] == widget.senderUserID)
         ? Alignment.centerRight
         : Alignment.centerLeft;
 
