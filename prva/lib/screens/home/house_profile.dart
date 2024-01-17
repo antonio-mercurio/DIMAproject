@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/houseProfile.dart';
+import 'package:prva/screens/chat/chat.dart';
 import 'package:prva/screens/home/filtersFormPerson.dart';
 import 'package:prva/screens/home/form_modify_house.dart';
+import 'package:prva/screens/home/house_tile.dart';
 import 'package:prva/services/databaseFilterPerson.dart';
+import 'package:prva/shared/loading.dart';
 
 //When we have the list of our "house profile", when clicking on one of them show this home page
 //in this home page we have the search option, which show all the people that are looking for an house
@@ -144,8 +148,48 @@ class ProfileLayout extends StatelessWidget {
 class ChatLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('CHAT'),
+    final house = Provider.of<HouseProfile>(context);
+    return _buildUserList(house);
+  }
+
+  Widget _buildUserList(HouseProfile house) {
+    return StreamBuilder<QuerySnapshot>(
+      stream:
+          FirebaseFirestore.instance.collection('personalProfiles').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text('error');
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Loading();
+        }
+        return ListView(
+          children: snapshot.data!.docs
+              .map<Widget>((doc) => _buildUserListItem(context, doc, house))
+              .toList(),
+        );
+      },
     );
   }
+
+  Widget _buildUserListItem(BuildContext context, DocumentSnapshot document, HouseProfile house) {
+    Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+
+    return ListTile(
+      title: Text(data['name'] + " " + data['surname']),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ChatPage(
+              senderUserID: house.idHouse,
+              receiverUserEmail: data['name'] + " " + data['surname'],
+              receiverUserID: document.reference.id,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
 }
