@@ -113,7 +113,6 @@ class _SearchLayoutState extends State<SearchLayout> {
           });
     }
 
-    ;
     final retrievedFilters = DatabaseServiceFilters(user.uid).getFilters;
     retrievedFilters.listen((content) {
       filtri = Filters(
@@ -121,8 +120,12 @@ class _SearchLayoutState extends State<SearchLayout> {
           budget: content.budget,
           city: content.city,
           type: content.type);
-      DatabaseServiceHouseProfile(user.uid).setFilters(filtri!);
-      setState(() {});
+      //DatabaseServiceHouseProfile(user.uid).setFilters(filtri!);
+      if (this.mounted) {
+        setState(() {
+          // Your state change code goes here
+        });
+      }
     });
     return StreamProvider<List<HouseProfile>>.value(
         //value: DatabaseServiceHouseProfile(user.uid).getAllHouses,

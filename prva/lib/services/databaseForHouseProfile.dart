@@ -5,7 +5,6 @@ import 'package:prva/services/databaseForFilters.dart';
 
 class DatabaseServiceHouseProfile {
   final String? uid;
-  Filters? filters;
   DatabaseServiceHouseProfile(this.uid);
   //colection reference
   final CollectionReference houseProfileCollection =
@@ -29,7 +28,7 @@ class DatabaseServiceHouseProfile {
     print('modifica profilo casa andato a buon fine');
 
     return await houseProfileCollection.doc(uidHouse).set({
-      'owner' : uid,
+      'owner': uid,
       'type': type,
       'address': address,
       'city': city,
@@ -62,10 +61,6 @@ class DatabaseServiceHouseProfile {
         .collection('houseProfiles')
         .snapshots()
         .map((_houseProfileUserFromSnapshot));
-  }
-
-  void setFilters(Filters selectedFilters) {
-    filters = selectedFilters;
   }
 
   Stream<List<HouseProfile>> getFilteredHouses(Filters? selectedFilters) {
