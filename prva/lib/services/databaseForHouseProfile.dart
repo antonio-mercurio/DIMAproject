@@ -27,6 +27,7 @@ class DatabaseServiceHouseProfile {
     print('modifica profilo casa andato a buon fine');
 
     return await houseProfileCollection.doc(uidHouse).set({
+      'owner' : uid,
       'type': type,
       'address': address,
       'city': city,

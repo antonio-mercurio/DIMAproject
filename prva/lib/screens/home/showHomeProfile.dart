@@ -11,6 +11,9 @@ import 'package:prva/services/database.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 
+
+//When clicking  on "offer an house", it will show all your house profile
+//or you can create a new house profile
 class ShowHomeProfile extends StatelessWidget {
 
   @override
