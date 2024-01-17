@@ -29,6 +29,15 @@ class DatabaseService {
     );
   }
 
+Stream<PersonalProfile> get getMyPersonalProfile {
+    return persProfileCollection
+        .doc(uid)
+        .snapshots()
+        .map((_persProfileDataFromSnapshot));
+  }
+
+
+
   List<PersonalProfile> _allPersProfileDataFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map<PersonalProfile>((doc) {
       return PersonalProfile(
