@@ -3,7 +3,6 @@ import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/user.dart';
 import 'package:prva/screens/home/house_profile.dart';
 
-
 class HouseTile extends StatelessWidget {
   final HouseProfile house;
   HouseTile({required this.house});
