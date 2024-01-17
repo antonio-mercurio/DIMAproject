@@ -5,8 +5,6 @@ import 'package:prva/screens/home/filtersFormPerson.dart';
 import 'package:prva/screens/home/form_modify_house.dart';
 import 'package:prva/services/databaseFilterPerson.dart';
 
-
-
 //When we have the list of our "house profile", when clicking on one of them show this home page
 //in this home page we have the search option, which show all the people that are looking for an house
 //Chat panel will show chats
@@ -115,35 +113,31 @@ class ProfileLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     final house = Provider.of<HouseProfile>(context);
     return Center(
-      child: Column(
-        children: <Widget>[
-           SizedBox(height: 20.0),
-              Text(house.type,
-              style: TextStyle(fontSize: 18.0)),
-              SizedBox(height: 20.0),
-          SizedBox(height: 20.0),
-              Text(house.address,
-              style: TextStyle(fontSize: 18.0)),
-              SizedBox(height: 20.0),
-              SizedBox(height: 20.0),
-              Text(house.city,
-              style: TextStyle(fontSize: 18.0)),
-              SizedBox(height: 20.0),
-              Text(house.price.toString(),
-              style: TextStyle(fontSize: 18.0)),
-              SizedBox(height: 20.0),
-               ElevatedButton(
-                    child: Text('Modifica'),
-                    onPressed: () {
-                      Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ModifyHouseForm(house: house)),
-                );
-                    },
-                  )
-        ],
-      )
-    );
+        child: Column(
+      children: <Widget>[
+        SizedBox(height: 20.0),
+        Text(house.type, style: TextStyle(fontSize: 18.0)),
+        SizedBox(height: 20.0),
+        SizedBox(height: 20.0),
+        Text(house.address, style: TextStyle(fontSize: 18.0)),
+        SizedBox(height: 20.0),
+        SizedBox(height: 20.0),
+        Text(house.city, style: TextStyle(fontSize: 18.0)),
+        SizedBox(height: 20.0),
+        Text(house.price.toString(), style: TextStyle(fontSize: 18.0)),
+        SizedBox(height: 20.0),
+        ElevatedButton(
+          child: Text('Modifica'),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ModifyHouseForm(house: house)),
+            );
+          },
+        )
+      ],
+    ));
   }
 }
 
