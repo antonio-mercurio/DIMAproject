@@ -29,7 +29,7 @@ class DatabaseService {
     );
   }
 
-Stream<PersonalProfile> get getMyPersonalProfile {
+  Stream<PersonalProfile> get getMyPersonalProfile {
     return persProfileCollection
         .doc(uid)
         .snapshots()
@@ -54,14 +54,14 @@ Stream<PersonalProfile> get getMyPersonalProfile {
         .map((_persProfileDataFromSnapshot));
   }
 
-  Future updateUserData(String owner, String city, int cap) async {
+  /*Future updateUserData(String owner, String city, int cap) async {
     print('stampa prova');
     return await houseCollection.doc(uid).set({
       'owner': owner,
       'city': city,
       'cap': cap,
     });
-  }
+  }*/
 
   Stream<List<PersonalProfile>> getFilteredProfile(
       FiltersPerson? selectedFilters) {
