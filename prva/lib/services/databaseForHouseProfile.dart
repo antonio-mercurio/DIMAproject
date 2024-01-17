@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
@@ -9,12 +11,13 @@ class DatabaseServiceHouseProfile {
   //colection reference
   final CollectionReference houseProfileCollection =
       FirebaseFirestore.instance.collection('houseProfiles');
+  final CollectionReference filtersPersonCollection =            FirebaseFirestore.instance.collection('filtersPerson');
 
   Future createUserDataHouseProfile(
       String type, String address, String city, int price) async {
     print('creazione nuovo profilo casa andato a buon fine');
-
-    return await houseProfileCollection.doc().set({
+    return await houseProfileCollection.doc().set(
+      {
       'owner': uid,
       'type': type,
       'address': address,

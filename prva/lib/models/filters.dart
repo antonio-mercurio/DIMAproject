@@ -9,9 +9,9 @@ class Filters {
 
 class FiltersPerson {
   final String houseID;
-  final int minAge;
-  final int maxAge;
+  int? minAge;
+  int? maxAge;
 
   FiltersPerson(
-      {required this.houseID, required this.minAge, required this.maxAge});
+      {required this.houseID, this.minAge, this.maxAge});
 }

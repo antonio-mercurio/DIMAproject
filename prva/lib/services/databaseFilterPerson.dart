@@ -7,13 +7,13 @@ class DatabaseServiceFiltersPerson {
   DatabaseServiceFiltersPerson(this.uid);
 
   final CollectionReference filtersPersonCollection =
-      FirebaseFirestore.instance.collection('filters');
+      FirebaseFirestore.instance.collection('filtersPerson');
 
   final CollectionReference houseProfileCollection = FirebaseFirestore.instance.collection('houseProfiles');
   
 
   //filters for people utilized by house profile
-  Future updateFiltersPerson(int minAge, int maxAge) async {
+  Future updateFiltersPerson(int? minAge, int? maxAge) async {
     print('modifica filtri');
     return await filtersPersonCollection.doc(uid).set({
       'house': uid,

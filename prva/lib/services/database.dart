@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:prva/models/filters.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/user.dart';
 
@@ -28,6 +29,17 @@ class DatabaseService {
     );
   }
 
+  List<PersonalProfile> _allPersProfileDataFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map<PersonalProfile>((doc) {
+      return PersonalProfile(
+        uid: doc.reference.id,
+        name: doc.get('name') ?? "",
+        surname: doc.get('surname') ?? "",
+        age: doc.get('age') ?? 0
+      );
+    }).toList();
+  }
+
   Stream<PersonalProfile> get persProfileData {
     return persProfileCollection
         .doc(uid)
@@ -42,6 +54,37 @@ class DatabaseService {
       'city': city,
       'cap': cap,
     });
+  }
+
+  Stream<List<PersonalProfile>> getFilteredProfile(FiltersPerson? selectedFilters) {
+    Query query = FirebaseFirestore.instance.collection('personalProfiles');
+    /*Filters provaFiltri = Filters(
+        userID: "gnegne", city: "Roma", type: "Monolocale", budget: 100);
+
+    query = query.where('city', isEqualTo: provaFiltri.city);
+    query = query.where('type', isEqualTo: provaFiltri.type);
+*/
+    if (selectedFilters != null) {
+      if (selectedFilters.maxAge != null) {
+        query = query.where('age', isLessThanOrEqualTo: selectedFilters.maxAge);
+      }
+      if (selectedFilters.minAge != null) {
+        query = query.where('age', isGreaterThan: selectedFilters.minAge);
+      }
+    }
+    return query.snapshots().map((_allPersProfileDataFromSnapshot));
+  }
+
+
+   Stream<List<PersonalProfile>> getAllProfile() {
+    Query query = FirebaseFirestore.instance.collection('personalProfiles');
+    /*Filters provaFiltri = Filters(
+        userID: "gnegne", city: "Roma", type: "Monolocale", budget: 100);
+
+    query = query.where('city', isEqualTo: provaFiltri.city);
+    query = query.where('type', isEqualTo: provaFiltri.type);
+*/
+    return query.snapshots().map((_allPersProfileDataFromSnapshot));
   }
 
   /*house list from snapshot
