@@ -72,10 +72,10 @@ class DatabaseServiceHouseProfile {
     query = query.where('type', isEqualTo: provaFiltri.type);
 */
     if (selectedFilters != null) {
-      if (selectedFilters.city != null) {
+      if (selectedFilters.city != null && selectedFilters.city != 'any') {
         query = query.where('city', isEqualTo: selectedFilters.city);
       }
-      if (selectedFilters.type != null) {
+      if (selectedFilters.type != null && selectedFilters.type != 'any') {
         query = query.where('type', isEqualTo: selectedFilters.type);
       }
     }

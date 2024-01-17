@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/user.dart';
+import 'package:prva/screens/chat/chat.dart';
 import 'package:prva/screens/home/allHousesList.dart';
 import 'package:prva/screens/home/filtersForm.dart';
 import 'package:prva/screens/home/filtersFormPerson.dart';
@@ -13,6 +15,7 @@ import 'package:prva/services/auth.dart';
 import 'package:prva/services/databaseFilterPerson.dart';
 import 'package:prva/services/databaseForFilters.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
+import 'package:prva/shared/loading.dart';
 
 class userHomepage extends StatefulWidget {
   @override
@@ -120,11 +123,8 @@ class _SearchLayoutState extends State<SearchLayout> {
           budget: content.budget,
           city: content.city,
           type: content.type);
-      //DatabaseServiceHouseProfile(user.uid).setFilters(filtri!);
       if (this.mounted) {
-        setState(() {
-          // Your state change code goes here
-        });
+        setState(() {});
       }
     });
     return StreamProvider<List<HouseProfile>>.value(
@@ -150,8 +150,45 @@ class ProfileLayout extends StatelessWidget {
 class ChatLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('CHAT'),
+    return _buildUserList();
+  }
+
+  Widget _buildUserList() {
+    return StreamBuilder<QuerySnapshot>(
+      stream:
+          FirebaseFirestore.instance.collection('houseProfiles').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text('error');
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Loading();
+        }
+        return ListView(
+          children: snapshot.data!.docs
+              .map<Widget>((doc) => _buildUserListItem(context, doc))
+              .toList(),
+        );
+      },
+    );
+  }
+
+  Widget _buildUserListItem(BuildContext context, DocumentSnapshot document) {
+    Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+
+    return ListTile(
+      title: Text(data['type'] + " " + data['city']),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ChatPage(
+              receiverUserEmail: data['type'] + " " + data['city'],
+              receiverUserID: document.reference.id,
+            ),
+          ),
+        );
+      },
     );
   }
 }

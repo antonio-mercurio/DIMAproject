@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/user.dart';
 import 'package:prva/services/database.dart';
+import 'package:prva/services/databaseForFilters.dart';
 import 'package:prva/shared/constants.dart';
 import 'package:prva/shared/loading.dart';
 
@@ -74,6 +75,8 @@ class _CreatePersonalProfileState extends State<CreatePersonalProfile> {
                       if (_formKey.currentState!.validate()) {
                         await DatabaseService(user?.uid).updatePersonalProfile(
                             _name ?? '', _surname ?? '', _age ?? 0);
+                        await DatabaseServiceFilters(user?.uid)
+                            .updateFilters('any', 'any', 0);
                       }
                     },
                   )

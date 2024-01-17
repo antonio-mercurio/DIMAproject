@@ -17,6 +17,7 @@ class FiltersForm extends StatefulWidget {
 class _FiltersFormState extends State<FiltersForm> {
   final _formKey = GlobalKey<FormState>();
   final List<String> typeOfAppartament = [
+    "any",
     "Intero appartamento",
     "Stanza Singola",
     "Stanza Doppia",
@@ -25,6 +26,7 @@ class _FiltersFormState extends State<FiltersForm> {
     "Trilocale"
   ];
   final List<String> cities = [
+    "any",
     "Milano",
     "Roma",
     "Bologna",
