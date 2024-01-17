@@ -36,16 +36,14 @@ Stream<PersonalProfile> get getMyPersonalProfile {
         .map((_persProfileDataFromSnapshot));
   }
 
-
-
-  List<PersonalProfile> _allPersProfileDataFromSnapshot(QuerySnapshot snapshot) {
+  List<PersonalProfile> _allPersProfileDataFromSnapshot(
+      QuerySnapshot snapshot) {
     return snapshot.docs.map<PersonalProfile>((doc) {
       return PersonalProfile(
-        uid: doc.reference.id,
-        name: doc.get('name') ?? "",
-        surname: doc.get('surname') ?? "",
-        age: doc.get('age') ?? 0
-      );
+          uid: doc.reference.id,
+          name: doc.get('name') ?? "",
+          surname: doc.get('surname') ?? "",
+          age: doc.get('age') ?? 0);
     }).toList();
   }
 
@@ -65,7 +63,8 @@ Stream<PersonalProfile> get getMyPersonalProfile {
     });
   }
 
-  Stream<List<PersonalProfile>> getFilteredProfile(FiltersPerson? selectedFilters) {
+  Stream<List<PersonalProfile>> getFilteredProfile(
+      FiltersPerson? selectedFilters) {
     Query query = FirebaseFirestore.instance.collection('personalProfiles');
     /*Filters provaFiltri = Filters(
         userID: "gnegne", city: "Roma", type: "Monolocale", budget: 100);
@@ -84,8 +83,7 @@ Stream<PersonalProfile> get getMyPersonalProfile {
     return query.snapshots().map((_allPersProfileDataFromSnapshot));
   }
 
-
-   Stream<List<PersonalProfile>> getAllProfile() {
+  Stream<List<PersonalProfile>> getAllProfile() {
     Query query = FirebaseFirestore.instance.collection('personalProfiles');
     /*Filters provaFiltri = Filters(
         userID: "gnegne", city: "Roma", type: "Monolocale", budget: 100);
