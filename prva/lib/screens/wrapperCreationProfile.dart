@@ -6,6 +6,7 @@ import 'package:prva/screens/home/showPersonalProfile.dart';
 import 'package:prva/screens/home/userHomepage.dart';
 import 'package:prva/screens/login/createProfile.dart';
 import 'package:prva/services/database.dart';
+import 'package:prva/shared/loading.dart';
 
 class WrapperCreationProfile extends StatelessWidget {
   const WrapperCreationProfile({super.key});
@@ -19,6 +20,9 @@ class WrapperCreationProfile extends StatelessWidget {
         body: StreamBuilder<PersonalProfile>(
             stream: DatabaseService(user!.uid).persProfileData,
             builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Loading();
+              }
               if (!snapshot.hasData) {
                 return CreatePersonalProfile();
               } else {

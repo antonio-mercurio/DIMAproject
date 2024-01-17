@@ -120,11 +120,8 @@ class _SearchLayoutState extends State<SearchLayout> {
           budget: content.budget,
           city: content.city,
           type: content.type);
-      //DatabaseServiceHouseProfile(user.uid).setFilters(filtri!);
       if (this.mounted) {
-        setState(() {
-          // Your state change code goes here
-        });
+        setState(() {});
       }
     });
     return StreamProvider<List<HouseProfile>>.value(
