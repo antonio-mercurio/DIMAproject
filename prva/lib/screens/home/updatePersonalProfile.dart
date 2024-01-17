@@ -80,7 +80,10 @@ class _UpdatePersonalProfileState extends State<UpdatePersonalProfile> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         await DatabaseService(personalProfile?.uid)
-                            .updatePersonalProfile(_name!, _surname!, _age!);
+                            .updatePersonalProfile(
+                                _name ?? personalProfile.name,
+                                _surname ?? personalProfile.surname,
+                                _age ?? personalProfile.age);
                         Navigator.pop(context);
                       }
                     },
