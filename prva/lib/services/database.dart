@@ -74,7 +74,7 @@ class DatabaseService {
 */
     if (selectedFilters != null) {
       if (selectedFilters.maxAge != null) {
-        query = query.where('age', isLessThan: selectedFilters.maxAge);
+        query = query.where('age', isLessThanOrEqualTo: selectedFilters.maxAge);
       }
       if (selectedFilters.minAge != null) {
         query = query.where('age', isGreaterThan: selectedFilters.minAge);
