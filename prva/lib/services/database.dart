@@ -64,23 +64,41 @@ class DatabaseService {
     });
   }*/
 
-  Stream<List<PersonalProfile>> getFilteredProfile(
-      FiltersPerson? selectedFilters) {
-    Query query = FirebaseFirestore.instance.collection('personalProfiles');
-    /*Filters provaFiltri = Filters(
-        userID: "gnegne", city: "Roma", type: "Monolocale", budget: 100);
+   List<String> _profileAlreadySeenFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map<String>((doc) {
+      return doc.reference.id;
+    }).toList();
+  }
 
-    query = query.where('city', isEqualTo: provaFiltri.city);
-    query = query.where('type', isEqualTo: provaFiltri.type);
-*/
-    if (selectedFilters != null) {
+  Stream<List<String>> get getAlreadySeenProfile {
+    return FirebaseFirestore.instance.collection('preference_room').doc(uid).collection('preference').snapshots().map((_profileAlreadySeenFromSnapshot));
+  }
+
+  Future<QuerySnapshot<Object?>> _retrievePeople() async{
+    CollectionReference alreadySeenProfile = FirebaseFirestore.instance.collection('preference_room').doc(uid).collection('preference');
+   
+    final secondCollectionSnapshot = await alreadySeenProfile.get();
+  
+    final secondCollectionIds = secondCollectionSnapshot.docs.map((doc) => doc.id).toList();
+
+   final filteredFirstCollectionSnapshot = await persProfileCollection.where(FieldPath.documentId, whereIn: secondCollectionIds).get();
+   return filteredFirstCollectionSnapshot;
+
+  }
+
+  Stream<List<PersonalProfile>> getFilteredProfile(FiltersPerson? selectedFilters) {
+    Stream<List<String>>? alreadySeenProfile = getAlreadySeenProfile;
+
+    
+    Query query = persProfileCollection.where(FieldPath.documentId, whereIn: ["bfuL7X6jkdfbuxRHECiQfjeRKnC3"]  );
+   /* if (selectedFilters != null) {
       if (selectedFilters.maxAge != null) {
         query = query.where('age', isLessThanOrEqualTo: selectedFilters.maxAge);
       }
       if (selectedFilters.minAge != null) {
         query = query.where('age', isGreaterThan: selectedFilters.minAge);
       }
-    }
+    } */
     return query.snapshots().map((_allPersProfileDataFromSnapshot));
   }
 
