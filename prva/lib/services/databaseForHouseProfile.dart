@@ -1,11 +1,11 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
-import 'package:prva/services/databaseForFilters.dart';
 
+//used to vcreate and update house profile
+//and to get filtered house for personal profile
 class DatabaseServiceHouseProfile {
+  //the uid is of the user of the house profile
   final String? uid;
   DatabaseServiceHouseProfile(this.uid);
   //colection reference
@@ -16,7 +16,6 @@ class DatabaseServiceHouseProfile {
 
   Future<String> createUserDataHouseProfile(
       String type, String address, String city, int price) async {
-    print('creazione nuovo profilo casa andato a buon fine');
     await houseProfileCollection.doc().set({
       'owner': uid,
       'type': type,

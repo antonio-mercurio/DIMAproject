@@ -1,18 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
-import 'package:prva/screens/home/houses_list.dart';
-import 'package:prva/screens/home/personalProfileForm.dart';
-import 'package:prva/screens/home/settings_form.dart';
-import 'package:prva/screens/home/showHomeProfile.dart';
-import 'package:prva/screens/home/showPersonalProfile.dart';
-import 'package:prva/screens/registerForHouse/registerFormHouse.dart';
+import 'package:prva/screens/house_profile/show_all_my_house_profile.dart';
 import 'package:prva/screens/wrapperCreationProfile.dart';
 import 'package:prva/services/auth.dart';
-import 'package:prva/services/database.dart';
-import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
   final AuthService _auth = AuthService();
+
+  Home({super.key});
 
   @override
   Widget build(BuildContext context) {

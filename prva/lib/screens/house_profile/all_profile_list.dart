@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 
+
+/* Class used by House Profile to show the Search
+of the people */
 class AllProfilesList extends StatefulWidget {
   const AllProfilesList({super.key});
 

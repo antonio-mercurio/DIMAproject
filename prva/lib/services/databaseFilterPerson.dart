@@ -2,7 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 
+/* Database to set the filters for the house profile 
+and used to get your house profile*/
+
 class DatabaseServiceFiltersPerson {
+  //uid is the id of the house
   final String? uid;
   DatabaseServiceFiltersPerson({this.uid});
 
@@ -14,7 +18,6 @@ class DatabaseServiceFiltersPerson {
 
   //filters for people utilized by house profile
   Future updateFiltersPerson(int? minAge, int? maxAge) async {
-    print('modifica filtri persona xdxdxd');
     return await filtersPersonCollection.doc(uid).set({
       'house': uid,
       'maxAge': maxAge,

@@ -1,43 +1,31 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
+import 'package:prva/models/user.dart';
 import 'package:prva/screens/chat/chat.dart';
-import 'package:prva/screens/home/all_profile_list.dart';
-import 'package:prva/screens/home/filtersFormPerson.dart';
-import 'package:prva/screens/home/form_modify_house.dart';
-import 'package:prva/screens/home/house_tile.dart';
+import 'package:prva/screens/personal_profile/allHousesList.dart';
+import 'package:prva/screens/personal_profile/filtersForm.dart';
+import 'package:prva/screens/personal_profile/updatePersonalProfile.dart';
 import 'package:prva/services/database.dart';
-import 'package:prva/services/databaseFilterPerson.dart';
+import 'package:prva/services/databaseForFilters.dart';
+import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/shared/loading.dart';
 
-//When we have the list of our "house profile", when clicking on one of them show this home page
-//in this home page we have the search option, which show all the people that are looking for an house
-//Chat panel will show chats
-//Profile panel will show your profile
-class HouseProfSel extends StatefulWidget {
-  final HouseProfile house;
-
-  HouseProfSel({required this.house});
-
+class userHomepage extends StatefulWidget {
   @override
-  State<HouseProfSel> createState() => _HouseProfSelState(house: house);
+  State<userHomepage> createState() => _userHomepageState();
 }
 
-class _HouseProfSelState extends State<HouseProfSel> {
-  final HouseProfile house;
-  _HouseProfSelState({required this.house});
-
+class _userHomepageState extends State<userHomepage> {
   int _selectedIndex = 0;
-
   static List<Widget> _widgetOptions = <Widget>[
     SearchLayout(),
     ProfileLayout(),
     ChatLayout(),
   ];
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -46,23 +34,22 @@ class _HouseProfSelState extends State<HouseProfSel> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<Utente>(context);
     void _showFiltersPanel() {
       showModalBottomSheet(
           context: context,
           builder: (context) {
             return Container(
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-              child: FiltersFormPerson(
-                uidHouse: house.idHouse,
-              ),
+              child: FiltersForm(),
             );
           });
     }
 
-    return StreamProvider<HouseProfile>.value(
-        value: DatabaseServiceFiltersPerson(uid: house.idHouse).getMyHouse,
-        initialData: HouseProfile(
-            type: '', address: '', city: '', price: 0, owner: '', idHouse: ''),
+    return StreamProvider<PersonalProfile>.value(
+        value: DatabaseService(user!.uid).getMyPersonalProfile,
+        initialData:
+            PersonalProfile(uid: user!.uid, name: '', surname: '', age: 0),
         child: Scaffold(
           backgroundColor: Colors.orange[50],
           appBar: AppBar(
@@ -77,8 +64,8 @@ class _HouseProfSelState extends State<HouseProfSel> {
                 },
               ),
               TextButton.icon(
-                icon: Icon(Icons.alarm),
-                label: Text('Notifies'),
+                icon: Icon(Icons.notifications),
+                label: Text('Notifications'),
                 onPressed: () {},
               ),
             ],
@@ -114,42 +101,39 @@ class SearchLayout extends StatefulWidget {
 }
 
 class _SearchLayoutState extends State<SearchLayout> {
-  FiltersPerson? filtri;
+  Filters? filtri;
 
   @override
   Widget build(BuildContext context) {
-    final house = Provider.of<HouseProfile>(context);
-    if (house.idHouse == "") {
-      return Loading();
+    final user = Provider.of<Utente>(context);
+    /*  void _showFiltersPanel() {
+      showModalBottomSheet(
+          context: context,
+          builder: (context) {
+            return Container(
+              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
+              child: FiltersForm(),
+            );
+          });
     }
-
-    final retrievedFilters =
-        DatabaseServiceFiltersPerson(uid: house.idHouse).getFiltersPerson;
-    //print(retrievedFilters);
-
+*/
+    final retrievedFilters = DatabaseServiceFilters(user.uid).getFilters;
     retrievedFilters.listen((content) {
-      filtri = FiltersPerson(
-          houseID: content.houseID,
-          minAge: content.minAge,
-          maxAge: content.maxAge);
+      filtri = Filters(
+          userID: content.userID,
+          budget: content.budget,
+          city: content.city,
+          type: content.type);
       if (this.mounted) {
         setState(() {});
       }
     });
-    //print(filtri?.houseID);
-    //print(filtri?.maxAge.toString());
-    //print(filtri?.minAge.toString());
-
-    if (filtri == null) {
-      filtri?.minAge = 0;
-      filtri?.maxAge = 100;
-    }
-
-    return StreamProvider<List<PersonalProfile>>.value(
-        value: DatabaseService(house.idHouse).getFilteredProfile(filtri),
+    return StreamProvider<List<HouseProfile>>.value(
+        //value: DatabaseServiceHouseProfile(user.uid).getAllHouses,
+        value: DatabaseServiceHouseProfile(user.uid).getFilteredHouses(filtri),
         initialData: [],
         child: Scaffold(
-          body: AllProfilesList(),
+          body: AllHousesList(),
         ));
   }
 }
@@ -157,47 +141,48 @@ class _SearchLayoutState extends State<SearchLayout> {
 class ProfileLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final house = Provider.of<HouseProfile>(context);
-    return Center(
-        child: Column(
+    final personalData = Provider.of<PersonalProfile>(context);
+
+    //return ShowPersonalProfile();
+
+    return Scaffold(
+        body: Center(
+            child: Column(
       children: <Widget>[
         SizedBox(height: 20.0),
-        Text(house.type, style: TextStyle(fontSize: 18.0)),
+        Text(personalData.name, style: TextStyle(fontSize: 18.0)),
         SizedBox(height: 20.0),
+        Text(personalData.surname, style: TextStyle(fontSize: 18.0)),
         SizedBox(height: 20.0),
-        Text(house.address, style: TextStyle(fontSize: 18.0)),
-        SizedBox(height: 20.0),
-        SizedBox(height: 20.0),
-        Text(house.city, style: TextStyle(fontSize: 18.0)),
-        SizedBox(height: 20.0),
-        Text(house.price.toString(), style: TextStyle(fontSize: 18.0)),
-        SizedBox(height: 20.0),
+        Text(personalData.age.toString(), style: TextStyle(fontSize: 18.0)),
         ElevatedButton(
-          child: Text('Modifica'),
+          child: Text('Update'),
           onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => ModifyHouseForm(house: house)),
+                  builder: (context) => UpdatePersonalProfile(
+                        personalProfile: personalData,
+                      )),
             );
           },
-        )
+        ),
       ],
-    ));
+    )));
   }
 }
 
 class ChatLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final house = Provider.of<HouseProfile>(context);
-    return _buildUserList(house);
+    final user = Provider.of<Utente>(context);
+    return _buildUserList(user);
   }
 
-  Widget _buildUserList(HouseProfile house) {
+  Widget _buildUserList(Utente user) {
     return StreamBuilder<QuerySnapshot>(
       stream:
-          FirebaseFirestore.instance.collection('personalProfiles').snapshots(),
+          FirebaseFirestore.instance.collection('houseProfiles').snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Text('error');
@@ -207,7 +192,7 @@ class ChatLayout extends StatelessWidget {
         }
         return ListView(
           children: snapshot.data!.docs
-              .map<Widget>((doc) => _buildUserListItem(context, doc, house))
+              .map<Widget>((doc) => _buildUserListItem(context, doc, user))
               .toList(),
         );
       },
@@ -215,18 +200,18 @@ class ChatLayout extends StatelessWidget {
   }
 
   Widget _buildUserListItem(
-      BuildContext context, DocumentSnapshot document, HouseProfile house) {
+      BuildContext context, DocumentSnapshot document, Utente user) {
     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
     return ListTile(
-      title: Text(data['name'] + " " + data['surname']),
+      title: Text(data['type'] + " " + data['city']),
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => ChatPage(
-              senderUserID: house.idHouse,
-              receiverUserEmail: data['name'] + " " + data['surname'],
+              senderUserID: user.uid,
+              receiverUserEmail: data['type'] + " " + data['city'],
               receiverUserID: document.reference.id,
             ),
           ),

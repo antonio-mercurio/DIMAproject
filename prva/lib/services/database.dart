@@ -1,14 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/personalProfile.dart';
-import 'package:prva/models/user.dart';
+
+
+/* Service used for the update of the personal profile
+and to filter the personal profile */
 
 class DatabaseService {
   final String? uid;
   DatabaseService(this.uid);
   //collection reference
-  final CollectionReference houseCollection =
-      FirebaseFirestore.instance.collection('houses');
   final CollectionReference persProfileCollection =
       FirebaseFirestore.instance.collection('personalProfiles');
 

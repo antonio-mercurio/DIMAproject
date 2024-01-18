@@ -1,13 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/user.dart';
-import 'package:prva/screens/home/houses_list.dart';
-import 'package:prva/screens/home/personalProfileForm.dart';
-import 'package:prva/screens/home/settings_form.dart';
-import 'package:prva/screens/registerForHouse/registerFormHouse.dart';
-import 'package:prva/services/auth.dart';
-import 'package:prva/services/database.dart';
+import 'package:prva/screens/house_profile/houses_list.dart';
+import 'package:prva/screens/house_profile/creation_house_profile.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 

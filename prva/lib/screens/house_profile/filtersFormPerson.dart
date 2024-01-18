@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 import 'package:prva/models/filters.dart';
-import 'package:prva/models/user.dart';
-import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseFilterPerson.dart';
-import 'package:prva/shared/loading.dart';
 
+//Class used by House Profile to use the filter to filter per people interested in
 class FiltersFormPerson extends StatefulWidget {
   final String uidHouse;
   const FiltersFormPerson({required this.uidHouse});

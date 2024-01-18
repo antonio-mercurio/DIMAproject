@@ -1,12 +1,8 @@
  import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 import 'package:prva/models/houseProfile.dart';
-import 'package:prva/models/user.dart';
-import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/shared/constants.dart';
-import 'package:prva/shared/loading.dart';
 
 class ModifyHouseForm extends StatefulWidget {
 
