@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/personalProfile.dart';
 
-
 /* Service used for the update of the personal profile
 and to filter the personal profile */
 
@@ -64,34 +63,49 @@ class DatabaseService {
     });
   }*/
 
-   List<String> _profileAlreadySeenFromSnapshot(QuerySnapshot snapshot) {
+  List<String> _profileAlreadySeenFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map<String>((doc) {
       return doc.reference.id;
     }).toList();
   }
 
   Stream<List<String>> get getAlreadySeenProfile {
-    return FirebaseFirestore.instance.collection('preference_room').doc(uid).collection('preference').snapshots().map((_profileAlreadySeenFromSnapshot));
+    return FirebaseFirestore.instance
+        .collection('preference_room')
+        .doc(uid)
+        .collection('preference')
+        .snapshots()
+        .map((_profileAlreadySeenFromSnapshot));
   }
 
-  Future<QuerySnapshot<Object?>> _retrievePeople() async{
-    CollectionReference alreadySeenProfile = FirebaseFirestore.instance.collection('preference_room').doc(uid).collection('preference');
-   
+  Future<QuerySnapshot<Object?>> _retrievePeople() async {
+    CollectionReference alreadySeenProfile = FirebaseFirestore.instance
+        .collection('preference_room')
+        .doc(uid)
+        .collection('preference');
+
     final secondCollectionSnapshot = await alreadySeenProfile.get();
-  
-    final secondCollectionIds = secondCollectionSnapshot.docs.map((doc) => doc.id).toList();
 
-   final filteredFirstCollectionSnapshot = await persProfileCollection.where(FieldPath.documentId, whereIn: secondCollectionIds).get();
-   return filteredFirstCollectionSnapshot;
+    final secondCollectionIds =
+        secondCollectionSnapshot.docs.map((doc) => doc.id).toList();
 
+    final filteredFirstCollectionSnapshot = await persProfileCollection
+        .where(FieldPath.documentId, whereIn: secondCollectionIds)
+        .get();
+    return filteredFirstCollectionSnapshot;
   }
 
-  Stream<List<PersonalProfile>> getFilteredProfile(FiltersPerson? selectedFilters) {
-    Stream<List<String>>? alreadySeenProfile = getAlreadySeenProfile;
-
-    
-    Query query = persProfileCollection.where(FieldPath.documentId, whereIn: ["bfuL7X6jkdfbuxRHECiQfjeRKnC3"]  );
-   /* if (selectedFilters != null) {
+  Stream<List<PersonalProfile>> getFilteredProfile(
+      FiltersPerson? selectedFilters, List<String>? alreadySeen) {
+    Query query = persProfileCollection;
+    //print("alreadySeen sul db alla riga< 100 è: ");
+    //print(alreadySeen);
+    if (alreadySeen != null) {
+      if (alreadySeen.isNotEmpty) {
+        query = query.where(FieldPath.documentId, whereNotIn: alreadySeen);
+      }
+    }
+    /* if (selectedFilters != null) {
       if (selectedFilters.maxAge != null) {
         query = query.where('age', isLessThanOrEqualTo: selectedFilters.maxAge);
       }

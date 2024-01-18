@@ -114,7 +114,7 @@ class SearchLayout extends StatefulWidget {
 
 class _SearchLayoutState extends State<SearchLayout> {
   FiltersPerson? filtri;
-
+  List<String>? alreadySeenProfiles;
   @override
   Widget build(BuildContext context) {
     final house = Provider.of<HouseProfile>(context);
@@ -125,7 +125,16 @@ class _SearchLayoutState extends State<SearchLayout> {
     final retrievedFilters =
         DatabaseServiceFiltersPerson(uid: house.idHouse).getFiltersPerson;
     //print(retrievedFilters);
-
+    final retrievedAlreadySeenProfiles =
+        DatabaseService(house.idHouse).getAlreadySeenProfile;
+    retrievedAlreadySeenProfiles.listen((content) {
+      alreadySeenProfiles = content;
+      if (this.mounted) {
+        setState(() {});
+      }
+    });
+    //print("alreadyseenprofiles su homepage r.136:");
+    //print(alreadySeenProfiles);
     retrievedFilters.listen((content) {
       filtri = FiltersPerson(
           houseID: content.houseID,
@@ -145,7 +154,8 @@ class _SearchLayoutState extends State<SearchLayout> {
     }
 
     return StreamProvider<List<PersonalProfile>>.value(
-        value: DatabaseService(house.idHouse).getFilteredProfile(filtri),
+        value: DatabaseService(house.idHouse)
+            .getFilteredProfile(filtri, alreadySeenProfiles),
         initialData: [],
         child: Scaffold(
           body: AllProfilesList(),
