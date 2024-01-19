@@ -10,6 +10,7 @@ import 'package:prva/screens/house_profile/filtersFormPerson.dart';
 import 'package:prva/screens/house_profile/form_modify_house.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseFilterPerson.dart';
+import 'package:prva/services/match/match_service.dart';
 import 'package:prva/shared/loading.dart';
 
 //When we have the list of our "house profile", when clicking on one of them show this home page
@@ -204,8 +205,17 @@ class ChatLayout extends StatelessWidget {
   }
 
   Widget _buildUserList(HouseProfile house) {
+    List<String>? matches;
+
+    final retrievedMatch = MatchService().getMatchedProfile(house.idHouse);
+    //print(retrievedFilters);
+    
+    retrievedMatch.listen((content) {
+      matches = content;
+    });
+
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('personalProfiles').snapshots(),
+      stream: MatchService().getChats(matches),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Text('error');
@@ -213,11 +223,18 @@ class ChatLayout extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Loading();
         }
+
+        if(snapshot.hasData){
         return ListView(
           children: snapshot.data!.docs
               .map<Widget>((doc) => _buildUserListItem(context, doc, house))
               .toList(),
         );
+        }else{
+          return Center(
+            child: Text("Non hai ancora match"),
+          );
+        }
       },
     );
   }

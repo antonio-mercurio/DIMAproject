@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/preference.dart';
 
 class MatchService extends ChangeNotifier {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+  final CollectionReference persProfileCollection =
+      FirebaseFirestore.instance.collection('personalProfiles');
 
   //put preference
   Future putPrefence(String senderID, String receiverID, String choice) async {
@@ -51,18 +54,40 @@ class MatchService extends ChangeNotifier {
 
   /* create a new match */
   Future<void> createNewMatch(String userID, String otherUserID) async {
-    //construct match using the IDs
-    List<String> ids = [userID, otherUserID];
-    ids.sort();
-    String chatRoomID = ids.join("_");
-    //add new message to database
+    //add new message to match
     await _firebaseFirestore
         .collection('match')
-        .doc(chatRoomID);
+        .doc(userID)
+        .collection('matched_profiles')
+        .doc(otherUserID);
+  }
+  /*retrieve personal profile to with home profile can chat */
+
+   List<String> _profileMatchedFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map<String>((doc) {
+      return doc.reference.id;
+    }).toList();
   }
 
-  /*retrieve personal profile to with home profile can chat */
-  
+  Stream<List<String>> getMatchedProfile(String id) {
+    return FirebaseFirestore.instance
+        .collection('match')
+        .doc(id)
+        .collection('matched_profiles')
+        .snapshots()
+        .map((_profileMatchedFromSnapshot));
+  }
 
+  Stream<QuerySnapshot<Object?>>? getChats(List<String>? matchedProfiles) {
+    Query query = persProfileCollection;
+   
+    if (matchedProfiles!= null) {
+      if (matchedProfiles.isNotEmpty) {
+        query = query.where(FieldPath.documentId, whereIn: matchedProfiles);
+        return query.snapshots();
+      }
+    }
+   return null;
+  }
 
 }

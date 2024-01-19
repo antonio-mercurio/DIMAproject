@@ -74,6 +74,7 @@ class AllPersonalTiles extends StatelessWidget {
                       /* there is a match */
                       print("match");
                       await MatchService().createNewMatch(myHouse.idHouse, profile.uid);
+                      await MatchService().createNewMatch(profile.uid, myHouse.idHouse);
                     }
                   }
                   
