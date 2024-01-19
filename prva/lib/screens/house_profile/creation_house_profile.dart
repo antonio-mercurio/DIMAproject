@@ -107,8 +107,7 @@ class _RegisterFormHouseState extends State<RegisterFormHouse> {
                           );
                           print(newHouseID);
                           //final CollectionReference filtersPersonCollection = FirebaseFirestore.instance.collection('filtersPerson');
-                          await DatabaseServiceFiltersPerson(uid: newHouseID)
-                              .updateFiltersPerson(0, 100);
+                          //await DatabaseServiceFiltersPerson(uid: newHouseID).updateFiltersPerson(0, 100);
                           Navigator.pop(context);
                         } catch (e) {
                           print(e.toString());

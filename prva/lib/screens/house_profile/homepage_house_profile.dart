@@ -123,38 +123,43 @@ class _SearchLayoutState extends State<SearchLayout> {
       return Loading();
     }
 
-    final retrievedFilters =
-        DatabaseServiceFiltersPerson(uid: house.idHouse).getFiltersPerson;
+    try {
+      final retrievedFilters =
+          DatabaseServiceFiltersPerson(uid: house.idHouse).getFiltersPerson;
+      retrievedFilters.listen((content) {
+        filtri = FiltersPerson(
+            houseID: content.houseID,
+            minAge: content.minAge,
+            maxAge: content.maxAge);
+        if (this.mounted) {
+          setState(() {});
+          //print(filtri?.minAge.toString());
+          //print(filtri?.maxAge.toString());
+        }
+      });
+    } catch (e) {
+      print('exception thrown by filters');
+    }
     //print(retrievedFilters);
-    final retrievedAlreadySeenProfiles =
-        DatabaseService(house.idHouse).getAlreadySeenProfile;
-    retrievedAlreadySeenProfiles.listen((content) {
-      alreadySeenProfiles = content;
-      if (this.mounted) {
-        setState(() {});
-      }
-    });
+    try {
+      final retrievedAlreadySeenProfiles =
+          DatabaseService(house.idHouse).getAlreadySeenProfile;
+      retrievedAlreadySeenProfiles.listen((content) {
+        alreadySeenProfiles = content;
+        //print(alreadySeenProfiles?.length);
+        if (this.mounted) {
+          setState(() {});
+        }
+      });
+    } catch (e) {
+      print('exception thrown by already seen profiles');
+    }
     //print("alreadyseenprofiles su homepage r.136:");
     //print(alreadySeenProfiles);
-    retrievedFilters.listen((content) {
-      filtri = FiltersPerson(
-          houseID: content.houseID,
-          minAge: content.minAge,
-          maxAge: content.maxAge);
-      if (this.mounted) {
-        setState(() {});
-        //print(filtri?.minAge.toString());
-        //print(filtri?.maxAge.toString());
-      }
-    });
+
     //print(filtri?.houseID);
     //print(filtri?.maxAge.toString());
     //print(filtri?.minAge.toString());
-
-    if (filtri == null) {
-      filtri?.minAge = 0;
-      filtri?.maxAge = 100;
-    }
 
     return StreamProvider<List<PersonalProfile>>.value(
         value: DatabaseService(house.idHouse)
