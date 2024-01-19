@@ -76,6 +76,8 @@ class AllPersonalTiles extends StatelessWidget {
                             print("match");
                             await MatchService()
                                 .createNewMatch(myHouse.idHouse, profile.uid);
+                            await MatchService()
+                                .createNewMatch(profile.uid, myHouse.idHouse);
                           }
                         }
                       }),
