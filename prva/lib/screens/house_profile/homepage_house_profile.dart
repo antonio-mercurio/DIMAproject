@@ -211,18 +211,13 @@ class ChatLayout extends StatelessWidget {
 
     final retrievedMatch = MatchService().getMatchedProfile(house.idHouse);
     //print(retrievedFilters);
-    
+
     retrievedMatch.listen((content) {
       matches = content;
     });
 
     return StreamBuilder<QuerySnapshot>(
-<<<<<<< HEAD
-      stream:
-          FirebaseFirestore.instance.collection('personalProfiles').snapshots(),
-=======
       stream: MatchService().getChats(matches),
->>>>>>> 9f3a1a8d9d553eac51d1f79adcafd0f9227af27e
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Text('error');
@@ -231,13 +226,13 @@ class ChatLayout extends StatelessWidget {
           return Loading();
         }
 
-        if(snapshot.hasData){
-        return ListView(
-          children: snapshot.data!.docs
-              .map<Widget>((doc) => _buildUserListItem(context, doc, house))
-              .toList(),
-        );
-        }else{
+        if (snapshot.hasData) {
+          return ListView(
+            children: snapshot.data!.docs
+                .map<Widget>((doc) => _buildUserListItem(context, doc, house))
+                .toList(),
+          );
+        } else {
           return Center(
             child: Text("Non hai ancora match"),
           );
