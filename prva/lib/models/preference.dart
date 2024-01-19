@@ -1,11 +1,13 @@
-class Preference{
-
+class Preference {
   final String senderPreferenceId;
   final String reciverPreferenceId;
   final String choice;
 
-  Preference({required this.senderPreferenceId, required this.reciverPreferenceId, required this.choice});
-  
+  Preference(
+      {required this.senderPreferenceId,
+      required this.reciverPreferenceId,
+      required this.choice});
+
   //convert to a map to store in firebase
   Map<String, dynamic> toMap() {
     return {
@@ -13,21 +15,17 @@ class Preference{
       'receiverPrefernceID': reciverPreferenceId,
       'choice': choice,
     };
-    }
+  }
 }
 
-
-class PreferenceForMatch{
-
+class PreferenceForMatch {
   final String reciverPreferenceId;
   final String choice;
 
   PreferenceForMatch({required this.reciverPreferenceId, required this.choice});
 }
 
-
-class Match{
-
+class Match {
   final String userID;
   final String otheUserID;
 

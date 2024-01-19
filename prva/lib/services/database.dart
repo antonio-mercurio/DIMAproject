@@ -78,7 +78,8 @@ class DatabaseService {
         .map((_profileAlreadySeenFromSnapshot));
   }
 
-  Stream<List<PersonalProfile>> getFilteredProfile(FiltersPerson? selectedFilters, List<String>? alreadySeen) {
+  Stream<List<PersonalProfile>> getFilteredProfile(
+      FiltersPerson? selectedFilters, List<String>? alreadySeen) {
     Query query = persProfileCollection;
     //print("alreadySeen sul db alla riga< 100 è: ");
     //print(alreadySeen);
@@ -87,7 +88,7 @@ class DatabaseService {
         query = query.where(FieldPath.documentId, whereNotIn: alreadySeen);
       }
     }
-    
+
     if (selectedFilters != null) {
       if (selectedFilters.maxAge != null) {
         query = query.where('age', isLessThanOrEqualTo: selectedFilters.maxAge);
@@ -95,7 +96,7 @@ class DatabaseService {
       if (selectedFilters.minAge != null) {
         query = query.where('age', isGreaterThan: selectedFilters.minAge);
       }
-    } 
+    }
     return query.snapshots().map((_allPersProfileDataFromSnapshot));
   }
 

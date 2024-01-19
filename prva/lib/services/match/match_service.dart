@@ -8,23 +8,22 @@ class MatchService extends ChangeNotifier {
   //put preference
   Future putPrefence(String senderID, String receiverID, String choice) async {
     //create a new preference
-    Preference newPreference= Preference(
-      senderPreferenceId: senderID,
-      reciverPreferenceId: receiverID,
-      choice: choice
-    );
-    
+    Preference newPreference = Preference(
+        senderPreferenceId: senderID,
+        reciverPreferenceId: receiverID,
+        choice: choice);
+
     //add new message to database
-   await _firebaseFirestore
+    await _firebaseFirestore
         .collection('preference_room')
         .doc(senderID)
         .collection('preference')
-        .doc(receiverID).set(newPreference.toMap());
+        .doc(receiverID)
+        .set(newPreference.toMap());
   }
 
   //get preference from the database
   Stream<QuerySnapshot> getPreferences(String userID) {
-    
     return _firebaseFirestore
         .collection('preference_room')
         .doc(userID)
@@ -32,13 +31,10 @@ class MatchService extends ChangeNotifier {
         .snapshots();
   }
 
-
   List<PreferenceForMatch> _preferenceFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map<PreferenceForMatch>((doc) {
       return PreferenceForMatch(
-        reciverPreferenceId: doc.reference.id,
-        choice: doc.get('choice')
-      );
+          reciverPreferenceId: doc.reference.id, choice: doc.get('choice'));
     }).toList();
   }
 
@@ -46,7 +42,9 @@ class MatchService extends ChangeNotifier {
     return _firebaseFirestore
         .collection('preference_room')
         .doc(userID)
-        .collection('preference').snapshots().map((_preferenceFromSnapshot));
+        .collection('preference')
+        .snapshots()
+        .map((_preferenceFromSnapshot));
   }
 
   /* create a new match */
@@ -56,13 +54,8 @@ class MatchService extends ChangeNotifier {
     ids.sort();
     String chatRoomID = ids.join("_");
     //add new message to database
-    await _firebaseFirestore
-        .collection('match')
-        .doc(chatRoomID);
+    await _firebaseFirestore.collection('match').doc(chatRoomID);
   }
 
   /*retrieve personal profile to with home profile can chat */
-  
-
-
 }
