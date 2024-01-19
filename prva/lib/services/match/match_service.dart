@@ -15,7 +15,7 @@ class MatchService extends ChangeNotifier {
     );
     
     //add new message to database
-    await _firebaseFirestore
+   await _firebaseFirestore
         .collection('preference_room')
         .doc(senderID)
         .collection('preference')
@@ -31,4 +31,38 @@ class MatchService extends ChangeNotifier {
         .collection('preference')
         .snapshots();
   }
+
+
+  List<PreferenceForMatch> _preferenceFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map<PreferenceForMatch>((doc) {
+      return PreferenceForMatch(
+        reciverPreferenceId: doc.reference.id,
+        choice: doc.get('choice')
+      );
+    }).toList();
+  }
+
+  Stream<List<PreferenceForMatch>> getPreferencesForMatch(String userID) {
+    return _firebaseFirestore
+        .collection('preference_room')
+        .doc(userID)
+        .collection('preference').snapshots().map((_preferenceFromSnapshot));
+  }
+
+  /* create a new match */
+  Future<void> createNewMatch(String userID, String otherUserID) async {
+    //construct match using the IDs
+    List<String> ids = [userID, otherUserID];
+    ids.sort();
+    String chatRoomID = ids.join("_");
+    //add new message to database
+    await _firebaseFirestore
+        .collection('match')
+        .doc(chatRoomID);
+  }
+
+  /*retrieve personal profile to with home profile can chat */
+  
+
+
 }

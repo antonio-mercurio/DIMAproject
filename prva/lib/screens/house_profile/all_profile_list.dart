@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
+import 'package:prva/models/preference.dart';
 import 'package:prva/services/match/match_service.dart';
 
 
@@ -15,6 +16,7 @@ class AllProfilesList extends StatefulWidget {
 }
 
 class _AllProfilesListState extends State<AllProfilesList> {
+  
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
 
 class AllPersonalTiles extends StatelessWidget {
   final PersonalProfile profile;
+  List<PreferenceForMatch>? preferencesOther;
   AllPersonalTiles({required this.profile});
 
   @override
@@ -56,7 +59,25 @@ class AllPersonalTiles extends StatelessWidget {
                 IconButton(
                 icon: const Icon(Icons.favorite_outline),
                 onPressed: () async {
+                  /* Put like */
+                  print("like");
                   await MatchService().putPrefence(myHouse.idHouse, profile.uid, "like");
+
+                  /* check fot match */
+                  final retrievedPreferences= MatchService().getPreferencesForMatch(profile.uid);
+                  
+                  retrievedPreferences.listen((content) {preferencesOther = content;});
+                  /* searche if the other has seen your profile and put a like */
+                  final searchedPreference = PreferenceForMatch(reciverPreferenceId: myHouse.idHouse, choice: "like");
+                  if(preferencesOther!=null){
+                    if(preferencesOther!.contains(searchedPreference)){
+                      /* there is a match */
+                      print("match");
+                      await MatchService().createNewMatch(myHouse.idHouse, profile.uid);
+                    }
+                  }
+                  
+
                 }),
                 const SizedBox(width: 8),
                 IconButton(

@@ -205,8 +205,7 @@ class ChatLayout extends StatelessWidget {
 
   Widget _buildUserList(HouseProfile house) {
     return StreamBuilder<QuerySnapshot>(
-      stream:
-          FirebaseFirestore.instance.collection('personalProfiles').snapshots(),
+      stream: FirebaseFirestore.instance.collection('personalProfiles').snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Text('error');
