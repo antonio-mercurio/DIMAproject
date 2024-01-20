@@ -18,11 +18,11 @@ class MatchService extends ChangeNotifier {
     final searchedPreference =
         PreferenceForMatch(reciverPreferenceId: senderID, choice: "like");
     if (preferencesOther != null) {
-      print("Match 23 :ok");
-      print(searchedPreference.reciverPreferenceId);
-      print(searchedPreference.choice);
-      print(preferencesOther.elementAt(1).reciverPreferenceId);
-      print(preferencesOther.elementAt(1).choice);
+      //print("Match 23 :ok");
+      //print(searchedPreference.reciverPreferenceId);
+      //print(searchedPreference.choice);
+      //print(preferencesOther.elementAt(1).reciverPreferenceId);
+      //print(preferencesOther.elementAt(1).choice);
       if (preferencesOther.any((element) =>
           element.choice == searchedPreference.choice &&
           element.reciverPreferenceId ==
