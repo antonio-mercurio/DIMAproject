@@ -4,30 +4,37 @@ import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/preference.dart';
 
 class MatchService extends ChangeNotifier {
+  final String? uid;
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   final CollectionReference persProfileCollection =
       FirebaseFirestore.instance.collection('personalProfiles');
   final CollectionReference houseProfileCollection =
       FirebaseFirestore.instance.collection('houseProfiles');
- 
-  Future<void> checkMatch(String senderID, String receiverID, List<PreferenceForMatch>? preferencesOther ) async {
-    final searchedPreference = PreferenceForMatch(reciverPreferenceId: senderID,choice: "like");
-      if (preferencesOther != null) {
-        print("Match 23 :ok");
-        print(searchedPreference.reciverPreferenceId);
-        print(searchedPreference.choice);
-        print(preferencesOther.elementAt(1).reciverPreferenceId);
-        print(preferencesOther.elementAt(1).choice);
-          if (preferencesOther.any((element) => element.choice == searchedPreference.choice && element.reciverPreferenceId == searchedPreference.reciverPreferenceId)) {
-                            /* there is a match */
-            print("match");
-            await MatchService().createNewMatch(senderID,receiverID);
-            await MatchService().createNewMatch(receiverID, senderID);
-        }
-      }else{
-        print("Match 32 :ok");
-      }
 
+  MatchService({this.uid});
+
+  Future<void> checkMatch(String senderID, String receiverID,
+      List<PreferenceForMatch>? preferencesOther) async {
+    final searchedPreference =
+        PreferenceForMatch(reciverPreferenceId: senderID, choice: "like");
+    if (preferencesOther != null) {
+      print("Match 23 :ok");
+      print(searchedPreference.reciverPreferenceId);
+      print(searchedPreference.choice);
+      print(preferencesOther.elementAt(1).reciverPreferenceId);
+      print(preferencesOther.elementAt(1).choice);
+      if (preferencesOther.any((element) =>
+          element.choice == searchedPreference.choice &&
+          element.reciverPreferenceId ==
+              searchedPreference.reciverPreferenceId)) {
+        /* there is a match */
+        print("match");
+        await MatchService().createNewMatch(senderID, receiverID);
+        await MatchService().createNewMatch(receiverID, senderID);
+      }
+    } else {
+      print("Match 32 :ok");
+    }
   }
 
   //put preference
@@ -80,23 +87,22 @@ class MatchService extends ChangeNotifier {
         .doc(userID)
         .collection('matched_profiles')
         .doc(otherUserID)
-        .set({
-          'user1' : userID,
-          'user2' : otherUserID
-          });
+        .set({'user1': userID, 'user2': otherUserID});
   }
   /*retrieve chat */
 
   List<String> _profileMatchedFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map<String>((doc) {
+      //print('96 match serv');
+      //print(doc.reference.id);
       return doc.reference.id;
     }).toList();
   }
 
-  Stream<List<String>> getMatchedProfile(String id) {
+  Stream<List<String>> get getMatchedProfile {
     return FirebaseFirestore.instance
         .collection('match')
-        .doc(id)
+        .doc(uid)
         .collection('matched_profiles')
         .snapshots()
         .map((_profileMatchedFromSnapshot));
@@ -108,9 +114,13 @@ class MatchService extends ChangeNotifier {
 
     if (matchedProfiles != null) {
       if (matchedProfiles.isNotEmpty) {
+        //print('117 match serv');
+        //print(matchedProfiles);
         query = query.where(FieldPath.documentId, whereIn: matchedProfiles);
         return query.snapshots();
       }
+    } else {
+      print('123 match service: null match');
     }
     return null;
   }

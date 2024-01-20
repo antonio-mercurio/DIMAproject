@@ -194,66 +194,76 @@ class ProfileLayout extends StatelessWidget {
   }
 }
 
-class ChatLayout extends StatelessWidget {
+class ChatLayout extends StatefulWidget {
+  const ChatLayout({super.key});
+
+  @override
+  State<ChatLayout> createState() => _ChatLayoutState();
+}
+
+class _ChatLayoutState extends State<ChatLayout> {
+  List<String>? matches;
+
   @override
   Widget build(BuildContext context) {
     final house = Provider.of<HouseProfile>(context);
-    return _buildUserList(house);
-  }
-
-  Widget _buildUserList(HouseProfile house) {
-    List<String>? matches;
-
-    final retrievedMatch = MatchService().getMatchedProfile(house.idHouse);
-    //print(retrievedFilters);
+    final retrievedMatch = MatchService(uid: house.idHouse).getMatchedProfile;
 
     retrievedMatch.listen((content) {
       matches = content;
+      if (mounted) {
+        setState(() {});
+      }
     });
-
-    return StreamBuilder<QuerySnapshot>(
-      stream: MatchService().getChats(matches),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Text('error');
-        }
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Loading();
-        }
-
-        if (snapshot.hasData) {
-          return ListView(
-            children: snapshot.data!.docs
-                .map<Widget>((doc) => _buildUserListItem(context, doc, house))
-                .toList(),
-          );
-        } else {
-          return Center(
-            child: Text("Non hai ancora match"),
-          );
-        }
-      },
-    );
+    return _buildUserList(house, matches);
   }
+}
 
-  Widget _buildUserListItem(
-      BuildContext context, DocumentSnapshot document, HouseProfile house) {
-    Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+Widget _buildUserList(HouseProfile house, List<String>? matches) {
+  //print('223 homepage');
+  //print(matches);
+  return StreamBuilder<QuerySnapshot>(
+    stream: MatchService().getChats(matches),
+    builder: (context, snapshot) {
+      if (snapshot.hasError) {
+        return Text('error');
+      }
+      /*if (snapshot.connectionState == ConnectionState.waiting) {
+        return Loading();
+      }*/
 
-    return ListTile(
-      title: Text(data['name'] + " " + data['surname']),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ChatPage(
-              senderUserID: house.idHouse,
-              receiverUserEmail: data['name'] + " " + data['surname'],
-              receiverUserID: document.reference.id,
-            ),
-          ),
+      if (snapshot.hasData) {
+        return ListView(
+          children: snapshot.data!.docs
+              .map<Widget>((doc) => _buildUserListItem(context, doc, house))
+              .toList(),
         );
-      },
-    );
-  }
+      } else {
+        return Center(
+          child: Text("Non hai ancora match"),
+        );
+      }
+    },
+  );
+}
+
+Widget _buildUserListItem(
+    BuildContext context, DocumentSnapshot document, HouseProfile house) {
+  Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+
+  return ListTile(
+    title: Text(data['name'] + " " + data['surname']),
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ChatPage(
+            senderUserID: house.idHouse,
+            receiverUserEmail: data['name'] + " " + data['surname'],
+            receiverUserID: document.reference.id,
+          ),
+        ),
+      );
+    },
+  );
 }

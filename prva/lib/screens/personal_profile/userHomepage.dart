@@ -131,8 +131,7 @@ class _SearchLayoutState extends State<SearchLayout> {
       }
     });
 
-
-     final retrievedAlreadySeenProfiles =
+    final retrievedAlreadySeenProfiles =
         DatabaseService(user.uid).getAlreadySeenProfile;
     retrievedAlreadySeenProfiles.listen((content) {
       alreadySeenProfiles = content;
@@ -143,7 +142,8 @@ class _SearchLayoutState extends State<SearchLayout> {
 
     return StreamProvider<List<HouseProfile>>.value(
         //value: DatabaseServiceHouseProfile(user.uid).getAllHouses,
-        value: DatabaseServiceHouseProfile(user.uid).getFilteredHouses(filtri, alreadySeenProfiles),
+        value: DatabaseServiceHouseProfile(user.uid)
+            .getFilteredHouses(filtri, alreadySeenProfiles),
         initialData: [],
         child: Scaffold(
           body: AllHousesList(),
@@ -193,9 +193,9 @@ class ChatLayout extends StatelessWidget {
   }
 
   Widget _buildUserList(Utente user) {
-     List<String>? matches;
+    List<String>? matches;
 
-    final retrievedMatch = MatchService().getMatchedProfile(user.uid);
+    final retrievedMatch = MatchService(uid: user.uid).getMatchedProfile;
 
     retrievedMatch.listen((content) {
       matches = content;
