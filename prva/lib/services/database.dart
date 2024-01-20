@@ -83,12 +83,6 @@ class DatabaseService {
     Query query = persProfileCollection;
     //print("alreadySeen sul db alla riga< 100 è: ");
     //print(alreadySeen);
-    if (alreadySeen != null) {
-      if (alreadySeen.isNotEmpty) {
-        query = query.where(FieldPath.documentId, whereNotIn: alreadySeen);
-      }
-    }
-
     if (selectedFilters != null) {
       if (selectedFilters.maxAge != null) {
         query = query.where('age', isLessThanOrEqualTo: selectedFilters.maxAge);
@@ -96,7 +90,18 @@ class DatabaseService {
       if (selectedFilters.minAge != null) {
         query = query.where('age', isGreaterThan: selectedFilters.minAge);
       }
-    }
+    } /*
+    if (alreadySeen != null) {
+      if (alreadySeen.isNotEmpty) {
+        query = query.where(FieldPath.documentId, whereNotIn: alreadySeen);
+        if (query.snapshots().length == 0) {
+          print('DATABASE 90: la query è vuota');
+        } else {
+          print('db 93 la query non è vuota ma ha lenght:');
+          print(query.snapshots().length);
+        }
+      }
+    }*/
     return query.snapshots().map((_allPersProfileDataFromSnapshot));
   }
 
