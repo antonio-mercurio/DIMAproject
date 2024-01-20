@@ -79,7 +79,7 @@ class DatabaseService {
   }
 
   Stream<List<PersonalProfile>> getFilteredProfile(
-      FiltersPerson? selectedFilters, List<String>? alreadySeen) {
+      FiltersPerson? selectedFilters) {
     Query query = persProfileCollection;
     //print("alreadySeen sul db alla riga< 100 è: ");
     //print(alreadySeen);

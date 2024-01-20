@@ -66,7 +66,7 @@ class DatabaseServiceHouseProfile {
         .map((_houseProfileUserFromSnapshot));
   }
 
-  Stream<List<HouseProfile>> getFilteredHouses(Filters? selectedFilters, List<String>? alreadySeen) {
+  Stream<List<HouseProfile>> getFilteredHouses(Filters? selectedFilters) {
     Query query = houseProfileCollection;
     /*Filters provaFiltri = Filters(
         userID: "gnegne", city: "Roma", type: "Monolocale", budget: 100);
@@ -74,12 +74,6 @@ class DatabaseServiceHouseProfile {
     query = query.where('city', isEqualTo: provaFiltri.city);
     query = query.where('type', isEqualTo: provaFiltri.type);
 */
-
-    if (alreadySeen != null) {
-      if (alreadySeen.isNotEmpty) {
-        query = query.where(FieldPath.documentId, whereNotIn: alreadySeen);
-      }
-    }
     if (selectedFilters != null) {
       if (selectedFilters.city != null && selectedFilters.city != 'any') {
         query = query.where('city', isEqualTo: selectedFilters.city);

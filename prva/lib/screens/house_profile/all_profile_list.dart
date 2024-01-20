@@ -40,7 +40,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
     if (alreadySeenProfiles != null) {
       profiles
           .removeWhere((element) => alreadySeenProfiles!.contains(element.uid));
-      print('allprof32 - rimuovo');
+      //print('allprof32 - rimuovo');
     }
     if (profiles.isEmpty) {
       return Center(
@@ -65,6 +65,12 @@ class AllPersonalTiles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final myHouse = Provider.of<HouseProfile>(context);
+    final retrievedPreferences =
+        MatchService(uid: profile.uid).getPreferencesForMatch;
+    retrievedPreferences.listen((content) {
+      print("r71 allProfileList");
+      preferencesOther = content;
+    });
     return Padding(
         padding: EdgeInsets.only(top: 8.0),
         child: Card(
@@ -90,27 +96,9 @@ class AllPersonalTiles extends StatelessWidget {
                             .putPrefence(myHouse.idHouse, profile.uid, "like");
 
                         /* check fot match */
-                        final retrievedPreferences =
-                            MatchService(uid: profile.uid)
-                                .getPreferencesForMatch;
-
-                        retrievedPreferences.listen((content) {
-                          preferencesOther = content;
-                        });
+                        await MatchService().checkMatch(
+                            myHouse.idHouse, profile.uid, preferencesOther);
                         /* searche if the other has seen your profile and put a like */
-                        final searchedPreference = PreferenceForMatch(
-                            reciverPreferenceId: myHouse.idHouse,
-                            choice: "like");
-                        if (preferencesOther != null) {
-                          if (preferencesOther!.contains(searchedPreference)) {
-                            /* there is a match */
-                            print("match");
-                            await MatchService()
-                                .createNewMatch(myHouse.idHouse, profile.uid);
-                            await MatchService()
-                                .createNewMatch(profile.uid, myHouse.idHouse);
-                          }
-                        }
                       }),
                   const SizedBox(width: 8),
                   IconButton(

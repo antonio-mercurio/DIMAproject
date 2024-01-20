@@ -152,8 +152,7 @@ class _SearchLayoutState extends State<SearchLayout> {
     //print(filtri?.minAge.toString());
 
     return StreamProvider<List<PersonalProfile>>.value(
-        value: DatabaseService(house.idHouse)
-            .getFilteredProfile(filtri, alreadySeenProfiles),
+        value: DatabaseService(house.idHouse).getFilteredProfile(filtri),
         initialData: [],
         child: Scaffold(
           body: AllProfilesList(house: house),

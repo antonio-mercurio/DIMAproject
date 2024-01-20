@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/preference.dart';
+import 'package:prva/services/database.dart';
 import 'package:prva/services/match/match_service.dart';
 
 class AllHousesList extends StatefulWidget {
@@ -13,36 +14,58 @@ class AllHousesList extends StatefulWidget {
 }
 
 class _AllHousesListState extends State<AllHousesList> {
+  List<String>? alreadySeenHouses;
+
   @override
   Widget build(BuildContext context) {
+    final myProfile = Provider.of<PersonalProfile>(context);
+    final retrievedAlreadySeenHouses =
+        DatabaseService(myProfile.uid).getAlreadySeenProfile;
+    retrievedAlreadySeenHouses.listen((content) {
+      alreadySeenHouses = content;
+      //print(alreadySeenProfiles?.length);
+      //print(alreadySeenProfiles?.length);
+      if (this.mounted) {
+        setState(() {});
+      }
+    });
     final houses = Provider.of<List<HouseProfile>>(context);
-    return ListView.builder(
-      itemCount: houses.length,
-      itemBuilder: (context, index) {
-        return AllHousesTiles(house: houses[index]);
-      },
-    );
+
+    if (alreadySeenHouses != null) {
+      houses.removeWhere(
+          (element) => alreadySeenHouses!.contains(element.idHouse));
+      print('allHousesList 36 - rimuovo');
+    }
+    if (houses.isEmpty) {
+      return Center(
+        child: Text('non ci sono case da visualizzare'),
+      );
+    } else {
+      return ListView.builder(
+        itemCount: houses.length,
+        itemBuilder: (context, index) {
+          return AllHousesTiles(house: houses[index]);
+        },
+      );
+    }
   }
 }
 
 class AllHousesTiles extends StatelessWidget {
   final HouseProfile house;
   List<PreferenceForMatch>? preferencesOther;
-  int ok = 1;
   AllHousesTiles({required this.house});
   @override
   Widget build(BuildContext context) {
     final myUser = Provider.of<PersonalProfile>(context);
-    if (ok == 1) {
-      /* capire se continua a fare tutte queste read quando sistemiamo la grafica finale */
-      final retrievedPreferences =
-          MatchService(uid: house.idHouse).getPreferencesForMatch;
-      retrievedPreferences.listen((content) {
-        print("preso il contenuto riga 41 allHouselist");
-        ok = 0;
-        preferencesOther = content;
-      });
-    }
+    /* capire se continua a fare tutte queste read quando sistemiamo la grafica finale */
+    final retrievedPreferences =
+        MatchService(uid: house.idHouse).getPreferencesForMatch;
+    retrievedPreferences.listen((content) {
+      print("preso il contenuto riga 41 allHouselist");
+      preferencesOther = content;
+    });
+
     return Padding(
         padding: EdgeInsets.only(top: 8.0),
         child: Card(

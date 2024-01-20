@@ -131,19 +131,9 @@ class _SearchLayoutState extends State<SearchLayout> {
       }
     });
 
-    final retrievedAlreadySeenProfiles =
-        DatabaseService(user.uid).getAlreadySeenProfile;
-    retrievedAlreadySeenProfiles.listen((content) {
-      alreadySeenProfiles = content;
-      if (this.mounted) {
-        setState(() {});
-      }
-    });
-
     return StreamProvider<List<HouseProfile>>.value(
         //value: DatabaseServiceHouseProfile(user.uid).getAllHouses,
-        value: DatabaseServiceHouseProfile(user.uid)
-            .getFilteredHouses(filtri, alreadySeenProfiles),
+        value: DatabaseServiceHouseProfile(user.uid).getFilteredHouses(filtri),
         initialData: [],
         child: Scaffold(
           body: AllHousesList(),
@@ -185,6 +175,86 @@ class ProfileLayout extends StatelessWidget {
   }
 }
 
+class ChatLayout extends StatefulWidget {
+  const ChatLayout({super.key});
+
+  @override
+  State<ChatLayout> createState() => _ChatLayoutState();
+}
+
+class _ChatLayoutState extends State<ChatLayout> {
+  List<String>? matches;
+
+  @override
+  Widget build(BuildContext context) {
+    final user = Provider.of<Utente>(context);
+    final retrievedMatch = MatchService(uid: user.uid).getMatchedProfile;
+
+    retrievedMatch.listen((content) {
+      matches = content;
+      if (mounted) {
+        setState(() {});
+      }
+    });
+    print('199 user homepage');
+    print(matches);
+    return _buildUserList(user, matches);
+  }
+}
+
+Widget _buildUserList(Utente user, List<String>? matches) {
+  //print('223 homepage');
+  //print(matches);
+  return StreamBuilder<QuerySnapshot>(
+    stream: MatchService().getChatsPers(matches),
+    builder: (context, snapshot) {
+      if (snapshot.hasError) {
+        return Text('error');
+      }
+      /*if (snapshot.connectionState == ConnectionState.waiting) {
+        return Loading();
+      }*/
+
+      if (snapshot.hasData) {
+        print('219 userhomepage');
+
+        return ListView(
+          children: snapshot.data!.docs
+              .map<Widget>((doc) => _buildUserListItem(context, doc, user))
+              .toList(),
+        );
+      } else {
+        print('224 userhoepage');
+        print(user.uid);
+        return Center(
+          child: Text("Non hai ancora match"),
+        );
+      }
+    },
+  );
+}
+
+Widget _buildUserListItem(
+    BuildContext context, DocumentSnapshot document, Utente user) {
+  Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+
+  return ListTile(
+    title: Text(data['type'] + " " + data['city']),
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ChatPage(
+            senderUserID: user.uid,
+            receiverUserEmail: data['type'] + " " + data['city'],
+            receiverUserID: document.reference.id,
+          ),
+        ),
+      );
+    },
+  );
+}
+/*
 class ChatLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -247,3 +317,4 @@ class ChatLayout extends StatelessWidget {
     );
   }
 }
+*/
