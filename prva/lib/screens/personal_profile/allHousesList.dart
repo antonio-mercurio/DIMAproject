@@ -36,6 +36,7 @@ class AllHousesTiles extends StatelessWidget {
   Widget build(BuildContext context) {
     final myUser = Provider.of<PersonalProfile>(context);
     if(ok ==1){
+      /* capire se continua a fare tutte queste read quando sistemiamo la grafica finale */
     final retrievedPreferences =MatchService().getPreferencesForMatch(house.idHouse);
     retrievedPreferences.listen((content) {
       print("preso il contenuto riga 41 allHouselist");
