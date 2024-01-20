@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/houseProfile.dart';
@@ -27,21 +26,21 @@ class _AllHousesListState extends State<AllHousesList> {
 }
 
 class AllHousesTiles extends StatelessWidget {
-  
   final HouseProfile house;
   List<PreferenceForMatch>? preferencesOther;
-  int ok=1;
+  int ok = 1;
   AllHousesTiles({required this.house});
   @override
   Widget build(BuildContext context) {
     final myUser = Provider.of<PersonalProfile>(context);
-    if(ok ==1){
+    if (ok == 1) {
       /* capire se continua a fare tutte queste read quando sistemiamo la grafica finale */
-    final retrievedPreferences =MatchService().getPreferencesForMatch(house.idHouse);
-    retrievedPreferences.listen((content) {
-      print("preso il contenuto riga 41 allHouselist");
-      ok=0;
-      preferencesOther = content;
+      final retrievedPreferences =
+          MatchService(uid: house.idHouse).getPreferencesForMatch;
+      retrievedPreferences.listen((content) {
+        print("preso il contenuto riga 41 allHouselist");
+        ok = 0;
+        preferencesOther = content;
       });
     }
     return Padding(
@@ -52,7 +51,7 @@ class AllHousesTiles extends StatelessWidget {
               ListTile(
                 leading: CircleAvatar(
                   radius: 25.0,
-                  backgroundColor:  Colors.red[house.price],
+                  backgroundColor: Colors.red[house.price],
                 ),
                 title: Text(house.type),
                 subtitle: Text('Si trova a ${house.city}'),
@@ -69,22 +68,19 @@ class AllHousesTiles extends StatelessWidget {
                             .putPrefence(myUser.uid, house.idHouse, "like");
                         print("dopo aver messo la preferenza");
 
-                        await MatchService().checkMatch(myUser.uid, house.idHouse, preferencesOther);
-
+                        await MatchService().checkMatch(
+                            myUser.uid, house.idHouse, preferencesOther);
                       }),
                   const SizedBox(width: 8),
                   IconButton(
                       icon: const Icon(Icons.close_outlined),
                       onPressed: () async {
-                        await MatchService().putPrefence(
-                            myUser.uid, house.idHouse, "dislike");
+                        await MatchService()
+                            .putPrefence(myUser.uid, house.idHouse, "dislike");
                       }),
                   const SizedBox(width: 8),
                 ],
               ),
             ])));
   }
-  }
-
-
- 
+}

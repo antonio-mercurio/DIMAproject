@@ -70,10 +70,10 @@ class MatchService extends ChangeNotifier {
     }).toList();
   }
 
-  Stream<List<PreferenceForMatch>> getPreferencesForMatch(String userID) {
+  Stream<List<PreferenceForMatch>> get getPreferencesForMatch {
     return _firebaseFirestore
         .collection('preference_room')
-        .doc(userID)
+        .doc(uid)
         .collection('preference')
         .snapshots()
         .map((_preferenceFromSnapshot));

@@ -91,7 +91,8 @@ class AllPersonalTiles extends StatelessWidget {
 
                         /* check fot match */
                         final retrievedPreferences =
-                            MatchService().getPreferencesForMatch(profile.uid);
+                            MatchService(uid: profile.uid)
+                                .getPreferencesForMatch;
 
                         retrievedPreferences.listen((content) {
                           preferencesOther = content;
