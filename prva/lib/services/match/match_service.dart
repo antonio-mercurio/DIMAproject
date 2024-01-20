@@ -7,6 +7,28 @@ class MatchService extends ChangeNotifier {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   final CollectionReference persProfileCollection =
       FirebaseFirestore.instance.collection('personalProfiles');
+  final CollectionReference houseProfileCollection =
+      FirebaseFirestore.instance.collection('houseProfiles');
+ 
+  Future<void> checkMatch(String senderID, String receiverID, List<PreferenceForMatch>? preferencesOther ) async {
+    final searchedPreference = PreferenceForMatch(reciverPreferenceId: senderID,choice: "like");
+      if (preferencesOther != null) {
+        print("Match 23 :ok");
+        print(searchedPreference.reciverPreferenceId);
+        print(searchedPreference.choice);
+        print(preferencesOther.elementAt(1).reciverPreferenceId);
+        print(preferencesOther.elementAt(1).choice);
+          if (preferencesOther.any((element) => element.choice == searchedPreference.choice && element.reciverPreferenceId == searchedPreference.reciverPreferenceId)) {
+                            /* there is a match */
+            print("match");
+            await MatchService().createNewMatch(senderID,receiverID);
+            await MatchService().createNewMatch(receiverID, senderID);
+        }
+      }else{
+        print("Match 32 :ok");
+      }
+
+  }
 
   //put preference
   Future putPrefence(String senderID, String receiverID, String choice) async {
@@ -51,15 +73,19 @@ class MatchService extends ChangeNotifier {
   }
 
   /* create a new match */
-  Future<void> createNewMatch(String userID, String otherUserID) async {
+  Future createNewMatch(String userID, String otherUserID) async {
     //add new message to match
     await _firebaseFirestore
         .collection('match')
         .doc(userID)
         .collection('matched_profiles')
-        .doc(otherUserID);
+        .doc(otherUserID)
+        .set({
+          'user1' : userID,
+          'user2' : otherUserID
+          });
   }
-  /*retrieve personal profile to with home profile can chat */
+  /*retrieve chat */
 
   List<String> _profileMatchedFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map<String>((doc) {
@@ -76,8 +102,22 @@ class MatchService extends ChangeNotifier {
         .map((_profileMatchedFromSnapshot));
   }
 
+  /*used in the house profile */
   Stream<QuerySnapshot<Object?>>? getChats(List<String>? matchedProfiles) {
     Query query = persProfileCollection;
+
+    if (matchedProfiles != null) {
+      if (matchedProfiles.isNotEmpty) {
+        query = query.where(FieldPath.documentId, whereIn: matchedProfiles);
+        return query.snapshots();
+      }
+    }
+    return null;
+  }
+
+  /*used in the personal Profile */
+  Stream<QuerySnapshot<Object?>>? getChatsPers(List<String>? matchedProfiles) {
+    Query query = houseProfileCollection;
 
     if (matchedProfiles != null) {
       if (matchedProfiles.isNotEmpty) {

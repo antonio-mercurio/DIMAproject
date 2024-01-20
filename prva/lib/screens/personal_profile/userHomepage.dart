@@ -12,6 +12,7 @@ import 'package:prva/screens/personal_profile/updatePersonalProfile.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForFilters.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
+import 'package:prva/services/match/match_service.dart';
 import 'package:prva/shared/loading.dart';
 
 class userHomepage extends StatefulWidget {
@@ -102,6 +103,7 @@ class SearchLayout extends StatefulWidget {
 
 class _SearchLayoutState extends State<SearchLayout> {
   Filters? filtri;
+  List<String>? alreadySeenProfiles;
 
   @override
   Widget build(BuildContext context) {
@@ -128,9 +130,20 @@ class _SearchLayoutState extends State<SearchLayout> {
         setState(() {});
       }
     });
+
+
+     final retrievedAlreadySeenProfiles =
+        DatabaseService(user.uid).getAlreadySeenProfile;
+    retrievedAlreadySeenProfiles.listen((content) {
+      alreadySeenProfiles = content;
+      if (this.mounted) {
+        setState(() {});
+      }
+    });
+
     return StreamProvider<List<HouseProfile>>.value(
         //value: DatabaseServiceHouseProfile(user.uid).getAllHouses,
-        value: DatabaseServiceHouseProfile(user.uid).getFilteredHouses(filtri),
+        value: DatabaseServiceHouseProfile(user.uid).getFilteredHouses(filtri, alreadySeenProfiles),
         initialData: [],
         child: Scaffold(
           body: AllHousesList(),
@@ -180,9 +193,16 @@ class ChatLayout extends StatelessWidget {
   }
 
   Widget _buildUserList(Utente user) {
+     List<String>? matches;
+
+    final retrievedMatch = MatchService().getMatchedProfile(user.uid);
+
+    retrievedMatch.listen((content) {
+      matches = content;
+    });
+
     return StreamBuilder<QuerySnapshot>(
-      stream:
-          FirebaseFirestore.instance.collection('houseProfiles').snapshots(),
+      stream: MatchService().getChatsPers(matches),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Text('error');
@@ -190,11 +210,18 @@ class ChatLayout extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Loading();
         }
-        return ListView(
-          children: snapshot.data!.docs
-              .map<Widget>((doc) => _buildUserListItem(context, doc, user))
-              .toList(),
-        );
+
+        if (snapshot.hasData) {
+          return ListView(
+            children: snapshot.data!.docs
+                .map<Widget>((doc) => _buildUserListItem(context, doc, user))
+                .toList(),
+          );
+        } else {
+          return Center(
+            child: Text("Non hai ancora match"),
+          );
+        }
       },
     );
   }

@@ -22,6 +22,8 @@ class PreferenceForMatch {
   final String reciverPreferenceId;
   final String choice;
 
+  
+
   PreferenceForMatch({required this.reciverPreferenceId, required this.choice});
 }
 
