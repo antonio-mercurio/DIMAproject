@@ -3,27 +3,57 @@ import 'package:provider/provider.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/preference.dart';
+import 'package:prva/services/database.dart';
 import 'package:prva/services/match/match_service.dart';
 
 /* Class used by House Profile to show the Search
 of the people */
 class AllProfilesList extends StatefulWidget {
-  const AllProfilesList({super.key});
+  final HouseProfile house;
+
+  AllProfilesList({required this.house});
 
   @override
-  State<AllProfilesList> createState() => _AllProfilesListState();
+  State<AllProfilesList> createState() => _AllProfilesListState(house: house);
 }
 
 class _AllProfilesListState extends State<AllProfilesList> {
+  List<String>? alreadySeenProfiles;
+  final HouseProfile house;
+  _AllProfilesListState({required this.house});
+
   @override
   Widget build(BuildContext context) {
+    final retrievedAlreadySeenProfiles =
+        DatabaseService(house.idHouse).getAlreadySeenProfile;
+    retrievedAlreadySeenProfiles.listen((content) {
+      alreadySeenProfiles = content;
+      //print(alreadySeenProfiles?.length);
+      //print(alreadySeenProfiles?.length);
+      if (this.mounted) {
+        setState(() {});
+      }
+    });
     final profiles = Provider.of<List<PersonalProfile>>(context);
-    return ListView.builder(
-      itemCount: profiles.length,
-      itemBuilder: (context, index) {
-        return AllPersonalTiles(profile: profiles[index]);
-      },
-    );
+
+    //check already seen != null prima di fare questo filtri
+    if (alreadySeenProfiles != null) {
+      profiles
+          .removeWhere((element) => alreadySeenProfiles!.contains(element.uid));
+      print('allprof32 - rimuovo');
+    }
+    if (profiles.isEmpty) {
+      return Center(
+        child: Text('non ci sono profili da visualizzare'),
+      );
+    } else {
+      return ListView.builder(
+        itemCount: profiles.length,
+        itemBuilder: (context, index) {
+          return AllPersonalTiles(profile: profiles[index]);
+        },
+      );
+    }
   }
 }
 

@@ -141,17 +141,7 @@ class _SearchLayoutState extends State<SearchLayout> {
       print('exception thrown by filters');
     }
     //print(retrievedFilters);
-    try {
-      final retrievedAlreadySeenProfiles =
-          DatabaseService(house.idHouse).getAlreadySeenProfile;
-      retrievedAlreadySeenProfiles.listen((content) {
-        alreadySeenProfiles = content;
-        //print(alreadySeenProfiles?.length);
-        if (this.mounted) {
-          setState(() {});
-        }
-      });
-    } catch (e) {
+    try {} catch (e) {
       print('exception thrown by already seen profiles');
     }
     //print("alreadyseenprofiles su homepage r.136:");
@@ -166,7 +156,7 @@ class _SearchLayoutState extends State<SearchLayout> {
             .getFilteredProfile(filtri, alreadySeenProfiles),
         initialData: [],
         child: Scaffold(
-          body: AllProfilesList(),
+          body: AllProfilesList(house: house),
         ));
   }
 }
