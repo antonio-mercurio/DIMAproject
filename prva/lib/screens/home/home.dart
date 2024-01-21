@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:prva/screens/house_profile/show_all_my_house_profile.dart';
 import 'package:prva/screens/wrapperCreationProfile.dart';
@@ -14,7 +13,7 @@ class Home extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text('Affinder'),
-          backgroundColor: Colors.orange[400],
+          backgroundColor: Color.fromARGB(255, 1, 120, 7),
           elevation: 0.0,
           actions: <Widget>[
             TextButton.icon(
