@@ -98,7 +98,7 @@ class AllHousesTiles extends StatelessWidget {
                   IconButton(
                       icon: const Icon(Icons.close_outlined),
                       onPressed: () async {
-                        await MatchService()
+                         await MatchService()
                             .putPrefence(myUser.uid, house.idHouse, "dislike");
                       }),
                   const SizedBox(width: 8),

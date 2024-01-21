@@ -249,20 +249,30 @@ Widget _buildUserList(HouseProfile house, List<String>? matches) {
 Widget _buildUserListItem(
     BuildContext context, DocumentSnapshot document, HouseProfile house) {
   Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-
-  return ListTile(
-    title: Text(data['name'] + " " + data['surname']),
-    onTap: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ChatPage(
-            senderUserID: house.idHouse,
-            receiverUserEmail: data['name'] + " " + data['surname'],
-            receiverUserID: document.reference.id,
-          ),
-        ),
-      );
-    },
-  );
+  return Padding(
+        padding: EdgeInsets.only(top: 8.0),
+        child: Card(
+            margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
+            child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+              ListTile(
+                leading: CircleAvatar(
+                  radius: 25.0,
+                  backgroundColor: Colors.blue,
+                ),
+                title: Text(data['name'] + " " + data['surname'],
+                style:  TextStyle(
+                  fontWeight : FontWeight.bold )
+                ),
+                subtitle: Text('open to start a chat!'),
+              onTap: () {
+                Navigator.push(context,MaterialPageRoute(
+                  builder: (context) => ChatPage(
+                    senderUserID: house.idHouse,
+                    receiverUserEmail: data['name'] + " " + data['surname'],
+                    receiverUserID: document.reference.id,
+                    ),
+                    ),);
+                    },)
+            ],))
+            );
 }

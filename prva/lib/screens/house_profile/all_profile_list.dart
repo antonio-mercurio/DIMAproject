@@ -1,8 +1,10 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/preference.dart';
+import 'package:prva/screens/multipleImagePicker.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/match/match_service.dart';
 
@@ -92,19 +94,34 @@ class AllPersonalTiles extends StatelessWidget {
                       onPressed: () async {
                         /* Put like */
                         print("like");
-                        await MatchService()
+                        await  MatchService()
                             .putPrefence(myHouse.idHouse, profile.uid, "like");
 
                         /* check fot match */
-                        await MatchService().checkMatch(
+                        final ok= await MatchService().checkMatch(
                             myHouse.idHouse, profile.uid, preferencesOther);
-                        /* searche if the other has seen your profile and put a like */
-                      }),
+                            print(ok);
+                              print('match creato anche in questo modo');
+                            if(ok){
+                              /* Navigator.push(context,MaterialPageRoute(
+                               builder: (context) => MultipleImagePicker()));*/
+                              /*AwesomeDialog(
+                                context: context,
+                                animType: AnimType.scale,
+                                dialogType: DialogType.success,
+                                body: const Center(child: Text(
+                                  'Ops... hai ricevuto un match! Vai nelle chat per inziiare una conversazione!',
+                                  style: TextStyle(fontStyle: FontStyle.italic),
+                                  ),),
+                                  btnOkOnPress: () {},).show();*/ }
+                      }
+                        /* search if the other has seen your profile and put a like */
+                      ),
                   const SizedBox(width: 8),
                   IconButton(
                       icon: const Icon(Icons.close_outlined),
                       onPressed: () async {
-                        await MatchService().putPrefence(
+                       await MatchService().putPrefence(
                             myHouse.idHouse, profile.uid, "dislike");
                       }),
                   const SizedBox(width: 8),

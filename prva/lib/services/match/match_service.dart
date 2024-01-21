@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:prva/models/personalProfile.dart';
@@ -13,8 +15,13 @@ class MatchService extends ChangeNotifier {
 
   MatchService({this.uid});
 
-  Future<void> checkMatch(String senderID, String receiverID,
-      List<PreferenceForMatch>? preferencesOther) async {
+  Future _putMatch(String userID, String otherUserID,) async {
+    await MatchService().createNewMatch(userID, otherUserID);
+    await MatchService().createNewMatch(otherUserID, userID);
+  }
+
+  Future checkMatch(String senderID, String receiverID,
+    List<PreferenceForMatch>? preferencesOther)async {
     final searchedPreference =
         PreferenceForMatch(reciverPreferenceId: senderID, choice: "like");
     if (preferencesOther != null) {
@@ -29,12 +36,11 @@ class MatchService extends ChangeNotifier {
               searchedPreference.reciverPreferenceId)) {
         /* there is a match */
         print("match");
-        await MatchService().createNewMatch(senderID, receiverID);
-        await MatchService().createNewMatch(receiverID, senderID);
+        await _putMatch(senderID, receiverID);
+        return true;
       }
-    } else {
-      print("Match 32 :ok");
-    }
+    } 
+    return false;
   }
 
   //put preference
