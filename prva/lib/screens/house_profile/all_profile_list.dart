@@ -1,4 +1,4 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
+//import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/houseProfile.dart';
@@ -50,9 +50,10 @@ class _AllProfilesListState extends State<AllProfilesList> {
       );
     } else {
       return ListView.builder(
-        itemCount: profiles.length,
+        //itemCount: profiles.length,
+        itemCount: 1,
         itemBuilder: (context, index) {
-          return AllPersonalTiles(profile: profiles[index]);
+          return AllPersonalTiles(profile: profiles[0]);
         },
       );
     }
@@ -94,18 +95,18 @@ class AllPersonalTiles extends StatelessWidget {
                       onPressed: () async {
                         /* Put like */
                         print("like");
-                        await  MatchService()
+                        await MatchService()
                             .putPrefence(myHouse.idHouse, profile.uid, "like");
 
                         /* check fot match */
-                        final ok= await MatchService().checkMatch(
+                        final ok = await MatchService().checkMatch(
                             myHouse.idHouse, profile.uid, preferencesOther);
-                            print(ok);
-                              print('match creato anche in questo modo');
-                            if(ok){
-                              /* Navigator.push(context,MaterialPageRoute(
+                        print(ok);
+                        print('match creato anche in questo modo');
+                        if (ok) {
+                          /* Navigator.push(context,MaterialPageRoute(
                                builder: (context) => MultipleImagePicker()));*/
-                              /*AwesomeDialog(
+                          /*AwesomeDialog(
                                 context: context,
                                 animType: AnimType.scale,
                                 dialogType: DialogType.success,
@@ -113,15 +114,16 @@ class AllPersonalTiles extends StatelessWidget {
                                   'Ops... hai ricevuto un match! Vai nelle chat per inziiare una conversazione!',
                                   style: TextStyle(fontStyle: FontStyle.italic),
                                   ),),
-                                  btnOkOnPress: () {},).show();*/ }
+                                  btnOkOnPress: () {},).show();*/
+                        }
                       }
-                        /* search if the other has seen your profile and put a like */
+                      /* search if the other has seen your profile and put a like */
                       ),
                   const SizedBox(width: 8),
                   IconButton(
                       icon: const Icon(Icons.close_outlined),
                       onPressed: () async {
-                       await MatchService().putPrefence(
+                        await MatchService().putPrefence(
                             myHouse.idHouse, profile.uid, "dislike");
                       }),
                   const SizedBox(width: 8),

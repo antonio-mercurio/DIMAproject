@@ -42,9 +42,10 @@ class _AllHousesListState extends State<AllHousesList> {
       );
     } else {
       return ListView.builder(
-        itemCount: houses.length,
+        //itemCount: houses.length,
+        itemCount: 1,
         itemBuilder: (context, index) {
-          return AllHousesTiles(house: houses[index]);
+          return AllHousesTiles(house: houses[0]);
         },
       );
     }
@@ -98,7 +99,7 @@ class AllHousesTiles extends StatelessWidget {
                   IconButton(
                       icon: const Icon(Icons.close_outlined),
                       onPressed: () async {
-                         await MatchService()
+                        await MatchService()
                             .putPrefence(myUser.uid, house.idHouse, "dislike");
                       }),
                   const SizedBox(width: 8),
