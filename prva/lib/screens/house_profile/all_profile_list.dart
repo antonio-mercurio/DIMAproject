@@ -1,4 +1,4 @@
-//import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/houseProfile.dart';
@@ -23,6 +23,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
   List<String>? alreadySeenProfiles;
   final HouseProfile house;
   _AllProfilesListState({required this.house});
+  List<PreferenceForMatch>? preferencesOther;
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +50,66 @@ class _AllProfilesListState extends State<AllProfilesList> {
         child: Text('non ci sono profili da visualizzare'),
       );
     } else {
+      final myHouse = Provider.of<HouseProfile>(context);
+      final retrievedPreferences =
+          MatchService(uid: profiles[0].uid).getPreferencesForMatch;
+      retrievedPreferences.listen((content) {
+        print("r71 allProfileList");
+        preferencesOther = content;
+      });
       return ListView.builder(
         //itemCount: profiles.length,
         itemCount: 1,
         itemBuilder: (context, index) {
-          return AllPersonalTiles(profile: profiles[0]);
+          return Column(
+            children: <Widget>[
+              AllPersonalTiles(profile: profiles[0]),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  IconButton(
+                      icon: const Icon(Icons.favorite_outline),
+                      onPressed: () async {
+                        /* Put like */
+                        print("like");
+                        await MatchService().putPrefence(
+                            myHouse.idHouse, profiles[0].uid, "like");
+
+                        /* check fot match */
+                        final ok = await MatchService().checkMatch(
+                            myHouse.idHouse, profiles[0].uid, preferencesOther);
+                        print(ok);
+                        print('match creato anche in questo modo');
+                        if (ok) {
+                          if (!mounted) return;
+                          AwesomeDialog(
+                            context: context,
+                            animType: AnimType.scale,
+                            dialogType: DialogType.success,
+                            body: const Center(
+                              child: Text(
+                                'Ops... hai ricevuto un match! Vai nelle chat per inziiare una conversazione!',
+                                style: TextStyle(fontStyle: FontStyle.italic),
+                              ),
+                            ),
+                            btnOkOnPress: () {},
+                          ).show();
+                        }
+                      }
+                      /* search if the other has seen your profile and put a like */
+                      ),
+                  const SizedBox(width: 8),
+                  IconButton(
+                      icon: const Icon(Icons.close_outlined),
+                      onPressed: () async {
+                        await MatchService().putPrefence(
+                            myHouse.idHouse, profiles[0].uid, "dislike");
+                      }),
+                  const SizedBox(width: 8),
+                ],
+              ),
+            ],
+          );
         },
       );
     }
@@ -62,18 +118,18 @@ class _AllProfilesListState extends State<AllProfilesList> {
 
 class AllPersonalTiles extends StatelessWidget {
   final PersonalProfile profile;
-  List<PreferenceForMatch>? preferencesOther;
+  //List<PreferenceForMatch>? preferencesOther;
   AllPersonalTiles({required this.profile});
 
   @override
   Widget build(BuildContext context) {
     final myHouse = Provider.of<HouseProfile>(context);
-    final retrievedPreferences =
+    /*final retrievedPreferences =
         MatchService(uid: profile.uid).getPreferencesForMatch;
     retrievedPreferences.listen((content) {
       print("r71 allProfileList");
       preferencesOther = content;
-    });
+    });*/
     return Padding(
         padding: EdgeInsets.only(top: 8.0),
         child: Card(
@@ -87,7 +143,7 @@ class AllPersonalTiles extends StatelessWidget {
                 title: Text(profile.name + " " + profile.surname),
                 subtitle: Text(profile.age.toString()),
               ),
-              Row(
+              /*Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   IconButton(
@@ -128,7 +184,7 @@ class AllPersonalTiles extends StatelessWidget {
                       }),
                   const SizedBox(width: 8),
                 ],
-              ),
+              ),*/
             ])));
   }
 }
