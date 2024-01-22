@@ -95,7 +95,7 @@ class _RegisterFormHouseState extends State<RegisterFormHouse> {
                 ElevatedButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        print('valid');
+                        //print('valid');
                         try {
                           String newHouseID =
                               await DatabaseServiceHouseProfile(user.uid)

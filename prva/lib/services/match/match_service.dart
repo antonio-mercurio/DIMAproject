@@ -15,13 +15,16 @@ class MatchService extends ChangeNotifier {
 
   MatchService({this.uid});
 
-  Future _putMatch(String userID, String otherUserID,) async {
+  Future _putMatch(
+    String userID,
+    String otherUserID,
+  ) async {
     await MatchService().createNewMatch(userID, otherUserID);
     await MatchService().createNewMatch(otherUserID, userID);
   }
 
   Future checkMatch(String senderID, String receiverID,
-    List<PreferenceForMatch>? preferencesOther)async {
+      List<PreferenceForMatch>? preferencesOther) async {
     final searchedPreference =
         PreferenceForMatch(reciverPreferenceId: senderID, choice: "like");
     if (preferencesOther != null) {
@@ -35,11 +38,11 @@ class MatchService extends ChangeNotifier {
           element.reciverPreferenceId ==
               searchedPreference.reciverPreferenceId)) {
         /* there is a match */
-        print("match");
+        //print("match");
         await _putMatch(senderID, receiverID);
         return true;
       }
-    } 
+    }
     return false;
   }
 
@@ -126,7 +129,7 @@ class MatchService extends ChangeNotifier {
         return query.snapshots();
       }
     } else {
-      print('123 match service: null match');
+      //print('123 match service: null match');
     }
     return null;
   }
