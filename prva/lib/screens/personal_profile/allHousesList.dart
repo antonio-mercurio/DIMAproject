@@ -36,7 +36,10 @@ class _AllHousesListState extends State<AllHousesList> {
     if (alreadySeenHouses != null) {
       houses.removeWhere(
           (element) => alreadySeenHouses!.contains(element.idHouse));
-      print('allHousesList 36 - rimuovo');
+      //print('allHousesList 36 - rimuovo');
+      if (this.mounted) {
+        setState(() {});
+      }
     }
     if (houses.isEmpty) {
       return Center(
@@ -48,7 +51,7 @@ class _AllHousesListState extends State<AllHousesList> {
       final retrievedPreferences =
           MatchService(uid: houses[0].idHouse).getPreferencesForMatch;
       retrievedPreferences.listen((content) {
-        print("preso il contenuto riga 41 allHouselist");
+        //print("preso il contenuto riga 41 allHouselist");
         preferencesOther = content;
       });
       return /*ListView.builder(
@@ -65,10 +68,10 @@ class _AllHousesListState extends State<AllHousesList> {
                 icon: const Icon(Icons.favorite_outline),
                 onPressed: () async {
                   /* Put like */
-                  print("like");
+                  //print("like");
                   await MatchService()
                       .putPrefence(myUser.uid, houses[0].idHouse, "like");
-                  print("dopo aver messo la preferenza");
+                  //print("dopo aver messo la preferenza");
 
                   await MatchService().checkMatch(
                       myUser.uid, houses[0].idHouse, preferencesOther);

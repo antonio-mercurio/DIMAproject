@@ -196,7 +196,7 @@ class _ChatLayoutState extends State<ChatLayout> {
         setState(() {});
       }
     });
-    print('199 user homepage');
+    //print('199 user homepage');
     print(matches);
     return _buildUserList(user, matches);
   }
@@ -216,16 +216,12 @@ Widget _buildUserList(Utente user, List<String>? matches) {
       }*/
 
       if (snapshot.hasData) {
-        print('219 userhomepage');
-
         return ListView(
           children: snapshot.data!.docs
               .map<Widget>((doc) => _buildUserListItem(context, doc, user))
               .toList(),
         );
       } else {
-        print('224 userhoepage');
-        print(user.uid);
         return Center(
           child: Text("Non hai ancora match"),
         );

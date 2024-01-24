@@ -96,7 +96,7 @@ class _ModifyHouseFormState extends State<ModifyHouseForm> {
                 ElevatedButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        print('valid');
+                        //print('valid');
                         try {
                           await DatabaseServiceHouseProfile(house.owner)
                               .updateUserDataHouseProfile(

@@ -28,7 +28,7 @@ class DatabaseServiceHouseProfile {
 
   Future updateUserDataHouseProfile(String type, String address, String city,
       int price, String uidHouse) async {
-    print('modifica profilo casa andato a buon fine');
+    //print('modifica profilo casa andato a buon fine');
 
     return await houseProfileCollection.doc(uidHouse).set({
       'owner': uid,

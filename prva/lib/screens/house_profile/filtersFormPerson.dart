@@ -27,7 +27,7 @@ class _FiltersFormPersonState extends State<FiltersFormPerson> {
       stream: DatabaseServiceFiltersPerson(uid: uidHouse).getFiltersPerson,
       builder: (context, snapshot) {
         FiltersPerson? filters = snapshot.data;
-        print('filters has data');
+        //print('filters has data');
         return Form(
             key: _formKey,
             child: Column(
