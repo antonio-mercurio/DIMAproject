@@ -9,9 +9,10 @@ class DetailedProfile extends StatelessWidget {
     return Scaffold(
      backgroundColor: Colors.white,
             appBar: AppBar(
-                backgroundColor: Colors.green[400],
+                backgroundColor: Colors.black,
         title: Text(
-          'Details',
+          'Affinder',
+          style: TextStyle(color: Colors.black),
         ),
       ),
       body: Column(
@@ -28,7 +29,8 @@ class DetailedProfile extends StatelessWidget {
                     child: Text(
                       'Stanza Singola',
                       style:TextStyle(fontSize: 22.0, 
-                      color: Colors.black),
+                      color: Colors.black,
+                      fontFamily: 'Plus Jakarta Sans',)
                     ),
                   ),
                   Padding(
@@ -54,7 +56,8 @@ class DetailedProfile extends StatelessWidget {
                     child: Text(
                       'Milano',
                       style: TextStyle(fontSize: 18.0, 
-                      color: Colors.black),
+                      color: Colors.black,
+                      fontFamily: 'Plus Jakarta Sans',),
                     ),
                   ),
                  
@@ -63,7 +66,8 @@ class DetailedProfile extends StatelessWidget {
                     child: Text(
                       'Via Schiaparelli 1',
                       style: TextStyle(fontSize: 16.0, 
-                      color: Colors.black),
+                      color: Colors.black,
+                      fontFamily: 'Plus Jakarta Sans'),
                     ),
                   ),
                   Padding(
@@ -71,7 +75,8 @@ class DetailedProfile extends StatelessWidget {
                     child: Text(
                       'La casa è composta da 5 stanze e due bagni',
                       style: TextStyle(fontSize: 16.0, 
-                      color: Colors.black),
+                      color: Colors.black,
+                      fontFamily: 'Plus Jakarta Sans'),
                     ),
                   ),
                   Divider(
@@ -88,12 +93,14 @@ class DetailedProfile extends StatelessWidget {
                         Text(
                           'Prezzo:',
                           style: TextStyle(fontSize: 20.0, 
-                          color: Colors.black),
+                          color: Colors.black,
+                          fontFamily: 'Plus Jakarta Sans'),
                         ),
                         Text(
                           '500',
                           style: TextStyle(fontSize: 20.0, 
-                          color: Colors.black),
+                          color: Colors.black,
+                          fontFamily: 'Plus Jakarta Sans'),
                         ),
                       ],
                     ),
