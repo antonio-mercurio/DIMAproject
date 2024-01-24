@@ -12,6 +12,7 @@ import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseFilterPerson.dart';
 import 'package:prva/services/match/match_service.dart';
 import 'package:prva/shared/loading.dart';
+import 'package:prva/show_detailed_profile.dart';
 
 //When we have the list of our "house profile", when clicking on one of them show this home page
 //in this home page we have the search option, which show all the people that are looking for an house
@@ -164,32 +165,29 @@ class ProfileLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final house = Provider.of<HouseProfile>(context);
-    return Center(
-        child: Column(
-      children: <Widget>[
-        SizedBox(height: 20.0),
-        Text(house.type, style: TextStyle(fontSize: 18.0)),
-        SizedBox(height: 20.0),
-        SizedBox(height: 20.0),
-        Text(house.address, style: TextStyle(fontSize: 18.0)),
-        SizedBox(height: 20.0),
-        SizedBox(height: 20.0),
-        Text(house.city, style: TextStyle(fontSize: 18.0)),
-        SizedBox(height: 20.0),
-        Text(house.price.toString(), style: TextStyle(fontSize: 18.0)),
-        SizedBox(height: 20.0),
-        ElevatedButton(
-          child: Text('Modifica'),
-          onPressed: () {
+    return Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                DetailedProfile(houseProfile: house),
+                ElevatedButton(
+                child: Text('Modifica'),
+                onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => ModifyHouseForm(house: house)),
             );
-          },
+               },
         )
       ],
-    ));
+    ))
+          )]);
   }
 }
 

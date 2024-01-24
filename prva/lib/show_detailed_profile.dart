@@ -8,21 +8,7 @@ class DetailedProfile extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
 
-    return Scaffold(
-     backgroundColor: Colors.white,
-            appBar: AppBar(
-                backgroundColor: Colors.black,
-        title: Text(
-          'Affinder',
-          style: TextStyle(color: Colors.black),
-        ),
-      ),
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
+    return Column(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [ 
@@ -108,11 +94,6 @@ class DetailedProfile extends StatelessWidget {
                     ),
                   ),
                 ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+              );
   }
 }
