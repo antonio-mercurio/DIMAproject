@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.prva</string>
+	<string>MRCNTN01PROVABUNDLE</string>
 	<key>PROJECT_ID</key>
 	<string>dimatest-fa192</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:36914786904:ios:7c005f1b34b84d6542502d</string>
+	<string>1:36914786904:ios:6f363360ea5fa55342502d</string>
 </dict>
 </plist>
