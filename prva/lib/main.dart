@@ -5,6 +5,7 @@ import 'package:prva/screens/provaMatch.dart';
 import 'package:prva/screens/wrapper.dart';
 import 'package:prva/services/auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+//import 'package:firebase_messaging/firebase_messaging.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -12,6 +13,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  //await FirebaseMessaging.instance.getInitialMessage();
   runApp(const MyApp());
 }
 
