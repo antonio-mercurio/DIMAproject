@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:prva/services/auth.dart';
+import 'package:prva/shared/constants.dart';
+import 'package:prva/shared/loading.dart';
 
 
 class ModelRegister {
@@ -13,9 +17,9 @@ class ModelRegister {
 }
 
 class LoginAdjPage extends StatefulWidget {
-  const LoginAdjPage({Key? key}) : super(key: key);
+  final Function toggleView;
+  LoginAdjPage({required this.toggleView});
  
-
   @override
   State<LoginAdjPage> createState() => _LoginAdjPageState();
 }
@@ -27,21 +31,54 @@ class _LoginAdjPageState extends State<LoginAdjPage> {
   }
 
   late ModelRegister _model;
+  
+  final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
+  bool loading = false;
+  String userID = '';
+  String email = '';
+  String password = '';
+  String confirmPassword ='';
+  String error = '';
 
   @override
   void initState() {
     super.initState();
     _model = createModelRegister(context);
     _model.initialSet();
-    
-
   }
 
   @override
   Widget build(BuildContext context) {
-   
-    return Scaffold(
-        backgroundColor: Colors.white,
+
+    return  loading
+        ? Loading()
+        : Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+                backgroundColor: Colors.black,
+                elevation: 0.0,
+                title: const Text('Affinder',
+                 textAlign: TextAlign.start,
+                                style: TextStyle(
+                                      fontFamily: 'Plus Jakarta Sans',
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    ),
+                actions: <Widget>[
+                  TextButton.icon(
+                      onPressed: () {
+                        widget.toggleView();
+                      },
+                      icon: Icon(Icons.person,
+                      color: Colors.white),
+                      label: Text('Sign In',
+                      style: TextStyle(
+                                      fontFamily: 'Plus Jakarta Sans',
+                                      color: Colors.white,
+                                    ),))
+                ]),
         body: SafeArea(
           top: true,
           child: Align(
@@ -71,12 +108,12 @@ class _LoginAdjPageState extends State<LoginAdjPage> {
                     padding: EdgeInsets.all(12),
                     child: Container(
                       width: double.infinity,
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         maxWidth: 570,
                       ),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             blurRadius: 4,
                             color: Color(0x33000000),
@@ -85,14 +122,16 @@ class _LoginAdjPageState extends State<LoginAdjPage> {
                         ],
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: Color(0xFFF1F4F8),
+                          color: const Color(0xFFF1F4F8),
                           width: 2,
                         ),
                       ),
-                      child: Align(
+                      child:Align(
                         alignment: AlignmentDirectional(0, 0),
+                        child: Form(
+                        key: _formKey,
                         child: Padding(
-                          padding: EdgeInsets.all(24),
+                          padding: const EdgeInsets.all(24),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,7 +146,7 @@ class _LoginAdjPageState extends State<LoginAdjPage> {
                                       fontWeight: FontWeight.w600,
                                     ),
                               ),
-                              Padding(
+                              const Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0, 12, 0, 24),
                                 child: Text(
@@ -123,7 +162,7 @@ class _LoginAdjPageState extends State<LoginAdjPage> {
                               ),
                               Padding(
                                 padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
+                                    const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
                                 child: Container(
                                   width: double.infinity,
                                   child: TextFormField(
@@ -174,6 +213,11 @@ class _LoginAdjPageState extends State<LoginAdjPage> {
                                           fontWeight: FontWeight.w500,
                                         ),
                                     keyboardType: TextInputType.emailAddress,
+                                  validator: (val) =>
+                            val!.isEmpty ? 'Enter an email' : null,
+                        onChanged: (val) {
+                          setState(() => email = val);
+                        }
                                   ),
                                 ),
                               ),
@@ -246,6 +290,12 @@ class _LoginAdjPageState extends State<LoginAdjPage> {
                                           fontSize: 16,
                                           fontWeight: FontWeight.w500,
                                         ),
+                                          validator: (val) => val!.length < 6
+                            ? 'Enter a password 6+ chars long'
+                            : null,
+                        onChanged: (val) {
+                          setState(() => password = val);
+                        }
                                   ),
                                 ),
                               ),
@@ -321,6 +371,12 @@ class _LoginAdjPageState extends State<LoginAdjPage> {
                                           fontSize: 16,
                                           fontWeight: FontWeight.w500,
                                         ),
+                                    validator: (val) => val!.length < 6
+                            ? 'Enter a password 6+ chars long'
+                            : null,
+                        onChanged: (val) {
+                          setState(() => confirmPassword = val);
+                        }
                                   ),
                                 ),
                               ),
@@ -330,7 +386,32 @@ class _LoginAdjPageState extends State<LoginAdjPage> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
                                   child:  ElevatedButton(
-                                  onPressed: () async {},
+                                  onPressed: () async {
+                                      if (password!= confirmPassword) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Passwords don\'t match!',
+                                            ),
+                                          ),
+                                        );
+                                        return;
+                                      }
+                          if (_formKey.currentState!.validate()) {
+                            print(email);
+                            print(password);
+                            setState(() => loading = true);
+                            dynamic result = await _auth
+                                .registerWithEmailAndPassword(email, password);
+                            if (result == null) {
+                              setState(() {
+                                error = 'invalid email';
+                                loading = false;
+                              });
+                            }
+                          }
+                        },
                                     child : Text('Get Started',
                                     style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
@@ -355,7 +436,7 @@ class _LoginAdjPageState extends State<LoginAdjPage> {
                               ),
                             
                           ),
-                        ),
+                        ),),
                     )   
            ),
           ]

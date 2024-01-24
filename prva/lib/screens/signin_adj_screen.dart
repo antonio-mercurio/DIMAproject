@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:prva/services/auth.dart';
+import 'package:prva/shared/constants.dart';
+import 'package:prva/shared/loading.dart';
 
 class ModelSigniIn {
 
@@ -13,9 +16,10 @@ class ModelSigniIn {
 }
 
 class SigniInAdjPage extends StatefulWidget {
-  const SigniInAdjPage({Key? key}) : super(key: key);
- 
+   final Function toggleView;
 
+  SigniInAdjPage({required this.toggleView});
+ 
   @override
   State<SigniInAdjPage> createState() => _SigniInAdjPageState();
 }
@@ -25,8 +29,13 @@ class _SigniInAdjPageState extends State<SigniInAdjPage> {
    ModelSigniIn createModelSigniIn(BuildContext context) {
     return ModelSigniIn();
   }
-
   late ModelSigniIn _model;
+  final AuthService _auth = AuthService();
+  final _scaffoldKey = GlobalKey<FormState>();
+  bool loading = false;
+  String email = '';
+  String password = '';
+  String error = '';
 
   @override
   void initState() {
@@ -38,8 +47,34 @@ class _SigniInAdjPageState extends State<SigniInAdjPage> {
   @override
   Widget build(BuildContext context) {
    
-    return Scaffold(
-        backgroundColor: Colors.white,
+    return  loading
+        ? Loading()
+        : Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+                backgroundColor: Colors.black,
+                elevation: 0.0,
+                title: const Text('Affinder',
+                 textAlign: TextAlign.start,
+                                style: TextStyle(
+                                      fontFamily: 'Plus Jakarta Sans',
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    ),
+                actions: <Widget>[
+                  TextButton.icon(
+                      onPressed: () {
+                        widget.toggleView();
+                      },
+                      icon: Icon(Icons.person,
+                      color: Colors.white),
+                      label: Text('Register',
+                      style: TextStyle(
+                                      fontFamily: 'Plus Jakarta Sans',
+                                      color: Colors.white,
+                                    ),))
+                ]),
         body: SafeArea(
           top: true,
           child: Align(
@@ -66,15 +101,15 @@ class _SigniInAdjPageState extends State<SigniInAdjPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(12),
                     child: Container(
                       width: double.infinity,
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         maxWidth: 570,
                       ),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             blurRadius: 4,
                             color: Color(0x33000000),
@@ -89,9 +124,11 @@ class _SigniInAdjPageState extends State<SigniInAdjPage> {
                       ),
                       child: Align(
                         alignment: AlignmentDirectional(0, 0),
+                        child: Form(
+                        key: _scaffoldKey,
                         child: Padding(
                           padding: EdgeInsets.all(24),
-                          child: Column(
+                          child: Column( 
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -172,6 +209,11 @@ class _SigniInAdjPageState extends State<SigniInAdjPage> {
                                           fontWeight: FontWeight.w500,
                                         ),
                                     keyboardType: TextInputType.emailAddress,
+                                     validator: (val) =>
+                            val!.isEmpty ? 'Enter an email' : null,
+                            onChanged: (val) {
+                                          setState(() => email = val);
+                                  }
                                   ),
                                 ),
                               ),
@@ -244,6 +286,12 @@ class _SigniInAdjPageState extends State<SigniInAdjPage> {
                                           fontSize: 16,
                                           fontWeight: FontWeight.w500,
                                         ),
+                                      validator: (val) => val!.length < 6
+                            ? 'Enter a password 6+ chars long'
+                            : null,
+                        onChanged: (val) {
+                          setState(() => password = val);
+                        }
                                   ),
                                 ),
                               ),
@@ -253,7 +301,20 @@ class _SigniInAdjPageState extends State<SigniInAdjPage> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
                                   child:  ElevatedButton(
-                                  onPressed: () async {},
+                                  onPressed: () async {
+                          if (_scaffoldKey.currentState!.validate()) {
+                            //print('valid');
+                            setState(() => loading = true);
+                            dynamic result = await _auth
+                                .signInWithEmailAndPassword(email, password);
+                            if (result == null) {
+                              setState(() {
+                                error = 'invalid credentials';
+                                loading = false;
+                              });
+                            }
+                          }
+                        },
                                     child : Text('Log in',
                                     style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
@@ -278,9 +339,8 @@ class _SigniInAdjPageState extends State<SigniInAdjPage> {
                               ),
                             
                           ),
-                        ),
-                    )   
-           ),
+                    ),),),
+                    )
           ]
     )
             ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:prva/screens/login/register.dart';
 import 'package:prva/screens/login/sign_in.dart';
+import 'package:prva/screens/login_adj_screen.dart';
+import 'package:prva/screens/signin_adj_screen.dart';
 
 class Authenticate extends StatefulWidget {
   @override
@@ -16,9 +18,9 @@ class _AuthenticateState extends State<Authenticate> {
   @override
   Widget build(BuildContext context) {
     if (showSignIn) {
-      return SignIn(toggleView: toggleView);
+      return SigniInAdjPage(toggleView: toggleView);
     } else {
-      return Register(toggleView: toggleView);
+      return LoginAdjPage(toggleView: toggleView);
     }
   }
 }

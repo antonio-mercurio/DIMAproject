@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       initialData: null,
       child: MaterialApp(
-        home: SigniInAdjPage(),
+        home: Wrapper(),
       ),
     );
   }
