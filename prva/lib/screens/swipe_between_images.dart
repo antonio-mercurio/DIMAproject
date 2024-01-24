@@ -1,28 +1,19 @@
 import 'package:flutter/material.dart';
-
-
-
+import 'package:prva/models/houseProfile.dart';
 
 class SwipeWidget extends StatelessWidget {
-  const SwipeWidget({Key? key});
 
-  @override
+  final HouseProfile houseProfile;
+
+  const SwipeWidget({super.key, required this.houseProfile});
+
  @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-     backgroundColor: Colors.black,
-            appBar: AppBar(
-                backgroundColor: Colors.black,
-        title: Text(
-          'Affinder',
-          style: TextStyle(color : Colors.white),
-        ),
-      ),
-      body: Column(children: <Widget>[
+    return Column(children: <Widget>[
         Container(
           width: double.infinity,
-          height: MediaQuery.sizeOf(context).height * 0.78,
+          height: MediaQuery.sizeOf(context).height * 0.72,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             image: DecorationImage(
@@ -51,7 +42,7 @@ class SwipeWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              height: 30,
+                              height: 24,
                               decoration: BoxDecoration(
                                 color: Color.fromARGB(134, 9, 9, 9),
                                 borderRadius: BorderRadius.circular(12),
@@ -61,9 +52,9 @@ class SwipeWidget extends StatelessWidget {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(12, 0, 8, 0),
                                 child: Text(
-                                  'Milano - Stanza Singola',
+                                   houseProfile.city +' - ' + houseProfile.type,
                                   style: TextStyle(color: Colors.white,
-                                  fontSize: 25,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.w500,
                                   fontFamily: 'Plus Jakarta Sans',
                                 ),
@@ -71,7 +62,6 @@ class SwipeWidget extends StatelessWidget {
                               ),          
                               ),
                               ],
-  
                       ),
                       ),
                       Padding(
@@ -81,7 +71,7 @@ class SwipeWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              height: 30,
+                              height: 22,
                               decoration: BoxDecoration(
                                 color: Color.fromARGB(134, 9, 9, 9),
                                 borderRadius: BorderRadius.circular(12),
@@ -91,9 +81,9 @@ class SwipeWidget extends StatelessWidget {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(12, 0, 8, 0),
                                 child: Text(
-                                  '500',
+                                  houseProfile.price.toString(),
                                   style: TextStyle(color: Colors.white,
-                                  fontSize: 22,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w500,
                                   fontFamily: 'Plus Jakarta Sans',
                                 ),
@@ -102,34 +92,15 @@ class SwipeWidget extends StatelessWidget {
                             ),
                           ],
                         )
+                        
                         ),
                     ],
                   ),
                 ),
               ),
         ),
-         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            IconButton(
-                icon: Icon(Icons.favorite_outline, size: MediaQuery.sizeOf(context).height * 0.05),
-                color: Colors.white,
-                onPressed: () async {
-                 
-                }),
-            SizedBox(width: MediaQuery.sizeOf(context).width * 0.2),
-            IconButton(
-                icon: Icon(Icons.close_outlined, size: MediaQuery.sizeOf(context).height * 0.05),
-                color: Colors.white,
-                onPressed: () async {
-                  
-                }),
-            const SizedBox(width: 8),
-          ],
-        ),
-    
+         
     ]
-    )
     );
   }
 }

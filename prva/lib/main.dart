@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/user.dart';
+import 'package:prva/screens/house_profile/homepage_house_profile.dart';
 import 'package:prva/screens/login_adj_screen.dart';
 import 'package:prva/screens/provaMatch.dart';
 import 'package:prva/screens/signin_adj_screen.dart';
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       initialData: null,
       child: MaterialApp(
-        home: Wrapper(),
+        home: Wrapper(),//SwipeWidget(houseProfile: HouseProfile(type: 'Stanza Singola', city: 'Milano', price: 500, address: 'Via Schipsrelli', owner: '', idHouse: '' )),
       ),
     );
   }

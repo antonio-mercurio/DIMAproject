@@ -48,31 +48,32 @@ class _userHomepageState extends State<userHomepage> {
     }
 
     return StreamProvider<PersonalProfile>.value(
-        value: DatabaseService(user!.uid).getMyPersonalProfile,
+        value: DatabaseService(user.uid).getMyPersonalProfile,
         initialData:
-            PersonalProfile(uid: user!.uid, name: '', surname: '', age: 0),
+            PersonalProfile(uid: user.uid, name: '', surname: '', age: 0),
         child: Scaffold(
-          backgroundColor: Colors.orange[50],
+          backgroundColor: Colors.white,
           appBar: AppBar(
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.black,
             title: Text('Personal page'),
             actions: <Widget>[
-              TextButton.icon(
-                icon: Icon(Icons.settings),
-                label: Text('Filters'),
+              IconButton(
+                icon: Icon(Icons.settings,
+                color: Colors.white),
                 onPressed: () async {
                   _showFiltersPanel();
                 },
               ),
-              TextButton.icon(
-                icon: Icon(Icons.notifications),
-                label: Text('Notifications'),
+             IconButton(
+                icon: Icon(Icons.notifications,
+                color: Colors.white),
                 onPressed: () {},
               ),
             ],
           ),
           body: _widgetOptions.elementAt(_selectedIndex),
           bottomNavigationBar: BottomNavigationBar(
+            iconSize:  MediaQuery.sizeOf(context).height * 0.03,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.search),
@@ -108,17 +109,6 @@ class _SearchLayoutState extends State<SearchLayout> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Utente>(context);
-    /*  void _showFiltersPanel() {
-      showModalBottomSheet(
-          context: context,
-          builder: (context) {
-            return Container(
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-              child: FiltersForm(),
-            );
-          });
-    }
-*/
     final retrievedFilters = DatabaseServiceFilters(user.uid).getFilters;
     retrievedFilters.listen((content) {
       filtri = Filters(

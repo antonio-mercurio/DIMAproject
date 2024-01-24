@@ -1,8 +1,10 @@
-
 import 'package:flutter/material.dart';
+import 'package:prva/models/houseProfile.dart';
 
 class DetailedProfile extends StatelessWidget {
-  const DetailedProfile({super.key});
+  final HouseProfile houseProfile;
+
+  const DetailedProfile({super.key, required this.houseProfile});
     @override
     Widget build(BuildContext context) {
 
@@ -27,7 +29,7 @@ class DetailedProfile extends StatelessWidget {
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
                     child: Text(
-                      'Stanza Singola',
+                      houseProfile.type,
                       style:TextStyle(fontSize: 22.0, 
                       color: Colors.black,
                       fontFamily: 'Plus Jakarta Sans',)
@@ -54,7 +56,7 @@ class DetailedProfile extends StatelessWidget {
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 0),
                     child: Text(
-                      'Milano',
+                      houseProfile.city,
                       style: TextStyle(fontSize: 18.0, 
                       color: Colors.black,
                       fontFamily: 'Plus Jakarta Sans',),
@@ -64,7 +66,7 @@ class DetailedProfile extends StatelessWidget {
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 0),
                     child: Text(
-                      'Via Schiaparelli 1',
+                      houseProfile.address,
                       style: TextStyle(fontSize: 16.0, 
                       color: Colors.black,
                       fontFamily: 'Plus Jakarta Sans'),
@@ -73,7 +75,7 @@ class DetailedProfile extends StatelessWidget {
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 0),
                     child: Text(
-                      'La casa è composta da 5 stanze e due bagni',
+                      "The house is composed ...",
                       style: TextStyle(fontSize: 16.0, 
                       color: Colors.black,
                       fontFamily: 'Plus Jakarta Sans'),
@@ -91,13 +93,13 @@ class DetailedProfile extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Prezzo:',
+                          'Price:',
                           style: TextStyle(fontSize: 20.0, 
                           color: Colors.black,
                           fontFamily: 'Plus Jakarta Sans'),
                         ),
                         Text(
-                          '500',
+                          houseProfile.price.toString(),
                           style: TextStyle(fontSize: 20.0, 
                           color: Colors.black,
                           fontFamily: 'Plus Jakarta Sans'),
