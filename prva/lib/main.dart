@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/user.dart';
+import 'package:prva/screens/login_adj_screen.dart';
 import 'package:prva/screens/provaMatch.dart';
+import 'package:prva/screens/signin_adj_screen.dart';
 import 'package:prva/screens/swipe_between_images.dart';
 import 'package:prva/screens/wrapper.dart';
 import 'package:prva/services/auth.dart';
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       initialData: null,
       child: MaterialApp(
-        home: SwipeWidget(),
+        home: SigniInAdjPage(),
       ),
     );
   }
