@@ -23,83 +23,53 @@ class SwipeWidget extends StatelessWidget {
                            ).image,
             ),
           ),
-             child: Container(
+             child:  Container(
                 width: double.infinity,
-                height: 500,
+                height: MediaQuery.sizeOf(context).height * 0.15,
                 decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color.fromARGB(255, 131, 130, 130), Color.fromARGB(0, 219, 225, 228) , Colors.black],
+                    stops: [0, 0.5, 1],
+                    begin: AlignmentDirectional(0, -1),
+                    end: AlignmentDirectional(0, 1),
+                  ),
                 ),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
+                  padding: EdgeInsets.all(16),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 12),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              height: 24,
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(134, 9, 9, 9),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              alignment: AlignmentDirectional(0.00, 0.00),
-                              child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(12, 0, 8, 0),
-                                child: Text(
-                                   houseProfile.city +' - ' + houseProfile.type,
-                                  style: TextStyle(color: Colors.white,
-                                  fontSize: 18,
+                      Text(
+                        '${houseProfile.city} - ${houseProfile.type}',
+                        style:
+                            TextStyle(
+                                  fontFamily: 'Outfit',
+                                  color: Colors.white,
+                                  fontSize: 25,
                                   fontWeight: FontWeight.w500,
-                                  fontFamily: 'Plus Jakarta Sans',
                                 ),
-                                ),
-                              ),          
-                              ),
-                              ],
                       ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 12),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              height: 22,
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(134, 9, 9, 9),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              alignment: AlignmentDirectional(0.00, 0.00),
-                              child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(12, 0, 8, 0),
-                                child: Text(
-                                  houseProfile.price.toString(),
-                                  style: TextStyle(color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'Plus Jakarta Sans',
+                      
+                         Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                          child: Text(
+                            houseProfile.price.toString(),
+                            style: TextStyle(
+                                  fontFamily: 'Readex Pro',
+                                  fontSize: 22,
+                                  color: Colors.white
                                 ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
-                        
+                          ),
                         ),
-                    ],
-                  ),
-                ),
-              ),
-        ),
+                      
          
+    ]
+    ),
+                ),
+             )
+        )
     ]
     );
   }

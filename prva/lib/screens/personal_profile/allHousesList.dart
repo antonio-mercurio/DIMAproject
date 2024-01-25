@@ -6,6 +6,7 @@ import 'package:prva/models/preference.dart';
 import 'package:prva/screens/swipe_between_images.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/match/match_service.dart';
+import 'package:prva/show_detailed_profile.dart';
 
 
 class AllHousesList extends StatefulWidget {
@@ -46,11 +47,10 @@ class _AllHousesListState extends State<AllHousesList> {
     if (houses.isEmpty) {
       return Center(
         child: Text('non ci sono case da visualizzare',
-         style: TextStyle(color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'Plus Jakarta Sans',
-                                ),
+         style: TextStyle(fontFamily: 'Outfit',
+                                  color: Colors.black,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w500)
         ),
       );
     } else {
@@ -73,7 +73,7 @@ class _AllHousesListState extends State<AllHousesList> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             IconButton(
-                icon: Icon(Icons.favorite_outline),//size: MediaQuery.sizeOf(context).height * 0.05),
+                icon: Icon(Icons.favorite_outline , size: MediaQuery.sizeOf(context).height * 0.04),
                 color: Colors.black,
                 onPressed: () async {
                   /* Put like */
@@ -85,21 +85,57 @@ class _AllHousesListState extends State<AllHousesList> {
                   await MatchService().checkMatch(
                       myUser.uid, houses[0].idHouse, preferencesOther);
                 }),
-             SizedBox(width: MediaQuery.sizeOf(context).width * 0.2),
+             SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
             IconButton(
-                icon: Icon(Icons.close_outlined), //size: MediaQuery.sizeOf(context).height * 0.05),
+                icon: Icon(Icons.close_outlined, size: MediaQuery.sizeOf(context).height * 0.04),
                 color: Colors.black,
                 onPressed: () async {
                   await MatchService()
                       .putPrefence(myUser.uid, houses[0].idHouse, "dislike");
                 }),
-            const SizedBox(width: 8),
+            SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
+            IconButton(
+                icon: Icon(Icons.info,  size: MediaQuery.sizeOf(context).height * 0.04),
+                color: Colors.black,
+                onPressed: () {
+                   Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ViewProfile(houseProfile: houses[0])),
+            );
+                }),
+          
           ],
         ),
       ]);
     }
   }
 }
+
+class ViewProfile extends StatelessWidget{
+  final HouseProfile houseProfile;
+
+  const ViewProfile({super.key, required this.houseProfile});
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            backgroundColor: Colors.black),
+          body : Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [Expanded(
+            child: SingleChildScrollView(
+              child: DetailedProfile(houseProfile: houseProfile),
+            )
+          )
+        ]
+          )
+    );
+  }
+}
+
 
 class AllHousesTiles extends StatelessWidget {
   final HouseProfile house;

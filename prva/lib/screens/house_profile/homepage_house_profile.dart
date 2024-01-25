@@ -65,9 +65,9 @@ class _HouseProfSelState extends State<HouseProfSel> {
         initialData: HouseProfile(
             type: '', address: '', city: '', price: 0, owner: '', idHouse: ''),
         child: Scaffold(
-          backgroundColor: Colors.orange[50],
+          backgroundColor: Colors.white,
           appBar: AppBar(
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.black,
             title: Text('Personal page'),
             actions: <Widget>[
               TextButton.icon(
@@ -156,6 +156,7 @@ class _SearchLayoutState extends State<SearchLayout> {
         value: DatabaseService(house.idHouse).getFilteredProfile(filtri),
         initialData: [],
         child: Scaffold(
+          backgroundColor: Colors.black,
           body: AllProfilesList(house: house),
         ));
   }
