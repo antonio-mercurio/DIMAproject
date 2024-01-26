@@ -395,11 +395,11 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                     return ChoiceChip(
                                     label: Text(optionsGender[index]),
                                     labelStyle: TextStyle(fontFamily: 'Readex Pro',
-                                    color: const Color.fromARGB(255, 89, 89, 89)) ,
+                                    color: Colors.white) ,
                                     selected: _valueGender == index,
                                     selectedColor: Color(0xFF4B39EF),
                                     showCheckmark: false,
-                                    iconTheme: IconThemeData(color: Colors.grey,
+                                    iconTheme: IconThemeData(color: const Color.fromARGB(255, 62, 60, 60),
                                      size: 18,    
                                     ),
                                     onSelected: (bool selected) {
@@ -497,11 +497,11 @@ Padding(
                                     return ChoiceChip(
                                     label: Text(optionsEmployement[index]),
                                     labelStyle: TextStyle(fontFamily: 'Readex Pro',
-                                    color: const Color.fromARGB(255, 89, 89, 89)) ,
+                                    color: Colors.white) ,
                                     selected: _valueEmployement == index,
                                     selectedColor: Color(0xFF4B39EF),
                                     showCheckmark: false,
-                                    iconTheme: IconThemeData(color: Colors.grey,
+                                    iconTheme: IconThemeData(color: const Color.fromARGB(255, 62, 60, 60),
                                      size: 18,    
                                     ),
                                     onSelected: (bool selected) {

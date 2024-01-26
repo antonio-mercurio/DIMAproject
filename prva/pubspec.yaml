@@ -46,6 +46,7 @@ dependencies:
   image_picker_ios: ^0.8.9+1
   path: ^1.8.3
   date_field: ^4.0.1
+  flutter_multi_slider: ^2.0.0
  
  
 
