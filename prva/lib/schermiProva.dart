@@ -15,7 +15,8 @@ class SchermiProva /*extends StatefulWidget {
 
 // https://www.youtube.com/watch?v=u52TWx41oU4
 //for multiple images: https://stackoverflow.com/questions/63513002/how-can-i-upload-multiple-images-to-firebase-in-flutter-and-get-all-their-downlo
-class _SchermiProvaState  extends State<SchermiProva> */ {
+class _SchermiProvaState  extends State<SchermiProva> */
+{
   String imageUrl = '';
   /*final metadata = SettableMetadata(customMetadata: {
     'uploaded_by': 'gnegno',
@@ -36,7 +37,7 @@ class _SchermiProvaState  extends State<SchermiProva> */ {
     );
   }
 */
-  Future uploadFile() async {
+  Future<String> uploadFile() async {
     //1: pick image
     ImagePicker imagePicker = ImagePicker();
     XFile? file = await imagePicker.pickImage(source: ImageSource.gallery);
