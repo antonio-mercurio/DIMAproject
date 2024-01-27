@@ -50,7 +50,7 @@ class _userHomepageState extends State<userHomepage> {
     return StreamProvider<PersonalProfileAdj>.value(
         value: DatabaseService(user.uid).persProfileDataAdj,
         initialData:
-            PersonalProfileAdj(uidA: user.uid, nameA: '', surnameA: '', birthDate: DateTime.now(), description: "", gender: "",
+            PersonalProfileAdj(uidA: user.uid, nameA: '', surnameA: '', description: "", gender: "",
             employment: "", imageURLs: []),
         child: Scaffold(
           backgroundColor: Colors.white,
@@ -148,7 +148,6 @@ class ProfileLayout extends StatelessWidget {
         SizedBox(height: 20.0),
         Text(personalData.surnameA, style: TextStyle(fontSize: 18.0)),
         SizedBox(height: 20.0),
-        Text(personalData.birthDate.toString(), style: TextStyle(fontSize: 18.0)),
         ElevatedButton(
           child: Text('Update'),
           onPressed: () {

@@ -23,11 +23,10 @@ class DatabaseService {
     });
   }
 
-  Future updatePersonalProfileAdj(String name, String surname, String description, DateTime birthDate, String gender, String employment, List<String> imageURLs)async {
+  Future updatePersonalProfileAdj(String name, String surname, String description,String gender, String employment, List<String> imageURLs)async {
     return await persProfileCollection.doc(uid).set({
       'name': name,
       'surname': surname,
-      'birthdate' : birthDate,
       'description': description,
       'gender': gender,
       'employment': employment,
@@ -74,7 +73,6 @@ class DatabaseService {
       nameA: snapshot.get('name') ?? "prova",
       surnameA: snapshot.get('surname') ?? "",
       description: snapshot.get('description') ?? "",
-      birthDate: snapshot.get('birthdate') ?? null,
       gender: snapshot.get('gender') ?? "",
       employment: snapshot.get('employment') ?? "",
       imageURLs: ["ok"],

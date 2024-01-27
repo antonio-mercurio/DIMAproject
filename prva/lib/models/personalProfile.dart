@@ -16,11 +16,10 @@ class PersonalProfileAdj {
   final String nameA;
   final String surnameA;
   final String description;
-  final DateTime birthDate; 
   final String gender;
   final String employment;
   final List<String> imageURLs;
 
-  PersonalProfileAdj({required this.uidA, required this.nameA, required this.surnameA, required this.description, required this.birthDate, required this.gender, required this.employment, required this.imageURLs});
+  PersonalProfileAdj({required this.uidA, required this.nameA, required this.surnameA, required this.description, required this.gender, required this.employment, required this.imageURLs});
 
 }

@@ -22,7 +22,7 @@ class WrapperCreationProfile extends StatelessWidget {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Loading();
               }
-              if (snapshot.hasData) {
+              if (!snapshot.hasData) {
                 return FormPersonalProfileAdj();
               } else {
                 return userHomepage();

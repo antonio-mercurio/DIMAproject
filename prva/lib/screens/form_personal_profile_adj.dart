@@ -959,7 +959,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                               if(imageURLs[0]!='' && imageURLs[0]!='' && imageURLs[0]!='' && imageURLs[0]!=''){
 
                            await DatabaseService(user.uid).updatePersonalProfileAdj(
-                            _name ?? '', _surname ?? '', _description ?? '', _birthDate ?? DateTime.now(),optionsGender[_valueGender ?? 1] ,optionsEmployement[_valueEmployement ?? 1], imageURLs);
+                            _name ?? '', _surname ?? '', _description ?? '',optionsGender[_valueGender ?? 1] ,optionsEmployement[_valueEmployement ?? 1], imageURLs);
                            await DatabaseServiceFilters(user.uid)
                             .updateFilters('any', 'any', 0);
                                
