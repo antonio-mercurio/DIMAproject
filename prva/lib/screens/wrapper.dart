@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/user.dart';
+import 'package:prva/screens/form_personal_profile_adj.dart';
 import 'package:prva/screens/home/home.dart';
 import 'package:prva/screens/login/authenticate.dart';
 import 'package:prva/screens/provaMatch.dart';
@@ -13,7 +14,7 @@ class Wrapper extends StatelessWidget {
     if (utente == null) {
       return Authenticate();
     } else {
-      return Home();
+      return FormPersonalProfileAdj();
     }
   }
 }
