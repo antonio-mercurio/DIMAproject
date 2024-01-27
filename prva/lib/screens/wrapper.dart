@@ -7,6 +7,8 @@ import 'package:prva/screens/login/authenticate.dart';
 import 'package:prva/screens/provaMatch.dart';
 
 class Wrapper extends StatelessWidget {
+  const Wrapper({super.key});
+
   @override
   Widget build(BuildContext context) {
     final utente = Provider.of<Utente?>(context);
@@ -14,7 +16,7 @@ class Wrapper extends StatelessWidget {
     if (utente == null) {
       return Authenticate();
     } else {
-      return FormPersonalProfileAdj();
+      return Home();
     }
   }
 }

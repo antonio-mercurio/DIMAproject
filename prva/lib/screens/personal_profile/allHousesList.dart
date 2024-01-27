@@ -22,10 +22,10 @@ class _AllHousesListState extends State<AllHousesList> {
 
   @override
   Widget build(BuildContext context) {
-    final myProfile = Provider.of<PersonalProfile>(context);
+    final myProfile = Provider.of<PersonalProfileAdj>(context);
 
     final retrievedAlreadySeenHouses =
-        DatabaseService(myProfile.uid).getAlreadySeenProfile;
+        DatabaseService(myProfile.uidA).getAlreadySeenProfile;
     retrievedAlreadySeenHouses.listen((content) {
       alreadySeenHouses = content;
       //print(alreadySeenProfiles?.length);
@@ -54,7 +54,7 @@ class _AllHousesListState extends State<AllHousesList> {
         ),
       );
     } else {
-      final myUser = Provider.of<PersonalProfile>(context);
+      final myUser = Provider.of<PersonalProfileAdj>(context);
       /* capire se continua a fare tutte queste read quando sistemiamo la grafica finale */
       final retrievedPreferences =
           MatchService(uid: houses[0].idHouse).getPreferencesForMatch;
@@ -79,11 +79,11 @@ class _AllHousesListState extends State<AllHousesList> {
                   /* Put like */
                   //print("like");
                   await MatchService()
-                      .putPrefence(myUser.uid, houses[0].idHouse, "like");
+                      .putPrefence(myUser.uidA, houses[0].idHouse, "like");
                   //print("dopo aver messo la preferenza");
 
                   await MatchService().checkMatch(
-                      myUser.uid, houses[0].idHouse, preferencesOther);
+                      myUser.uidA, houses[0].idHouse, preferencesOther);
                 }),
              SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
             IconButton(
@@ -91,7 +91,7 @@ class _AllHousesListState extends State<AllHousesList> {
                 color: Colors.black,
                 onPressed: () async {
                   await MatchService()
-                      .putPrefence(myUser.uid, houses[0].idHouse, "dislike");
+                      .putPrefence(myUser.uidA, houses[0].idHouse, "dislike");
                 }),
             SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
             IconButton(

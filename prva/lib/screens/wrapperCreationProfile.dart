@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/user.dart';
+import 'package:prva/screens/form_personal_profile_adj.dart';
 import 'package:prva/screens/personal_profile/userHomepage.dart';
 import 'package:prva/screens/login/createProfile.dart';
 import 'package:prva/services/database.dart';
@@ -13,17 +14,16 @@ class WrapperCreationProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Utente>(context);
-    print(user);
 
     return Scaffold(
-        body: StreamBuilder<PersonalProfile>(
-            stream: DatabaseService(user!.uid).persProfileData,
+        body: StreamBuilder<PersonalProfileAdj>(
+            stream: DatabaseService(user.uid).persProfileDataAdj,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Loading();
+                return const Loading();
               }
-              if (!snapshot.hasData) {
-                return CreatePersonalProfile();
+              if (snapshot.hasData) {
+                return FormPersonalProfileAdj();
               } else {
                 return userHomepage();
               }

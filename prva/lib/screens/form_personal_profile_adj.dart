@@ -3,6 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/user.dart';
 import 'package:prva/schermiProva.dart';
+import 'package:prva/services/database.dart';
+import 'package:prva/services/databaseForFilters.dart';
 import 'package:prva/shared/loading.dart'; // for date formatting
 
 class FormPersonalProfileAdj extends StatefulWidget {
@@ -13,7 +15,7 @@ class FormPersonalProfileAdj extends StatefulWidget {
 }
 
 class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
-  int? _valueGender = 1;
+  int?  _valueGender = 1;
   int? _valueEmployement = 1;
   List<String> optionsGender = ['male', 'female', 'other'];
   List<String> optionsEmployement = ['student', 'worker'];
@@ -23,7 +25,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
   DateTime? _birthDate;
   late List<String> imageURLs;
   // controller for the textfield
-  TextEditingController _dateController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
 
   void _selectDate(BuildContext context) async {
     // get the initial date
@@ -63,7 +65,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
   Widget build(BuildContext context) {
     final user = Provider.of<Utente?>(context);
     if (user == null) {
-      return Loading();
+      return const Loading();
     } else {
       return Scaffold(
         backgroundColor: Colors.white,
@@ -83,7 +85,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0, -1),
+            alignment: const AlignmentDirectional(0, -1),
             child: SingleChildScrollView(
               child: Form(
                 key: scaffoldKey,
@@ -92,15 +94,15 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 32, 0, 32),
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 32, 0, 32),
                       child: Container(
                         width: double.infinity,
                         height: 48,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
                         ),
-                        alignment: AlignmentDirectional(0, 0),
-                        child: Text(
+                        alignment: const AlignmentDirectional(0, 0),
+                        child: const Text(
                           'Create your profile',
                           style: TextStyle(
                             fontFamily: 'Plus Jakarta Sans',
@@ -141,7 +143,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
+                                const Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 12, 0, 24),
                                   child: Text(
@@ -438,15 +440,15 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(12),
                       child: Container(
                         width: double.infinity,
-                        constraints: BoxConstraints(
+                        constraints: const BoxConstraints(
                           maxWidth: 570,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                               blurRadius: 4,
                               color: Color(0x33000000),
@@ -455,19 +457,19 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                           ],
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: Color(0xFFF1F4F8),
+                            color: const Color(0xFFF1F4F8),
                             width: 2,
                           ),
                         ),
                         child: Align(
-                          alignment: AlignmentDirectional(0, 0),
+                          alignment: const AlignmentDirectional(0, 0),
                           child: Padding(
-                            padding: EdgeInsets.all(24),
+                            padding: const EdgeInsets.all(24),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
+                                const Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 12, 0, 24),
                                   child: Text(
@@ -481,7 +483,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                     ),
                                   ),
                                 ),
-                                Padding(
+                                const Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
                                   child: Row(
@@ -504,7 +506,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                     Expanded(
                                       child: Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0, 0, 0, 16),
                                           child: Wrap(
                                             alignment:
@@ -517,16 +519,16 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                                   label: Text(
                                                       optionsEmployement[
                                                           index]),
-                                                  labelStyle: TextStyle(
+                                                  labelStyle: const TextStyle(
                                                       fontFamily: 'Readex Pro',
                                                       color: Colors.white),
                                                   selected: _valueEmployement ==
                                                       index,
                                                   selectedColor:
-                                                      Color(0xFF4B39EF),
+                                                      const Color(0xFF4B39EF),
                                                   showCheckmark: false,
-                                                  iconTheme: IconThemeData(
-                                                    color: const Color.fromARGB(
+                                                  iconTheme: const IconThemeData(
+                                                    color: Color.fromARGB(
                                                         255, 62, 60, 60),
                                                     size: 18,
                                                   ),
@@ -546,18 +548,18 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                   ],
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
                                   child: Container(
                                     width: double.infinity,
                                     child: TextFormField(
                                       maxLines: 4,
                                       autofocus: true,
-                                      autofillHints: [AutofillHints.name],
+                                      autofillHints: const [AutofillHints.name],
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelText: 'Description',
-                                        labelStyle: TextStyle(
+                                        labelStyle: const TextStyle(
                                           fontFamily: 'Plus Jakarta Sans',
                                           color: Color(0xFF57636C),
                                           fontSize: 16,
@@ -565,7 +567,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                         ),
                                         hintText: 'Description',
                                         enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                             color: Color(0xFFE0E3E7),
                                             width: 2,
                                           ),
@@ -573,7 +575,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                               BorderRadius.circular(40),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                             color: Color(0xFF4B39EF),
                                             width: 2,
                                           ),
@@ -581,7 +583,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                               BorderRadius.circular(40),
                                         ),
                                         errorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                             color: Color(0xFFFF5963),
                                             width: 2,
                                           ),
@@ -589,7 +591,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                               BorderRadius.circular(40),
                                         ),
                                         focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                             color: Color(0xFFFF5963),
                                             width: 2,
                                           ),
@@ -598,9 +600,9 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                         ),
                                         filled: true,
                                         fillColor: Colors.white,
-                                        contentPadding: EdgeInsets.all(24),
+                                        contentPadding: const EdgeInsets.all(24),
                                       ),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
                                         color: Color(0xFF101213),
                                         fontSize: 16,
@@ -611,7 +613,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                           ? 'Please enter description'
                                           : null,
                                       onChanged: (val) =>
-                                          setState(() => _surname = val),
+                                          setState(() => _description = val),
                                     ),
                                   ),
                                 ),
@@ -622,10 +624,10 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(12),
                       child: Container(
                         width: double.infinity,
-                        constraints: BoxConstraints(
+                        constraints: const BoxConstraints(
                           maxWidth: 570,
                         ),
                         decoration: BoxDecoration(
@@ -644,14 +646,14 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                           ),
                         ),
                         child: Align(
-                          alignment: AlignmentDirectional(0, 0),
+                          alignment: const AlignmentDirectional(0, 0),
                           child: Padding(
-                            padding: EdgeInsets.all(24),
+                            padding: const EdgeInsets.all(24),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
+                                const Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 12, 0, 24),
                                   child: Text(
@@ -665,7 +667,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                     ),
                                   ),
                                 ),
-                                Padding(
+                                const Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
                                   child: Row(
@@ -679,7 +681,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -696,8 +698,6 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                               imageURLs[0] =
                                                   await SchermiProva()
                                                       .uploadFile();
-                                              print('formADJ680');
-                                              print(imageURLs[0]);
                                               if (mounted) {
                                                 setState(() {});
                                               }
@@ -740,8 +740,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                           child: imageURLs.elementAt(0).isEmpty
                                               ? null
                                               : IconButton(
-                                                  icon: Icon(Icons.close),
-                                                  color: Color(0xFFFF5963),
+                                                  icon: const Icon(Icons.close),
+                                                  color: const Color(0xFFFF5963),
                                                   onPressed: () {},
                                                 ),
                                         ),
@@ -750,19 +750,65 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                           width:
                                               MediaQuery.sizeOf(context).width *
                                                   0.05),
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(8),
-                                        child: Image.network(
-                                          'https://picsum.photos/seed/536/600',
-                                          width:
-                                              MediaQuery.sizeOf(context).width *
-                                                  0.30,
-                                          height: MediaQuery.sizeOf(context)
-                                                  .height *
-                                              0.20,
-                                          fit: BoxFit.cover,
+                                     Column(children: [
+                                        InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            if (imageURLs[1].isEmpty) {
+                                              imageURLs[1] =
+                                                  await SchermiProva()
+                                                      .uploadFile();
+                                              if (mounted) {
+                                                setState(() {});
+                                              }
+                                            }
+                                          },
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            child: imageURLs
+                                                    .elementAt(1)
+                                                    .isEmpty
+                                                ? Image.asset(
+                                                    'assets/userPhoto.jpg',
+                                                    width: MediaQuery.sizeOf(
+                                                                context)
+                                                            .width *
+                                                        0.30,
+                                                    height: MediaQuery.sizeOf(
+                                                                context)
+                                                            .height *
+                                                        0.20,
+                                                    fit: BoxFit.cover,
+                                                  )
+                                                : Image.network(
+                                                    imageURLs[1],
+                                                    width: MediaQuery.sizeOf(
+                                                                context)
+                                                            .width *
+                                                        0.30,
+                                                    height: MediaQuery.sizeOf(
+                                                                context)
+                                                            .height *
+                                                        0.20,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                          ),
                                         ),
-                                      ),
+                                        Align(
+                                          alignment: Alignment.topRight,
+                                          child: imageURLs.elementAt(1).isEmpty
+                                              ? null
+                                              : IconButton(
+                                                  icon: Icon(Icons.close),
+                                                  color: Color(0xFFFF5963),
+                                                  onPressed: () {},
+                                                ),
+                                        ),
+                                      ]),
                                     ],
                                   ),
                                 ),
@@ -770,36 +816,131 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(8),
-                                      child: Image.network(
-                                        'https://picsum.photos/seed/857/600',
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                0.30,
-                                        height:
-                                            MediaQuery.sizeOf(context).height *
-                                                0.20,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
+                                    Column(children: [
+                                        InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            if (imageURLs[2].isEmpty) {
+                                              imageURLs[2] =
+                                                  await SchermiProva()
+                                                      .uploadFile();
+                                              
+                                              if (mounted) {
+                                                setState(() {});
+                                              }
+                                            }
+                                          },
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            child: imageURLs
+                                                    .elementAt(2)
+                                                    .isEmpty
+                                                ? Image.asset(
+                                                    'assets/userPhoto.jpg',
+                                                    width: MediaQuery.sizeOf(
+                                                                context)
+                                                            .width *
+                                                        0.30,
+                                                    height: MediaQuery.sizeOf(
+                                                                context)
+                                                            .height *
+                                                        0.20,
+                                                    fit: BoxFit.cover,
+                                                  )
+                                                : Image.network(
+                                                    imageURLs[2],
+                                                    width: MediaQuery.sizeOf(
+                                                                context)
+                                                            .width *
+                                                        0.30,
+                                                    height: MediaQuery.sizeOf(
+                                                                context)
+                                                            .height *
+                                                        0.20,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                          ),
+                                        ),
+                                        Align(
+                                          alignment: Alignment.topRight,
+                                          child: imageURLs.elementAt(2).isEmpty
+                                              ? null
+                                              : IconButton(
+                                                  icon: Icon(Icons.close),
+                                                  color: Color(0xFFFF5963),
+                                                  onPressed: () {},
+                                                ),
+                                        ),
+                                      ]),
                                     SizedBox(
                                         width:
                                             MediaQuery.sizeOf(context).width *
                                                 0.05),
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(8),
-                                      child: Image.network(
-                                        'https://picsum.photos/seed/536/600',
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                0.30,
-                                        height:
-                                            MediaQuery.sizeOf(context).height *
-                                                0.20,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
+                                    Column(children: [
+                                        InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            if (imageURLs[3].isEmpty) {
+                                              imageURLs[3] =
+                                                  await SchermiProva()
+                                                      .uploadFile();
+                                              print('formADJ680');
+                                              print(imageURLs[0]);
+                                              if (mounted) {
+                                                setState(() {});
+                                              }
+                                            }
+                                          },
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            child: imageURLs
+                                                    .elementAt(3)
+                                                    .isEmpty
+                                                ? Image.asset(
+                                                    'assets/userPhoto.jpg',
+                                                    width: MediaQuery.sizeOf(
+                                                                context)
+                                                            .width *
+                                                        0.30,
+                                                    height: MediaQuery.sizeOf(
+                                                                context)
+                                                            .height *
+                                                        0.20,
+                                                    fit: BoxFit.cover,
+                                                  )
+                                                : Image.network(
+                                                    imageURLs[3],
+                                                    width: MediaQuery.sizeOf(
+                                                                context)
+                                                            .width *
+                                                        0.30,
+                                                    height: MediaQuery.sizeOf(
+                                                                context)
+                                                            .height *
+                                                        0.20,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                          ),
+                                        ),
+                                        Align(
+                                          alignment: Alignment.topRight,
+                                          child: imageURLs.elementAt(3).isEmpty
+                                              ? null
+                                              : IconButton(
+                                                  icon: Icon(Icons.close),
+                                                  color: Color(0xFFFF5963),
+                                                  onPressed: () {},
+                                                ),
+                                        ),
+                                      ]),
                                   ],
                                 ),
                               ],
@@ -809,29 +950,48 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(0, 0),
+                      alignment: const AlignmentDirectional(0, 0),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
                         child: ElevatedButton(
                           onPressed: () async {
-                            if (scaffoldKey.currentState!.validate()) {}
+                            if (scaffoldKey.currentState!.validate()) {
+                              if(imageURLs[0]!='' && imageURLs[0]!='' && imageURLs[0]!='' && imageURLs[0]!=''){
+
+                           await DatabaseService(user.uid).updatePersonalProfileAdj(
+                            _name ?? '', _surname ?? '', _description ?? '', _birthDate ?? DateTime.now(),optionsGender[_valueGender ?? 1] ,optionsEmployement[_valueEmployement ?? 1], imageURLs);
+                           await DatabaseServiceFilters(user.uid)
+                            .updateFilters('any', 'any', 0);
+                               
+                              }else{
+                                ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              'Insert the photos!',
+                                            ),
+                                          ),
+                                        );
+                                        return;
+                              }
+                            }
                           },
-                          child: Text(
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: const Size(230, 52),
+                            backgroundColor: Colors.black,
+                            elevation: 3.0,
+                            side: const BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
+                            ),
+                          ),
+                          child: const Text(
                             'Create',
                             style: TextStyle(
                               fontFamily: 'Plus Jakarta Sans',
                               color: Colors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: Size(230, 52),
-                            backgroundColor: Colors.black,
-                            elevation: 3.0,
-                            side: BorderSide(
-                              color: Colors.transparent,
-                              width: 1,
                             ),
                           ),
                         ),

@@ -47,10 +47,11 @@ class _userHomepageState extends State<userHomepage> {
           });
     }
 
-    return StreamProvider<PersonalProfile>.value(
-        value: DatabaseService(user.uid).getMyPersonalProfile,
+    return StreamProvider<PersonalProfileAdj>.value(
+        value: DatabaseService(user.uid).persProfileDataAdj,
         initialData:
-            PersonalProfile(uid: user.uid, name: '', surname: '', age: 0),
+            PersonalProfileAdj(uidA: user.uid, nameA: '', surnameA: '', birthDate: DateTime.now(), description: "", gender: "",
+            employment: "", imageURLs: []),
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -134,7 +135,7 @@ class _SearchLayoutState extends State<SearchLayout> {
 class ProfileLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final personalData = Provider.of<PersonalProfile>(context);
+    final personalData = Provider.of<PersonalProfileAdj>(context);
 
     //return ShowPersonalProfile();
 
@@ -143,21 +144,21 @@ class ProfileLayout extends StatelessWidget {
             child: Column(
       children: <Widget>[
         SizedBox(height: 20.0),
-        Text(personalData.name, style: TextStyle(fontSize: 18.0)),
+        Text(personalData.nameA, style: TextStyle(fontSize: 18.0)),
         SizedBox(height: 20.0),
-        Text(personalData.surname, style: TextStyle(fontSize: 18.0)),
+        Text(personalData.surnameA, style: TextStyle(fontSize: 18.0)),
         SizedBox(height: 20.0),
-        Text(personalData.age.toString(), style: TextStyle(fontSize: 18.0)),
+        Text(personalData.birthDate.toString(), style: TextStyle(fontSize: 18.0)),
         ElevatedButton(
           child: Text('Update'),
           onPressed: () {
-            Navigator.push(
+           /* Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => UpdatePersonalProfile(
                         personalProfile: personalData,
                       )),
-            );
+            );*/
           },
         ),
       ],

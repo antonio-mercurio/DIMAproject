@@ -5,6 +5,7 @@ import 'package:prva/models/personalProfile.dart';
 /* Service used for the update of the personal profile
 and to filter the personal profile */
 
+
 class DatabaseService {
   final String? uid;
   DatabaseService(this.uid);
@@ -12,6 +13,8 @@ class DatabaseService {
   final CollectionReference persProfileCollection =
       FirebaseFirestore.instance.collection('personalProfiles');
 
+
+/* Vecchio, da cancellare  riscritto*/
   Future updatePersonalProfile(String name, String surname, int age) async {
     return await persProfileCollection.doc(uid).set({
       'name': name,
@@ -19,6 +22,20 @@ class DatabaseService {
       'age': age,
     });
   }
+
+  Future updatePersonalProfileAdj(String name, String surname, String description, DateTime birthDate, String gender, String employment, List<String> imageURLs)async {
+    return await persProfileCollection.doc(uid).set({
+      'name': name,
+      'surname': surname,
+      'birthdate' : birthDate,
+      'description': description,
+      'gender': gender,
+      'employment': employment,
+      'imageURLs': imageURLs,
+    });
+  }
+
+  /* vecchio, da cancellare, riscritto */
 
   PersonalProfile _persProfileDataFromSnapshot(DocumentSnapshot snapshot) {
     return PersonalProfile(
@@ -28,6 +45,7 @@ class DatabaseService {
       age: snapshot.get('age') ?? 0,
     );
   }
+  /* da cancellare, riscritto */
 
   Stream<PersonalProfile> get getMyPersonalProfile {
     return persProfileCollection
@@ -36,6 +54,7 @@ class DatabaseService {
         .map((_persProfileDataFromSnapshot));
   }
 
+ 
   List<PersonalProfile> _allPersProfileDataFromSnapshot(
       QuerySnapshot snapshot) {
     return snapshot.docs.map<PersonalProfile>((doc) {
@@ -47,12 +66,41 @@ class DatabaseService {
     }).toList();
   }
 
+
+  PersonalProfileAdj _persProfileDataFromSnapshotAdj(DocumentSnapshot snapshot) {
+    print("ok, sto entrando nella nuova funzione");
+    return PersonalProfileAdj(
+      uidA: uid ?? "",
+      nameA: snapshot.get('name') ?? "prova",
+      surnameA: snapshot.get('surname') ?? "",
+      description: snapshot.get('description') ?? "",
+      birthDate: snapshot.get('birthdate') ?? null,
+      gender: snapshot.get('gender') ?? "",
+      employment: snapshot.get('employment') ?? "",
+      imageURLs: ["ok"],
+      );
+  }
+
+
+  /* vecchio, da cancellare */
   Stream<PersonalProfile> get persProfileData {
     return persProfileCollection
         .doc(uid)
         .snapshots()
         .map((_persProfileDataFromSnapshot));
   }
+
+
+  Stream<PersonalProfileAdj> get persProfileDataAdj {
+    print(uid);
+    print('ok sto accedendo');
+    return persProfileCollection
+        .doc(uid)
+        .snapshots()
+        .map((_persProfileDataFromSnapshotAdj));
+  }
+  
+
 
   /*Future updateUserData(String owner, String city, int cap) async {
     print('stampa prova');
