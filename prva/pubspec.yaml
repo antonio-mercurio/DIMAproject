@@ -49,6 +49,8 @@ dependencies:
   flutter_multi_slider: ^2.0.0
   google_maps_flutter: ^2.5.3
   google_places_flutter: ^2.0.7
+  geocoding_resolver: ^0.0.3+2
+
  
  
 
