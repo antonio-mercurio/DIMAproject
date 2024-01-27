@@ -1,6 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart'; // for date formatting
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:prva/models/user.dart';
+import 'package:prva/schermiProva.dart';
+import 'package:prva/shared/loading.dart'; // for date formatting
 
 class FormPersonalProfileAdj extends StatefulWidget {
   const FormPersonalProfileAdj({Key? key}) : super(key: key);
@@ -18,6 +22,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
   String? _surname;
   String? _description;
   DateTime? _birthDate;
+  late List<String> imageURLs;
   // controller for the textfield
   TextEditingController _dateController = TextEditingController();
 
@@ -49,10 +54,19 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
   }
   
   final scaffoldKey = GlobalKey<FormState>();
+   @override
+  void initState() {
+    super.initState();
+    imageURLs=['', '', '', ''];
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    
+    final user = Provider.of<Utente?>(context);
+    if (user == null) {
+      return Loading();
+    } else {
     return Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
@@ -131,7 +145,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 12, 0, 24),
                                     child: Text(
-                                      'Start with you personal data',
+                                      'Start with your personal data',
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
                                             fontFamily: 'Plus Jakarta Sans',
@@ -393,6 +407,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                         3,
                                      (int index) {
                                     return ChoiceChip(
+                                      backgroundColor: Colors.grey,
                                     label: Text(optionsGender[index]),
                                     labelStyle: TextStyle(fontFamily: 'Readex Pro',
                                     color: Colors.white) ,
@@ -495,6 +510,7 @@ Padding(
                                         2,
                                      (int index) {
                                     return ChoiceChip(
+                                      backgroundColor: Colors.grey,
                                     label: Text(optionsEmployement[index]),
                                     labelStyle: TextStyle(fontFamily: 'Readex Pro',
                                     color: Colors.white) ,
@@ -640,7 +656,7 @@ Padding(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Pick four photo for your profile!',
+                    'Pick some photos for your profile!',
                   ),
                 ],
               ),
@@ -651,24 +667,49 @@ Padding(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Column(
+                    children: [
                   InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                     
+                      if( imageURLs[0].isEmpty){
+                     imageURLs[0] = await SchermiProva().uploadFile();
+                     print(imageURLs[0]);
+                      }
                     },
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        'https://picsum.photos/seed/857/600',
+                      child: imageURLs.elementAt(0).isEmpty 
+                      ? Image.asset('assets/userPhoto.jpg',
+                      width: MediaQuery.sizeOf(context).width * 0.30,
+                        height: MediaQuery.sizeOf(context).height * 0.20,
+                        fit: BoxFit.cover,
+                      )
+                      : Image.network(
+                        imageURLs[0],
                         width: MediaQuery.sizeOf(context).width * 0.30,
                         height: MediaQuery.sizeOf(context).height * 0.20,
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
+                  
+                Align(
+                 alignment: Alignment.topRight,
+                 child:
+                imageURLs.elementAt(0).isEmpty ? null 
+                : IconButton(
+                icon: Icon(Icons.close),
+                color: Color(0xFFFF5963),
+                   onPressed: (){
+
+                          },
+                      ),
+                    ),
+                  ]),
                    SizedBox(width: MediaQuery.sizeOf(context).width * 0.05),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
@@ -751,5 +792,6 @@ Padding(
           ),
         ),
     );
+    }
   }
 }
