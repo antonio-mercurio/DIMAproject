@@ -20,7 +20,9 @@ class WrapperCreationProfile extends StatelessWidget {
             stream: DatabaseService(user.uid).persProfileDataAdj,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
+                print('sono qui');
                 return const Loading();
+                
               }
               if (!snapshot.hasData) {
                 return FormPersonalProfileAdj();

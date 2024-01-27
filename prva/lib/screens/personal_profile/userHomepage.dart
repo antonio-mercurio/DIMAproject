@@ -51,7 +51,7 @@ class _userHomepageState extends State<userHomepage> {
         value: DatabaseService(user.uid).persProfileDataAdj,
         initialData:
             PersonalProfileAdj(uidA: user.uid, nameA: '', surnameA: '', description: "", gender: "",
-            employment: "", imageURLs: []),
+            employment: "", day: 0, month: 0, year: 0, imageURL1: '', imageURL2: '', imageURL3: '', imageURL4: ''),
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -110,7 +110,9 @@ class _SearchLayoutState extends State<SearchLayout> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Utente>(context);
+    try{
     final retrievedFilters = DatabaseServiceFilters(user.uid).getFilters;
+    
     retrievedFilters.listen((content) {
       filtri = Filters(
           userID: content.userID,
@@ -121,7 +123,10 @@ class _SearchLayoutState extends State<SearchLayout> {
         setState(() {});
       }
     });
-
+    }catch(e){
+      print(e);
+      filtri = null;
+    }
     return StreamProvider<List<HouseProfile>>.value(
         //value: DatabaseServiceHouseProfile(user.uid).getAllHouses,
         value: DatabaseServiceHouseProfile(user.uid).getFilteredHouses(filtri),

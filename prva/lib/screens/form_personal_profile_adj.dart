@@ -24,6 +24,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
   String? _description;
   DateTime? _birthDate;
   late List<String> imageURLs;
+  bool loading = false;
   // controller for the textfield
   final TextEditingController _dateController = TextEditingController();
 
@@ -67,7 +68,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
     if (user == null) {
       return const Loading();
     } else {
-      return Scaffold(
+      return loading ? Loading()
+      : Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.black,
@@ -956,13 +958,18 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                         child: ElevatedButton(
                           onPressed: () async {
                             if (scaffoldKey.currentState!.validate()) {
-                              if(imageURLs[0]!='' && imageURLs[0]!='' && imageURLs[0]!='' && imageURLs[0]!=''){
-
-                           await DatabaseService(user.uid).updatePersonalProfileAdj(
-                            _name ?? '', _surname ?? '', _description ?? '',optionsGender[_valueGender ?? 1] ,optionsEmployement[_valueEmployement ?? 1], imageURLs);
-                           await DatabaseServiceFilters(user.uid)
+                              if(imageURLs[0]!='' /*&& imageURLs[0]!='' && imageURLs[0]!='' && imageURLs[0]!=''*/){
+                                 setState(() => loading = true);
+                            
+                             await DatabaseServiceFilters(user.uid)
                             .updateFilters('any', 'any', 0);
+
+                           await DatabaseService(user.uid).updatePersonalProfileAdj(  
+                            _name ?? '', _surname ?? '', _description ?? '',optionsGender[_valueGender ?? 1] ,
+                            optionsEmployement[_valueEmployement ?? 1], _birthDate!.day, 
+                            _birthDate!.month, _birthDate!.year, imageURLs[0], imageURLs[1], imageURLs[2],imageURLs[3]);
                                
+                            
                               }else{
                                 ScaffoldMessenger.of(context)
                                             .showSnackBar(

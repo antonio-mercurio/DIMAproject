@@ -6,7 +6,7 @@ import 'package:prva/models/user.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/shared/constants.dart';
 import 'package:prva/shared/loading.dart';
-
+/*
 class PersonalProfileForm extends StatefulWidget {
   const PersonalProfileForm({super.key});
 
@@ -88,3 +88,4 @@ class _PersonalProfileFormState extends State<PersonalProfileForm> {
     );
   }
 }
+*/

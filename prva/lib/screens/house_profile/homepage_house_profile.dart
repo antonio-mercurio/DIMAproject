@@ -152,13 +152,13 @@ class _SearchLayoutState extends State<SearchLayout> {
     //print(filtri?.maxAge.toString());
     //print(filtri?.minAge.toString());
 
-    return StreamProvider<List<PersonalProfile>>.value(
+    return Scaffold(); /*StreamProvider<List<PersonalProfile>>.value(
         value: DatabaseService(house.idHouse).getFilteredProfile(filtri),
         initialData: [],
         child: Scaffold(
           backgroundColor: Colors.black,
           body: AllProfilesList(house: house),
-        ));
+        ));*/
   }
 }
 

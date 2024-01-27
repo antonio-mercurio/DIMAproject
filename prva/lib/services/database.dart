@@ -23,19 +23,27 @@ class DatabaseService {
     });
   }
 
-  Future updatePersonalProfileAdj(String name, String surname, String description,String gender, String employment, List<String> imageURLs)async {
+  Future updatePersonalProfileAdj(String name, String surname, String description,String gender, String employment, int day, int month, int year, 
+  String imageURL1, String imageURL2, String imageURL3, String imageURL4) async {
     return await persProfileCollection.doc(uid).set({
       'name': name,
       'surname': surname,
       'description': description,
       'gender': gender,
       'employment': employment,
-      'imageURLs': imageURLs,
+      'day': day,
+      'month': month,
+      'year': year,
+      'imageURL1': imageURL1,
+      'imageURL2' : imageURL2,
+      'imageURL3': imageURL3,
+      'imageURL4' : imageURL4,
+
     });
   }
 
   /* vecchio, da cancellare, riscritto */
-
+/*
   PersonalProfile _persProfileDataFromSnapshot(DocumentSnapshot snapshot) {
     return PersonalProfile(
       uid: uid ?? "",
@@ -43,9 +51,9 @@ class DatabaseService {
       surname: snapshot.get('surname') ?? "",
       age: snapshot.get('age') ?? 0,
     );
-  }
+  }*/
   /* da cancellare, riscritto */
-
+/*
   Stream<PersonalProfile> get getMyPersonalProfile {
     return persProfileCollection
         .doc(uid)
@@ -53,7 +61,8 @@ class DatabaseService {
         .map((_persProfileDataFromSnapshot));
   }
 
- 
+ */
+/*
   List<PersonalProfile> _allPersProfileDataFromSnapshot(
       QuerySnapshot snapshot) {
     return snapshot.docs.map<PersonalProfile>((doc) {
@@ -64,6 +73,7 @@ class DatabaseService {
           age: doc.get('age') ?? 0);
     }).toList();
   }
+  */
 
 
   PersonalProfileAdj _persProfileDataFromSnapshotAdj(DocumentSnapshot snapshot) {
@@ -75,18 +85,24 @@ class DatabaseService {
       description: snapshot.get('description') ?? "",
       gender: snapshot.get('gender') ?? "",
       employment: snapshot.get('employment') ?? "",
-      imageURLs: ["ok"],
+      imageURL1: snapshot.get('imageURL1'),
+      imageURL2: snapshot.get('imageURL2'),
+      imageURL3: snapshot.get('imageURL3'),
+      imageURL4: snapshot.get('imageURL4'),
+      year : snapshot.get('year'),
+      month: snapshot.get('month'),
+      day: snapshot.get('day'),
       );
   }
 
 
   /* vecchio, da cancellare */
-  Stream<PersonalProfile> get persProfileData {
+  /*Stream<PersonalProfile> get persProfileData {
     return persProfileCollection
         .doc(uid)
         .snapshots()
         .map((_persProfileDataFromSnapshot));
-  }
+  }*/
 
 
   Stream<PersonalProfileAdj> get persProfileDataAdj {
@@ -124,6 +140,7 @@ class DatabaseService {
         .map((_profileAlreadySeenFromSnapshot));
   }
 
+/*
   Stream<List<PersonalProfile>> getFilteredProfile(
       FiltersPerson? selectedFilters) {
     Query query = persProfileCollection;
@@ -150,7 +167,8 @@ class DatabaseService {
     }*/
     return query.snapshots().map((_allPersProfileDataFromSnapshot));
   }
-
+*/
+/*
   Stream<List<PersonalProfile>> getAllProfile() {
     Query query = FirebaseFirestore.instance.collection('personalProfiles');
     /*Filters provaFiltri = Filters(
@@ -161,6 +179,7 @@ class DatabaseService {
 */
     return query.snapshots().map((_allPersProfileDataFromSnapshot));
   }
+  */
 
   /*house list from snapshot
   List<House> _houseListFromSnapshot(QuerySnapshot snapshot) {
