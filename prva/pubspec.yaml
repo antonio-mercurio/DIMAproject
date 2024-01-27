@@ -47,6 +47,7 @@ dependencies:
   path: ^1.8.3
   date_field: ^4.0.1
   flutter_multi_slider: ^2.0.0
+  google_maps_flutter: ^2.5.3
  
  
 
