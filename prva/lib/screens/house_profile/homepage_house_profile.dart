@@ -52,11 +52,14 @@ class _HouseProfSelState extends State<HouseProfSel> {
       showModalBottomSheet(
           context: context,
           builder: (context) {
-            return Container(
+
+            return SingleChildScrollView(
+            child: Container(
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
               child: FormFiltersPeopleAdj(
                 uidHouse: house.idHouse,
               ),
+            )
             );
           });
     }

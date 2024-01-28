@@ -58,16 +58,16 @@ class DatabaseServiceFiltersPerson {
     if (snapshot.data() == null) {
       return FiltersPersonAdj(
         houseID: uid ?? "",
-        minAge: 0,
-        maxAge: 99,
+        minAge: 1,
+        maxAge: 100,
         gender: "not relevant",
         employment: "not relevant",
       );
     } else {
       return FiltersPersonAdj(
         houseID: uid ?? "",
-        minAge: snapshot.get('minAge') ?? 0,
-        maxAge: snapshot.get('maxAge') ?? 99,
+        minAge: snapshot.get('minAge') ?? 1,
+        maxAge: snapshot.get('maxAge') ?? 100,
         gender: snapshot.get('gender') ?? "not relevant",
         employment: snapshot.get('employment') ?? "not relevant",
 
