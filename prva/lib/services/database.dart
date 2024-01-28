@@ -172,53 +172,22 @@ class DatabaseService {
     //print(selectedFilters!.gender);
     //print(alreadySeen);
     if (selectedFilters != null) {
-      print('175 db');
-      print(selectedFilters.gender);
-      if (query.snapshots().length == 0) {
-        print('DATABASE 178: la query è vuota');
-        return query.snapshots().map((_allPersProfileDataFromSnapshotAdj));
-      }
       if (selectedFilters.gender != null &&
           selectedFilters.gender != "not relevant") {
-        //print('178 db');
-
-        query = query.where('gender', isEqualTo: selectedFilters.gender);
+        query = query.where(Filter.or(
+            Filter('gender', isEqualTo: selectedFilters.gender),
+            Filter('gender', isEqualTo: "other")));
       }
-      if (query.snapshots().length == 0) {
-        print('DATABASE 188: la query è vuota');
-        return query.snapshots().map((_allPersProfileDataFromSnapshotAdj));
-      }
-
       if (selectedFilters.employment != null &&
           selectedFilters.employment != "not relevant") {
         query =
             query.where('employment', isEqualTo: selectedFilters.employment);
-      }
-      if (query.snapshots().length == 0) {
-        print('DATABASE 198: la query è vuota');
-        return query.snapshots().map((_allPersProfileDataFromSnapshotAdj));
       }
 
       if (selectedFilters.maxAge != null) {
         num yearFilter = DateTime.now().year - (selectedFilters.maxAge as num);
         query = query.where(Filter.or(
             Filter('year', isGreaterThan: yearFilter),
-            Filter.or(
-                Filter.and(Filter('year', isEqualTo: yearFilter),
-                    Filter('month', isLessThan: DateTime.now().month)),
-                Filter.and(
-                    Filter.and(Filter('year', isEqualTo: yearFilter),
-                        Filter('month', isEqualTo: DateTime.now().month)),
-                    Filter('day', isLessThanOrEqualTo: DateTime.now().day)))));
-      }
-      if (query.snapshots().length == 0) {
-        print('DATABASE 215: la query è vuota');
-        return query.snapshots().map((_allPersProfileDataFromSnapshotAdj));
-      }
-      if (selectedFilters.minAge != null) {
-        num yearFilter = DateTime.now().year - (selectedFilters.minAge as num);
-        query = query.where(Filter.or(
-            Filter('year', isLessThan: yearFilter),
             Filter.or(
                 Filter.and(Filter('year', isEqualTo: yearFilter),
                     Filter('month', isGreaterThan: DateTime.now().month)),
@@ -228,9 +197,17 @@ class DatabaseService {
                     Filter('day',
                         isGreaterThanOrEqualTo: DateTime.now().day)))));
       }
-      if (query.snapshots().length == 0) {
-        print('DATABASE 232: la query è vuota');
-        return query.snapshots().map((_allPersProfileDataFromSnapshotAdj));
+      if (selectedFilters.minAge != null) {
+        num yearFilter = DateTime.now().year - (selectedFilters.minAge as num);
+        query = query.where(Filter.or(
+            Filter('year', isLessThan: yearFilter),
+            Filter.or(
+                Filter.and(Filter('year', isEqualTo: yearFilter),
+                    Filter('month', isLessThan: DateTime.now().month)),
+                Filter.and(
+                    Filter.and(Filter('year', isEqualTo: yearFilter),
+                        Filter('month', isEqualTo: DateTime.now().month)),
+                    Filter('day', isLessThanOrEqualTo: DateTime.now().day)))));
       }
     }
     return query.snapshots().map((_allPersProfileDataFromSnapshotAdj));

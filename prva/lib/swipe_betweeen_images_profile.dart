@@ -9,7 +9,7 @@ class SwipePersonalWidget extends StatelessWidget {
   int _calculationAge(int year, int month, int day) {
     return (DateTime.now().difference(DateTime.utc(year, month, day)).inDays /
             365)
-        .round();
+        .floor();
   }
 
   @override
@@ -23,7 +23,7 @@ class SwipePersonalWidget extends StatelessWidget {
             image: DecorationImage(
               fit: BoxFit.cover,
               image: Image.network(
-                       'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60')
+                      'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60')
                   .image,
             ),
           ),
@@ -61,9 +61,9 @@ class SwipePersonalWidget extends StatelessWidget {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                       child: Text(
-                         _calculationAge(personalProfile.year, personalProfile.month,
-                    personalProfile.day)
-                .toString() ,
+                        _calculationAge(personalProfile.year,
+                                personalProfile.month, personalProfile.day)
+                            .toString(),
                         style: TextStyle(
                             fontFamily: 'Readex Pro',
                             fontSize: 22,

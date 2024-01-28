@@ -15,7 +15,7 @@ class FormPersonalProfileAdj extends StatefulWidget {
 }
 
 class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
-  int?  _valueGender = 1;
+  int? _valueGender = 1;
   int? _valueEmployement = 1;
   List<String> optionsGender = ['male', 'female', 'other'];
   List<String> optionsEmployement = ['student', 'worker'];
@@ -68,8 +68,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
     if (user == null) {
       return const Loading();
     } else {
-      return loading ? Loading()
-      : Scaffold(
+      return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.black,
@@ -96,7 +95,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 32, 0, 32),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 32, 0, 32),
                       child: Container(
                         width: double.infinity,
                         height: 48,
@@ -507,9 +507,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                   children: [
                                     Expanded(
                                       child: Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 16),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 16),
                                           child: Wrap(
                                             alignment:
                                                 WrapAlignment.spaceEvenly,
@@ -529,7 +528,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                                   selectedColor:
                                                       const Color(0xFF4B39EF),
                                                   showCheckmark: false,
-                                                  iconTheme: const IconThemeData(
+                                                  iconTheme:
+                                                      const IconThemeData(
                                                     color: Color.fromARGB(
                                                         255, 62, 60, 60),
                                                     size: 18,
@@ -602,7 +602,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                         ),
                                         filled: true,
                                         fillColor: Colors.white,
-                                        contentPadding: const EdgeInsets.all(24),
+                                        contentPadding:
+                                            const EdgeInsets.all(24),
                                       ),
                                       style: const TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
@@ -743,7 +744,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                               ? null
                                               : IconButton(
                                                   icon: const Icon(Icons.close),
-                                                  color: const Color(0xFFFF5963),
+                                                  color:
+                                                      const Color(0xFFFF5963),
                                                   onPressed: () {},
                                                 ),
                                         ),
@@ -752,7 +754,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                           width:
                                               MediaQuery.sizeOf(context).width *
                                                   0.05),
-                                     Column(children: [
+                                      Column(children: [
                                         InkWell(
                                           splashColor: Colors.transparent,
                                           focusColor: Colors.transparent,
@@ -819,130 +821,124 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Column(children: [
-                                        InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            if (imageURLs[2].isEmpty) {
-                                              imageURLs[2] =
-                                                  await SchermiProva()
-                                                      .uploadFile();
-                                              
-                                              if (mounted) {
-                                                setState(() {});
-                                              }
+                                      InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          if (imageURLs[2].isEmpty) {
+                                            imageURLs[2] = await SchermiProva()
+                                                .uploadFile();
+
+                                            if (mounted) {
+                                              setState(() {});
                                             }
-                                          },
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            child: imageURLs
-                                                    .elementAt(2)
-                                                    .isEmpty
-                                                ? Image.asset(
-                                                    'assets/userPhoto.jpg',
-                                                    width: MediaQuery.sizeOf(
-                                                                context)
-                                                            .width *
-                                                        0.30,
-                                                    height: MediaQuery.sizeOf(
-                                                                context)
-                                                            .height *
-                                                        0.20,
-                                                    fit: BoxFit.cover,
-                                                  )
-                                                : Image.network(
-                                                    imageURLs[2],
-                                                    width: MediaQuery.sizeOf(
-                                                                context)
-                                                            .width *
-                                                        0.30,
-                                                    height: MediaQuery.sizeOf(
-                                                                context)
-                                                            .height *
-                                                        0.20,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment: Alignment.topRight,
+                                          }
+                                        },
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                           child: imageURLs.elementAt(2).isEmpty
-                                              ? null
-                                              : IconButton(
-                                                  icon: Icon(Icons.close),
-                                                  color: Color(0xFFFF5963),
-                                                  onPressed: () {},
+                                              ? Image.asset(
+                                                  'assets/userPhoto.jpg',
+                                                  width:
+                                                      MediaQuery.sizeOf(context)
+                                                              .width *
+                                                          0.30,
+                                                  height:
+                                                      MediaQuery.sizeOf(context)
+                                                              .height *
+                                                          0.20,
+                                                  fit: BoxFit.cover,
+                                                )
+                                              : Image.network(
+                                                  imageURLs[2],
+                                                  width:
+                                                      MediaQuery.sizeOf(context)
+                                                              .width *
+                                                          0.30,
+                                                  height:
+                                                      MediaQuery.sizeOf(context)
+                                                              .height *
+                                                          0.20,
+                                                  fit: BoxFit.cover,
                                                 ),
                                         ),
-                                      ]),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.topRight,
+                                        child: imageURLs.elementAt(2).isEmpty
+                                            ? null
+                                            : IconButton(
+                                                icon: Icon(Icons.close),
+                                                color: Color(0xFFFF5963),
+                                                onPressed: () {},
+                                              ),
+                                      ),
+                                    ]),
                                     SizedBox(
                                         width:
                                             MediaQuery.sizeOf(context).width *
                                                 0.05),
                                     Column(children: [
-                                        InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            if (imageURLs[3].isEmpty) {
-                                              imageURLs[3] =
-                                                  await SchermiProva()
-                                                      .uploadFile();
-                                              print('formADJ680');
-                                              print(imageURLs[0]);
-                                              if (mounted) {
-                                                setState(() {});
-                                              }
+                                      InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          if (imageURLs[3].isEmpty) {
+                                            imageURLs[3] = await SchermiProva()
+                                                .uploadFile();
+                                            print('formADJ680');
+                                            print(imageURLs[0]);
+                                            if (mounted) {
+                                              setState(() {});
                                             }
-                                          },
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            child: imageURLs
-                                                    .elementAt(3)
-                                                    .isEmpty
-                                                ? Image.asset(
-                                                    'assets/userPhoto.jpg',
-                                                    width: MediaQuery.sizeOf(
-                                                                context)
-                                                            .width *
-                                                        0.30,
-                                                    height: MediaQuery.sizeOf(
-                                                                context)
-                                                            .height *
-                                                        0.20,
-                                                    fit: BoxFit.cover,
-                                                  )
-                                                : Image.network(
-                                                    imageURLs[3],
-                                                    width: MediaQuery.sizeOf(
-                                                                context)
-                                                            .width *
-                                                        0.30,
-                                                    height: MediaQuery.sizeOf(
-                                                                context)
-                                                            .height *
-                                                        0.20,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment: Alignment.topRight,
+                                          }
+                                        },
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                           child: imageURLs.elementAt(3).isEmpty
-                                              ? null
-                                              : IconButton(
-                                                  icon: Icon(Icons.close),
-                                                  color: Color(0xFFFF5963),
-                                                  onPressed: () {},
+                                              ? Image.asset(
+                                                  'assets/userPhoto.jpg',
+                                                  width:
+                                                      MediaQuery.sizeOf(context)
+                                                              .width *
+                                                          0.30,
+                                                  height:
+                                                      MediaQuery.sizeOf(context)
+                                                              .height *
+                                                          0.20,
+                                                  fit: BoxFit.cover,
+                                                )
+                                              : Image.network(
+                                                  imageURLs[3],
+                                                  width:
+                                                      MediaQuery.sizeOf(context)
+                                                              .width *
+                                                          0.30,
+                                                  height:
+                                                      MediaQuery.sizeOf(context)
+                                                              .height *
+                                                          0.20,
+                                                  fit: BoxFit.cover,
                                                 ),
                                         ),
-                                      ]),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.topRight,
+                                        child: imageURLs.elementAt(3).isEmpty
+                                            ? null
+                                            : IconButton(
+                                                icon: Icon(Icons.close),
+                                                color: Color(0xFFFF5963),
+                                                onPressed: () {},
+                                              ),
+                                      ),
+                                    ]),
                                   ],
                                 ),
                               ],
@@ -954,32 +950,43 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                     Align(
                       alignment: const AlignmentDirectional(0, 0),
                       child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
                         child: ElevatedButton(
                           onPressed: () async {
                             if (scaffoldKey.currentState!.validate()) {
-                              if(imageURLs[0]!='' /*&& imageURLs[0]!='' && imageURLs[0]!='' && imageURLs[0]!=''*/){
-                                 setState(() => loading = true);
-                            
-                             await DatabaseServiceFilters(user.uid)
-                            .updateFilters('any', 'any', 0);
-
-                           await DatabaseService(user.uid).updatePersonalProfileAdj(  
-                            _name ?? '', _surname ?? '', _description ?? '',optionsGender[_valueGender ?? 1] ,
-                            optionsEmployement[_valueEmployement ?? 1], _birthDate!.day, 
-                            _birthDate!.month, _birthDate!.year, imageURLs[0], imageURLs[1], imageURLs[2],imageURLs[3]);
-                               
-                            
-                              }else{
-                                ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          const SnackBar(
-                                            content: Text(
-                                              'Insert the photos!',
-                                            ),
-                                          ),
-                                        );
-                                        return;
+                              if (imageURLs[0] !=
+                                  '' /*&& imageURLs[0]!='' && imageURLs[0]!='' && imageURLs[0]!=''*/) {
+                                setState(() {});
+                                print('961');
+                                await DatabaseServiceFilters(user.uid)
+                                    .updateFilters('any', 'any', 0);
+                                print('964');
+                                await DatabaseService(user.uid)
+                                    .updatePersonalProfileAdj(
+                                        _name ?? '',
+                                        _surname ?? '',
+                                        _description ?? '',
+                                        optionsGender[_valueGender ?? 1],
+                                        optionsEmployement[
+                                            _valueEmployement ?? 1],
+                                        _birthDate!.day,
+                                        _birthDate!.month,
+                                        _birthDate!.year,
+                                        imageURLs[0],
+                                        imageURLs[0],
+                                        imageURLs[0],
+                                        imageURLs[0]);
+                                print('980');
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      'Insert the photos!',
+                                    ),
+                                  ),
+                                );
+                                return;
                               }
                             }
                           },
