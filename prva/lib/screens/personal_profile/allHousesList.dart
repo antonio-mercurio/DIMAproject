@@ -73,12 +73,12 @@ class _AllHousesListState extends State<AllHousesList> {
                 onPressed: () async {
                   /* Put like */
                   //print("like");
-                  await MatchService()
-                      .putPrefence(myUser.uidA, houses[0].idHouse, "like");
+                  String hID = houses[0].idHouse;
+                  await MatchService().putPrefence(myUser.uidA, hID, "like");
                   //print("dopo aver messo la preferenza");
 
-                  await MatchService().checkMatch(
-                      myUser.uidA, houses[0].idHouse, preferencesOther);
+                  await MatchService()
+                      .checkMatch(myUser.uidA, hID, preferencesOther);
                 }),
             SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
             IconButton(
