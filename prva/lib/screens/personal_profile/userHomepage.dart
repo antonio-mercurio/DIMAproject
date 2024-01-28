@@ -14,6 +14,7 @@ import 'package:prva/services/databaseForFilters.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/services/match/match_service.dart';
 import 'package:prva/shared/loading.dart';
+import 'package:prva/show_details_personal_profile.dart';
 
 class UserHomepage extends StatefulWidget {
   const UserHomepage({super.key});
@@ -146,29 +147,25 @@ class ProfileLayout extends StatelessWidget {
 
     //return ShowPersonalProfile();
 
-    return Scaffold(
-        body: Center(
-            child: Column(
-      children: <Widget>[
-        SizedBox(height: 20.0),
-        Text(personalData.nameA, style: TextStyle(fontSize: 18.0)),
-        SizedBox(height: 20.0),
-        Text(personalData.surnameA, style: TextStyle(fontSize: 18.0)),
-        SizedBox(height: 20.0),
-        ElevatedButton(
-          child: Text('Update'),
-          onPressed: () {
-           /* Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => UpdatePersonalProfile(
-                        personalProfile: personalData,
-                      )),
-            );*/
-          },
-        ),
+   return Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                DetailedPersonalProfile(personalProfile: personalData,),
+                ElevatedButton(
+                child: Text('Modifica'),
+                onPressed: () {
+            
+               },
+        )
       ],
-    )));
+    ))
+          )]);
   }
 }
 

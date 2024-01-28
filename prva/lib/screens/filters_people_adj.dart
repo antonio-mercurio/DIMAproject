@@ -377,22 +377,22 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                         );
                       Navigator.pop(context);
                     },
-                                    child : Text('Get Started',
+                                    style: ElevatedButton.styleFrom(
+                                      fixedSize: Size(230, 52),
+                                      backgroundColor:Colors.black,
+                                       elevation: 3.0,
+                                       side: const BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1,
+                                      ),
+                                    ),
+                                    child : const Text('Set filters',
                                     style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
                                             color: Colors.white,
                                             fontSize: 16,
                                             fontWeight: FontWeight.w500,
                                     ),),
-                                    style: ElevatedButton.styleFrom(
-                                      fixedSize: Size(230, 52),
-                                      backgroundColor:Colors.black,
-                                       elevation: 3.0,
-                                       side: BorderSide(
-                                        color: Colors.transparent,
-                                        width: 1,
-                                      ),
-                                    ),
                                     ),
   
                                   ),
