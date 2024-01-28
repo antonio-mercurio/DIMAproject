@@ -15,12 +15,14 @@ import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/services/match/match_service.dart';
 import 'package:prva/shared/loading.dart';
 
-class userHomepage extends StatefulWidget {
+class UserHomepage extends StatefulWidget {
+  const UserHomepage({super.key});
+
   @override
-  State<userHomepage> createState() => _userHomepageState();
+  State<UserHomepage> createState() => _UserHomepageState();
 }
 
-class _userHomepageState extends State<userHomepage> {
+class _UserHomepageState extends State<UserHomepage> {
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
     SearchLayout(),

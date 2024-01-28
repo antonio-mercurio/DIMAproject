@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prva/models/houseProfile.dart';
 
 
 
@@ -28,7 +29,11 @@ RangeSlider(
 
 
 class FormFiltersPeopleAdj extends StatefulWidget {
-  const FormFiltersPeopleAdj({Key? key}) : super(key: key);
+
+  final String uidHouse;
+
+  const FormFiltersPeopleAdj({super.key, required this.uidHouse});
+  
 
   @override
   State<FormFiltersPeopleAdj> createState() => _FormFiltersPeopleAdjState();

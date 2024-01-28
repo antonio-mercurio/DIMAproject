@@ -62,7 +62,7 @@ class DatabaseService {
   }
 
  */
-/*
+/*cancellare, rsicritto
   List<PersonalProfile> _allPersProfileDataFromSnapshot(
       QuerySnapshot snapshot) {
     return snapshot.docs.map<PersonalProfile>((doc) {
@@ -131,6 +131,28 @@ class DatabaseService {
     }).toList();
   }
 
+  List<PersonalProfileAdj> _allPersProfileDataFromSnapshotAdj(
+      QuerySnapshot snapshot) {
+    return snapshot.docs.map<PersonalProfileAdj>((doc) {
+      return PersonalProfileAdj(
+          uidA: doc.reference.id,
+      nameA: doc.get('name') ?? "prova",
+      surnameA: doc.get('surname') ?? "",
+      description: doc.get('description') ?? "",
+      gender: doc.get('gender') ?? "",
+      employment: doc.get('employment') ?? "",
+      imageURL1: doc.get('imageURL1'),
+      imageURL2: doc.get('imageURL2'),
+      imageURL3: doc.get('imageURL3'),
+      imageURL4: doc.get('imageURL4'),
+      year : doc.get('year'),
+      month: doc.get('month'),
+      day: doc.get('day'),);
+    }).toList();
+   }
+   
+      
+
   Stream<List<String>> get getAlreadySeenProfile {
     return FirebaseFirestore.instance
         .collection('preference_room')
@@ -138,6 +160,42 @@ class DatabaseService {
         .collection('preference')
         .snapshots()
         .map((_profileAlreadySeenFromSnapshot));
+  }
+
+  Stream<List<PersonalProfileAdj>> getFilteredProfileAdj(
+      FiltersPersonAdj? selectedFilters) {
+    Query query = persProfileCollection;
+    //print("alreadySeen sul db alla riga< 100 è: ");
+    //print(alreadySeen);
+    if (selectedFilters != null) {
+      if(selectedFilters.gender!= null && selectedFilters.gender!= "not relevant"){
+        query = query.where('gender', whereIn: ["others", selectedFilters.gender]);
+      }
+      if(selectedFilters.employment!= null && selectedFilters.employment!= "not relevant"){
+        query = query.where('employment', isEqualTo: selectedFilters.employment);
+      }
+      /*
+      if (selectedFilters.maxAge != null) {
+        query = query.where('age', isLessThanOrEqualTo: selectedFilters.maxAge);
+      }
+      if (selectedFilters.minAge != null) {
+        query = query.where('age', isGreaterThan: selectedFilters.minAge);
+      }
+      */
+    } 
+    /*
+    if (alreadySeen != null) {
+      if (alreadySeen.isNotEmpty) {
+        query = query.where(FieldPath.documentId, whereNotIn: alreadySeen);
+        if (query.snapshots().length == 0) {
+          print('DATABASE 90: la query è vuota');
+        } else {
+          print('db 93 la query non è vuota ma ha lenght:');
+          print(query.snapshots().length);
+        }
+      }
+    }*/
+    return query.snapshots().map((_allPersProfileDataFromSnapshotAdj));
   }
 
 /*

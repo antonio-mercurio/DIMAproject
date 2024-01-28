@@ -37,12 +37,12 @@ class _AllProfilesListState extends State<AllProfilesList> {
         setState(() {});
       }
     });
-    final profiles = Provider.of<List<PersonalProfile>>(context);
+    final profiles = Provider.of<List<PersonalProfileAdj>>(context);
 
     //check already seen != null prima di fare questo filtri
     if (alreadySeenProfiles != null) {
       profiles
-          .removeWhere((element) => alreadySeenProfiles!.contains(element.uid));
+          .removeWhere((element) => alreadySeenProfiles!.contains(element.uidA));
       if (this.mounted) {
         setState(() {});
       }
@@ -55,7 +55,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
     } else {
       final myHouse = Provider.of<HouseProfile>(context);
       final retrievedPreferences =
-          MatchService(uid: profiles[0].uid).getPreferencesForMatch;
+          MatchService(uid: profiles[0].uidA).getPreferencesForMatch;
       retrievedPreferences.listen((content) {
         //print("r71 allProfileList");
         preferencesOther = content;
@@ -72,11 +72,11 @@ class _AllProfilesListState extends State<AllProfilesList> {
                     /* Put like */
                     //print("like");
                     await MatchService()
-                        .putPrefence(myHouse.idHouse, profiles[0].uid, "like");
+                        .putPrefence(myHouse.idHouse, profiles[0].uidA, "like");
 
                     /* check fot match */
                     final ok = await MatchService().checkMatch(
-                        myHouse.idHouse, profiles[0].uid, preferencesOther);
+                        myHouse.idHouse, profiles[0].uidA, preferencesOther);
                     //print(ok);
                     //print('match creato r86 allprof');
                     if (ok) {
@@ -92,7 +92,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
                   icon: const Icon(Icons.close_outlined),
                   onPressed: () async {
                     await MatchService().putPrefence(
-                        myHouse.idHouse, profiles[0].uid, "dislike");
+                        myHouse.idHouse, profiles[0].uidA, "dislike");
                   }),
               const SizedBox(width: 8),
             ],
@@ -124,7 +124,7 @@ showMyDialog(BuildContext buildContext) {
 }
 
 class AllPersonalTiles extends StatelessWidget {
-  final PersonalProfile profile;
+  final PersonalProfileAdj profile;
   //List<PreferenceForMatch>? preferencesOther;
   AllPersonalTiles({required this.profile});
 
@@ -145,10 +145,9 @@ class AllPersonalTiles extends StatelessWidget {
               ListTile(
                 leading: CircleAvatar(
                   radius: 25.0,
-                  backgroundColor: Colors.red[profile.age],
+                  backgroundColor: Colors.red,
                 ),
-                title: Text(profile.name + " " + profile.surname),
-                subtitle: Text(profile.age.toString()),
+                title: Text(profile.nameA + " " + profile.surnameA),
               ),
               /*Row(
                 mainAxisAlignment: MainAxisAlignment.end,

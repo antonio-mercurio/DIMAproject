@@ -5,6 +5,7 @@ import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/screens/chat/chat.dart';
+import 'package:prva/screens/filters_people_adj.dart';
 import 'package:prva/screens/house_profile/all_profile_list.dart';
 import 'package:prva/screens/house_profile/filtersFormPerson.dart';
 import 'package:prva/screens/house_profile/form_modify_house.dart';
@@ -53,7 +54,7 @@ class _HouseProfSelState extends State<HouseProfSel> {
           builder: (context) {
             return Container(
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-              child: FiltersFormPerson(
+              child: FormFiltersPeopleAdj(
                 uidHouse: house.idHouse,
               ),
             );
@@ -115,7 +116,7 @@ class SearchLayout extends StatefulWidget {
 }
 
 class _SearchLayoutState extends State<SearchLayout> {
-  FiltersPerson? filtri;
+  FiltersPersonAdj? filtri;
   List<String>? alreadySeenProfiles;
   @override
   Widget build(BuildContext context) {
@@ -126,12 +127,14 @@ class _SearchLayoutState extends State<SearchLayout> {
 
     try {
       final retrievedFilters =
-          DatabaseServiceFiltersPerson(uid: house.idHouse).getFiltersPerson;
+          DatabaseServiceFiltersPerson(uid: house.idHouse).getFiltersPersonAdj;
       retrievedFilters.listen((content) {
-        filtri = FiltersPerson(
+        filtri = FiltersPersonAdj(
             houseID: content.houseID,
             minAge: content.minAge,
-            maxAge: content.maxAge);
+            maxAge: content.maxAge,
+            gender: content.gender,
+            employment: content.employment);
         if (this.mounted) {
           setState(() {});
           //print(filtri?.minAge.toString());
@@ -152,13 +155,13 @@ class _SearchLayoutState extends State<SearchLayout> {
     //print(filtri?.maxAge.toString());
     //print(filtri?.minAge.toString());
 
-    return Scaffold(); /*StreamProvider<List<PersonalProfile>>.value(
-        value: DatabaseService(house.idHouse).getFilteredProfile(filtri),
+    return StreamProvider<List<PersonalProfileAdj>>.value(
+        value: DatabaseService(house.idHouse).getFilteredProfileAdj(filtri),
         initialData: [],
         child: Scaffold(
           backgroundColor: Colors.black,
           body: AllProfilesList(house: house),
-        ));*/
+        ));
   }
 }
 
