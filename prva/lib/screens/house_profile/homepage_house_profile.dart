@@ -52,14 +52,13 @@ class _HouseProfSelState extends State<HouseProfSel> {
       showModalBottomSheet(
           context: context,
           builder: (context) {
-
-            return SingleChildScrollView(
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
+            return Container(
+              width: MediaQuery.sizeOf(context).width * 0.50,
+              height: MediaQuery.sizeOf(context).height * 0.95,
+              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
               child: FormFiltersPeopleAdj(
                 uidHouse: house.idHouse,
               ),
-            )
             );
           });
     }
@@ -172,29 +171,27 @@ class ProfileLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final house = Provider.of<HouseProfile>(context);
-    return Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
+    return Column(mainAxisSize: MainAxisSize.max, children: [
+      Expanded(
+          child: SingleChildScrollView(
               child: Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                DetailedProfile(houseProfile: house),
-                ElevatedButton(
-                child: Text('Modifica'),
-                onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ModifyHouseForm(house: house)),
-            );
-               },
-        )
-      ],
-    ))
-          )]);
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          DetailedProfile(houseProfile: house),
+          ElevatedButton(
+            child: Text('Modifica'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ModifyHouseForm(house: house)),
+              );
+            },
+          )
+        ],
+      )))
+    ]);
   }
 }
 
@@ -255,29 +252,33 @@ Widget _buildUserListItem(
     BuildContext context, DocumentSnapshot document, HouseProfile house) {
   Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
   return Padding(
-        padding: EdgeInsets.only(top: 8.0),
-        child: Card(
-            margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
-            child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+      padding: EdgeInsets.only(top: 8.0),
+      child: Card(
+          margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
               ListTile(
                 leading: CircleAvatar(
                   radius: 25.0,
                   backgroundColor: Colors.blue,
                 ),
                 title: Text(data['name'] + " " + data['surname'],
-                style:  TextStyle(
-                  fontWeight : FontWeight.bold )
-                ),
+                    style: TextStyle(fontWeight: FontWeight.bold)),
                 subtitle: Text('open to start a chat!'),
-              onTap: () {
-                Navigator.push(context,MaterialPageRoute(
-                  builder: (context) => ChatPage(
-                    senderUserID: house.idHouse,
-                    receiverUserEmail: data['name'] + " " + data['surname'],
-                    receiverUserID: document.reference.id,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ChatPage(
+                        senderUserID: house.idHouse,
+                        receiverUserEmail: data['name'] + " " + data['surname'],
+                        receiverUserID: document.reference.id,
+                      ),
                     ),
-                    ),);
-                    },)
-            ],))
-            );
+                  );
+                },
+              )
+            ],
+          )));
 }
