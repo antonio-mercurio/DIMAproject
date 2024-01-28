@@ -19,14 +19,6 @@ class DatabaseServiceFiltersPerson {
       FirebaseFirestore.instance.collection('houseProfiles');
 
   //filters for people utilized by house profile
-  /* vecchio, riscritto */
-  Future updateFiltersPerson(int? minAge, int? maxAge) async {
-    return await filtersPersonCollection.doc(uid).set({
-      'house': uid,
-      'maxAge': maxAge,
-      'minAge': minAge,
-    });
-  }
 
   Future updateFiltersPersonAj(int? minAge, int? maxAge, String? gender, String? employment) async {
     return await filtersPersonCollection.doc(uid).set({
@@ -36,22 +28,6 @@ class DatabaseServiceFiltersPerson {
       'gender': gender,
       'employment': employment
     });
-  }
-  /* vecchio, riscritto */
-  FiltersPerson _filtersPersonFromSnapshot(DocumentSnapshot snapshot) {
-    if (snapshot.data() == null) {
-      return FiltersPerson(
-        houseID: uid ?? "",
-        minAge: 0,
-        maxAge: 99,
-      );
-    } else {
-      return FiltersPerson(
-        houseID: uid ?? "",
-        minAge: snapshot.get('minAge') ?? 0,
-        maxAge: snapshot.get('maxAge') ?? 99,
-      );
-    }
   }
 
   FiltersPersonAdj _filtersPersonFromSnapshotAdj(DocumentSnapshot snapshot) {
@@ -74,15 +50,6 @@ class DatabaseServiceFiltersPerson {
       );
     }
   }
-
-/* vecchio, riscritto */
-  Stream<FiltersPerson> get getFiltersPerson {
-    return filtersPersonCollection
-        .doc(uid)
-        .snapshots()
-        .map((_filtersPersonFromSnapshot));
-  }
-
 
    Stream<FiltersPersonAdj> get getFiltersPersonAdj {
     return filtersPersonCollection

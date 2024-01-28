@@ -18,6 +18,7 @@ class Preference {
   }
 }
 
+
 class PreferenceForMatch {
   final String reciverPreferenceId;
   final String choice;

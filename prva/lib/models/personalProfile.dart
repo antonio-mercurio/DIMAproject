@@ -1,5 +1,5 @@
 import 'dart:ffi';
-
+/*
 class PersonalProfile {
   final String uid;
   final String name;
@@ -12,6 +12,7 @@ class PersonalProfile {
       required this.surname,
       required this.age});
 }
+*/
 
 class PersonalProfileAdj {
   final String uidA;

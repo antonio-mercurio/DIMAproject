@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/services/databaseFilterPerson.dart';
+/*
 
 //Class used by House Profile to use the filter to filter per people interested in
 class FiltersFormPerson extends StatefulWidget {
@@ -86,3 +87,4 @@ class _FiltersFormPersonState extends State<FiltersFormPerson> {
     );
   }
 }
+*/

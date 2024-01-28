@@ -5,6 +5,7 @@ import 'package:prva/services/database.dart';
 import 'package:prva/shared/constants.dart';
 import 'package:prva/shared/loading.dart';
 
+/*
 class UpdatePersonalProfile extends StatefulWidget {
   final PersonalProfile personalProfile;
   const UpdatePersonalProfile({required this.personalProfile});
@@ -88,3 +89,4 @@ class _UpdatePersonalProfileState extends State<UpdatePersonalProfile> {
     }
   }
 }
+*/
