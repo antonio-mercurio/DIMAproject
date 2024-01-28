@@ -7,6 +7,7 @@ import 'package:prva/models/preference.dart';
 import 'package:prva/screens/multipleImagePicker.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/match/match_service.dart';
+import 'package:prva/swipe_betweeen_images_profile.dart';
 
 /* Class used by House Profile to show the Search
 of the people */
@@ -50,7 +51,8 @@ class _AllProfilesListState extends State<AllProfilesList> {
     }
     if (profiles.isEmpty) {
       return Center(
-        child: Text('non ci sono profili da visualizzare'),
+        child: Text('non ci sono profili da visualizzare',
+        style: TextStyle(color: Colors.white),),
       );
     } else {
       final myHouse = Provider.of<HouseProfile>(context);
@@ -62,12 +64,15 @@ class _AllProfilesListState extends State<AllProfilesList> {
       });
       return Column(
         children: <Widget>[
-          AllPersonalTiles(profile: profiles[0]),
+          SwipePersonalWidget(personalProfile: profiles[0]),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               IconButton(
-                  icon: const Icon(Icons.favorite_outline),
+                  icon: Icon(Icons.favorite_outline,
+                    size: MediaQuery.sizeOf(context).height * 0.04),
+                color: Colors.white,
+                 
                   onPressed: () async {
                     /* Put like */
                     //print("like");
@@ -87,9 +92,11 @@ class _AllProfilesListState extends State<AllProfilesList> {
                     }
                     /* search if the other has seen your profile and put a like */
                   }),
-              const SizedBox(width: 8),
+               SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
               IconButton(
-                  icon: const Icon(Icons.close_outlined),
+                  icon: Icon(Icons.close_outlined,
+                    size: MediaQuery.sizeOf(context).height * 0.04),
+                color: Colors.white,
                   onPressed: () async {
                     await MatchService().putPrefence(
                         myHouse.idHouse, profiles[0].uidA, "dislike");
