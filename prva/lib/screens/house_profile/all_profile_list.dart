@@ -42,8 +42,8 @@ class _AllProfilesListState extends State<AllProfilesList> {
 
     //check already seen != null prima di fare questo filtri
     if (alreadySeenProfiles != null) {
-      profiles
-          .removeWhere((element) => alreadySeenProfiles!.contains(element.uidA));
+      profiles.removeWhere(
+          (element) => alreadySeenProfiles!.contains(element.uidA));
       if (this.mounted) {
         setState(() {});
       }
@@ -51,8 +51,10 @@ class _AllProfilesListState extends State<AllProfilesList> {
     }
     if (profiles.isEmpty) {
       return Center(
-        child: Text('non ci sono profili da visualizzare',
-        style: TextStyle(color: Colors.white),),
+        child: Text(
+          'non ci sono profili da visualizzare',
+          style: TextStyle(color: Colors.white),
+        ),
       );
     } else {
       final myHouse = Provider.of<HouseProfile>(context);
@@ -70,33 +72,38 @@ class _AllProfilesListState extends State<AllProfilesList> {
             children: <Widget>[
               IconButton(
                   icon: Icon(Icons.favorite_outline,
-                    size: MediaQuery.sizeOf(context).height * 0.04),
-                color: Colors.white,
-                 
+                      size: MediaQuery.sizeOf(context).height * 0.04),
+                  color: Colors.white,
                   onPressed: () async {
                     /* Put like */
                     //print("like");
+                    String persID = profiles[0].uidA;
                     await MatchService()
-                        .putPrefence(myHouse.idHouse, profiles[0].uidA, "like");
+                        .putPrefence(myHouse.idHouse, persID, "like");
 
                     /* check fot match */
-                    final ok = await MatchService().checkMatch(
-                        myHouse.idHouse, profiles[0].uidA, preferencesOther);
+                    try {
+                      final ok = await MatchService().checkMatch(
+                          myHouse.idHouse, persID, preferencesOther);
+                      if (ok) {
+                        if (mounted) {
+                          //print('sono qui all prof 89');
+                          await showMyDialog(context);
+                        }
+                      }
+                    } catch (e) {
+                      print(e);
+                    }
                     //print(ok);
                     //print('match creato r86 allprof');
-                    if (ok) {
-                      if (mounted) {
-                        //print('sono qui all prof 89');
-                        await showMyDialog(context);
-                      }
-                    }
+
                     /* search if the other has seen your profile and put a like */
                   }),
-               SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
+              SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
               IconButton(
                   icon: Icon(Icons.close_outlined,
-                    size: MediaQuery.sizeOf(context).height * 0.04),
-                color: Colors.white,
+                      size: MediaQuery.sizeOf(context).height * 0.04),
+                  color: Colors.white,
                   onPressed: () async {
                     await MatchService().putPrefence(
                         myHouse.idHouse, profiles[0].uidA, "dislike");
