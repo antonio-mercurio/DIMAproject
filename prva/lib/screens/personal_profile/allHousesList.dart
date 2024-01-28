@@ -8,7 +8,6 @@ import 'package:prva/services/database.dart';
 import 'package:prva/services/match/match_service.dart';
 import 'package:prva/show_detailed_profile.dart';
 
-
 class AllHousesList extends StatefulWidget {
   const AllHousesList({super.key});
 
@@ -47,11 +46,11 @@ class _AllHousesListState extends State<AllHousesList> {
     if (houses.isEmpty) {
       return Center(
         child: Text('non ci sono case da visualizzare',
-         style: TextStyle(fontFamily: 'Outfit',
-                                  color: Colors.black,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.w500)
-        ),
+            style: TextStyle(
+                fontFamily: 'Outfit',
+                color: Colors.black,
+                fontSize: 25,
+                fontWeight: FontWeight.w500)),
       );
     } else {
       final myUser = Provider.of<PersonalProfileAdj>(context);
@@ -62,18 +61,14 @@ class _AllHousesListState extends State<AllHousesList> {
         //print("preso il contenuto riga 41 allHouselist");
         preferencesOther = content;
       });
-      return /*ListView.builder(
-        //itemCount: houses.length,
-        itemCount: 1,
-        itemBuilder: (context, index) {
-          return */
-        Column(children: <Widget>[
+      return Column(children: <Widget>[
         SwipeWidget(houseProfile: houses[0]),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             IconButton(
-                icon: Icon(Icons.favorite_outline , size: MediaQuery.sizeOf(context).height * 0.04),
+                icon: Icon(Icons.favorite_outline,
+                    size: MediaQuery.sizeOf(context).height * 0.04),
                 color: Colors.black,
                 onPressed: () async {
                   /* Put like */
@@ -85,9 +80,10 @@ class _AllHousesListState extends State<AllHousesList> {
                   await MatchService().checkMatch(
                       myUser.uidA, houses[0].idHouse, preferencesOther);
                 }),
-             SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
+            SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
             IconButton(
-                icon: Icon(Icons.close_outlined, size: MediaQuery.sizeOf(context).height * 0.04),
+                icon: Icon(Icons.close_outlined,
+                    size: MediaQuery.sizeOf(context).height * 0.04),
                 color: Colors.black,
                 onPressed: () async {
                   await MatchService()
@@ -95,16 +91,17 @@ class _AllHousesListState extends State<AllHousesList> {
                 }),
             SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
             IconButton(
-                icon: Icon(Icons.info,  size: MediaQuery.sizeOf(context).height * 0.04),
+                icon: Icon(Icons.info,
+                    size: MediaQuery.sizeOf(context).height * 0.04),
                 color: Colors.black,
                 onPressed: () {
-                   Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ViewProfile(houseProfile: houses[0])),
-            );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            ViewProfile(houseProfile: houses[0])),
+                  );
                 }),
-          
           ],
         ),
       ]);
@@ -112,30 +109,24 @@ class _AllHousesListState extends State<AllHousesList> {
   }
 }
 
-class ViewProfile extends StatelessWidget{
+class ViewProfile extends StatelessWidget {
   final HouseProfile houseProfile;
 
   const ViewProfile({super.key, required this.houseProfile});
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            backgroundColor: Colors.black),
-          body : Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [Expanded(
-            child: SingleChildScrollView(
-              child: DetailedProfile(houseProfile: houseProfile),
-            )
-          )
-        ]
-          )
-    );
+        backgroundColor: Colors.white,
+        appBar: AppBar(backgroundColor: Colors.black),
+        body: Column(mainAxisSize: MainAxisSize.max, children: [
+          Expanded(
+              child: SingleChildScrollView(
+            child: DetailedProfile(houseProfile: houseProfile),
+          ))
+        ]));
   }
 }
-
 
 class AllHousesTiles extends StatelessWidget {
   final HouseProfile house;

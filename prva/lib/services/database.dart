@@ -168,18 +168,35 @@ class DatabaseService {
   Stream<List<PersonalProfileAdj>> getFilteredProfileAdj(
       FiltersPersonAdj? selectedFilters) {
     Query query = persProfileCollection;
-    //print("alreadySeen sul db alla riga< 100 è: ");
+    //print("171 db: ");
+    //print(selectedFilters!.gender);
     //print(alreadySeen);
     if (selectedFilters != null) {
+      print('175 db');
+      print(selectedFilters.gender);
+      if (query.snapshots().length == 0) {
+        print('DATABASE 178: la query è vuota');
+        return query.snapshots().map((_allPersProfileDataFromSnapshotAdj));
+      }
       if (selectedFilters.gender != null &&
           selectedFilters.gender != "not relevant") {
-        query =
-            query.where('gender', whereIn: ["others", selectedFilters.gender]);
+        //print('178 db');
+
+        query = query.where('gender', isEqualTo: selectedFilters.gender);
       }
+      if (query.snapshots().length == 0) {
+        print('DATABASE 188: la query è vuota');
+        return query.snapshots().map((_allPersProfileDataFromSnapshotAdj));
+      }
+
       if (selectedFilters.employment != null &&
           selectedFilters.employment != "not relevant") {
         query =
             query.where('employment', isEqualTo: selectedFilters.employment);
+      }
+      if (query.snapshots().length == 0) {
+        print('DATABASE 198: la query è vuota');
+        return query.snapshots().map((_allPersProfileDataFromSnapshotAdj));
       }
 
       if (selectedFilters.maxAge != null) {
@@ -194,6 +211,10 @@ class DatabaseService {
                         Filter('month', isEqualTo: DateTime.now().month)),
                     Filter('day', isLessThanOrEqualTo: DateTime.now().day)))));
       }
+      if (query.snapshots().length == 0) {
+        print('DATABASE 215: la query è vuota');
+        return query.snapshots().map((_allPersProfileDataFromSnapshotAdj));
+      }
       if (selectedFilters.minAge != null) {
         num yearFilter = DateTime.now().year - (selectedFilters.minAge as num);
         query = query.where(Filter.or(
@@ -207,19 +228,11 @@ class DatabaseService {
                     Filter('day',
                         isGreaterThanOrEqualTo: DateTime.now().day)))));
       }
-    }
-    /*
-    if (alreadySeen != null) {
-      if (alreadySeen.isNotEmpty) {
-        query = query.where(FieldPath.documentId, whereNotIn: alreadySeen);
-        if (query.snapshots().length == 0) {
-          print('DATABASE 90: la query è vuota');
-        } else {
-          print('db 93 la query non è vuota ma ha lenght:');
-          print(query.snapshots().length);
-        }
+      if (query.snapshots().length == 0) {
+        print('DATABASE 232: la query è vuota');
+        return query.snapshots().map((_allPersProfileDataFromSnapshotAdj));
       }
-    }*/
+    }
     return query.snapshots().map((_allPersProfileDataFromSnapshotAdj));
   }
 
