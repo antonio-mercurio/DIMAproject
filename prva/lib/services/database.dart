@@ -5,14 +5,12 @@ import 'package:prva/models/personalProfile.dart';
 /* Service used for the update of the personal profile
 and to filter the personal profile */
 
-
 class DatabaseService {
   final String? uid;
   DatabaseService(this.uid);
   //collection reference
   final CollectionReference persProfileCollection =
       FirebaseFirestore.instance.collection('personalProfiles');
-
 
 /* Vecchio, da cancellare  riscritto*/
   Future updatePersonalProfile(String name, String surname, int age) async {
@@ -23,8 +21,19 @@ class DatabaseService {
     });
   }
 
-  Future updatePersonalProfileAdj(String name, String surname, String description,String gender, String employment, int day, int month, int year, 
-  String imageURL1, String imageURL2, String imageURL3, String imageURL4) async {
+  Future updatePersonalProfileAdj(
+      String name,
+      String surname,
+      String description,
+      String gender,
+      String employment,
+      int day,
+      int month,
+      int year,
+      String imageURL1,
+      String imageURL2,
+      String imageURL3,
+      String imageURL4) async {
     return await persProfileCollection.doc(uid).set({
       'name': name,
       'surname': surname,
@@ -35,10 +44,9 @@ class DatabaseService {
       'month': month,
       'year': year,
       'imageURL1': imageURL1,
-      'imageURL2' : imageURL2,
+      'imageURL2': imageURL2,
       'imageURL3': imageURL3,
-      'imageURL4' : imageURL4,
-
+      'imageURL4': imageURL4,
     });
   }
 
@@ -75,8 +83,8 @@ class DatabaseService {
   }
   */
 
-
-  PersonalProfileAdj _persProfileDataFromSnapshotAdj(DocumentSnapshot snapshot) {
+  PersonalProfileAdj _persProfileDataFromSnapshotAdj(
+      DocumentSnapshot snapshot) {
     print("ok, sto entrando nella nuova funzione");
     return PersonalProfileAdj(
       uidA: uid ?? "",
@@ -89,12 +97,11 @@ class DatabaseService {
       imageURL2: snapshot.get('imageURL2'),
       imageURL3: snapshot.get('imageURL3'),
       imageURL4: snapshot.get('imageURL4'),
-      year : snapshot.get('year'),
+      year: snapshot.get('year'),
       month: snapshot.get('month'),
       day: snapshot.get('day'),
-      );
+    );
   }
-
 
   /* vecchio, da cancellare */
   /*Stream<PersonalProfile> get persProfileData {
@@ -104,7 +111,6 @@ class DatabaseService {
         .map((_persProfileDataFromSnapshot));
   }*/
 
-
   Stream<PersonalProfileAdj> get persProfileDataAdj {
     print(uid);
     print('ok sto accedendo');
@@ -113,8 +119,6 @@ class DatabaseService {
         .snapshots()
         .map((_persProfileDataFromSnapshotAdj));
   }
-  
-
 
   /*Future updateUserData(String owner, String city, int cap) async {
     print('stampa prova');
@@ -135,23 +139,22 @@ class DatabaseService {
       QuerySnapshot snapshot) {
     return snapshot.docs.map<PersonalProfileAdj>((doc) {
       return PersonalProfileAdj(
-          uidA: doc.reference.id,
-      nameA: doc.get('name') ?? "prova",
-      surnameA: doc.get('surname') ?? "",
-      description: doc.get('description') ?? "",
-      gender: doc.get('gender') ?? "",
-      employment: doc.get('employment') ?? "",
-      imageURL1: doc.get('imageURL1'),
-      imageURL2: doc.get('imageURL2'),
-      imageURL3: doc.get('imageURL3'),
-      imageURL4: doc.get('imageURL4'),
-      year : doc.get('year'),
-      month: doc.get('month'),
-      day: doc.get('day'),);
+        uidA: doc.reference.id,
+        nameA: doc.get('name') ?? "prova",
+        surnameA: doc.get('surname') ?? "",
+        description: doc.get('description') ?? "",
+        gender: doc.get('gender') ?? "",
+        employment: doc.get('employment') ?? "",
+        imageURL1: doc.get('imageURL1'),
+        imageURL2: doc.get('imageURL2'),
+        imageURL3: doc.get('imageURL3'),
+        imageURL4: doc.get('imageURL4'),
+        year: doc.get('year'),
+        month: doc.get('month'),
+        day: doc.get('day'),
+      );
     }).toList();
-   }
-   
-      
+  }
 
   Stream<List<String>> get getAlreadySeenProfile {
     return FirebaseFirestore.instance
@@ -168,21 +171,43 @@ class DatabaseService {
     //print("alreadySeen sul db alla riga< 100 è: ");
     //print(alreadySeen);
     if (selectedFilters != null) {
-      if(selectedFilters.gender!= null && selectedFilters.gender!= "not relevant"){
-        query = query.where('gender', whereIn: ["others", selectedFilters.gender]);
+      if (selectedFilters.gender != null &&
+          selectedFilters.gender != "not relevant") {
+        query =
+            query.where('gender', whereIn: ["others", selectedFilters.gender]);
       }
-      if(selectedFilters.employment!= null && selectedFilters.employment!= "not relevant"){
-        query = query.where('employment', isEqualTo: selectedFilters.employment);
+      if (selectedFilters.employment != null &&
+          selectedFilters.employment != "not relevant") {
+        query =
+            query.where('employment', isEqualTo: selectedFilters.employment);
       }
-      /*
+
       if (selectedFilters.maxAge != null) {
-        query = query.where('age', isLessThanOrEqualTo: selectedFilters.maxAge);
+        num yearFilter = DateTime.now().year - (selectedFilters.maxAge as num);
+        query = query.where(Filter.or(
+            Filter('year', isGreaterThan: yearFilter),
+            Filter.or(
+                Filter.and(Filter('year', isEqualTo: yearFilter),
+                    Filter('month', isLessThan: DateTime.now().month)),
+                Filter.and(
+                    Filter.and(Filter('year', isEqualTo: yearFilter),
+                        Filter('month', isEqualTo: DateTime.now().month)),
+                    Filter('day', isLessThanOrEqualTo: DateTime.now().day)))));
       }
       if (selectedFilters.minAge != null) {
-        query = query.where('age', isGreaterThan: selectedFilters.minAge);
+        num yearFilter = DateTime.now().year - (selectedFilters.minAge as num);
+        query = query.where(Filter.or(
+            Filter('year', isLessThan: yearFilter),
+            Filter.or(
+                Filter.and(Filter('year', isEqualTo: yearFilter),
+                    Filter('month', isGreaterThan: DateTime.now().month)),
+                Filter.and(
+                    Filter.and(Filter('year', isEqualTo: yearFilter),
+                        Filter('month', isEqualTo: DateTime.now().month)),
+                    Filter('day',
+                        isGreaterThanOrEqualTo: DateTime.now().day)))));
       }
-      */
-    } 
+    }
     /*
     if (alreadySeen != null) {
       if (alreadySeen.isNotEmpty) {
