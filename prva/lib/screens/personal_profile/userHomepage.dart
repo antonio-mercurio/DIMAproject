@@ -15,12 +15,14 @@ import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/services/match/match_service.dart';
 import 'package:prva/shared/loading.dart';
 
-class userHomepage extends StatefulWidget {
+class UserHomepage extends StatefulWidget {
+  const UserHomepage({super.key});
+
   @override
-  State<userHomepage> createState() => _userHomepageState();
+  State<UserHomepage> createState() => _UserHomepageState();
 }
 
-class _userHomepageState extends State<userHomepage> {
+class _UserHomepageState extends State<UserHomepage> {
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
     SearchLayout(),
@@ -50,8 +52,8 @@ class _userHomepageState extends State<userHomepage> {
     return StreamProvider<PersonalProfileAdj>.value(
         value: DatabaseService(user.uid).persProfileDataAdj,
         initialData:
-            PersonalProfileAdj(uidA: user.uid, nameA: '', surnameA: '', birthDate: DateTime.now(), description: "", gender: "",
-            employment: "", imageURLs: []),
+            PersonalProfileAdj(uidA: user.uid, nameA: '', surnameA: '', description: "", gender: "",
+            employment: "", day: 0, month: 0, year: 0, imageURL1: '', imageURL2: '', imageURL3: '', imageURL4: ''),
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -110,7 +112,9 @@ class _SearchLayoutState extends State<SearchLayout> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Utente>(context);
+    try{
     final retrievedFilters = DatabaseServiceFilters(user.uid).getFilters;
+    
     retrievedFilters.listen((content) {
       filtri = Filters(
           userID: content.userID,
@@ -121,7 +125,10 @@ class _SearchLayoutState extends State<SearchLayout> {
         setState(() {});
       }
     });
-
+    }catch(e){
+      print(e);
+      filtri = null;
+    }
     return StreamProvider<List<HouseProfile>>.value(
         //value: DatabaseServiceHouseProfile(user.uid).getAllHouses,
         value: DatabaseServiceHouseProfile(user.uid).getFilteredHouses(filtri),
@@ -148,7 +155,6 @@ class ProfileLayout extends StatelessWidget {
         SizedBox(height: 20.0),
         Text(personalData.surnameA, style: TextStyle(fontSize: 18.0)),
         SizedBox(height: 20.0),
-        Text(personalData.birthDate.toString(), style: TextStyle(fontSize: 18.0)),
         ElevatedButton(
           child: Text('Update'),
           onPressed: () {

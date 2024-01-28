@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
@@ -17,6 +19,7 @@ class DatabaseServiceFiltersPerson {
       FirebaseFirestore.instance.collection('houseProfiles');
 
   //filters for people utilized by house profile
+  /* vecchio, riscritto */
   Future updateFiltersPerson(int? minAge, int? maxAge) async {
     return await filtersPersonCollection.doc(uid).set({
       'house': uid,
@@ -25,6 +28,16 @@ class DatabaseServiceFiltersPerson {
     });
   }
 
+  Future updateFiltersPersonAj(int? minAge, int? maxAge, String? gender, String? employment) async {
+    return await filtersPersonCollection.doc(uid).set({
+      'house': uid,
+      'maxAge': maxAge,
+      'minAge': minAge,
+      'gender': gender,
+      'employment': employment
+    });
+  }
+  /* vecchio, riscritto */
   FiltersPerson _filtersPersonFromSnapshot(DocumentSnapshot snapshot) {
     if (snapshot.data() == null) {
       return FiltersPerson(
@@ -41,12 +54,44 @@ class DatabaseServiceFiltersPerson {
     }
   }
 
+  FiltersPersonAdj _filtersPersonFromSnapshotAdj(DocumentSnapshot snapshot) {
+    if (snapshot.data() == null) {
+      return FiltersPersonAdj(
+        houseID: uid ?? "",
+        minAge: 0,
+        maxAge: 99,
+        gender: "not relevant",
+        employment: "not relevant",
+      );
+    } else {
+      return FiltersPersonAdj(
+        houseID: uid ?? "",
+        minAge: snapshot.get('minAge') ?? 0,
+        maxAge: snapshot.get('maxAge') ?? 99,
+        gender: snapshot.get('gender') ?? "not relevant",
+        employment: snapshot.get('employment') ?? "not relevant",
+
+      );
+    }
+  }
+
+/* vecchio, riscritto */
   Stream<FiltersPerson> get getFiltersPerson {
     return filtersPersonCollection
         .doc(uid)
         .snapshots()
         .map((_filtersPersonFromSnapshot));
   }
+
+
+   Stream<FiltersPersonAdj> get getFiltersPersonAdj {
+    return filtersPersonCollection
+        .doc(uid)
+        .snapshots()
+        .map((_filtersPersonFromSnapshotAdj));
+  }
+
+  
 
   HouseProfile _houseProfileUserFromSnapshot(DocumentSnapshot snapshot) {
     return HouseProfile(

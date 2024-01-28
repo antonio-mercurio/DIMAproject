@@ -11,6 +11,7 @@ class BirthDatePage extends StatefulWidget {
 class _BirthDatePageState extends State<BirthDatePage> {
   // controller for the textfield
   TextEditingController _dateController = TextEditingController();
+  DateTime? creaData;
 
   // variable to store the selected date
   DateTime? _selectedDate;
@@ -19,6 +20,7 @@ class _BirthDatePageState extends State<BirthDatePage> {
   void _selectDate(BuildContext context) async {
     // get the initial date
     DateTime initialDate = _selectedDate ?? DateTime.now();
+    
 
     // show the date picker and wait for the result
     DateTime? pickedDate = await showDatePicker(
@@ -36,6 +38,12 @@ class _BirthDatePageState extends State<BirthDatePage> {
 
         // format the date as dd/mm/yyyy
         String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
+        int day = pickedDate.day as int;
+
+        print(day);
+        print(pickedDate.month);
+        print(pickedDate.year);
+
 
         // update the textfield controller
         _dateController.text = formattedDate;
@@ -66,6 +74,7 @@ class _BirthDatePageState extends State<BirthDatePage> {
                     onPressed: () {
                       // call the function to show the date picker
                       _selectDate(context);
+                      print(creaData.toString());
                     },
                   ),
                 ),

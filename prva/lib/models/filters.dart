@@ -15,3 +15,15 @@ class FiltersPerson {
   FiltersPerson(
       {required this.houseID, this.minAge, this.maxAge});
 }
+
+  class FiltersPersonAdj{
+    final String houseID;
+  int? minAge;
+  int? maxAge;
+  String? gender;
+  String? employment;
+
+  FiltersPersonAdj(
+      {required this.houseID, this.minAge, this.maxAge, this.gender, this.employment});
+    
+  }
