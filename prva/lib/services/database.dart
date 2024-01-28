@@ -165,6 +165,12 @@ class DatabaseService {
         .map((_profileAlreadySeenFromSnapshot));
   }
 
+  Stream<List<PersonalProfileAdj>> getxd(){
+
+    return persProfileCollection.snapshots().map((_allPersProfileDataFromSnapshotAdj));
+
+  }
+
   Stream<List<PersonalProfileAdj>> getFilteredProfileAdj(
       FiltersPersonAdj? selectedFilters) {
     Query query = persProfileCollection;
