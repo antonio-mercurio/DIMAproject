@@ -53,7 +53,7 @@ class _HouseProfSelState extends State<HouseProfSel> {
           context: context,
           builder: (context) {
             return Container(
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
               child: FormFiltersPeopleAdj(
                 uidHouse: house.idHouse,
               ),

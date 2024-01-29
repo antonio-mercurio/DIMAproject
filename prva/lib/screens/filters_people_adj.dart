@@ -131,10 +131,10 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 32, 0, 32),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                   child: Container(
                     width: double.infinity,
-                    height: 48,
+                    height: 34,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
                     ),
@@ -151,7 +151,7 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(12),
+                  padding: EdgeInsets.all(24),
                   child: Container(
                     width: double.infinity,
                     constraints: BoxConstraints(
@@ -175,7 +175,7 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                     child: Align(
                       alignment: AlignmentDirectional(0, 0),
                       child: Padding(
-                        padding: EdgeInsets.all(24),
+                        padding: EdgeInsets.all(12),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -197,7 +197,7 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                             ),
                             Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                  EdgeInsetsDirectional.fromSTEB(4, 0, 4, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
