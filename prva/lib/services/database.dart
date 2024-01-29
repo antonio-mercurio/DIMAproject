@@ -131,9 +131,9 @@ class DatabaseService {
 
   List<String> _profileAlreadySeenFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map<String>((doc) {
-      if (doc.exists)
+      if (doc.exists) {
         return doc.reference.id;
-      else {
+      } else {
         return "";
       }
     }).toList();
@@ -169,67 +169,10 @@ class DatabaseService {
         .map((_profileAlreadySeenFromSnapshot));
   }
 
-  Stream<List<PersonalProfileAdj>> getAllxdxdxd() {
+  Stream<List<PersonalProfileAdj>> getAllPersonalProfiles() {
     return persProfileCollection
         .snapshots()
         .map((_allPersProfileDataFromSnapshotAdj));
-  }
-
-  Stream<List<PersonalProfileAdj>> getFilteredProfileAdj(
-      FiltersPersonAdj? selectedFilters) {
-    Query query = persProfileCollection;
-    Filter filterGender = Filter.or(
-        Filter('gender', isEqualTo: selectedFilters?.gender),
-        Filter('gender', isEqualTo: "other"));
-
-    Filter filterEmployment =
-        Filter('employment', isEqualTo: selectedFilters?.employment);
-    //print("171 db: ");
-    //print(selectedFilters!.gender);
-    //print(alreadySeen);
-    /*if (selectedFilters != null) {
-      if (selectedFilters!.gender != "" &&
-          selectedFilters!.gender != "not relevant") {
-        query = query.where(Filter.or(
-            Filter('gender', isEqualTo: selectedFilters.gender),
-            Filter('gender', isEqualTo: "other")));
-      }
-      if (selectedFilters!.employment != "" &&
-          selectedFilters!.employment != "not relevant") {
-        query =
-            query.where('employment', isEqualTo: selectedFilters.employment);
-      }
-/*
-      if (selectedFilters!.maxAge != 100) {
-        num yearFilter = DateTime.now().year - (selectedFilters.maxAge as num);
-        query = query.where(Filter.or(
-            Filter('year', isGreaterThan: yearFilter),
-            Filter.or(
-                Filter.and(Filter('year', isEqualTo: yearFilter),
-                    Filter('month', isGreaterThan: DateTime.now().month)),
-                Filter.and(
-                    Filter.and(Filter('year', isEqualTo: yearFilter),
-                        Filter('month', isEqualTo: DateTime.now().month)),
-                    Filter('day',
-                        isGreaterThanOrEqualTo: DateTime.now().day)))));
-      }
-      if (selectedFilters.minAge != 1) {
-        num yearFilter = DateTime.now().year - (selectedFilters.minAge as num);
-        query = query.where(Filter.or(
-            Filter('year', isLessThan: yearFilter),
-            Filter.or(
-                Filter.and(Filter('year', isEqualTo: yearFilter),
-                    Filter('month', isLessThan: DateTime.now().month)),
-                Filter.and(
-                    Filter.and(Filter('year', isEqualTo: yearFilter),
-                        Filter('month', isEqualTo: DateTime.now().month)),
-                    Filter('day', isLessThanOrEqualTo: DateTime.now().day)))));
-      }*/
-    }*/
-
-    query = query.where(Filter.and(filterGender, filterEmployment));
-
-    return query.snapshots().map((_allPersProfileDataFromSnapshotAdj));
   }
 
 /*

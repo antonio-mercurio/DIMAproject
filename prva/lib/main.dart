@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:prva/form_filter_people_adj.dart';
 import 'package:prva/form_house_profile_adj.dart';
 import 'package:prva/models/user.dart';
+import 'package:prva/screens/wrapper.dart';
 import 'package:prva/services/auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -25,8 +26,9 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       initialData: null,
       child: MaterialApp(
-        home: FormFilterPeopleAdj()//ViewProfile(houseProfile: HouseProfile(type: 'Stanza Singola', city: 'Milano', price: 500, address: 'Via Schipsrelli', owner: '', idHouse: '' )),
-      ),
+          home:
+              Wrapper() //ViewProfile(houseProfile: HouseProfile(type: 'Stanza Singola', city: 'Milano', price: 500, address: 'Via Schipsrelli', owner: '', idHouse: '' )),
+          ),
     );
   }
 }

@@ -7,6 +7,7 @@ import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/preference.dart';
 import 'package:prva/screens/multipleImagePicker.dart';
 import 'package:prva/services/database.dart';
+import 'package:prva/services/databaseFilterPerson.dart';
 import 'package:prva/services/databaseForFilters.dart';
 import 'package:prva/services/match/match_service.dart';
 import 'package:prva/swipe_betweeen_images_profile.dart';
@@ -15,44 +16,71 @@ import 'package:prva/swipe_betweeen_images_profile.dart';
 of the people */
 class AllProfilesList extends StatefulWidget {
   final HouseProfile house;
-  final FiltersPersonAdj filtri;
 
-  AllProfilesList({required this.house, required this.filtri});
+  AllProfilesList({required this.house});
 
   @override
-  State<AllProfilesList> createState() =>
-      _AllProfilesListState(house: house, filtri: filtri);
+  State<AllProfilesList> createState() => _AllProfilesListState(house: house);
 }
 
 class _AllProfilesListState extends State<AllProfilesList> {
   List<String>? alreadySeenProfiles;
+  List<PersonalProfileAdj>? profiles;
   final HouseProfile house;
-  final FiltersPersonAdj filtri;
-  _AllProfilesListState({required this.house, required this.filtri});
+  FiltersPersonAdj? filtri;
+  _AllProfilesListState({required this.house});
   List<PreferenceForMatch>? preferencesOther;
 
   @override
   Widget build(BuildContext context) {
+    final allProfiles = Provider.of<List<PersonalProfileAdj>>(context);
+    final profiles = List.from(allProfiles);
+    try {
+      final retrievedFilters =
+          DatabaseServiceFiltersPerson(uid: house.idHouse).getFiltersPersonAdj;
+      retrievedFilters.listen((content) {
+        filtri = content;
+        print('filtri ci sono');
+        print(filtri!.maxAge.toString());
+        print(filtri!.gender.toString());
+        print(filtri!.minAge.toString());
+        print(filtri!.employment.toString());
+        setState(() {});
+      });
+    } catch (e) {
+      print('exception thrown by filters');
+    }
     final retrievedAlreadySeenProfiles =
         DatabaseService(house.idHouse).getAlreadySeenProfile;
     retrievedAlreadySeenProfiles.listen((content) {
       alreadySeenProfiles = content;
-      if (this.mounted) {
-        setState(() {});
-      }
     });
 
-    final profiles = Provider.of<List<PersonalProfileAdj>>(context);
     //print(profiles[0].nameA);
     //check already seen != null prima di fare questo filtri
     if (alreadySeenProfiles != null) {
       profiles.removeWhere(
           (element) => alreadySeenProfiles!.contains(element.uidA));
-      if (this.mounted) {
-        setState(() {});
-      }
-      //print('allprof32 - rimuovo');
     }
+    if (filtri != null && profiles.isNotEmpty) {
+      if (filtri?.gender != "not relevant") {
+        profiles.removeWhere((element) => ((filtri?.gender != element.gender) &&
+            (element.gender != "other")));
+      }
+      if (filtri?.employment != "not relevant" && profiles.isNotEmpty) {
+        profiles.removeWhere(
+            (element) => (filtri?.employment != element.employment));
+      }
+      if (filtri?.minAge != 1 && profiles.isNotEmpty) {
+        profiles
+            .removeWhere((element) => _calculateAge(element) < filtri!.minAge!);
+      }
+      if (filtri?.maxAge != 100 && profiles.isNotEmpty) {
+        profiles
+            .removeWhere((element) => _calculateAge(element) > filtri!.maxAge!);
+      }
+    }
+
     if (profiles.isEmpty) {
       return Center(
         child: Text(
@@ -61,6 +89,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
         ),
       );
     } else {
+      setState(() {});
       final myHouse = Provider.of<HouseProfile>(context);
       final retrievedPreferences =
           MatchService(uid: profiles[0].uidA).getPreferencesForMatch;
@@ -118,6 +147,16 @@ class _AllProfilesListState extends State<AllProfilesList> {
         ],
       );
     }
+  }
+
+  int _calculateAge(PersonalProfileAdj element) {
+    int year = element.year;
+    int month = element.month;
+    int day = element.day;
+    return (DateTime.now().difference(DateTime.utc(year, month, day)).inDays /
+            365)
+        .round()
+        .toInt();
   }
 }
 

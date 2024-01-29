@@ -116,8 +116,6 @@ class SearchLayout extends StatefulWidget {
 }
 
 class _SearchLayoutState extends State<SearchLayout> {
-  FiltersPersonAdj? filtri;
-  List<String>? alreadySeenProfiles;
   @override
   Widget build(BuildContext context) {
     final house = Provider.of<HouseProfile>(context);
@@ -125,51 +123,14 @@ class _SearchLayoutState extends State<SearchLayout> {
       return Loading();
     }
 
-    try {
-      final retrievedFilters =
-          DatabaseServiceFiltersPerson(uid: house.idHouse).getFiltersPersonAdj;
-      retrievedFilters.listen((content) {
-        filtri = FiltersPersonAdj(
-            houseID: content.houseID,
-            minAge: content.minAge,
-            maxAge: content.maxAge,
-            gender: content.gender,
-            employment: content.employment);
-        if (this.mounted) {
-          setState(() {});
-          //print(filtri?.minAge.toString());
-          //print(filtri?.maxAge.toString());
-        }
-      });
-    } catch (e) {
-      print('exception thrown by filters');
-    }
-    //print(retrievedFilters);
-    try {} catch (e) {
-      print('exception thrown by already seen profiles');
-    }
-    //print("alreadyseenprofiles su homepage r.136:");
-    //print(alreadySeenProfiles);
-
-    //print(filtri?.houseID);
-    //print(filtri?.maxAge.toString());
-    //print(filtri?.minAge.toString());
-
     return StreamProvider<List<PersonalProfileAdj>>.value(
-        value: DatabaseService(house.idHouse).getFilteredProfileAdj(filtri),
+        value: DatabaseService(house.idHouse).getAllPersonalProfiles(),
         initialData: [],
         child: Scaffold(
-          backgroundColor: Colors.black,
-          body: AllProfilesList(
+            backgroundColor: Colors.black,
+            body: AllProfilesList(
               house: house,
-              filtri: filtri ??
-                  FiltersPersonAdj(
-                      houseID: house.idHouse,
-                      minAge: 1,
-                      maxAge: 100,
-                      gender: 'not relevant',
-                      employment: 'not relevant')),
-        ));
+            )));
   }
 }
 
