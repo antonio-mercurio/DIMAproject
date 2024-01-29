@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:geocoding_resolver/geocoding_resolver.dart';
@@ -1077,7 +1078,17 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                   icon: const Icon(Icons.close),
                                                   color:
                                                       const Color(0xFFFF5963),
-                                                  onPressed: () {},
+                                                  onPressed: () async {
+                                                    await FirebaseStorage
+                                                        .instance
+                                                        .refFromURL(imageURLs
+                                                            .elementAt(0))
+                                                        .delete();
+                                                    imageURLs[0] = "";
+                                                    if (mounted) {
+                                                      setState(() {});
+                                                    }
+                                                  },
                                                 ),
                                         ),
                                       ]),
@@ -1140,7 +1151,17 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                               : IconButton(
                                                   icon: Icon(Icons.close),
                                                   color: Color(0xFFFF5963),
-                                                  onPressed: () {},
+                                                  onPressed: () async {
+                                                    await FirebaseStorage
+                                                        .instance
+                                                        .refFromURL(imageURLs
+                                                            .elementAt(1))
+                                                        .delete();
+                                                    imageURLs[1] = "";
+                                                    if (mounted) {
+                                                      setState(() {});
+                                                    }
+                                                  },
                                                 ),
                                         ),
                                       ]),
@@ -1204,7 +1225,16 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                             : IconButton(
                                                 icon: Icon(Icons.close),
                                                 color: Color(0xFFFF5963),
-                                                onPressed: () {},
+                                                onPressed: () async {
+                                                  await FirebaseStorage.instance
+                                                      .refFromURL(imageURLs
+                                                          .elementAt(2))
+                                                      .delete();
+                                                  imageURLs[2] = "";
+                                                  if (mounted) {
+                                                    setState(() {});
+                                                  }
+                                                },
                                               ),
                                       ),
                                     ]),
@@ -1266,7 +1296,16 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                             : IconButton(
                                                 icon: Icon(Icons.close),
                                                 color: Color(0xFFFF5963),
-                                                onPressed: () {},
+                                                onPressed: () async {
+                                                  await FirebaseStorage.instance
+                                                      .refFromURL(imageURLs
+                                                          .elementAt(3))
+                                                      .delete();
+                                                  imageURLs[3] = "";
+                                                  if (mounted) {
+                                                    setState(() {});
+                                                  }
+                                                },
                                               ),
                                       ),
                                     ]),
