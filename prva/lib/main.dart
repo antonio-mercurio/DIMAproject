@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:prva/form_filter_people_adj.dart';
 import 'package:prva/form_house_profile_adj.dart';
 import 'package:prva/models/user.dart';
 import 'package:prva/services/auth.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       initialData: null,
       child: MaterialApp(
-        home: FormHouseAdj()//ViewProfile(houseProfile: HouseProfile(type: 'Stanza Singola', city: 'Milano', price: 500, address: 'Via Schipsrelli', owner: '', idHouse: '' )),
+        home: FormFilterPeopleAdj()//ViewProfile(houseProfile: HouseProfile(type: 'Stanza Singola', city: 'Milano', price: 500, address: 'Via Schipsrelli', owner: '', idHouse: '' )),
       ),
     );
   }
