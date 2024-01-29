@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prva/form_house_profile_adj.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/user.dart';
 import 'package:prva/screens/house_profile/houses_list.dart';
@@ -15,23 +16,23 @@ class ShowHomeProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<Utente>(context);
 
-    return StreamProvider<List<HouseProfile>>.value(
-      value: DatabaseServiceHouseProfile(user.uid).getHouses,
+    return StreamProvider<List<HouseProfileAdj>>.value(
+      value: DatabaseServiceHouseProfile(user.uid).getHousesAdj,
       initialData: [],
       child: Scaffold(
-        backgroundColor: Colors.orange[50],
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text('Affinder'),
-          backgroundColor: Colors.orange[400],
+          backgroundColor: Colors.black,
           elevation: 0.0,
           actions: <Widget>[
-            TextButton.icon(
-              icon: Icon(Icons.add_circle),
-              label: Text('aggiungi profilo'),
+            IconButton(
+                icon: Icon(Icons.add_home_outlined,
+                color: Colors.white),
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => RegisterFormHouse()),
+                  MaterialPageRoute(builder: (context) => FormHouseAdj()),
                 );
               },
             ),

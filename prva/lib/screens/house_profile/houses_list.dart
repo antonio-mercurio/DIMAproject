@@ -13,7 +13,7 @@ class HousesList extends StatefulWidget {
 class _HousesListState extends State<HousesList> {
   @override
   Widget build(BuildContext context) {
-    final houses = Provider.of<List<HouseProfile>>(context);
+    final houses = Provider.of<List<HouseProfileAdj>>(context);
     return ListView.builder(
       itemCount: houses.length,
       itemBuilder: (context, index) {

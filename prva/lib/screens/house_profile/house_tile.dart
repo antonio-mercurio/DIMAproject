@@ -3,7 +3,7 @@ import 'package:prva/models/houseProfile.dart';
 import 'package:prva/screens/house_profile/homepage_house_profile.dart';
 
 class HouseTile extends StatelessWidget {
-  final HouseProfile house;
+  final HouseProfileAdj house;
   HouseTile({required this.house});
   @override
   Widget build(BuildContext context) {
@@ -14,16 +14,19 @@ class HouseTile extends StatelessWidget {
           child: ListTile(
               leading: CircleAvatar(
                 radius: 25.0,
-                backgroundColor: Colors.red[house.price],
+                backgroundColor: Colors.red,
               ),
               title: Text(house.type),
               subtitle: Text('Si trova a ${house.city}'),
               onTap: () {
+                /*
                 Navigator.push(
                   context,
+                  
                   MaterialPageRoute(
                       builder: (context) => HouseProfSel(house: house)),
                 );
+                */
               }),
         ));
   }
