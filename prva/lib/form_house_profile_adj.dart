@@ -44,10 +44,9 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
   final TextEditingController _dateStartController = TextEditingController();
   final TextEditingController _dateEndController = TextEditingController();
 
-  void _selectDate(BuildContext context, DateTime? date,
-      TextEditingController dateController) async {
+  void _selectStartDate(BuildContext context) async {
     // get the initial date
-    DateTime initialDate = date ?? DateTime.now();
+    DateTime initialDate = _startDate ?? DateTime.now();
 
     // show the date picker and wait for the result
     DateTime? pickedDate = await showDatePicker(
@@ -58,16 +57,44 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
     );
 
     // if the user picked a date, update the state
-    if (pickedDate != null && pickedDate != date) {
+    if (pickedDate != null && pickedDate != _startDate) {
       setState(() {
         // set the selected date
-        date = pickedDate;
+        _startDate = pickedDate;
 
         // format the date as dd/mm/yyyy
         String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
 
         // update the textfield controller
-        dateController.text = formattedDate;
+        _dateStartController.text = formattedDate;
+      });
+    }
+  }
+
+
+  void _selectEndDate(BuildContext context) async {
+    // get the initial date
+    DateTime initialDate = _endDate ?? DateTime.now();
+
+    // show the date picker and wait for the result
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(DateTime.now().year + 10),
+    );
+
+    // if the user picked a date, update the state
+    if (pickedDate != null && pickedDate !=_endDate) {
+      setState(() {
+        // set the selected date
+        _endDate = pickedDate;
+
+        // format the date as dd/mm/yyyy
+        String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
+
+        // update the textfield controller
+        _dateEndController.text = formattedDate;
       });
     }
   }
@@ -748,8 +775,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                           icon: Icon(Icons.calendar_today),
                                           onPressed: () {
                                             // call the function to show the date picker
-                                            _selectDate(context, _startDate,
-                                                _dateStartController);
+                                            _selectStartDate(context);
                                           },
                                         ),
                                         labelText: 'Start date of rent',
@@ -824,8 +850,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                           icon: Icon(Icons.calendar_today),
                                           onPressed: () {
                                             // call the function to show the date picker
-                                            _selectDate(context, _endDate,
-                                                _dateEndController);
+                                           _selectEndDate(context);
                                           },
                                         ),
                                         labelText: 'End date of rent',
@@ -1325,7 +1350,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                         child: ElevatedButton(
                           onPressed: () async {
                             if (scaffoldKey.currentState!.validate()) {
-                              if (true) {
+                              if (_startDate!.isBefore(_endDate!)) {
                                 if (imageURLs[0] !=
                                     '' /*&& imageURLs[0]!='' && imageURLs[0]!='' && imageURLs[0]!=''*/) {
                                   setState(() {});
