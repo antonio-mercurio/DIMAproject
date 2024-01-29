@@ -93,13 +93,13 @@ class DatabaseService {
       description: snapshot.get('description') ?? "",
       gender: snapshot.get('gender') ?? "",
       employment: snapshot.get('employment') ?? "",
-      imageURL1: snapshot.get('imageURL1'),
-      imageURL2: snapshot.get('imageURL2'),
-      imageURL3: snapshot.get('imageURL3'),
-      imageURL4: snapshot.get('imageURL4'),
-      year: snapshot.get('year'),
-      month: snapshot.get('month'),
-      day: snapshot.get('day'),
+      imageURL1: snapshot.get('imageURL1') ?? "",
+      imageURL2: snapshot.get('imageURL2') ?? "",
+      imageURL3: snapshot.get('imageURL3') ?? "",
+      imageURL4: snapshot.get('imageURL4') ?? "",
+      year: snapshot.get('year') ?? 0,
+      month: snapshot.get('month') ?? 0,
+      day: snapshot.get('day') ?? 0,
     );
   }
 
@@ -131,7 +131,11 @@ class DatabaseService {
 
   List<String> _profileAlreadySeenFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map<String>((doc) {
-      return doc.reference.id;
+      if (doc.exists)
+        return doc.reference.id;
+      else {
+        return "";
+      }
     }).toList();
   }
 
@@ -140,7 +144,7 @@ class DatabaseService {
     return snapshot.docs.map<PersonalProfileAdj>((doc) {
       return PersonalProfileAdj(
         uidA: doc.reference.id,
-        nameA: doc.get('name') ?? "prova",
+        nameA: doc.get('name') ?? "",
         surnameA: doc.get('surname') ?? "",
         description: doc.get('description') ?? "",
         gender: doc.get('gender') ?? "",
@@ -165,26 +169,38 @@ class DatabaseService {
         .map((_profileAlreadySeenFromSnapshot));
   }
 
+  Stream<List<PersonalProfileAdj>> getAllxdxdxd() {
+    return persProfileCollection
+        .snapshots()
+        .map((_allPersProfileDataFromSnapshotAdj));
+  }
+
   Stream<List<PersonalProfileAdj>> getFilteredProfileAdj(
       FiltersPersonAdj? selectedFilters) {
     Query query = persProfileCollection;
+    Filter filterGender = Filter.or(
+        Filter('gender', isEqualTo: selectedFilters?.gender),
+        Filter('gender', isEqualTo: "other"));
+
+    Filter filterEmployment =
+        Filter('employment', isEqualTo: selectedFilters?.employment);
     //print("171 db: ");
     //print(selectedFilters!.gender);
     //print(alreadySeen);
-    if (selectedFilters != null) {
-      if (selectedFilters.gender != null &&
-          selectedFilters.gender != "not relevant") {
+    /*if (selectedFilters != null) {
+      if (selectedFilters!.gender != "" &&
+          selectedFilters!.gender != "not relevant") {
         query = query.where(Filter.or(
             Filter('gender', isEqualTo: selectedFilters.gender),
             Filter('gender', isEqualTo: "other")));
       }
-      if (selectedFilters.employment != null &&
-          selectedFilters.employment != "not relevant") {
+      if (selectedFilters!.employment != "" &&
+          selectedFilters!.employment != "not relevant") {
         query =
             query.where('employment', isEqualTo: selectedFilters.employment);
       }
-
-      if (selectedFilters.maxAge != null) {
+/*
+      if (selectedFilters!.maxAge != 100) {
         num yearFilter = DateTime.now().year - (selectedFilters.maxAge as num);
         query = query.where(Filter.or(
             Filter('year', isGreaterThan: yearFilter),
@@ -197,7 +213,7 @@ class DatabaseService {
                     Filter('day',
                         isGreaterThanOrEqualTo: DateTime.now().day)))));
       }
-      if (selectedFilters.minAge != null) {
+      if (selectedFilters.minAge != 1) {
         num yearFilter = DateTime.now().year - (selectedFilters.minAge as num);
         query = query.where(Filter.or(
             Filter('year', isLessThan: yearFilter),
@@ -208,8 +224,11 @@ class DatabaseService {
                     Filter.and(Filter('year', isEqualTo: yearFilter),
                         Filter('month', isEqualTo: DateTime.now().month)),
                     Filter('day', isLessThanOrEqualTo: DateTime.now().day)))));
-      }
-    }
+      }*/
+    }*/
+
+    query = query.where(Filter.and(filterGender, filterEmployment));
+
     return query.snapshots().map((_allPersProfileDataFromSnapshotAdj));
   }
 

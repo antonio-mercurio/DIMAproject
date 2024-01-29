@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
+import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/preference.dart';
 import 'package:prva/screens/multipleImagePicker.dart';
 import 'package:prva/services/database.dart';
+import 'package:prva/services/databaseForFilters.dart';
 import 'package:prva/services/match/match_service.dart';
 import 'package:prva/swipe_betweeen_images_profile.dart';
 
@@ -13,17 +15,20 @@ import 'package:prva/swipe_betweeen_images_profile.dart';
 of the people */
 class AllProfilesList extends StatefulWidget {
   final HouseProfile house;
+  final FiltersPersonAdj filtri;
 
-  AllProfilesList({required this.house});
+  AllProfilesList({required this.house, required this.filtri});
 
   @override
-  State<AllProfilesList> createState() => _AllProfilesListState(house: house);
+  State<AllProfilesList> createState() =>
+      _AllProfilesListState(house: house, filtri: filtri);
 }
 
 class _AllProfilesListState extends State<AllProfilesList> {
   List<String>? alreadySeenProfiles;
   final HouseProfile house;
-  _AllProfilesListState({required this.house});
+  final FiltersPersonAdj filtri;
+  _AllProfilesListState({required this.house, required this.filtri});
   List<PreferenceForMatch>? preferencesOther;
 
   @override
@@ -32,14 +37,13 @@ class _AllProfilesListState extends State<AllProfilesList> {
         DatabaseService(house.idHouse).getAlreadySeenProfile;
     retrievedAlreadySeenProfiles.listen((content) {
       alreadySeenProfiles = content;
-      //print(alreadySeenProfiles?.length);
-      //print(alreadySeenProfiles?.length);
       if (this.mounted) {
         setState(() {});
       }
     });
-    final profiles = Provider.of<List<PersonalProfileAdj>>(context);
 
+    final profiles = Provider.of<List<PersonalProfileAdj>>(context);
+    //print(profiles[0].nameA);
     //check already seen != null prima di fare questo filtri
     if (alreadySeenProfiles != null) {
       profiles.removeWhere(

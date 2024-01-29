@@ -160,7 +160,15 @@ class _SearchLayoutState extends State<SearchLayout> {
         initialData: [],
         child: Scaffold(
           backgroundColor: Colors.black,
-          body: AllProfilesList(house: house),
+          body: AllProfilesList(
+              house: house,
+              filtri: filtri ??
+                  FiltersPersonAdj(
+                      houseID: house.idHouse,
+                      minAge: 1,
+                      maxAge: 100,
+                      gender: 'not relevant',
+                      employment: 'not relevant')),
         ));
   }
 }

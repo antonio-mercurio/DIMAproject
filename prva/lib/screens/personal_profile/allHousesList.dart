@@ -27,6 +27,7 @@ class _AllHousesListState extends State<AllHousesList> {
         DatabaseService(myProfile.uidA).getAlreadySeenProfile;
     retrievedAlreadySeenHouses.listen((content) {
       alreadySeenHouses = content;
+      alreadySeenHouses!.add('-1');
       //print(alreadySeenProfiles?.length);
       //print(alreadySeenProfiles?.length);
       if (this.mounted) {
