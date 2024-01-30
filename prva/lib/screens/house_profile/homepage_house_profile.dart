@@ -65,11 +65,26 @@ class _HouseProfSelState extends State<HouseProfSel> {
     return StreamProvider<HouseProfileAdj>.value(
         value: DatabaseServiceHouseProfile(house.idHouse).getMyHouseAdj,
         initialData: HouseProfileAdj(
-            type: '', address: '', city: '', price: 0.0, owner: '', idHouse: '',
-            description: '', numBath: 0, numPlp: 0, floorNumber: 0, imageURL1: '',
-            imageURL2: '', imageURL3: '', imageURL4: '', startDay: 0,
-            startMonth: 0, startYear: 0, endDay: 0, endMonth: 0, endYear: 0
-            ),
+            type: '',
+            address: '',
+            city: '',
+            price: 0.0,
+            owner: '',
+            idHouse: '',
+            description: '',
+            numBath: 0,
+            numPlp: 0,
+            floorNumber: 0,
+            imageURL1: '',
+            imageURL2: '',
+            imageURL3: '',
+            imageURL4: '',
+            startDay: 0,
+            startMonth: 0,
+            startYear: 0,
+            endDay: 0,
+            endMonth: 0,
+            endYear: 0),
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(

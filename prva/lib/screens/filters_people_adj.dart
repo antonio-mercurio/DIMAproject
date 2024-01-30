@@ -1,33 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/services/databaseFilterPerson.dart';
 
-/*
-RangeSlider(
-  min: 0.0, // il valore minimo che si può selezionare
-  max: 100.0, // il valore massimo che si può selezionare
-  divisions: 10, // il numero di divisioni del tracciato
-  labels: RangeLabels( // le etichette che mostrano i valori selezionati
-    _startValue.round().toString(), // il valore iniziale
-    _endValue.round().toString(), // il valore finale
-  ),
-  values: RangeValues( // i valori selezionati dallo slider
-    _startValue, // il valore iniziale
-    _endValue, // il valore finale
-  ),
-  onChanged: (values) { // la funzione che viene chiamata quando si cambia lo slider
-    setState(() { // per aggiornare l'interfaccia grafica
-      _startValue = values.start; // assegna il nuovo valore iniziale
-      _endValue = values.end; // assegna il nuovo valore finale
-    });
-  },
-)*/
-
 class FormFiltersPeopleAdj extends StatefulWidget {
   final String uidHouse;
-
-  const FormFiltersPeopleAdj({super.key, required this.uidHouse});
+  FormFiltersPeopleAdj({required this.uidHouse});
 
   @override
   State<FormFiltersPeopleAdj> createState() =>
@@ -36,6 +15,7 @@ class FormFiltersPeopleAdj extends StatefulWidget {
 
 class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
   final String uidHouse;
+
   FiltersPersonAdj? filtri;
 
   double _startValue = 1.0;
@@ -94,31 +74,11 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
       final retrievedFilters =
           DatabaseServiceFiltersPerson(uid: uidHouse).getFiltersPersonAdj;
       retrievedFilters.listen((content) {
-        filtri = FiltersPersonAdj(
-            houseID: content.houseID,
-            minAge: content.minAge,
-            maxAge: content.maxAge,
-            gender: content.gender,
-            employment: content.employment);
+        filtri = content;
       });
     } catch (e) {
-      filtri = FiltersPersonAdj(
-          houseID: uidHouse,
-          minAge: 1,
-          maxAge: 100,
-          gender: "not relevant",
-          employment: "not relevant");
-    } /*
-    if (filtri != null) {
-      _startValue = double.parse(filtri!.minAge.toString());
-      _endValue = double.parse(filtri!.maxAge.toString());
-
-      _valueGender = getGenderIndex(filtri!.gender!);
-      _valueEmployement = getEmploymentIndex(filtri!.employment!);
-      print('109 filters adk');
-      print(_startValue);
-      print(_valueGender);
-    }*/
+      print('exception thrown by filters');
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -237,6 +197,7 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                                                 .end; // assegna il nuovo valore finale
                                           });
                                         },
+                                        onChangeEnd: (values) {},
                                       ),
                                     ),
                                   ),
