@@ -15,7 +15,7 @@ import 'package:prva/swipe_betweeen_images_profile.dart';
 /* Class used by House Profile to show the Search
 of the people */
 class AllProfilesList extends StatefulWidget {
-  final HouseProfile house;
+  final HouseProfileAdj house;
 
   AllProfilesList({required this.house});
 
@@ -26,7 +26,7 @@ class AllProfilesList extends StatefulWidget {
 class _AllProfilesListState extends State<AllProfilesList> {
   List<String>? alreadySeenProfiles;
   List<PersonalProfileAdj>? profiles;
-  final HouseProfile house;
+  final HouseProfileAdj house;
   FiltersPersonAdj? filtri;
   _AllProfilesListState({required this.house});
   List<PreferenceForMatch>? preferencesOther;

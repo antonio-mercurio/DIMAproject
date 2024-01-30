@@ -11,6 +11,7 @@ import 'package:prva/screens/house_profile/filtersFormPerson.dart';
 import 'package:prva/screens/house_profile/form_modify_house.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseFilterPerson.dart';
+import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/services/match/match_service.dart';
 import 'package:prva/shared/loading.dart';
 import 'package:prva/show_detailed_profile.dart';
@@ -20,7 +21,7 @@ import 'package:prva/show_detailed_profile.dart';
 //Chat panel will show chats
 //Profile panel will show your profile
 class HouseProfSel extends StatefulWidget {
-  final HouseProfile house;
+  final HouseProfileAdj house;
 
   HouseProfSel({required this.house});
 
@@ -29,7 +30,7 @@ class HouseProfSel extends StatefulWidget {
 }
 
 class _HouseProfSelState extends State<HouseProfSel> {
-  final HouseProfile house;
+  final HouseProfileAdj house;
   _HouseProfSelState({required this.house});
 
   int _selectedIndex = 0;
@@ -61,10 +62,14 @@ class _HouseProfSelState extends State<HouseProfSel> {
           });
     }
 
-    return StreamProvider<HouseProfile>.value(
-        value: DatabaseServiceFiltersPerson(uid: house.idHouse).getMyHouse,
-        initialData: HouseProfile(
-            type: '', address: '', city: '', price: 0, owner: '', idHouse: ''),
+    return StreamProvider<HouseProfileAdj>.value(
+        value: DatabaseServiceHouseProfile(house.idHouse).getMyHouseAdj,
+        initialData: HouseProfileAdj(
+            type: '', address: '', city: '', price: 0.0, owner: '', idHouse: '',
+            description: '', numBath: 0, numPlp: 0, floorNumber: 0, imageURL1: '',
+            imageURL2: '', imageURL3: '', imageURL4: '', startDay: 0,
+            startMonth: 0, startYear: 0, endDay: 0, endMonth: 0, endYear: 0
+            ),
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -118,7 +123,7 @@ class SearchLayout extends StatefulWidget {
 class _SearchLayoutState extends State<SearchLayout> {
   @override
   Widget build(BuildContext context) {
-    final house = Provider.of<HouseProfile>(context);
+    final house = Provider.of<HouseProfileAdj>(context);
     if (house.idHouse == "") {
       return Loading();
     }
