@@ -5,7 +5,7 @@ import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/shared/constants.dart';
 
 class ModifyHouseForm extends StatefulWidget {
-  final HouseProfile house;
+  final HouseProfileAdj house;
   const ModifyHouseForm({required this.house});
 
   @override
@@ -13,7 +13,7 @@ class ModifyHouseForm extends StatefulWidget {
 }
 
 class _ModifyHouseFormState extends State<ModifyHouseForm> {
-  final HouseProfile house;
+  final HouseProfileAdj house;
   _ModifyHouseFormState({required this.house});
 
   final _formKey = GlobalKey<FormState>();
@@ -97,7 +97,9 @@ class _ModifyHouseFormState extends State<ModifyHouseForm> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         //print('valid');
+                        /*
                         try {
+                          
                           await DatabaseServiceHouseProfile(house.owner)
                               .updateUserDataHouseProfile(
                                   _currentType ?? house.type,
@@ -109,7 +111,7 @@ class _ModifyHouseFormState extends State<ModifyHouseForm> {
                         } catch (e) {
                           print(e.toString());
                           return null;
-                        }
+                        }*/
                       }
                     },
                     style: ButtonStyle(

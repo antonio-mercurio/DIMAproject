@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prva/models/houseProfile.dart';
 
 class SwipeWidget extends StatelessWidget {
-  final HouseProfile houseProfile;
+  final HouseProfileAdj houseProfile;
 
   const SwipeWidget({super.key, required this.houseProfile});
 

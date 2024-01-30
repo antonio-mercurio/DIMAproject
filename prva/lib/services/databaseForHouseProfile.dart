@@ -16,6 +16,7 @@ class DatabaseServiceHouseProfile {
 
 
 /* vecchio, riscritto */
+/*
   Future<String> createUserDataHouseProfile(
       String type, String address, String city, int price) async {
     await houseProfileCollection.doc().set({
@@ -27,6 +28,7 @@ class DatabaseServiceHouseProfile {
     });
     return houseProfileCollection.doc().id;
   }
+  */
 
   Future createUserDataHouseProfileAdj(
       String type, String address, String city, String description, double price, int floorNumber, int numBath, int numPlp, 
@@ -58,7 +60,7 @@ class DatabaseServiceHouseProfile {
   
   
   /* vecchio */
-
+/*
   Future updateUserDataHouseProfile(String type, String address, String city,
       int price, String uidHouse) async {
     //print('modifica profilo casa andato a buon fine');
@@ -71,7 +73,9 @@ class DatabaseServiceHouseProfile {
       'price': price,
     });
   }
+  */
   /* vecchio, riscritto */
+  /*
   List<HouseProfile> _houseProfileUserFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map<HouseProfile>((doc) {
       return HouseProfile(
@@ -85,6 +89,7 @@ class DatabaseServiceHouseProfile {
          
     }).toList();
   }
+  */
 
   List<HouseProfileAdj> _houseProfileUserFromSnapshotAdj(QuerySnapshot snapshot) {
     return snapshot.docs.map<HouseProfileAdj>((doc) {
@@ -114,6 +119,7 @@ class DatabaseServiceHouseProfile {
   }
 
 /* vecchio, riscritto */
+/*
   Stream<List<HouseProfile>> get getHouses {
     return FirebaseFirestore.instance
         .collection('houseProfiles')
@@ -121,6 +127,7 @@ class DatabaseServiceHouseProfile {
         .snapshots()
         .map((_houseProfileUserFromSnapshot));
   }
+  */
 
   Stream<List<HouseProfileAdj>> get getHousesAdj {
     return FirebaseFirestore.instance
@@ -130,12 +137,14 @@ class DatabaseServiceHouseProfile {
         .map((_houseProfileUserFromSnapshotAdj));
   }
   /* vecchio, riscritto */
+  /*
   Stream<List<HouseProfile>> get getAllHouses {
     return FirebaseFirestore.instance
         .collection('houseProfiles')
         .snapshots()
         .map((_houseProfileUserFromSnapshot));
   }
+  */
 
   Stream<List<HouseProfileAdj>> get getAllHousesAdj {
     return FirebaseFirestore.instance
@@ -145,6 +154,7 @@ class DatabaseServiceHouseProfile {
   }
 
   /* vecchio, da riscrivere */
+  /*
 
   Stream<List<HouseProfile>> getFilteredHouses(Filters? selectedFilters) {
     Query query = houseProfileCollection;
@@ -164,6 +174,7 @@ class DatabaseServiceHouseProfile {
     }
     return query.snapshots().map((_houseProfileUserFromSnapshot));
   }
+  */
 
   HouseProfileAdj _myHouseProfileUserFromSnapshotAdj(DocumentSnapshot snapshot) {
       return HouseProfileAdj(

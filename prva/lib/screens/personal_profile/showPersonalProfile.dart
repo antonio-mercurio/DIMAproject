@@ -24,8 +24,8 @@ class ShowPersonalProfile extends StatelessWidget {
           });
     }
 
-    return StreamProvider<List<HouseProfile>>.value(
-      value: DatabaseServiceHouseProfile(null).getAllHouses,
+    return StreamProvider<List<HouseProfileAdj>>.value(
+      value: DatabaseServiceHouseProfile(null).getAllHousesAdj,
       initialData: [],
       child: Scaffold(
         appBar: AppBar(

@@ -1,4 +1,5 @@
 
+/*
 class HouseProfile{
  final String type;
   final String address;
@@ -9,7 +10,7 @@ class HouseProfile{
 
   HouseProfile({required this.type, required this.address, required this.city, required this.price, required this.owner, required this.idHouse});
 
-}
+}*/
 
 
 class HouseProfileAdj {

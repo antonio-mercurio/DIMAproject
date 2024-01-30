@@ -6,7 +6,7 @@ import 'package:prva/models/user.dart';
 import 'package:prva/services/databaseFilterPerson.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/shared/constants.dart';
-
+/*
 class RegisterFormHouse extends StatefulWidget {
   const RegisterFormHouse({super.key});
 
@@ -127,3 +127,4 @@ class _RegisterFormHouseState extends State<RegisterFormHouse> {
             )));
   }
 }
+*/

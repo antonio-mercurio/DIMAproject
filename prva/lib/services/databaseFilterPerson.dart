@@ -59,21 +59,4 @@ class DatabaseServiceFiltersPerson {
   }
 
   
-
-  HouseProfile _houseProfileUserFromSnapshot(DocumentSnapshot snapshot) {
-    return HouseProfile(
-        type: snapshot.get('type') ?? "",
-        address: snapshot.get('address') ?? "",
-        city: snapshot.get('city') ?? "",
-        price: snapshot.get('price') ?? 0,
-        owner: snapshot.get('owner') ?? "",
-        idHouse: uid ?? "");
-  }
-
-  Stream<HouseProfile> get getMyHouse {
-    return houseProfileCollection
-        .doc(uid)
-        .snapshots()
-        .map((_houseProfileUserFromSnapshot));
-  }
 }

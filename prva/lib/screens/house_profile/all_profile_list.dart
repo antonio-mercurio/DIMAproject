@@ -90,7 +90,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
       );
     } else {
       setState(() {});
-      final myHouse = Provider.of<HouseProfile>(context);
+      final myHouse = Provider.of<HouseProfileAdj>(context);
       final retrievedPreferences =
           MatchService(uid: profiles[0].uidA).getPreferencesForMatch;
       retrievedPreferences.listen((content) {
@@ -187,7 +187,7 @@ class AllPersonalTiles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final myHouse = Provider.of<HouseProfile>(context);
+    final myHouse = Provider.of<HouseProfileAdj>(context);
     /*final retrievedPreferences =
         MatchService(uid: profile.uid).getPreferencesForMatch;
     retrievedPreferences.listen((content) {

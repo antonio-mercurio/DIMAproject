@@ -142,7 +142,7 @@ class _SearchLayoutState extends State<SearchLayout> {
 class ProfileLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final house = Provider.of<HouseProfile>(context);
+    final house = Provider.of<HouseProfileAdj>(context);
     return Column(mainAxisSize: MainAxisSize.max, children: [
       Expanded(
           child: SingleChildScrollView(
@@ -179,7 +179,7 @@ class _ChatLayoutState extends State<ChatLayout> {
 
   @override
   Widget build(BuildContext context) {
-    final house = Provider.of<HouseProfile>(context);
+    final house = Provider.of<HouseProfileAdj>(context);
     final retrievedMatch = MatchService(uid: house.idHouse).getMatchedProfile;
 
     retrievedMatch.listen((content) {
@@ -192,7 +192,7 @@ class _ChatLayoutState extends State<ChatLayout> {
   }
 }
 
-Widget _buildUserList(HouseProfile house, List<String>? matches) {
+Widget _buildUserList(HouseProfileAdj house, List<String>? matches) {
   //print('223 homepage');
   //print(matches);
   return StreamBuilder<QuerySnapshot>(
@@ -221,7 +221,7 @@ Widget _buildUserList(HouseProfile house, List<String>? matches) {
 }
 
 Widget _buildUserListItem(
-    BuildContext context, DocumentSnapshot document, HouseProfile house) {
+    BuildContext context, DocumentSnapshot document, HouseProfileAdj house) {
   Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
   return Padding(
       padding: EdgeInsets.only(top: 8.0),

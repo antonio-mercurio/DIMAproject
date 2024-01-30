@@ -34,7 +34,7 @@ class _AllHousesListState extends State<AllHousesList> {
         setState(() {});
       }
     });
-    final houses = Provider.of<List<HouseProfile>>(context);
+    final houses = Provider.of<List<HouseProfileAdj>>(context);
 
     if (alreadySeenHouses != null) {
       houses.removeWhere(
@@ -111,7 +111,7 @@ class _AllHousesListState extends State<AllHousesList> {
 }
 
 class ViewProfile extends StatelessWidget {
-  final HouseProfile houseProfile;
+  final HouseProfileAdj houseProfile;
 
   const ViewProfile({super.key, required this.houseProfile});
 
@@ -130,7 +130,7 @@ class ViewProfile extends StatelessWidget {
 }
 
 class AllHousesTiles extends StatelessWidget {
-  final HouseProfile house;
+  final HouseProfileAdj house;
   AllHousesTiles({required this.house});
   @override
   Widget build(BuildContext context) {
@@ -142,7 +142,7 @@ class AllHousesTiles extends StatelessWidget {
               ListTile(
                 leading: CircleAvatar(
                   radius: 25.0,
-                  backgroundColor: Colors.red[house.price],
+                  backgroundColor: Colors.red,
                 ),
                 title: Text(house.type),
                 subtitle: Text('Si trova a ${house.city}'),
