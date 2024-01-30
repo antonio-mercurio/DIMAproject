@@ -123,32 +123,14 @@ class _SearchLayoutState extends State<SearchLayout> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Utente>(context);
-    try {
-      final retrievedFilters = DatabaseServiceFilters(user.uid).getFiltersAdj;
-
-      retrievedFilters.listen((content) {
-        filtri = FiltersHouseAdj(
-            userID: content.userID,
-            budget: content.budget,
-            city: content.city,
-            apartment: content.apartment,
-            singleRoom: content.singleRoom,
-            doubleRoom: content.doubleRoom,
-            studioApartment: content.studioApartment,
-            twoRoomsApartment: content.twoRoomsApartment);
-        if (this.mounted) {
-          setState(() {});
-        }
-      });
-    } catch (e) {
-      print(e);
-      filtri = null;
-    }
+    final personalProfile = Provider.of<PersonalProfileAdj>(context);
     return StreamProvider<List<HouseProfileAdj>>.value(
         value: DatabaseServiceHouseProfile(user.uid).getAllHousesAdj,
         initialData: [],
         child: Scaffold(
-          body: AllHousesList(),
+          body: AllHousesList(
+            myProfile: personalProfile,
+          ),
         ));
   }
 }

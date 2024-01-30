@@ -89,7 +89,7 @@ class _HouseProfSelState extends State<HouseProfSel> {
           backgroundColor: Colors.white,
           appBar: AppBar(
             backgroundColor: Colors.black,
-            title: Text('Personal page'),
+            title: Text('House profile page'),
             actions: <Widget>[
               TextButton.icon(
                 icon: Icon(Icons.settings),
