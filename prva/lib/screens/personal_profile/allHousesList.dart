@@ -4,6 +4,7 @@ import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/preference.dart';
+import 'package:prva/screens/house_profile/all_profile_list.dart';
 import 'package:prva/screens/swipe_between_images.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForFilters.dart';
@@ -90,7 +91,6 @@ class _AllHousesListState extends State<AllHousesList> {
                 fontWeight: FontWeight.w500)),
       );
     } else {
-      setState(() {});
       final myUser = Provider.of<PersonalProfileAdj>(context);
       /* capire se continua a fare tutte queste read quando sistemiamo la grafica finale */
       final retrievedPreferences =
@@ -115,8 +115,18 @@ class _AllHousesListState extends State<AllHousesList> {
                   await MatchService().putPrefence(myUser.uidA, hID, "like");
                   //print("dopo aver messo la preferenza");
 
-                  await MatchService()
-                      .checkMatch(myUser.uidA, hID, preferencesOther);
+                  try {
+                    final ok = await MatchService()
+                        .checkMatch(myUser.uidA, hID, preferencesOther);
+                    if (ok) {
+                      if (mounted) {
+                        //print('sono qui all prof 89');
+                        await showMyDialog(context);
+                      }
+                    }
+                  } catch (e) {
+                    print(e);
+                  }
                 }),
             SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
             IconButton(
