@@ -6,7 +6,7 @@ import 'package:prva/screens/personal_profile/allHousesList.dart';
 import 'package:prva/screens/personal_profile/filtersForm.dart';
 import 'package:prva/services/auth.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
-
+/*
 class ShowPersonalProfile extends StatelessWidget {
   final AuthService _auth = AuthService();
 
@@ -46,3 +46,4 @@ class ShowPersonalProfile extends StatelessWidget {
     );
   }
 }
+*/

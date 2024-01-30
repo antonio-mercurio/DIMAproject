@@ -4,7 +4,7 @@ import 'package:prva/models/filters.dart';
 import 'package:prva/models/user.dart';
 import 'package:prva/services/databaseForFilters.dart';
 
-
+/*
 class FiltersForm extends StatefulWidget {
   const FiltersForm({super.key});
 
@@ -100,4 +100,6 @@ class _FiltersFormState extends State<FiltersForm> {
       },
     );
   }
+  
 }
+*/
