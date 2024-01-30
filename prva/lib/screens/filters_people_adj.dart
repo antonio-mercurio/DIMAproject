@@ -383,7 +383,9 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                                                       getEmploymentString(
                                                               _valueEmployement!) ??
                                                           filtri!.employment);
-                                              Navigator.pop(context);
+                                              if (mounted) {
+                                                Navigator.pop(context);
+                                              }
                                             },
                                             child: Text(
                                               'Set filters',

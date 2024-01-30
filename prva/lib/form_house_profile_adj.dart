@@ -74,7 +74,6 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
     }
   }
 
-
   void _selectEndDate(BuildContext context) async {
     // get the initial date
     DateTime initialDate = _endDate ?? DateTime.now();
@@ -88,7 +87,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
     );
 
     // if the user picked a date, update the state
-    if (pickedDate != null && pickedDate !=_endDate) {
+    if (pickedDate != null && pickedDate != _endDate) {
       setState(() {
         // set the selected date
         _endDate = pickedDate;
@@ -227,7 +226,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                           ),
                                           filled: true,
                                           fillColor: Colors.white,
-                                          contentPadding: const EdgeInsets.all(24),
+                                          contentPadding:
+                                              const EdgeInsets.all(24),
                                         ),
                                         value: _type ?? "Apartment",
                                         items: typeOfAppartament.map((type) {
@@ -296,7 +296,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         getPlaceDetailWithLatLng:
                                             (Prediction prediction) async {
                                           // this method will return latlng with place detail
-                                          
+
                                           if (prediction.lng != null &&
                                               prediction.lat != null) {
                                             selLocation = LatLng(
@@ -315,8 +315,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                             _address =
                                                 "${address.addressDetails.road}, ${address.addressDetails.houseNumber}, ${address.addressDetails.postcode}, ${address.addressDetails.city}";
 
-                                           _city =
-                                                address.addressDetails.city;
+                                            _city = address.addressDetails.city;
                                           }
                                         }, // this callback is called when isLatLngRequired is true
 
@@ -342,8 +341,9 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                   width: 7,
                                                 ),
                                                 Expanded(
-                                                    child: Text(
-                                                        prediction.description ?? ""))
+                                                    child: Text(prediction
+                                                            .description ??
+                                                        ""))
                                               ],
                                             ),
                                           );
@@ -457,7 +457,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         ),
                                         filled: true,
                                         fillColor: Colors.white,
-                                        contentPadding: const EdgeInsets.all(24),
+                                        contentPadding:
+                                            const EdgeInsets.all(24),
                                       ),
                                       style: const TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
@@ -485,8 +486,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                     ),
                                     Expanded(
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            16, 0, 0, 16),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(16, 0, 0, 16),
                                         child: Container(
                                           width: double.infinity,
                                           child: TextFormField(
@@ -564,8 +565,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                     ),
                                     Expanded(
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            16, 0, 0, 16),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(16, 0, 0, 16),
                                         child: Container(
                                           width: double.infinity,
                                           child: TextFormField(
@@ -643,8 +644,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                     ),
                                     Expanded(
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            48, 0, 0, 16),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(48, 0, 0, 16),
                                         child: Container(
                                           width: double.infinity,
                                           child: TextFormField(
@@ -773,7 +774,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         suffixIcon: IconButton(
-                                          icon: const Icon(Icons.calendar_today),
+                                          icon:
+                                              const Icon(Icons.calendar_today),
                                           onPressed: () {
                                             // call the function to show the date picker
                                             _selectStartDate(context);
@@ -821,7 +823,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         ),
                                         filled: true,
                                         fillColor: Colors.white,
-                                        contentPadding: const EdgeInsets.all(24),
+                                        contentPadding:
+                                            const EdgeInsets.all(24),
                                       ),
                                       style: const TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
@@ -848,10 +851,11 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         suffixIcon: IconButton(
-                                          icon: const Icon(Icons.calendar_today),
+                                          icon:
+                                              const Icon(Icons.calendar_today),
                                           onPressed: () {
                                             // call the function to show the date picker
-                                           _selectEndDate(context);
+                                            _selectEndDate(context);
                                           },
                                         ),
                                         labelText: 'End date of rent',
@@ -896,7 +900,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         ),
                                         filled: true,
                                         fillColor: Colors.white,
-                                        contentPadding: const EdgeInsets.all(24),
+                                        contentPadding:
+                                            const EdgeInsets.all(24),
                                       ),
                                       style: const TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
@@ -961,7 +966,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                           ),
                                           filled: true,
                                           fillColor: Colors.white,
-                                          contentPadding: const EdgeInsets.all(24),
+                                          contentPadding:
+                                              const EdgeInsets.all(24),
                                         ),
                                         style: const TextStyle(
                                           fontFamily: 'Plus Jakarta Sans',
@@ -1176,7 +1182,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                               ? null
                                               : IconButton(
                                                   icon: const Icon(Icons.close),
-                                                  color: const Color(0xFFFF5963),
+                                                  color:
+                                                      const Color(0xFFFF5963),
                                                   onPressed: () async {
                                                     await FirebaseStorage
                                                         .instance
@@ -1355,32 +1362,30 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                 if (imageURLs[0] !=
                                     '' /*&& imageURLs[0]!='' && imageURLs[0]!='' && imageURLs[0]!=''*/) {
                                   setState(() {});
-                         
-                              await DatabaseServiceHouseProfile(user.uid)
-                                  .createUserDataHouseProfileAdj(
-                            _type ?? 'apartment',
-                            _address ?? '',
-                            _city ?? '',
-                            _description ?? '',
-                            _price ?? 0,
-                            _floorNumber ?? 0,
-                            _numberBathroom ?? 0,
-                            _numberPeople ?? 0,
-                            _startDate!.year,
-                            _endDate!.year,
-                            _startDate!.month,
-                            _endDate!.month,
-                            _startDate!.day,
-                            _endDate!.day,
-                            imageURLs[0],
-                            imageURLs[1],
-                            imageURLs[2],
-                            imageURLs[3]
-                          );
-                          Navigator.pop(context);
-                        
 
-                              
+                                  await DatabaseServiceHouseProfile(user.uid)
+                                      .createUserDataHouseProfileAdj(
+                                          _type ?? 'apartment',
+                                          _address ?? '',
+                                          _city ?? '',
+                                          _description ?? '',
+                                          _price ?? 0,
+                                          _floorNumber ?? 0,
+                                          _numberBathroom ?? 0,
+                                          _numberPeople ?? 0,
+                                          _startDate!.year,
+                                          _endDate!.year,
+                                          _startDate!.month,
+                                          _endDate!.month,
+                                          _startDate!.day,
+                                          _endDate!.day,
+                                          imageURLs[0],
+                                          imageURLs[1],
+                                          imageURLs[2],
+                                          imageURLs[3]);
+                                  if (mounted) {
+                                    Navigator.pop(context);
+                                  }
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
