@@ -53,9 +53,20 @@ class _UserHomepageState extends State<UserHomepage> {
 
     return StreamProvider<PersonalProfileAdj>.value(
         value: DatabaseService(user.uid).persProfileDataAdj,
-        initialData:
-            PersonalProfileAdj(uidA: user.uid, nameA: '', surnameA: '', description: "", gender: "",
-            employment: "", day: 0, month: 0, year: 0, imageURL1: '', imageURL2: '', imageURL3: '', imageURL4: ''),
+        initialData: PersonalProfileAdj(
+            uidA: user.uid,
+            nameA: '',
+            surnameA: '',
+            description: "",
+            gender: "",
+            employment: "",
+            day: 0,
+            month: 0,
+            year: 0,
+            imageURL1: '',
+            imageURL2: '',
+            imageURL3: '',
+            imageURL4: ''),
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -63,22 +74,20 @@ class _UserHomepageState extends State<UserHomepage> {
             title: Text('Personal page'),
             actions: <Widget>[
               IconButton(
-                icon: Icon(Icons.settings,
-                color: Colors.white),
+                icon: Icon(Icons.settings, color: Colors.white),
                 onPressed: () async {
                   _showFiltersPanel();
                 },
               ),
-             IconButton(
-                icon: Icon(Icons.notifications,
-                color: Colors.white),
+              IconButton(
+                icon: Icon(Icons.notifications, color: Colors.white),
                 onPressed: () {},
               ),
             ],
           ),
           body: _widgetOptions.elementAt(_selectedIndex),
           bottomNavigationBar: BottomNavigationBar(
-            iconSize:  MediaQuery.sizeOf(context).height * 0.03,
+            iconSize: MediaQuery.sizeOf(context).height * 0.03,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.search),
@@ -114,25 +123,24 @@ class _SearchLayoutState extends State<SearchLayout> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Utente>(context);
-    try{
-    final retrievedFilters = DatabaseServiceFilters(user.uid).getFiltersAdj;
-    
-    retrievedFilters.listen((content) {
-      filtri = FiltersHouseAdj(
-          userID: content.userID,
-          budget: content.budget,
-          city: content.city,
-          apartment: content.apartment,
-          singleRoom: content.singleRoom,
-          doubleRoom: content.doubleRoom,
-          studioApartment: content.studioApartment,
-          twoRoomsApartment: content.twoRoomsApartment
-          );
-      if (this.mounted) {
-        setState(() {});
-      }
-    });
-    }catch(e){
+    try {
+      final retrievedFilters = DatabaseServiceFilters(user.uid).getFiltersAdj;
+
+      retrievedFilters.listen((content) {
+        filtri = FiltersHouseAdj(
+            userID: content.userID,
+            budget: content.budget,
+            city: content.city,
+            apartment: content.apartment,
+            singleRoom: content.singleRoom,
+            doubleRoom: content.doubleRoom,
+            studioApartment: content.studioApartment,
+            twoRoomsApartment: content.twoRoomsApartment);
+        if (this.mounted) {
+          setState(() {});
+        }
+      });
+    } catch (e) {
       print(e);
       filtri = null;
     }
@@ -152,25 +160,23 @@ class ProfileLayout extends StatelessWidget {
 
     //return ShowPersonalProfile();
 
-   return Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
+    return Column(mainAxisSize: MainAxisSize.max, children: [
+      Expanded(
+          child: SingleChildScrollView(
               child: Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                DetailedPersonalProfile(personalProfile: personalData,),
-                ElevatedButton(
-                child: Text('Modifica'),
-                onPressed: () {
-            
-               },
-        )
-      ],
-    ))
-          )]);
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          DetailedPersonalProfile(
+            personalProfile: personalData,
+          ),
+          ElevatedButton(
+            child: Text('Modifica'),
+            onPressed: () {},
+          )
+        ],
+      )))
+    ]);
   }
 }
 

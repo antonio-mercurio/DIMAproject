@@ -997,10 +997,16 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                               if (imageURLs[0] !=
                                   '' /*&& imageURLs[0]!='' && imageURLs[0]!='' && imageURLs[0]!=''*/) {
                                 setState(() {});
-                                print('961');
                                 await DatabaseServiceFilters(user.uid)
-                                    .updateFilters('any', 'any', 0);
-                                print('964');
+                                    .updateFiltersAdj(
+                                  "any",
+                                  true,
+                                  true,
+                                  true,
+                                  true,
+                                  true,
+                                  4000.0,
+                                );
                                 await DatabaseService(user.uid)
                                     .updatePersonalProfileAdj(
                                         _name ?? '',
