@@ -44,6 +44,7 @@ class DatabaseServiceFilters {
   }
 
   /* riscritto */
+  /*
   Filters _filtersFromSnapshot(DocumentSnapshot snapshot) {
     return Filters(
       userID: uid ?? "",
@@ -52,6 +53,7 @@ class DatabaseServiceFilters {
       budget: snapshot.get('budget') ?? 0.0,
     );
   }
+  */
 
   FiltersHouseAdj _filtersFromSnapshotAdj(DocumentSnapshot snapshot) {
     return FiltersHouseAdj(
@@ -67,10 +69,11 @@ class DatabaseServiceFilters {
   }
 
   /* vecchio, riscritto */
-
+/*
   Stream<Filters> get getFilters {
     return filtersCollection.doc(uid).snapshots().map((_filtersFromSnapshot));
   }
+  */
 
   Stream<FiltersHouseAdj> get getFiltersAdj {
     return filtersCollection.doc(uid).snapshots().map((_filtersFromSnapshotAdj));
