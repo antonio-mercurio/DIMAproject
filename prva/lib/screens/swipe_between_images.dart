@@ -16,15 +16,13 @@ class SwipeWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: Image.network(
-                      'https://i.pinimg.com/originals/d7/75/ba/d775ba84bdb529203308b9d65c1db59f.jpg')
-                  .image,
+              image: Image.network(houseProfile.imageURL1).image,
             ),
           ),
           child: Container(
             width: double.infinity,
             height: MediaQuery.sizeOf(context).height * 0.15,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
                   Color.fromARGB(255, 131, 130, 130),
@@ -37,7 +35,7 @@ class SwipeWidget extends StatelessWidget {
               ),
             ),
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -45,7 +43,7 @@ class SwipeWidget extends StatelessWidget {
                   children: [
                     Text(
                       '${houseProfile.city} - ${houseProfile.type}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'Outfit',
                         color: Colors.white,
                         fontSize: 25,
@@ -53,10 +51,10 @@ class SwipeWidget extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                       child: Text(
                         houseProfile.price.toString(),
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontFamily: 'Readex Pro',
                             fontSize: 22,
                             color: Colors.white),

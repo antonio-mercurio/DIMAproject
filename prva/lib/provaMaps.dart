@@ -43,8 +43,6 @@ class _MapSampleState extends State<MapSample> {
                     true, // if you required coordinates from place detail
                 getPlaceDetailWithLatLng: (Prediction prediction) async {
                   // this method will return latlng with place detail
-                  print("placeDetails LNG " + prediction.lng.toString());
-                  print("placeDetails LAT " + prediction.lat.toString());
                   if (prediction.lng != null && prediction.lat != null) {
                     selLocation = LatLng(
                         double.parse(prediction.lat.toString()),
@@ -53,8 +51,6 @@ class _MapSampleState extends State<MapSample> {
                         latitude: selLocation.latitude,
                         longitude: selLocation.longitude);
                     //qui accedo ad address e prendo i dettagli che mi servono
-
-                    print('${address.addressDetails.city}');
                   }
                 }, // this callback is called when isLatLngRequired is true
 

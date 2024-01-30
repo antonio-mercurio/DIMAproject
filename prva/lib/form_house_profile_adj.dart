@@ -233,7 +233,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         items: typeOfAppartament.map((type) {
                                           return DropdownMenuItem(
                                             value: type,
-                                            child: Text('${type} '),
+                                            child: Text('$type '),
                                           );
                                         }).toList(),
                                         onChanged: (val) =>
@@ -413,7 +413,9 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                     child: TextFormField(
                                       maxLines: 3,
                                       autofocus: true,
-                                      autofillHints: [AutofillHints.email],
+                                      autofillHints: const [
+                                        AutofillHints.email
+                                      ],
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelText: 'Description',
@@ -770,7 +772,9 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                       controller: _dateStartController,
                                       readOnly: true,
                                       autofocus: true,
-                                      autofillHints: [AutofillHints.birthday],
+                                      autofillHints: const [
+                                        AutofillHints.birthday
+                                      ],
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         suffixIcon: IconButton(
@@ -847,7 +851,9 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                       controller: _dateEndController,
                                       readOnly: true,
                                       autofocus: true,
-                                      autofillHints: [AutofillHints.birthday],
+                                      autofillHints: const [
+                                        AutofillHints.birthday
+                                      ],
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         suffixIcon: IconButton(
@@ -1285,8 +1291,6 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                           if (imageURLs[3].isEmpty) {
                                             imageURLs[3] = await SchermiProva()
                                                 .uploadFile();
-                                            print('formADJ680');
-                                            print(imageURLs[0]);
                                             if (mounted) {
                                               setState(() {});
                                             }

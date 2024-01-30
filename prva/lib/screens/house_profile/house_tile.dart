@@ -14,19 +14,16 @@ class HouseTile extends StatelessWidget {
           child: ListTile(
               leading: CircleAvatar(
                 radius: 25.0,
-                backgroundColor: Colors.red,
+                foregroundImage: Image.network(house.imageURL1).image,
               ),
               title: Text(house.type),
               subtitle: Text('Si trova a ${house.city}'),
               onTap: () {
-                
                 Navigator.push(
                   context,
-                  
                   MaterialPageRoute(
                       builder: (context) => HouseProfSel(house: house)),
                 );
-                
               }),
         ));
   }

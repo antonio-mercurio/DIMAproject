@@ -18,15 +18,6 @@ class DatabaseServiceFilters {
 
   //filters for the house utilized by person Profile
   /* vecchio, riscritto */
-  Future updateFilters(String city, String type, double budget) async {
-    print('modifica filtri');
-    return await filtersCollection.doc(uid).set({
-      'user': uid,
-      'city': city,
-      'type': type,
-      'budget': budget,
-    });
-  }
 
   Future updateFiltersAdj(
       String city,
@@ -48,18 +39,6 @@ class DatabaseServiceFilters {
     });
   }
 
-  /* riscritto */
-  /*
-  Filters _filtersFromSnapshot(DocumentSnapshot snapshot) {
-    return Filters(
-      userID: uid ?? "",
-      city: snapshot.get('city') ?? "",
-      type: snapshot.get('type') ?? "",
-      budget: snapshot.get('budget') ?? 0.0,
-    );
-  }
-  */
-
   FiltersHouseAdj _filtersFromSnapshotAdj(DocumentSnapshot snapshot) {
     return FiltersHouseAdj(
       userID: uid ?? "",
@@ -72,13 +51,6 @@ class DatabaseServiceFilters {
       budget: double.parse(snapshot.get('budget').toString()) ?? 0.0,
     );
   }
-
-  /* vecchio, riscritto */
-/*
-  Stream<Filters> get getFilters {
-    return filtersCollection.doc(uid).snapshots().map((_filtersFromSnapshot));
-  }
-  */
 
   Stream<FiltersHouseAdj> get getFiltersAdj {
     return filtersCollection

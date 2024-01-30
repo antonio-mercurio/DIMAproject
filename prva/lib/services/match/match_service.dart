@@ -28,17 +28,11 @@ class MatchService extends ChangeNotifier {
     final searchedPreference =
         PreferenceForMatch(reciverPreferenceId: senderID, choice: "like");
     if (preferencesOther != null) {
-      //print("Match 23 :ok");
-      //print(searchedPreference.reciverPreferenceId);
-      //print(searchedPreference.choice);
-      //print(preferencesOther.elementAt(1).reciverPreferenceId);
-      //print(preferencesOther.elementAt(1).choice);
       if (preferencesOther.any((element) =>
           element.choice == searchedPreference.choice &&
           element.reciverPreferenceId ==
               searchedPreference.reciverPreferenceId)) {
         /* there is a match */
-        //print("match");
         await _putMatch(senderID, receiverID);
         return true;
       }
@@ -102,8 +96,6 @@ class MatchService extends ChangeNotifier {
 
   List<String> _profileMatchedFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map<String>((doc) {
-      //print('96 match serv');
-      //print(doc.reference.id);
       return doc.reference.id;
     }).toList();
   }
@@ -123,13 +115,11 @@ class MatchService extends ChangeNotifier {
 
     if (matchedProfiles != null) {
       if (matchedProfiles.isNotEmpty) {
-        //print('117 match serv');
-        //print(matchedProfiles);
         query = query.where(FieldPath.documentId, whereIn: matchedProfiles);
         return query.snapshots();
       }
     } else {
-      //print('123 match service: null match');
+      //else code block
     }
     return null;
   }

@@ -26,9 +26,8 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       initialData: null,
       child: MaterialApp(
-          home:
-              Wrapper() //ViewProfile(houseProfile: HouseProfile(type: 'Stanza Singola', city: 'Milano', price: 500, address: 'Via Schipsrelli', owner: '', idHouse: '' )),
-          ),
+        home: Wrapper(),
+      ),
     );
   }
 }

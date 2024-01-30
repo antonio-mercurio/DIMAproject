@@ -6,7 +6,7 @@ import 'package:prva/services/databaseFilterPerson.dart';
 
 class FormFiltersPeopleAdj extends StatefulWidget {
   final String uidHouse;
-  FormFiltersPeopleAdj({required this.uidHouse});
+  const FormFiltersPeopleAdj({required this.uidHouse});
 
   @override
   State<FormFiltersPeopleAdj> createState() =>
@@ -77,7 +77,7 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
         stream: DatabaseServiceFiltersPerson(uid: uidHouse).getFiltersPersonAdj,
         builder: (context, snapshot) {
           FiltersPersonAdj? oldFilters = snapshot.data;
-          RangeValues _currVal = computeValues(oldFilters);
+          RangeValues currVal = computeValues(oldFilters);
           _valueGender = computeGender(oldFilters);
           _valueEmployement = computeEmployment(oldFilters);
 
@@ -86,7 +86,7 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
               body: SafeArea(
                 top: true,
                 child: Align(
-                  alignment: AlignmentDirectional(0, -1),
+                  alignment: const AlignmentDirectional(0, -1),
                   child: SingleChildScrollView(
                     child: Form(
                       child: Column(
@@ -94,15 +94,16 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 0, 0),
                             child: Container(
                               width: double.infinity,
                               height: 34,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16),
                               ),
-                              alignment: AlignmentDirectional(0, 0),
-                              child: Text(
+                              alignment: const AlignmentDirectional(0, 0),
+                              child: const Text(
                                 'Set your preferences',
                                 style: TextStyle(
                                   fontFamily: 'Plus Jakarta Sans',
@@ -114,15 +115,15 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.all(24),
+                            padding: const EdgeInsets.all(24),
                             child: Container(
                               width: double.infinity,
-                              constraints: BoxConstraints(
+                              constraints: const BoxConstraints(
                                 maxWidth: 570,
                               ),
                               decoration: BoxDecoration(
                                 color: Colors.white,
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 4,
                                     color: Color(0x33000000),
@@ -131,20 +132,20 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                                 ],
                                 borderRadius: BorderRadius.circular(12),
                                 border: Border.all(
-                                  color: Color(0xFFF1F4F8),
+                                  color: const Color(0xFFF1F4F8),
                                   width: 2,
                                 ),
                               ),
                               child: Align(
-                                alignment: AlignmentDirectional(0, 0),
+                                alignment: const AlignmentDirectional(0, 0),
                                 child: Padding(
-                                  padding: EdgeInsets.all(12),
+                                  padding: const EdgeInsets.all(12),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
+                                      const Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 0, 16),
                                         child: Row(
@@ -162,18 +163,19 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                                             ]),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            4, 0, 4, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(4, 0, 4, 0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Expanded(
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 0, 0, 16),
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0, 0, 0, 16),
                                                 child: RangeSlider(
                                                   activeColor:
-                                                      Color(0xFF4B39EF),
+                                                      const Color(0xFF4B39EF),
                                                   min:
                                                       1.0, // il valore minimo che si può selezionare
                                                   max:
@@ -181,15 +183,15 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                                                   divisions:
                                                       99, // il numero di divisioni del tracciato
                                                   labels: RangeLabels(
-                                                    _currVal.start
+                                                    currVal.start
                                                         .round()
                                                         .toString(),
-                                                    _currVal.end
+                                                    currVal.end
                                                         .round()
                                                         .toString(),
                                                   ),
 
-                                                  values: _currVal,
+                                                  values: currVal,
                                                   onChanged: (values) {
                                                     // la funzione che viene chiamata quando si cambia lo slider
                                                     setState(() {
@@ -203,7 +205,7 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                                                   onChangeEnd: (values) {
                                                     setState(() {
                                                       // per aggiornare l'interfaccia grafica
-                                                      _currVal = RangeValues(
+                                                      currVal = RangeValues(
                                                           values.start,
                                                           values.end);
                                                     });
@@ -220,14 +222,16 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                                           Expanded(
                                             child: Align(
                                               alignment:
-                                                  AlignmentDirectional(1, 0),
+                                                  const AlignmentDirectional(
+                                                      1, 0),
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 0, 0, 16),
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0, 0, 0, 16),
                                                 child: Text(
                                                     '${_startValue.round()}-${_endValue.round()}',
                                                     textAlign: TextAlign.center,
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                       color: Color(0xFF101213),
                                                       fontSize: 12,
                                                       fontFamily:
@@ -238,7 +242,7 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                                           ),
                                         ],
                                       ),
-                                      Row(
+                                      const Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Expanded(
@@ -262,8 +266,9 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                                         children: [
                                           Expanded(
                                             child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 0, 0, 16),
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0, 0, 0, 16),
                                                 child: Wrap(
                                                   alignment:
                                                       WrapAlignment.spaceEvenly,
@@ -277,21 +282,22 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                                                         label: Text(
                                                             optionsGender[
                                                                 index]),
-                                                        labelStyle: TextStyle(
-                                                            fontFamily:
-                                                                'Readex Pro',
-                                                            color:
-                                                                Colors.white),
+                                                        labelStyle:
+                                                            const TextStyle(
+                                                                fontFamily:
+                                                                    'Readex Pro',
+                                                                color: Colors
+                                                                    .white),
                                                         selected:
                                                             _valueGender ==
                                                                 index,
                                                         selectedColor:
-                                                            Color(0xFF4B39EF),
+                                                            const Color(
+                                                                0xFF4B39EF),
                                                         showCheckmark: false,
                                                         iconTheme:
-                                                            IconThemeData(
-                                                          color: const Color
-                                                              .fromARGB(
+                                                            const IconThemeData(
+                                                          color: Color.fromARGB(
                                                               255, 62, 60, 60),
                                                           size: 18,
                                                         ),
@@ -316,8 +322,9 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                                         children: [
                                           Expanded(
                                             child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 0, 0, 16),
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0, 0, 0, 16),
                                                 child: Wrap(
                                                   alignment:
                                                       WrapAlignment.spaceEvenly,
@@ -329,21 +336,23 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                                                         label: Text(
                                                             optionsEmployement[
                                                                 index]),
-                                                        labelStyle: TextStyle(
-                                                            fontFamily:
-                                                                'Readex Pro',
-                                                            color:
-                                                                Colors.white),
+                                                        labelStyle:
+                                                            const TextStyle(
+                                                                fontFamily:
+                                                                    'Readex Pro',
+                                                                color: Colors
+                                                                    .white),
                                                         selected:
                                                             _valueEmployement ==
                                                                 index,
                                                         selectedColor:
-                                                            Color(0xFF4B39EF),
+                                                            const Color(
+                                                                0xFF4B39EF),
                                                         showCheckmark: false,
                                                         backgroundColor:
                                                             Colors.grey,
                                                         iconTheme:
-                                                            IconThemeData(
+                                                            const IconThemeData(
                                                           size: 18,
                                                         ),
                                                         onSelected:
@@ -363,11 +372,11 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                                         ],
                                       ),
                                       Align(
-                                        alignment: AlignmentDirectional(0, 0),
+                                        alignment:
+                                            const AlignmentDirectional(0, 0),
                                         child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 16),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 16),
                                           child: ElevatedButton(
                                             onPressed: () async {
                                               await DatabaseServiceFiltersPerson(
@@ -387,22 +396,22 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                                                 Navigator.pop(context);
                                               }
                                             },
-                                            child: Text(
+                                            style: ElevatedButton.styleFrom(
+                                              fixedSize: const Size(230, 52),
+                                              backgroundColor: Colors.black,
+                                              elevation: 3.0,
+                                              side: const BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1,
+                                              ),
+                                            ),
+                                            child: const Text(
                                               'Set filters',
                                               style: TextStyle(
                                                 fontFamily: 'Plus Jakarta Sans',
                                                 color: Colors.white,
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                            style: ElevatedButton.styleFrom(
-                                              fixedSize: Size(230, 52),
-                                              backgroundColor: Colors.black,
-                                              elevation: 3.0,
-                                              side: BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1,
                                               ),
                                             ),
                                           ),
@@ -428,7 +437,6 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
       _startValue = oldFilters.minAge!.toDouble();
       _endValue = oldFilters.maxAge!.toDouble();
       flagV = false;
-      //return RangeValues( oldFilters!.minAge!.toDouble(), oldFilters!.maxAge!.toDouble());
     }
     return RangeValues(_startValue, _endValue);
   }
@@ -438,7 +446,6 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
       _startValue = oldFilters.minAge!.toDouble();
       _endValue = oldFilters.maxAge!.toDouble();
       flagL = false;
-      //return RangeLabels(oldFilters!.minAge!.round().toString(),oldFilters!.maxAge!.round().toString());
     }
     return RangeLabels(
         _startValue.round().toString(), _endValue.round().toString());

@@ -46,6 +46,9 @@ class _AllHousesListState extends State<AllHousesList> {
           DatabaseService(myProfile.uidA).getAlreadySeenProfile;
       retrievedAlreadySeenHouses.listen((content) {
         alreadySeenHouses = content;
+        if (mounted) {
+          setState(() {});
+        }
       });
     } catch (e) {
       print('exception thrown by already seen houses');
@@ -80,7 +83,7 @@ class _AllHousesListState extends State<AllHousesList> {
     }
 
     if (houses.isEmpty) {
-      return Center(
+      return const Center(
         child: Text('non ci sono case da visualizzare',
             style: TextStyle(
                 fontFamily: 'Outfit',
@@ -90,11 +93,9 @@ class _AllHousesListState extends State<AllHousesList> {
       );
     } else {
       final myUser = Provider.of<PersonalProfileAdj>(context);
-      /* capire se continua a fare tutte queste read quando sistemiamo la grafica finale */
       final retrievedPreferences =
           MatchService(uid: houses[0].idHouse).getPreferencesForMatch;
       retrievedPreferences.listen((content) {
-        //print("preso il contenuto riga 41 allHouselist");
         preferencesOther = content;
       });
       return Column(children: <Widget>[
@@ -108,22 +109,21 @@ class _AllHousesListState extends State<AllHousesList> {
                 color: Colors.black,
                 onPressed: () async {
                   /* Put like */
-                  //print("like");
                   String hID = houses[0].idHouse;
                   await MatchService().putPrefence(myUser.uidA, hID, "like");
-                  //print("dopo aver messo la preferenza");
-
+                  print('persona mette mi piace');
                   try {
                     final ok = await MatchService()
                         .checkMatch(myUser.uidA, hID, preferencesOther);
+                    print('persona controlla match');
+                    print(ok.toString());
                     if (ok) {
                       if (mounted) {
-                        //print('sono qui all prof 89');
                         await showMyDialog(context);
                       }
                     }
                   } catch (e) {
-                    print(e);
+                    //catch code block
                   }
                 }),
             SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
@@ -180,14 +180,14 @@ class AllHousesTiles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.only(top: 8.0),
+        padding: const EdgeInsets.only(top: 8.0),
         child: Card(
             margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
             child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
               ListTile(
                 leading: CircleAvatar(
+                  foregroundImage: Image.network(house.imageURL1).image,
                   radius: 25.0,
-                  backgroundColor: Colors.red,
                 ),
                 title: Text(house.type),
                 subtitle: Text('Si trova a ${house.city}'),

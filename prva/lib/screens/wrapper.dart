@@ -4,7 +4,6 @@ import 'package:prva/models/user.dart';
 import 'package:prva/screens/home/home.dart';
 import 'package:prva/screens/login/authenticate.dart';
 
-
 class Wrapper extends StatelessWidget {
   const Wrapper({super.key});
 
@@ -13,9 +12,9 @@ class Wrapper extends StatelessWidget {
     final utente = Provider.of<Utente?>(context);
     //return either home or login widget
     if (utente == null) {
-      return Authenticate();
+      return const Authenticate();
     } else {
-      return Homepage();
+      return const Homepage();
     }
   }
 }

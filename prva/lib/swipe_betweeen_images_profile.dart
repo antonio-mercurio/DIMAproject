@@ -22,15 +22,13 @@ class SwipePersonalWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: Image.network(
-                      'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60')
-                  .image,
+              image: Image.network(personalProfile.imageURL1).image,
             ),
           ),
           child: Container(
             width: double.infinity,
             height: MediaQuery.sizeOf(context).height * 0.15,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
                   Color.fromARGB(255, 131, 130, 130),
@@ -43,7 +41,7 @@ class SwipePersonalWidget extends StatelessWidget {
               ),
             ),
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -51,7 +49,7 @@ class SwipePersonalWidget extends StatelessWidget {
                   children: [
                     Text(
                       '${personalProfile.nameA}  ${personalProfile.surnameA}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'Outfit',
                         color: Colors.white,
                         fontSize: 25,
@@ -59,12 +57,12 @@ class SwipePersonalWidget extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                       child: Text(
                         _calculationAge(personalProfile.year,
                                 personalProfile.month, personalProfile.day)
                             .toString(),
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontFamily: 'Readex Pro',
                             fontSize: 22,
                             color: Colors.white),

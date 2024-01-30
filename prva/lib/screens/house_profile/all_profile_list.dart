@@ -40,8 +40,6 @@ class _AllProfilesListState extends State<AllProfilesList> {
           DatabaseServiceFiltersPerson(uid: house.idHouse).getFiltersPersonAdj;
       retrievedFilters.listen((content) {
         filtri = content;
-
-        setState(() {});
       });
     } catch (e) {
       print('exception thrown by filters');
@@ -50,10 +48,11 @@ class _AllProfilesListState extends State<AllProfilesList> {
         DatabaseService(house.idHouse).getAlreadySeenProfile;
     retrievedAlreadySeenProfiles.listen((content) {
       alreadySeenProfiles = content;
+      if (mounted) {
+        setState(() {});
+      }
     });
 
-    //print(profiles[0].nameA);
-    //check already seen != null prima di fare questo filtri
     if (alreadySeenProfiles != null) {
       profiles.removeWhere(
           (element) => alreadySeenProfiles!.contains(element.uidA));
@@ -78,19 +77,17 @@ class _AllProfilesListState extends State<AllProfilesList> {
     }
 
     if (profiles.isEmpty) {
-      return Center(
+      return const Center(
         child: Text(
           'non ci sono profili da visualizzare',
           style: TextStyle(color: Colors.white),
         ),
       );
     } else {
-      setState(() {});
       final myHouse = Provider.of<HouseProfileAdj>(context);
       final retrievedPreferences =
           MatchService(uid: profiles[0].uidA).getPreferencesForMatch;
       retrievedPreferences.listen((content) {
-        //print("r71 allProfileList");
         preferencesOther = content;
       });
       return Column(
@@ -105,28 +102,27 @@ class _AllProfilesListState extends State<AllProfilesList> {
                   color: Colors.white,
                   onPressed: () async {
                     /* Put like */
-                    //print("like");
                     String persID = profiles[0].uidA;
                     await MatchService()
                         .putPrefence(myHouse.idHouse, persID, "like");
+                    print('casa mette mi piace');
 
-                    /* check fot match */
+                    /* check for match */
                     try {
+                      // search if the other has seen your profile and put a like
                       final ok = await MatchService().checkMatch(
                           myHouse.idHouse, persID, preferencesOther);
+                      print('casa controlla match');
+                      print(ok.toString());
+
                       if (ok) {
                         if (mounted) {
-                          //print('sono qui all prof 89');
                           await showMyDialog(context);
                         }
                       }
                     } catch (e) {
                       print(e);
                     }
-                    //print(ok);
-                    //print('match creato r86 allprof');
-
-                    /* search if the other has seen your profile and put a like */
                   }),
               SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
               IconButton(
@@ -191,59 +187,17 @@ class AllPersonalTiles extends StatelessWidget {
       preferencesOther = content;
     });*/
     return Padding(
-        padding: EdgeInsets.only(top: 8.0),
+        padding: const EdgeInsets.only(top: 8.0),
         child: Card(
-            margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
+            margin: const EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
             child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
               ListTile(
-                leading: CircleAvatar(
+                leading: const CircleAvatar(
                   radius: 25.0,
                   backgroundColor: Colors.red,
                 ),
-                title: Text(profile.nameA + " " + profile.surnameA),
+                title: Text("${profile.nameA} ${profile.surnameA}"),
               ),
-              /*Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  IconButton(
-                      icon: const Icon(Icons.favorite_outline),
-                      onPressed: () async {
-                        /* Put like */
-                        print("like");
-                        await MatchService()
-                            .putPrefence(myHouse.idHouse, profile.uid, "like");
-
-                        /* check fot match */
-                        final ok = await MatchService().checkMatch(
-                            myHouse.idHouse, profile.uid, preferencesOther);
-                        print(ok);
-                        print('match creato anche in questo modo');
-                        if (ok) {
-                          /* Navigator.push(context,MaterialPageRoute(
-                               builder: (context) => MultipleImagePicker()));*/
-                          /*AwesomeDialog(
-                                context: context,
-                                animType: AnimType.scale,
-                                dialogType: DialogType.success,
-                                body: const Center(child: Text(
-                                  'Ops... hai ricevuto un match! Vai nelle chat per inziiare una conversazione!',
-                                  style: TextStyle(fontStyle: FontStyle.italic),
-                                  ),),
-                                  btnOkOnPress: () {},).show();*/
-                        }
-                      }
-                      /* search if the other has seen your profile and put a like */
-                      ),
-                  const SizedBox(width: 8),
-                  IconButton(
-                      icon: const Icon(Icons.close_outlined),
-                      onPressed: () async {
-                        await MatchService().putPrefence(
-                            myHouse.idHouse, profile.uid, "dislike");
-                      }),
-                  const SizedBox(width: 8),
-                ],
-              ),*/
             ])));
   }
 }

@@ -43,7 +43,8 @@ class _ModifyHouseFormState extends State<ModifyHouseForm> {
               key: _formKey,
               child: Column(children: <Widget>[
                 //SizedBox(height: 20.0),
-                Text('Scegli la tipologia:', style: TextStyle(fontSize: 18.0)),
+                const Text('Scegli la tipologia:',
+                    style: TextStyle(fontSize: 18.0)),
                 //SizedBox(height: 20.0),
                 DropdownButtonFormField(
                     value: _currentType ?? house.type,
@@ -54,8 +55,7 @@ class _ModifyHouseFormState extends State<ModifyHouseForm> {
                       );
                     }).toList(),
                     onChanged: (val) => setState(() => _currentType = val)),
-                // SizedBox(height: 20.0),
-                // SizedBox(height: 20.0),
+
                 TextFormField(
                   initialValue: house.city,
                   decoration:
@@ -64,8 +64,6 @@ class _ModifyHouseFormState extends State<ModifyHouseForm> {
                       val!.isEmpty ? 'Please enter a city' : null,
                   onChanged: (val) => setState(() => _currentCity = val),
                 ),
-                //SizedBox(height: 20.0),
-
                 TextFormField(
                   initialValue: house.address,
                   decoration: textInputDecoration.copyWith(
@@ -80,7 +78,7 @@ class _ModifyHouseFormState extends State<ModifyHouseForm> {
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   initialValue: house.price.toString(),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       labelText: "price",
                       hintText: "insert price",
                       icon: Icon(Icons.phone_iphone)),
@@ -118,7 +116,7 @@ class _ModifyHouseFormState extends State<ModifyHouseForm> {
                       backgroundColor:
                           MaterialStateProperty.all<Color>(Colors.pink),
                     ),
-                    child: Text(
+                    child: const Text(
                       'Finished',
                       style: TextStyle(color: Colors.white),
                     )),
