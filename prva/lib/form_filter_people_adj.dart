@@ -1,5 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:prva/models/user.dart';
+import 'package:prva/services/databaseForFilters.dart';
 
 class FormFilterPeopleAdj extends StatefulWidget {
   const FormFilterPeopleAdj({super.key});
@@ -11,14 +14,15 @@ class FormFilterPeopleAdj extends StatefulWidget {
 class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
  
 
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  final scaffoldKey = GlobalKey<FormState>();
 
-  bool? checkboxListTileValue1;
-  bool? checkboxListTileValue2;
-  bool? checkboxListTileValue3;
-  bool? checkboxListTileValue4;
-  bool? checkboxListTileValue5;
-  double? sliderValue;
+  String? city;
+  bool checkboxListTileValue1 = true;
+  bool checkboxListTileValue2 = true;
+  bool checkboxListTileValue3 = true;
+  bool checkboxListTileValue4 = true;
+  bool checkboxListTileValue5 = true;
+  double sliderValue = 4000;
   final List<String> typeOfAppartament = [
     "Apartment",
     "Single room",
@@ -29,6 +33,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<Utente>(context);
     
     return Scaffold(
         key: scaffoldKey,
@@ -36,7 +41,9 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
         body: SafeArea(
           top: true,
           child:  SingleChildScrollView(
-                  child: Column(
+                  child:  Form(
+            key: scaffoldKey,
+            child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -172,7 +179,16 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500,
                                       ),
-                                      ),
+                                    
+
+                                       validator: (val) => val!.isEmpty
+                                          ? 'Please enter a city'
+                                          : null,
+                                      onChanged: (val) =>
+                                          setState(() => city = val
+                                          )
+                                    ),
+
                                     ),
                                   ),
                                   Row(
@@ -210,8 +226,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                                 Colors.black,
                                           ),
                                           child: CheckboxListTile(
-                                            value: checkboxListTileValue1 ??=
-                                                false,
+                                            value: checkboxListTileValue1,
                                             onChanged: (newValue) async {
                                               setState(() => checkboxListTileValue1 =
                                                   newValue!);
@@ -259,8 +274,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                                 Colors.black,
                                           ),
                                           child: CheckboxListTile(
-                                            value: checkboxListTileValue2 ??=
-                                                false,
+                                            value: checkboxListTileValue2,
                                             onChanged: (newValue) async {
                                               setState(() => checkboxListTileValue2 =
                                                   newValue!);
@@ -308,8 +322,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                                 Colors.black,
                                           ),
                                           child: CheckboxListTile(
-                                            value: checkboxListTileValue3 ??=
-                                                false,
+                                            value: checkboxListTileValue3,
                                             onChanged: (newValue) async {
                                               setState(() => checkboxListTileValue3=
                                                   newValue!);
@@ -357,8 +370,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                                 Colors.black,
                                           ),
                                           child: CheckboxListTile(
-                                            value: checkboxListTileValue4 ??=
-                                                false,
+                                            value: checkboxListTileValue4,
                                             onChanged: (newValue) async {
                                               setState(() => checkboxListTileValue4 =
                                                   newValue!);
@@ -410,8 +422,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                                 Colors.black,
                                           ),
                                           child: CheckboxListTile(
-                                            value: checkboxListTileValue5 ??=
-                                                false,
+                                            value: checkboxListTileValue5,
                                             onChanged: (newValue) async {
                                               setState(() => checkboxListTileValue5 =
                                                   newValue!);
@@ -480,7 +491,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                               divisions: 50,
                                               min: 0,
                                               max: 4000,
-                                              value: sliderValue ??= 50,
+                                              value: sliderValue,
                                               label:
                                                   sliderValue.toString(),
                                               onChanged: (newValue) {
@@ -521,6 +532,67 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                       ),
                                     ],
                                   ),
+
+
+                                   Align(
+                                alignment: const AlignmentDirectional(0, 0),
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 0, 16),
+                                  child:  ElevatedButton(
+                                  onPressed: () async {
+
+                                    if(scaffoldKey.currentState!.validate()){
+
+                                      if(checkboxListTileValue1 || checkboxListTileValue2 || checkboxListTileValue3 ||
+                                      checkboxListTileValue4 || checkboxListTileValue5){
+
+                                    await DatabaseServiceFilters(user.uid).updateFiltersAdj(
+                          
+                          city ?? "",
+                          checkboxListTileValue1,
+                          checkboxListTileValue2,
+                          checkboxListTileValue3,
+                          checkboxListTileValue4 ,
+                          checkboxListTileValue5,
+                          sliderValue
+                        );
+                                    }}else{
+
+                                      ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              'Plese, enter at least one type!',
+                                            ),
+                                          ),
+                                        );
+                                        return;
+                                    }
+                      
+                      Navigator.pop(context);
+                          
+                        },
+                                    style: ElevatedButton.styleFrom(
+                                      fixedSize: Size(230, 52),
+                                      backgroundColor:Colors.black,
+                                       elevation: 3.0,
+                                       side: const BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1,
+                                      ),
+                                    ),
+                                    child : const Text('Log in',
+                                    style: TextStyle(
+                                      fontFamily: 'Plus Jakarta Sans',
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                    ),),
+                                    ),
+  
+                                  ),
+                                ),
                                 ],
                               ),
                             ),
@@ -532,6 +604,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                   ),
                   
                 ),
+        ),
               );
   }
 }

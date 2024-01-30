@@ -14,6 +14,7 @@ class DatabaseServiceHouseProfile {
   final CollectionReference filtersPersonCollection =
       FirebaseFirestore.instance.collection('filtersPerson');
 
+
 /* vecchio, riscritto */
   Future<String> createUserDataHouseProfile(
       String type, String address, String city, int price) async {
@@ -143,6 +144,8 @@ class DatabaseServiceHouseProfile {
         .map((_houseProfileUserFromSnapshotAdj));
   }
 
+  /* vecchio, da riscrivere */
+
   Stream<List<HouseProfile>> getFilteredHouses(Filters? selectedFilters) {
     Query query = houseProfileCollection;
     /*Filters provaFiltri = Filters(
@@ -160,5 +163,38 @@ class DatabaseServiceHouseProfile {
       }
     }
     return query.snapshots().map((_houseProfileUserFromSnapshot));
+  }
+
+  HouseProfileAdj _myHouseProfileUserFromSnapshotAdj(DocumentSnapshot snapshot) {
+      return HouseProfileAdj(
+          type: snapshot.get('type') ?? "",
+          address: snapshot.get('address') ?? "",
+          city: snapshot.get('city') ?? "",
+          price: snapshot.get('price') ?? 0.0,
+          owner: snapshot.get('owner') ?? "",
+          idHouse: snapshot.reference.id,
+           floorNumber: snapshot.get( 'floorNum') ?? 0,
+       description: snapshot.get('description') ?? "",
+       numBath : snapshot.get('numBath') ?? 0,
+      numPlp: snapshot.get('numPlp') ?? 0 ,
+      startYear : snapshot.get('startYear') ?? 0,
+      endYear: snapshot.get('endYear') ?? 0,
+      startMonth: snapshot.get('startMonth') ?? 0,
+      endMonth: snapshot.get('endMonth') ?? 0,
+     startDay: snapshot.get('startDay') ?? 0,
+       endDay: snapshot.get('endDay') ?? 0,
+      imageURL1: snapshot.get('imageURL1') ?? "",
+      imageURL2: snapshot.get('imageURL2') ?? "",
+     imageURL3: snapshot.get('imageURL3') ?? "",
+      imageURL4: snapshot.get('imageURL4') ?? "",
+          );
+  }
+
+
+   Stream<HouseProfileAdj> get getMyHouseAdj {
+    return houseProfileCollection
+        .doc(uid)
+        .snapshots()
+        .map((_myHouseProfileUserFromSnapshotAdj));
   }
 }

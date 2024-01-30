@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
+import 'package:prva/form_filter_people_adj.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
@@ -45,7 +46,7 @@ class _UserHomepageState extends State<UserHomepage> {
           builder: (context) {
             return Container(
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-              child: FiltersForm(),
+              child: FormFilterPeopleAdj(),
             );
           });
     }
@@ -107,21 +108,26 @@ class SearchLayout extends StatefulWidget {
 }
 
 class _SearchLayoutState extends State<SearchLayout> {
-  Filters? filtri;
+  FiltersHouseAdj? filtri;
   List<String>? alreadySeenProfiles;
 
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Utente>(context);
     try{
-    final retrievedFilters = DatabaseServiceFilters(user.uid).getFilters;
+    final retrievedFilters = DatabaseServiceFilters(user.uid).getFiltersAdj;
     
     retrievedFilters.listen((content) {
-      filtri = Filters(
+      filtri = FiltersHouseAdj(
           userID: content.userID,
           budget: content.budget,
           city: content.city,
-          type: content.type);
+          apartment: content.apartment,
+          singleRoom: content.singleRoom,
+          doubleRoom: content.doubleRoom,
+          studioApartment: content.studioApartment,
+          twoRoomsApartment: content.twoRoomsApartment
+          );
       if (this.mounted) {
         setState(() {});
       }
@@ -130,9 +136,8 @@ class _SearchLayoutState extends State<SearchLayout> {
       print(e);
       filtri = null;
     }
-    return StreamProvider<List<HouseProfile>>.value(
-        //value: DatabaseServiceHouseProfile(user.uid).getAllHouses,
-        value: DatabaseServiceHouseProfile(user.uid).getFilteredHouses(filtri),
+    return StreamProvider<List<HouseProfileAdj>>.value(
+        value: DatabaseServiceHouseProfile(user.uid).getAllHousesAdj,
         initialData: [],
         child: Scaffold(
           body: AllHousesList(),

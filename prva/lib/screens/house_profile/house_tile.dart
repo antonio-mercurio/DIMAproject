@@ -19,14 +19,14 @@ class HouseTile extends StatelessWidget {
               title: Text(house.type),
               subtitle: Text('Si trova a ${house.city}'),
               onTap: () {
-                /*
+                
                 Navigator.push(
                   context,
                   
                   MaterialPageRoute(
                       builder: (context) => HouseProfSel(house: house)),
                 );
-                */
+                
               }),
         ));
   }
