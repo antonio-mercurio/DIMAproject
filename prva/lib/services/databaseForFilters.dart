@@ -64,12 +64,12 @@ class DatabaseServiceFilters {
     return FiltersHouseAdj(
       userID: uid ?? "",
       city: snapshot.get('city') ?? "",
-      apartment: snapshot.get(typeOfAppartament[0].toString()),
-      singleRoom: snapshot.get(typeOfAppartament[1].toString()),
-      doubleRoom: snapshot.get(typeOfAppartament[2].toString()),
-      studioApartment: snapshot.get(typeOfAppartament[3].toString()),
-      twoRoomsApartment: snapshot.get(typeOfAppartament[4].toString()),
-      budget: snapshot.get('budget') ?? 0.0,
+      apartment: snapshot.get(typeOfAppartament[0]),
+      singleRoom: snapshot.get(typeOfAppartament[1]),
+      doubleRoom: snapshot.get(typeOfAppartament[2]),
+      studioApartment: snapshot.get(typeOfAppartament[3]),
+      twoRoomsApartment: snapshot.get(typeOfAppartament[4]),
+      budget: double.parse(snapshot.get('budget').toString()) ?? 0.0,
     );
   }
 

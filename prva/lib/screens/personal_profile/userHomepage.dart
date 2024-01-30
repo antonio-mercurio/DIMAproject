@@ -32,9 +32,11 @@ class _UserHomepageState extends State<UserHomepage> {
     ChatLayout(),
   ];
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    if (mounted) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
 
   @override

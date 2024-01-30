@@ -37,8 +37,6 @@ class _AllHousesListState extends State<AllHousesList> {
           DatabaseServiceFilters(myProfile.uidA).getFiltersAdj;
       retrievedFilters.listen((content) {
         filtri = content;
-
-        setState(() {});
       });
     } catch (e) {
       print('exception thrown by filters');

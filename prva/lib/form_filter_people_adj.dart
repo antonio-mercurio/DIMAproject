@@ -620,8 +620,9 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                             );
                                             return;
                                           }
-
-                                          Navigator.pop(context);
+                                          if (mounted) {
+                                            Navigator.pop(context);
+                                          }
                                         },
                                         style: ElevatedButton.styleFrom(
                                           fixedSize: Size(230, 52),
