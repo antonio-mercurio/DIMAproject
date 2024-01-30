@@ -29,6 +29,8 @@ class HouseProfSel extends StatefulWidget {
 }
 
 class _HouseProfSelState extends State<HouseProfSel> {
+  FiltersPersonAdj? filtri;
+
   final HouseProfile house;
   _HouseProfSelState({required this.house});
 
@@ -48,6 +50,17 @@ class _HouseProfSelState extends State<HouseProfSel> {
 
   @override
   Widget build(BuildContext context) {
+    try {
+      final retrievedFilters =
+          DatabaseServiceFiltersPerson(uid: house.idHouse).getFiltersPersonAdj;
+      retrievedFilters.listen((content) {
+        filtri = content;
+
+        setState(() {});
+      });
+    } catch (e) {
+      print('exception thrown by filters');
+    }
     void _showFiltersPanel() {
       showModalBottomSheet(
           context: context,

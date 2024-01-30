@@ -40,11 +40,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
           DatabaseServiceFiltersPerson(uid: house.idHouse).getFiltersPersonAdj;
       retrievedFilters.listen((content) {
         filtri = content;
-        print('filtri ci sono');
-        print(filtri!.maxAge.toString());
-        print(filtri!.gender.toString());
-        print(filtri!.minAge.toString());
-        print(filtri!.employment.toString());
+
         setState(() {});
       });
     } catch (e) {
