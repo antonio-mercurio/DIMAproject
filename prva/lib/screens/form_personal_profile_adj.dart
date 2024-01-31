@@ -6,6 +6,7 @@ import 'package:prva/models/user.dart';
 import 'package:prva/schermiProva.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForFilters.dart';
+import 'package:prva/services/match/match_service.dart';
 import 'package:prva/shared/loading.dart'; // for date formatting
 
 class FormPersonalProfileAdj extends StatefulWidget {
@@ -1014,6 +1015,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                   true,
                                   4000.0,
                                 );
+                                await MatchService(uid: user.uid).createNotification(0);
                                 await DatabaseService(user.uid)
                                     .updatePersonalProfileAdj(
                                         _name ?? '',

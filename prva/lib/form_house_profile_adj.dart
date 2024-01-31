@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:prva/models/user.dart';
 import 'package:prva/schermiProva.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
+import 'package:prva/services/match/match_service.dart';
 
 class FormHouseAdj extends StatefulWidget {
   const FormHouseAdj({super.key});
@@ -1366,6 +1367,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                 if (imageURLs[0] !=
                                     '' /*&& imageURLs[0]!='' && imageURLs[0]!='' && imageURLs[0]!=''*/) {
                                   setState(() {});
+
+                                  await MatchService(uid: user.uid).createNotification(0);
 
                                   await DatabaseServiceHouseProfile(user.uid)
                                       .createUserDataHouseProfileAdj(
