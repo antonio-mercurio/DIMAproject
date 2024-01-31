@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:geocoding_resolver/geocoding_resolver.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_places_flutter/google_places_flutter.dart';
+import 'package:google_places_flutter/model/prediction.dart';
+import 'package:geocoding_resolver/geocoding_resolver.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_places_flutter/model/place_details.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/houseProfile.dart';
+
+const LatLng cLoc = LatLng(45.48319179000315, 9.224778407607825);
 
 class ShowDetailedHouseProfile extends StatefulWidget {
   final HouseProfileAdj houseProfile;
@@ -104,6 +116,19 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
                 fontFamily: 'Plus Jakarta Sans'),
           ),
         ),
+        const Divider(
+          height: 36,
+          thickness: 1,
+          color: Colors.grey,
+        ),
+        ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MapSample2(cLoc)),
+              );
+            },
+            child: Text('vai mappa')),
         const Divider(
           height: 36,
           thickness: 1,
@@ -280,5 +305,52 @@ class ImagesTile extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class MapSample2 extends StatefulWidget {
+  LatLng location;
+  MapSample2(this.location);
+
+  @override
+  State<MapSample2> createState() => _MapSample2State(location);
+}
+
+class _MapSample2State extends State<MapSample2> {
+  late GoogleMapController _mapController;
+  Map<String, Marker> _markers = {};
+  LatLng location;
+
+  _MapSample2State(this.location);
+
+  @override
+  Widget build(BuildContext context) {
+    return GoogleMap(
+      mapType: MapType.normal,
+      compassEnabled: true,
+      initialCameraPosition: CameraPosition(
+        target: location,
+        zoom: 20,
+      ),
+      onMapCreated: (controller) {
+        _mapController = controller;
+        addMarker('test', location);
+      },
+      markers: _markers.values.toSet(),
+    );
+  }
+
+  addMarker(String id, LatLng location) {
+    var marker = Marker(
+      markerId: MarkerId(id),
+      position: location,
+      infoWindow: const InfoWindow(
+        title: 'Title of place',
+        snippet: 'description of the location',
+      ),
+    );
+    _markers[id] = marker;
+
+    setState(() {});
   }
 }
