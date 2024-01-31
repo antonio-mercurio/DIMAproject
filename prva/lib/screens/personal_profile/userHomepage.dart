@@ -7,7 +7,9 @@ import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/user.dart';
+import 'package:prva/notificationPerson.dart';
 import 'package:prva/screens/chat/chat.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:prva/screens/personal_profile/allHousesList.dart';
 import 'package:prva/screens/personal_profile/filtersForm.dart';
 import 'package:prva/screens/personal_profile/updatePersonalProfile.dart';
@@ -27,6 +29,7 @@ class UserHomepage extends StatefulWidget {
 
 class _UserHomepageState extends State<UserHomepage> {
   int _selectedIndex = 0;
+  int? myNotifies;
   static List<Widget> _widgetOptions = <Widget>[
     SearchLayout(),
     ProfileLayout(),
@@ -39,11 +42,7 @@ class _UserHomepageState extends State<UserHomepage> {
       });
     }
   }
-
-  @override
-  Widget build(BuildContext context) {
-    final user = Provider.of<Utente>(context);
-    void _showFiltersPanel() {
+void _showFiltersPanel() {
       showModalBottomSheet(
           context: context,
           builder: (context) {
@@ -53,6 +52,18 @@ class _UserHomepageState extends State<UserHomepage> {
             );
           });
     }
+  @override
+  Widget build(BuildContext context) {
+    final user = Provider.of<Utente>(context);
+
+     final retrievedNotifies =
+        MatchService(uid: user.uid).getNotification;
+    retrievedNotifies.listen((content) {
+      myNotifies = content;
+      if (mounted) {
+        setState(() {});
+      }
+    });
 
     return StreamProvider<PersonalProfileAdj>.value(
         value: DatabaseService(user.uid).persProfileDataAdj,
@@ -82,10 +93,27 @@ class _UserHomepageState extends State<UserHomepage> {
                   _showFiltersPanel();
                 },
               ),
-              IconButton(
-                icon: Icon(Icons.notifications, color: Colors.white),
-                onPressed: () {},
+              badges.Badge(
+                showBadge: (myNotifies!= null && myNotifies!=0),
+                badgeContent : Text(myNotifies?.toString() ?? ""),
+                position: badges.BadgePosition.topEnd(top: 10, end: 10),
+                badgeStyle: badges.BadgeStyle( padding: EdgeInsets.all(4)),
+                child: IconButton(
+                icon: Icon(Icons.notifications),
+                color: Colors.white,
+                onPressed: () async {
+                  await MatchService(uid: user.uid).createNotification(0);
+                  if(mounted){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NotificationPersonLayout(profile:user.uid ),
+                    ),
+                  );
+                  }
+                },
               ),
+              )
             ],
           ),
           body: _widgetOptions.elementAt(_selectedIndex),

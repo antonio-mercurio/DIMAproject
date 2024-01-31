@@ -16,6 +16,28 @@ class MatchService extends ChangeNotifier {
 
   MatchService({this.uid, this.otheruid});
 
+
+  final CollectionReference personalNotification =
+      FirebaseFirestore.instance.collection('notificationMatch');
+
+Future createNotification(int notifies) async {
+    return await personalNotification.doc(uid).set({
+      'numberNotifies': notifies,
+    });
+  }
+
+int _getNotificationFromSnapshot(
+      DocumentSnapshot snapshot){
+        return snapshot.get('numberNotifies');
+      }
+
+Stream<int> get getNotification {
+    return personalNotification
+        .doc(uid)
+        .snapshots()
+        .map((_getNotificationFromSnapshot));
+  }
+
   Future _putMatch(
     String userID,
     String otherUserID,
@@ -25,7 +47,7 @@ class MatchService extends ChangeNotifier {
   }
 
   Future checkMatch(String senderID, String receiverID,
-      List<PreferenceForMatch>? preferencesOther) async {
+      List<PreferenceForMatch>? preferencesOther, int? notifiesOther, int? notifiesYours) async {
     final searchedPreference =
         PreferenceForMatch(reciverPreferenceId: senderID, choice: "like");
     if (preferencesOther != null) {
@@ -35,6 +57,16 @@ class MatchService extends ChangeNotifier {
               searchedPreference.reciverPreferenceId)) {
         /* there is a match */
         await _putMatch(senderID, receiverID);
+        if(notifiesOther!= null){
+         MatchService(uid: receiverID).createNotification(notifiesOther+1);
+        }else{
+            MatchService(uid: receiverID).createNotification(1);
+        }
+        if(notifiesYours!= null){
+          MatchService(uid: senderID).createNotification(notifiesYours+1);
+        }else{
+           MatchService(uid: senderID).createNotification(1);
+        }
         return true;
       }
     }

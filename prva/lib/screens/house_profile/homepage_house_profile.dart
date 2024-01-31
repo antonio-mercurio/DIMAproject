@@ -1,7 +1,9 @@
+import 'package:badges/badges.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/daSpostareoCollegare/modifyHouseProfile.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
@@ -36,6 +38,7 @@ class _HouseProfSelState extends State<HouseProfSel> {
   _HouseProfSelState({required this.house});
 
   int _selectedIndex = 0;
+  int? myNotifies;
 
   static List<Widget> _widgetOptions = <Widget>[
     SearchLayout(),
@@ -49,9 +52,7 @@ class _HouseProfSelState extends State<HouseProfSel> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    void _showFiltersPanel() {
+void _showFiltersPanel() {
       showModalBottomSheet(
           context: context,
           builder: (context) {
@@ -63,6 +64,17 @@ class _HouseProfSelState extends State<HouseProfSel> {
             );
           });
     }
+  @override
+  Widget build(BuildContext context) {
+
+    final retrievedNotifies =
+        MatchService(uid: house.idHouse).getNotification;
+    retrievedNotifies.listen((content) {
+      myNotifies = content;
+      if (mounted) {
+        setState(() {});
+      }
+    });
 
     return StreamProvider<HouseProfileAdj>.value(
         value: DatabaseServiceHouseProfile(house.idHouse).getMyHouseAdj,
@@ -93,25 +105,33 @@ class _HouseProfSelState extends State<HouseProfSel> {
             backgroundColor: Colors.black,
             title: Text('House profile page'),
             actions: <Widget>[
-              TextButton.icon(
+              IconButton(
                 icon: Icon(Icons.settings),
-                label: Text('Filters'),
                 onPressed: () async {
                   _showFiltersPanel();
                 },
               ),
-              TextButton.icon(
-                icon: Icon(Icons.alarm),
-                label: Text('Notifies'),
-                onPressed: () {
+              badges.Badge(
+                showBadge: (myNotifies!= null && myNotifies!=0),
+                badgeContent : Text(myNotifies?.toString() ?? ""),
+                position: badges.BadgePosition.topEnd(top: 10, end: 10),
+                badgeStyle: BadgeStyle( padding: EdgeInsets.all(4)),
+                child: IconButton(
+                icon: Icon(Icons.notifications),
+                color: Colors.white,
+                onPressed: () async {
+                  await MatchService(uid: house.idHouse).createNotification(0);
+                  if(mounted){
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => NotificationLayout(house: house),
                     ),
                   );
+                  }
                 },
               ),
+              )
             ],
           ),
           body: _widgetOptions.elementAt(_selectedIndex),
