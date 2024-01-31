@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/user.dart';
 import 'package:prva/schermiProva.dart';
+import 'package:prva/screens/home/home.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForFilters.dart';
 import 'package:prva/shared/loading.dart'; // for date formatting
@@ -1062,63 +1063,88 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                     Align(
                       alignment: const AlignmentDirectional(0, 0),
                       child: Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            if (scaffoldKey.currentState!.validate()) {
-                              if (imageURLs[0] !=
-                                  '' /*&& imageURLs[0]!='' && imageURLs[0]!='' && imageURLs[0]!=''*/) {
-                                setState(() {});
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
+                          child: Row(children: [
+                            ElevatedButton(
+                              onPressed: () async {
+                                if (scaffoldKey.currentState!.validate()) {
+                                  if (imageURLs[0] !=
+                                      '' /*&& imageURLs[0]!='' && imageURLs[0]!='' && imageURLs[0]!=''*/) {
+                                    setState(() {});
 
-                                await DatabaseService(user.uid)
-                                    .updatePersonalProfileAdj(
-                                        _name ?? '',
-                                        _surname ?? '',
-                                        _description ?? '',
-                                        optionsGender[_valueGender ?? 1],
-                                        optionsEmployement[
-                                            _valueEmployement ?? 1],
-                                        _birthDate!.day,
-                                        _birthDate!.month,
-                                        _birthDate!.year,
-                                        imageURLs[0],
-                                        imageURLs[0],
-                                        imageURLs[0],
-                                        imageURLs[0]);
+                                    await DatabaseService(user.uid)
+                                        .updatePersonalProfileAdj(
+                                            _name ?? '',
+                                            _surname ?? '',
+                                            _description ?? '',
+                                            optionsGender[_valueGender ?? 1],
+                                            optionsEmployement[
+                                                _valueEmployement ?? 1],
+                                            _birthDate!.day,
+                                            _birthDate!.month,
+                                            _birthDate!.year,
+                                            imageURLs[0],
+                                            imageURLs[0],
+                                            imageURLs[0],
+                                            imageURLs[0]);
+                                    Navigator.pop(context);
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          'Insert the photos!',
+                                        ),
+                                      ),
+                                    );
+                                    return;
+                                  }
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                fixedSize: const Size(230, 52),
+                                backgroundColor: Colors.black,
+                                elevation: 3.0,
+                                side: const BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1,
+                                ),
+                              ),
+                              child: const Text(
+                                'Update',
+                                style: TextStyle(
+                                  fontFamily: 'Plus Jakarta Sans',
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                            ElevatedButton(
+                              onPressed: () async {
+                                await DatabaseService(user.uid).deleteProfile();
                                 Navigator.pop(context);
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                      'Insert the photos!',
-                                    ),
-                                  ),
-                                );
-                                return;
-                              }
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: const Size(230, 52),
-                            backgroundColor: Colors.black,
-                            elevation: 3.0,
-                            side: const BorderSide(
-                              color: Colors.transparent,
-                              width: 1,
-                            ),
-                          ),
-                          child: const Text(
-                            'Update',
-                            style: TextStyle(
-                              fontFamily: 'Plus Jakarta Sans',
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
+                              },
+                              style: ElevatedButton.styleFrom(
+                                fixedSize: const Size(230, 52),
+                                backgroundColor: Colors.black,
+                                elevation: 3.0,
+                                side: const BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1,
+                                ),
+                              ),
+                              child: const Text(
+                                'Delete',
+                                style: TextStyle(
+                                  fontFamily: 'Plus Jakarta Sans',
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            )
+                          ])),
                     ),
                   ],
                 ),
