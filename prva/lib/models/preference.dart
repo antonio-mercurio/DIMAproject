@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Preference {
   final String senderPreferenceId;
   final String reciverPreferenceId;
@@ -28,9 +30,11 @@ class PreferenceForMatch {
   PreferenceForMatch({required this.reciverPreferenceId, required this.choice});
 }
 
+
 class Match {
   final String userID;
   final String otheUserID;
+  final Timestamp timestamp;
 
-  Match({required this.userID, required this.otheUserID});
+  Match({required this.userID, required this.otheUserID, required this.timestamp});
 }
