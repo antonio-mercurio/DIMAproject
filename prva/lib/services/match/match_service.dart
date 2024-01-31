@@ -7,20 +7,21 @@ import 'package:prva/models/preference.dart';
 
 class MatchService extends ChangeNotifier {
   final String? uid;
+  final String? otheruid;
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   final CollectionReference persProfileCollection =
       FirebaseFirestore.instance.collection('personalProfiles');
   final CollectionReference houseProfileCollection =
       FirebaseFirestore.instance.collection('houseProfiles');
 
-  MatchService({this.uid});
+  MatchService({this.uid, this.otheruid});
 
   Future _putMatch(
     String userID,
     String otherUserID,
   ) async {
-    await MatchService().createNewMatch(userID, otherUserID);
-    await MatchService().createNewMatch(otherUserID, userID);
+    await MatchService().createNewMatch(userID, otherUserID, Timestamp.now());
+    await MatchService().createNewMatch(otherUserID, userID, Timestamp.now());
   }
 
   Future checkMatch(String senderID, String receiverID,
@@ -66,6 +67,26 @@ class MatchService extends ChangeNotifier {
         .snapshots();
   }
 
+
+  Match _matchFromSnapshot(DocumentSnapshot snapshot) {
+     return Match(
+        userID: snapshot.get('user1'),
+        otheUserID: snapshot.get('user2'),
+        timestamp: snapshot.get('timestamp'),
+      );
+  }
+
+
+  Stream<Match> get getMatches{
+    return _firebaseFirestore
+        .collection('matches_room')
+        .doc(uid)
+        .collection('matched_profiles')
+        .doc(otheruid)
+        .snapshots()
+        .map(_matchFromSnapshot);    
+  }
+
   List<PreferenceForMatch> _preferenceFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map<PreferenceForMatch>((doc) {
       return PreferenceForMatch(
@@ -83,14 +104,14 @@ class MatchService extends ChangeNotifier {
   }
 
   /* create a new match */
-  Future createNewMatch(String userID, String otherUserID) async {
+  Future createNewMatch(String userID, String otherUserID, Timestamp timestamp) async {
     //add new message to match
     await _firebaseFirestore
         .collection('match')
         .doc(userID)
         .collection('matched_profiles')
         .doc(otherUserID)
-        .set({'user1': userID, 'user2': otherUserID});
+        .set({'user1': userID, 'user2': otherUserID, 'timestamp': timestamp});
   }
   /*retrieve chat */
 
@@ -105,6 +126,7 @@ class MatchService extends ChangeNotifier {
         .collection('match')
         .doc(uid)
         .collection('matched_profiles')
+        .orderBy('timestamp')
         .snapshots()
         .map((_profileMatchedFromSnapshot));
   }
