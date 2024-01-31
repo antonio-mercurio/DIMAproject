@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
+import 'package:prva/daSpostareoCollegare/modifyPersonalProfile.dart';
 import 'package:prva/form_filter_people_adj.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
@@ -154,7 +155,15 @@ class ProfileLayout extends StatelessWidget {
           DetailedPersonalProfile(),
           ElevatedButton(
             child: Text('Modifica'),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => modificaPersonalProfile(
+                          personalProfile: personalData,
+                        )),
+              );
+            },
           )
         ],
       )))
