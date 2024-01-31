@@ -10,6 +10,7 @@ import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForFilters.dart';
 import 'package:prva/services/match/match_service.dart';
 import 'package:prva/show_detailed_profile.dart';
+import 'package:prva/show_details_personal_profile.dart';
 
 class AllHousesList extends StatefulWidget {
   final PersonalProfileAdj myProfile;
@@ -168,7 +169,7 @@ class ViewProfile extends StatelessWidget {
         body: Column(mainAxisSize: MainAxisSize.max, children: [
           Expanded(
               child: SingleChildScrollView(
-            child: DetailedProfile(houseProfile: houseProfile),
+            child: DetailedPersonalProfile(),
           ))
         ]));
   }

@@ -1,43 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:prva/models/houseProfile.dart';
 
-class DetailedProfile extends StatefulWidget {
-  final HouseProfileAdj houseProfile;
+class DetailedHouseProfile extends StatefulWidget {
+  //final HouseProfileAdj houseProfile;
 
-  const DetailedProfile({super.key, required this.houseProfile});
+  const DetailedHouseProfile({
+    super.key,
+    /*required this.houseProfile*/
+  });
 
   @override
-  State<DetailedProfile> createState() => _DetailedProfileState(houseProfile: houseProfile);
+  State<DetailedHouseProfile> createState() =>
+      _DetailedHouseProfileState(/*houseProfile: houseProfile*/);
 }
 
-class _DetailedProfileState extends State<DetailedProfile> {
-final HouseProfileAdj houseProfile;
-List<String> images=[];
-bool flag = true;
+class _DetailedHouseProfileState extends State<DetailedHouseProfile> {
+  //final HouseProfileAdj houseProfile;
+  List<String> images = [];
+  bool flag = true;
 
-void getImages(String im1, String im2, String im3, String im4){
-  if(im1!="" && flag){
-    images.add(im1);
-    
+  void getImages(String im1, String im2, String im3, String im4) {
+    if (im1 != "" && flag) {
+      images.add(im1);
+    }
+    if (im2 != "" && flag) {
+      images.add(im2);
+    }
+    if (im3 != "" && flag) {
+      images.add(im3);
+    }
+    if (im4 != "" && flag) {
+      images.add(im4);
+    }
+    flag = false;
   }
-  if(im2!="" && flag){
-    images.add(im2);
-  }
-  if(im3!="" && flag) {
-    images.add(im3);
-  }
-  if(im4!="" && flag){
-    images.add(im4);
-  }
-  flag =false;
-}
 
-
-  _DetailedProfileState({required this.houseProfile});
+  //_DetailedProfileState({required this.houseProfile});
 
   @override
   Widget build(BuildContext context) {
-    getImages(houseProfile.imageURL1, houseProfile.imageURL2, houseProfile.imageURL3, houseProfile.imageURL4);
+    final houseProfile = Provider.of<HouseProfileAdj>(context);
+    getImages(houseProfile.imageURL1, houseProfile.imageURL2,
+        houseProfile.imageURL3, houseProfile.imageURL4);
     return Column(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,27 +56,26 @@ void getImages(String im1, String im2, String im3, String im4){
                 fontFamily: 'Plus Jakarta Sans',
               )),
         ),
-         Padding(
+        Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(10, 12, 0, 0),
-          child:
-        Container(
-                width: double.infinity,
-                height: 500,
-                decoration: BoxDecoration(
-                  color: Color(0xFFF1F4F8),
-                ),
-                child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  primary: false,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                   itemCount: images.length,
-      itemBuilder: (context, index) {
-        return ImagesTile(image: images[index]);
-      },
-                ),
+          child: Container(
+            width: double.infinity,
+            height: 500,
+            decoration: BoxDecoration(
+              color: Color(0xFFF1F4F8),
+            ),
+            child: ListView.builder(
+              padding: EdgeInsets.zero,
+              primary: false,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: images.length,
+              itemBuilder: (context, index) {
+                return ImagesTile(image: images[index]);
+              },
+            ),
+          ),
         ),
-         ),
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(16, 8, 0, 0),
           child: Text(
@@ -93,7 +97,7 @@ void getImages(String im1, String im2, String im3, String im4){
                 fontFamily: 'Plus Jakarta Sans'),
           ),
         ),
-         Padding(
+        Padding(
           padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 0),
           child: Text(
             houseProfile.description,
@@ -108,8 +112,6 @@ void getImages(String im1, String im2, String im3, String im4){
           thickness: 1,
           color: Colors.grey,
         ),
-
-
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(24, 24, 24, 0),
           child: Row(
@@ -133,8 +135,6 @@ void getImages(String im1, String im2, String im3, String im4){
             ],
           ),
         ),
-
-
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(24, 24, 24, 0),
           child: Row(
@@ -158,7 +158,6 @@ void getImages(String im1, String im2, String im3, String im4){
             ],
           ),
         ),
-
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(24, 24, 24, 0),
           child: Row(
@@ -182,7 +181,6 @@ void getImages(String im1, String im2, String im3, String im4){
             ],
           ),
         ),
-
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(24, 24, 24, 0),
           child: Row(
@@ -206,7 +204,6 @@ void getImages(String im1, String im2, String im3, String im4){
             ],
           ),
         ),
-
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(24, 24, 24, 0),
           child: Row(
@@ -230,7 +227,6 @@ void getImages(String im1, String im2, String im3, String im4){
             ],
           ),
         ),
-
         const Divider(
           height: 36,
           thickness: 1,
@@ -264,30 +260,28 @@ void getImages(String im1, String im2, String im3, String im4){
   }
 }
 
-
 class ImagesTile extends StatelessWidget {
   final String image;
   ImagesTile({required this.image});
   @override
   Widget build(BuildContext context) {
     return Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(10, 12, 0, 0),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Image.network(
-                  image,
-                  height: 400,
-                  width: MediaQuery.sizeOf(context).width *0.9,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ],
+      padding: const EdgeInsetsDirectional.fromSTEB(10, 12, 0, 0),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: Image.network(
+              image,
+              height: 400,
+              width: MediaQuery.sizeOf(context).width * 0.9,
+              fit: BoxFit.cover,
+            ),
           ),
-        );
+        ],
+      ),
+    );
   }
 }
-

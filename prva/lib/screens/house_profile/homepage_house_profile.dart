@@ -155,7 +155,14 @@ class _SearchLayoutState extends State<SearchLayout> {
   }
 }
 
-class ProfileLayout extends StatelessWidget {
+class ProfileLayout extends StatefulWidget {
+  const ProfileLayout({super.key});
+
+  @override
+  State<ProfileLayout> createState() => _ProfileLayoutState();
+}
+
+class _ProfileLayoutState extends State<ProfileLayout> {
   @override
   Widget build(BuildContext context) {
     final house = Provider.of<HouseProfileAdj>(context);
@@ -166,18 +173,20 @@ class ProfileLayout extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          DetailedProfile(houseProfile: house),
-          ElevatedButton(
+          DetailedHouseProfile(/*houseProfile: house*/),
+          Center(
+              child: ElevatedButton(
             child: Text('Modifica'),
             onPressed: () {
-              //TODO sistemare form house quando clicchi modifica
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => provaModificaCasa(house: house)),
+                  builder: (context) => provaModificaCasa(house: house),
+                ),
               );
+              setState(() {});
             },
-          )
+          ))
         ],
       )))
     ]);

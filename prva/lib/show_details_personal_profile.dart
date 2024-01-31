@@ -1,43 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/show_detailed_profile.dart';
 
-
 class DetailedPersonalProfile extends StatefulWidget {
- final PersonalProfileAdj personalProfile;
-
-  const DetailedPersonalProfile({super.key, required this.personalProfile});
-
+  const DetailedPersonalProfile({super.key});
 
   @override
-  State<DetailedPersonalProfile> createState() => _DetailedPersonalProfileState(personalProfile: personalProfile);
+  State<DetailedPersonalProfile> createState() =>
+      _DetailedPersonalProfileState();
 }
 
 class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
-final PersonalProfileAdj personalProfile;
+  List<String> images = [];
+  bool flag = true;
 
-List<String> images=[];
-bool flag = true;
+  void getImages(String im1, String im2, String im3, String im4) {
+    if (im1 != "" && flag) {
+      images.add(im1);
+    }
+    if (im2 != "" && flag) {
+      images.add(im2);
+    }
+    if (im3 != "" && flag) {
+      images.add(im3);
+    }
+    if (im4 != "" && flag) {
+      images.add(im4);
+    }
+    flag = false;
+  }
 
-  _DetailedPersonalProfileState({required this.personalProfile});
-
-void getImages(String im1, String im2, String im3, String im4){
-  if(im1!="" && flag){
-    images.add(im1);
-    
-  }
-  if(im2!="" && flag){
-    images.add(im2);
-  }
-  if(im3!="" && flag) {
-    images.add(im3);
-  }
-  if(im4!="" && flag){
-    images.add(im4);
-  }
-  flag =false;
-}
-  
   int _calculationAge(int year, int month, int day) {
     return (DateTime.now().difference(DateTime.utc(year, month, day)).inDays /
             365)
@@ -46,8 +39,10 @@ void getImages(String im1, String im2, String im3, String im4){
 
   @override
   Widget build(BuildContext context) {
-   getImages(personalProfile.imageURL1, personalProfile.imageURL2, personalProfile.imageURL3, personalProfile.imageURL4);
-   print(images.length);
+    final personalProfile = Provider.of<PersonalProfileAdj>(context);
+    getImages(personalProfile.imageURL1, personalProfile.imageURL2,
+        personalProfile.imageURL3, personalProfile.imageURL4);
+    print(images.length);
     return Column(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,22 +59,22 @@ void getImages(String im1, String im2, String im3, String im4){
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(10, 12, 0, 0),
           child: Container(
-                width: double.infinity,
-                height: 500,
-                decoration: BoxDecoration(
-                  color: Color(0xFFF1F4F8),
-                ),
-                child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  primary: false,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                   itemCount: images.length,
-      itemBuilder: (context, index) {
-        return ImagesTile(image: images[index]);
-      },
-                ),
-        ),
+            width: double.infinity,
+            height: 500,
+            decoration: BoxDecoration(
+              color: Color(0xFFF1F4F8),
+            ),
+            child: ListView.builder(
+              padding: EdgeInsets.zero,
+              primary: false,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: images.length,
+              itemBuilder: (context, index) {
+                return ImagesTile(image: images[index]);
+              },
+            ),
+          ),
         ),
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(16, 8, 0, 0),

@@ -151,9 +151,7 @@ class ProfileLayout extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          DetailedPersonalProfile(
-            personalProfile: personalData,
-          ),
+          DetailedPersonalProfile(),
           ElevatedButton(
             child: Text('Modifica'),
             onPressed: () {},
@@ -215,11 +213,11 @@ Widget _buildUserList(Utente user, List<String>? matches) {
                 child: Text(
                   'Match',
                   style: TextStyle(
-                        fontFamily: 'Plus Jakarta Sans',
-                        color: Color(0xFF57636C),
-                        fontSize: 14,
-                        fontWeight: FontWeight.normal,
-                      ),
+                    fontFamily: 'Plus Jakarta Sans',
+                    color: Color(0xFF57636C),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
               ),
               Container(
@@ -229,17 +227,18 @@ Widget _buildUserList(Utente user, List<String>? matches) {
                   color: Color(0xFFF1F4F8),
                 ),
                 child: ListView(
-                 padding: EdgeInsets.zero,
+                  padding: EdgeInsets.zero,
                   primary: false,
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   children: snapshot.data!.docs
-              .map<Widget>((doc) => _buildUserListItem(context, doc, user))
-              .toList(),
-        ),
-        )
-        ],
-        ),
+                      .map<Widget>(
+                          (doc) => _buildUserListItem(context, doc, user))
+                      .toList(),
+                ),
+              )
+            ],
+          ),
         );
       } else {
         return Center(
@@ -255,90 +254,89 @@ Widget _buildUserListItem(
   Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
   return Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 12, 12, 12),
-                      child: Container(
-                        width: 140,
-                        height: 150,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              blurRadius: 4,
-                              color: Color(0x34090F13),
-                              offset: Offset(0, 2),
-                            )
-                          ],
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ChatPage(
-              senderUserID: user.uid,
-              receiverUserEmail: data['type'] + " " + data['city'],
-              receiverUserID: document.reference.id,
+    padding: EdgeInsetsDirectional.fromSTEB(16, 12, 12, 12),
+    child: Container(
+      width: 140,
+      height: 150,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 4,
+            color: Color(0x34090F13),
+            offset: Offset(0, 2),
+          )
+        ],
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: InkWell(
+        splashColor: Colors.transparent,
+        focusColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChatPage(
+                senderUserID: user.uid,
+                receiverUserEmail: data['type'] + " " + data['city'],
+                receiverUserID: document.reference.id,
+              ),
             ),
+          );
+        },
+        child: Padding(
+          padding: EdgeInsets.all(12),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ClipRRect(
+                child: data['imageURL1'] != ""
+                    ? Image.network(
+                        data['imageURL1'],
+                        width: 60,
+                        height: 60,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.asset(
+                        'assets/userPhoto.jpg',
+                        width: 80,
+                        height: 80,
+                        fit: BoxFit.cover,
+                      ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                child: Text(
+                  data['city'],
+                  style: TextStyle(
+                    fontFamily: 'Plus Jakarta Sans',
+                    color: Color(0xFF14181B),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                child: Text(
+                  data['type'],
+                  style: TextStyle(
+                    fontFamily: 'Plus Jakarta Sans',
+                    color: Color(0xFF14181B),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ),
+            ],
           ),
-        );
-      },
-                        child: Padding(
-                          padding: EdgeInsets.all(12),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ClipRRect(
-                                child: 
-                                data['imageURL1']!= ""
-                                ? Image.network(
-                                  data['imageURL1'],
-                                  width: 60,
-                                  height: 60,
-                                  fit: BoxFit.cover,
-                                )
-                                : Image.asset('assets/userPhoto.jpg',
-                                  width: 80,
-                                  height: 80,
-                                  fit: BoxFit.cover,) ,
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
-                                child: Text(
-                                  data['city'],
-                                  style: TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
-                                        color: Color(0xFF14181B),
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
-                                child: Text(
-                                  data['type'],
-                                  style: TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
-                                        color: Color(0xFF14181B),
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      ),
-                    );
+        ),
+      ),
+    ),
+  );
 }
 /*
 class ChatLayout extends StatelessWidget {

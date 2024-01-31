@@ -39,6 +39,7 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
   String? _address;
   String? _city;
   double? _price;
+  bool flagPrice = true;
   String? _description;
   String? _type = '';
   bool flagType = true;
@@ -52,7 +53,8 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
   DateTime? _startDate;
   DateTime? _endDate;
   List<String> imageURLs = ['', '', '', ''];
-
+  bool flagStartDate = true;
+  bool flagEndDate = true;
   // controller for the textfield
   final TextEditingController _dateStartController = TextEditingController();
   final TextEditingController _dateEndController = TextEditingController();
@@ -119,6 +121,9 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
     imageURLs[2] = initImg3();
     imageURLs[3] = initImg4();
     _type = initType();
+    initPrice();
+    initStartDate();
+    initEndDate();
     return Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
@@ -764,7 +769,7 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                             width: 2,
                           ),
                         ),
-                        /*child: Align(
+                        child: Align(
                           alignment: const AlignmentDirectional(0, 0),
                           child: Padding(
                             padding: const EdgeInsets.all(24),
@@ -792,11 +797,6 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                   child: Container(
                                     width: double.infinity,
                                     child: TextFormField(
-                                      initialValue: "${house.startDay}" +
-                                          "/" +
-                                          "${house.startMonth}" +
-                                          "/" +
-                                          "${house.startYear}",
                                       controller: _dateStartController,
                                       readOnly: true,
                                       autofocus: true,
@@ -955,6 +955,7 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                   child: Container(
                                     width: double.infinity,
                                     child: TextFormField(
+                                        initialValue: _price.toString(),
                                         autofocus: true,
                                         obscureText: false,
                                         decoration: InputDecoration(
@@ -1021,7 +1022,7 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                               ],
                             ),
                           ),
-                        ),*/
+                        ),
                       ),
                     ),
                     Padding(
@@ -1402,12 +1403,12 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                           _floorNumber ?? house.floorNumber,
                                           _numberBathroom ?? house.numBath,
                                           _numberPeople ?? house.numPlp,
-                                          0,
-                                          0,
-                                          0,
-                                          0,
-                                          0,
-                                          0,
+                                          _startDate?.year ?? house.startYear,
+                                          _startDate?.month ?? house.startMonth,
+                                          _startDate?.day ?? house.startDay,
+                                          _endDate?.year ?? house.endYear,
+                                          _endDate?.month ?? house.endMonth,
+                                          _endDate?.day ?? house.endDay,
                                           imageURLs[0],
                                           imageURLs[1],
                                           imageURLs[2],
@@ -1529,5 +1530,31 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
       flagType = false;
     }
     return _type;
+  }
+
+  void initStartDate() {
+    if (flagStartDate) {
+      _dateStartController.text = DateFormat('dd/MM/yyyy').format(
+          DateTime.utc(house.startYear, house.startMonth, house.startDay));
+      _startDate =
+          DateTime.utc(house.startYear, house.startMonth, house.startDay);
+      flagStartDate = false;
+    }
+  }
+
+  void initEndDate() {
+    if (flagEndDate) {
+      _dateEndController.text = DateFormat('dd/MM/yyyy')
+          .format(DateTime.utc(house.endYear, house.endMonth, house.endDay));
+      _endDate = DateTime.utc(house.endYear, house.endMonth, house.endDay);
+      flagEndDate = false;
+    }
+  }
+
+  void initPrice() {
+    if (flagPrice) {
+      _price = house.price;
+      flagPrice = false;
+    }
   }
 }
