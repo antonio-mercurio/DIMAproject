@@ -112,8 +112,6 @@ class _AllProfilesListState extends State<AllProfilesList> {
                       // search if the other has seen your profile and put a like
                       final ok = await MatchService().checkMatch(
                           myHouse.idHouse, persID, preferencesOther);
-                      print('casa controlla match');
-                      print(ok.toString());
 
                       if (ok) {
                         if (mounted) {
@@ -180,12 +178,7 @@ class AllPersonalTiles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final myHouse = Provider.of<HouseProfileAdj>(context);
-    /*final retrievedPreferences =
-        MatchService(uid: profile.uid).getPreferencesForMatch;
-    retrievedPreferences.listen((content) {
-      print("r71 allProfileList");
-      preferencesOther = content;
-    });*/
+
     return Padding(
         padding: const EdgeInsets.only(top: 8.0),
         child: Card(

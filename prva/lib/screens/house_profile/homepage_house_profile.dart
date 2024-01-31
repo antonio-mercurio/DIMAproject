@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:prva/daSpostareoCollegare/modifyHouseProfile.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
@@ -173,7 +174,7 @@ class ProfileLayout extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => ModifyHouseForm(house: house)),
+                    builder: (context) => provaModificaCasa(house: house)),
               );
             },
           )

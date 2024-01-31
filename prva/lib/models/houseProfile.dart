@@ -13,7 +13,7 @@ class HouseProfileAdj {
   final int endMonth;
   final int startDay;
   final int endDay;
-  final String imageURL1;
+  late final String imageURL1;
   final String imageURL2;
   final String imageURL3;
   final String imageURL4;

@@ -131,4 +131,51 @@ class DatabaseServiceHouseProfile {
         .snapshots()
         .map((_myHouseProfileUserFromSnapshotAdj));
   }
+
+  updateHouseProfileAdj(
+      String owner,
+      String type,
+      String address,
+      String city,
+      String description,
+      double price,
+      int floorNum,
+      int bathsNum,
+      int numPpl,
+      int l, //mettere start ed end year,day,month
+      int m,
+      int n,
+      int o,
+      int p,
+      int q,
+      String imageURL1,
+      String imageURL2,
+      String imageURL3,
+      String imageURL4) async {
+    return await houseProfileCollection.doc(uid).set({
+      'owner': owner,
+      'type': type,
+      'floorNum': floorNum,
+      'description': description,
+      'address': address,
+      'city': city,
+      'price': price,
+      'numBath': bathsNum,
+      'numPlp': numPpl,
+      'startYear': 0,
+      'endYear': 0,
+      'startMonth': 0,
+      'endMonth': 0,
+      'startDay': 0,
+      'endDay': 0,
+      'imageURL1': imageURL1,
+      'imageURL2': imageURL2,
+      'imageURL3': imageURL3,
+      'imageURL4': imageURL4,
+    });
+  }
+
+  deleteHouseProfileAdj() async {
+    return await houseProfileCollection.doc(uid).delete();
+  }
 }
