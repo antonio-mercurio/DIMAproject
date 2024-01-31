@@ -68,8 +68,8 @@ class MatchService extends ChangeNotifier {
   }
 
 
-  Match _matchFromSnapshot(DocumentSnapshot snapshot) {
-     return Match(
+  MatchPeople _matchFromSnapshot(DocumentSnapshot snapshot) {
+     return MatchPeople(
         userID: snapshot.get('user1'),
         otheUserID: snapshot.get('user2'),
         timestamp: snapshot.get('timestamp'),
@@ -77,7 +77,7 @@ class MatchService extends ChangeNotifier {
   }
 
 
-  Stream<Match> get getMatches{
+  Stream<MatchPeople>? get getMatches{
     return _firebaseFirestore
         .collection('matches_room')
         .doc(uid)

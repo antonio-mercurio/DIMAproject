@@ -31,10 +31,10 @@ class PreferenceForMatch {
 }
 
 
-class Match {
+class MatchPeople{
   final String userID;
   final String otheUserID;
   final Timestamp timestamp;
 
-  Match({required this.userID, required this.otheUserID, required this.timestamp});
+  MatchPeople({required this.userID, required this.otheUserID, required this.timestamp});
 }

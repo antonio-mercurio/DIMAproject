@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/houseProfile.dart';
+import 'package:prva/models/preference.dart';
 import 'package:prva/services/match/match_service.dart';
 
 
@@ -27,11 +28,11 @@ class _NotificationLayoutState extends State<NotificationLayout> {
         setState(() {});
       }
     });
-    return _buildNotificationList(house, idmatches);
-  }
+    return _buildNotificationList(context, house, idmatches);
+}
 }
 
-Widget _buildNotificationList(HouseProfileAdj house, List<String>? idmatches) {
+Widget _buildNotificationList( BuildContext context, HouseProfileAdj house, List<String>? idmatches) {
   return StreamBuilder<QuerySnapshot>(
     stream: MatchService().getChats(idmatches),
     builder: (context, snapshot) {
@@ -57,8 +58,11 @@ Widget _buildUserListItem(
     BuildContext context, DocumentSnapshot document, HouseProfileAdj house) {
   Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
-
-  return Padding(
+  return Scaffold(
+    body: StreamBuilder<MatchPeople>(
+            stream: MatchService(uid: house.idHouse,otheruid: document.id).getMatches,
+            builder: (context, snapshot) {
+              return Padding(
       padding: EdgeInsets.only(top: 8.0),
       child: Card(
           margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
@@ -72,9 +76,13 @@ Widget _buildUserListItem(
                 ),
                 title: Text(data['name'] + " " + data['surname'],
                     style: TextStyle(fontWeight: FontWeight.bold)),
-                subtitle: Text('go to the chat to start a conversation'),
+                subtitle: Text(snapshot.data!.timestamp.toString()),
               ),   
             ],
-          )));
+          )
+          )
+          );
+            }
+          ));
 }
 

@@ -10,6 +10,7 @@ import 'package:prva/screens/filters_people_adj.dart';
 import 'package:prva/screens/house_profile/all_profile_list.dart';
 import 'package:prva/screens/house_profile/filtersFormPerson.dart';
 import 'package:prva/screens/house_profile/form_modify_house.dart';
+import 'package:prva/screens/notification.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseFilterPerson.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
@@ -102,7 +103,14 @@ class _HouseProfSelState extends State<HouseProfSel> {
               TextButton.icon(
                 icon: Icon(Icons.alarm),
                 label: Text('Notifies'),
-                onPressed: () {},
+                onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NotificationLayout(),
+                ),
+              );
+                },
               ),
             ],
           ),
