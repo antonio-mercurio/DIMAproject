@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:prva/daSpostareoCollegare/showDetailsHouseProfile.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
@@ -169,7 +170,7 @@ class ViewProfile extends StatelessWidget {
         body: Column(mainAxisSize: MainAxisSize.max, children: [
           Expanded(
               child: SingleChildScrollView(
-            child: DetailedPersonalProfile(),
+            child: ShowDetailedHouseProfile(houseProfile: houseProfile),
           ))
         ]));
   }

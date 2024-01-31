@@ -153,17 +153,22 @@ class ProfileLayout extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           DetailedPersonalProfile(),
-          ElevatedButton(
-            child: Text('Modifica'),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => modificaPersonalProfile(
-                          personalProfile: personalData,
-                        )),
-              );
-            },
+          SizedBox(
+            height: 20,
+          ),
+          Center(
+            child: ElevatedButton(
+              child: Text('Modifica'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => modificaPersonalProfile(
+                            personalProfile: personalData,
+                          )),
+                );
+              },
+            ),
           )
         ],
       )))

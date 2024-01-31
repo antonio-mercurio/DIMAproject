@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
+import 'package:prva/daSpostareoCollegare/showDetailsPersonalProfile.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
@@ -132,6 +133,19 @@ class _AllProfilesListState extends State<AllProfilesList> {
                         myHouse.idHouse, profiles[0].uidA, "dislike");
                   }),
               const SizedBox(width: 8),
+              SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
+              IconButton(
+                  icon: Icon(Icons.info,
+                      size: MediaQuery.sizeOf(context).height * 0.04),
+                  color: Colors.white,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ViewProfile(personalProfile: profiles[0])),
+                    );
+                  }),
             ],
           ),
         ],
@@ -192,5 +206,25 @@ class AllPersonalTiles extends StatelessWidget {
                 title: Text("${profile.nameA} ${profile.surnameA}"),
               ),
             ])));
+  }
+}
+
+class ViewProfile extends StatelessWidget {
+  final PersonalProfileAdj personalProfile;
+
+  const ViewProfile({super.key, required this.personalProfile});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(backgroundColor: Colors.black),
+        body: Column(mainAxisSize: MainAxisSize.max, children: [
+          Expanded(
+              child: SingleChildScrollView(
+            child:
+                ShowDetailedPersonalProfile(personalProfile: personalProfile),
+          ))
+        ]));
   }
 }
