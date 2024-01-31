@@ -123,9 +123,12 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
         ),
         ElevatedButton(
             onPressed: () {
+              LatLng houseLocation =
+                  LatLng(houseProfile.latitude, houseProfile.longitude);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => MapSample2(cLoc)),
+                MaterialPageRoute(
+                    builder: (context) => MapSample2(houseLocation)),
               );
             },
             child: Text('vai mappa')),

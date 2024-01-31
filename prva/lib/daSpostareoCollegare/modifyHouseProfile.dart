@@ -31,8 +31,7 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
   bool flagImg4 = true;
   _provaModificaCasaState({required this.house});
   TextEditingController controller = TextEditingController();
-  late LatLng selLocation;
-
+  late LatLng? selLocation;
   int? _numberBathroom;
   int? _floorNumber;
   int? _numberPeople;
@@ -331,9 +330,9 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                             var address = await GeoCoder()
                                                 .getAddressFromLatLng(
                                                     latitude:
-                                                        selLocation.latitude,
+                                                        selLocation!.latitude,
                                                     longitude:
-                                                        selLocation.longitude);
+                                                        selLocation!.longitude);
                                             //qui accedo ad address e prendo i dettagli che mi servono
 
                                             _address =
@@ -1409,6 +1408,10 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                           _endDate?.year ?? house.endYear,
                                           _endDate?.month ?? house.endMonth,
                                           _endDate?.day ?? house.endDay,
+                                          selLocation?.latitude ??
+                                              house.latitude,
+                                          selLocation?.longitude ??
+                                              house.longitude,
                                           imageURLs[0],
                                           imageURLs[1],
                                           imageURLs[2],

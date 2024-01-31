@@ -1368,7 +1368,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                     '' /*&& imageURLs[0]!='' && imageURLs[0]!='' && imageURLs[0]!=''*/) {
                                   setState(() {});
 
-                                  await MatchService(uid: user.uid).createNotification(0);
+                                  await MatchService(uid: user.uid)
+                                      .createNotification(0);
 
                                   await DatabaseServiceHouseProfile(user.uid)
                                       .createUserDataHouseProfileAdj(
@@ -1386,6 +1387,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                           _endDate!.month,
                                           _startDate!.day,
                                           _endDate!.day,
+                                          selLocation.latitude,
+                                          selLocation.longitude,
                                           imageURLs[0],
                                           imageURLs[1],
                                           imageURLs[2],

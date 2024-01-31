@@ -20,6 +20,10 @@ class HouseProfileAdj {
   final String idHouse;
   final String owner;
 
+  final double latitude;
+
+  final double longitude;
+
   HouseProfileAdj(
       {required this.owner,
       required this.idHouse,
@@ -37,6 +41,8 @@ class HouseProfileAdj {
       required this.endMonth,
       required this.startDay,
       required this.endDay,
+      required this.latitude,
+      required this.longitude,
       required this.imageURL1,
       required this.imageURL2,
       required this.imageURL3,

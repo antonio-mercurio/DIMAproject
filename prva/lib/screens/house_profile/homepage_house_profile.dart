@@ -52,23 +52,22 @@ class _HouseProfSelState extends State<HouseProfSel> {
     });
   }
 
-void _showFiltersPanel() {
-      showModalBottomSheet(
-          context: context,
-          builder: (context) {
-            return Container(
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-              child: FormFiltersPeopleAdj(
-                uidHouse: house.idHouse,
-              ),
-            );
-          });
-    }
+  void _showFiltersPanel() {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+            child: FormFiltersPeopleAdj(
+              uidHouse: house.idHouse,
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
-
-    final retrievedNotifies =
-        MatchService(uid: house.idHouse).getNotification;
+    final retrievedNotifies = MatchService(uid: house.idHouse).getNotification;
     retrievedNotifies.listen((content) {
       myNotifies = content;
       if (mounted) {
@@ -89,6 +88,8 @@ void _showFiltersPanel() {
             numBath: 0,
             numPlp: 0,
             floorNumber: 0,
+            latitude: 0.0,
+            longitude: 0.0,
             imageURL1: '',
             imageURL2: '',
             imageURL3: '',
@@ -112,25 +113,27 @@ void _showFiltersPanel() {
                 },
               ),
               badges.Badge(
-                showBadge: (myNotifies!= null && myNotifies!=0),
-                badgeContent : Text(myNotifies?.toString() ?? ""),
+                showBadge: (myNotifies != null && myNotifies != 0),
+                badgeContent: Text(myNotifies?.toString() ?? ""),
                 position: badges.BadgePosition.topEnd(top: 10, end: 10),
-                badgeStyle: BadgeStyle( padding: EdgeInsets.all(4)),
+                badgeStyle: BadgeStyle(padding: EdgeInsets.all(4)),
                 child: IconButton(
-                icon: Icon(Icons.notifications),
-                color: Colors.white,
-                onPressed: () async {
-                  await MatchService(uid: house.idHouse).createNotification(0);
-                  if(mounted){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NotificationLayout(house: house),
-                    ),
-                  );
-                  }
-                },
-              ),
+                  icon: Icon(Icons.notifications),
+                  color: Colors.white,
+                  onPressed: () async {
+                    await MatchService(uid: house.idHouse)
+                        .createNotification(0);
+                    if (mounted) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              NotificationLayout(house: house),
+                        ),
+                      );
+                    }
+                  },
+                ),
               )
             ],
           ),
