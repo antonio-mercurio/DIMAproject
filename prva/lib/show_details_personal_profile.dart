@@ -1,11 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:prva/models/personalProfile.dart';
+import 'package:prva/show_detailed_profile.dart';
 
-class DetailedPersonalProfile extends StatelessWidget {
-  final PersonalProfileAdj personalProfile;
+
+class DetailedPersonalProfile extends StatefulWidget {
+ final PersonalProfileAdj personalProfile;
 
   const DetailedPersonalProfile({super.key, required this.personalProfile});
 
+
+  @override
+  State<DetailedPersonalProfile> createState() => _DetailedPersonalProfileState(personalProfile: personalProfile);
+}
+
+class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
+final PersonalProfileAdj personalProfile;
+
+List<String> images=[];
+bool flag = true;
+
+  _DetailedPersonalProfileState({required this.personalProfile});
+
+void getImages(String im1, String im2, String im3, String im4){
+  if(im1!="" && flag){
+    images.add(im1);
+    
+  }
+  if(im2!="" && flag){
+    images.add(im2);
+  }
+  if(im3!="" && flag) {
+    images.add(im3);
+  }
+  if(im4!="" && flag){
+    images.add(im4);
+  }
+  flag =false;
+}
+  
   int _calculationAge(int year, int month, int day) {
     return (DateTime.now().difference(DateTime.utc(year, month, day)).inDays /
             365)
@@ -14,6 +46,8 @@ class DetailedPersonalProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   getImages(personalProfile.imageURL1, personalProfile.imageURL2, personalProfile.imageURL3, personalProfile.imageURL4);
+   print(images.length);
     return Column(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,21 +63,23 @@ class DetailedPersonalProfile extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(10, 12, 0, 0),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Image.network(
-                  personalProfile.imageURL1,
-                  height: 400,
-                  width: 300,
-                  fit: BoxFit.cover,
+          child: Container(
+                width: double.infinity,
+                height: 500,
+                decoration: BoxDecoration(
+                  color: Color(0xFFF1F4F8),
                 ),
-              ),
-            ],
-          ),
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  primary: false,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                   itemCount: images.length,
+      itemBuilder: (context, index) {
+        return ImagesTile(image: images[index]);
+      },
+                ),
+        ),
         ),
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(16, 8, 0, 0),
