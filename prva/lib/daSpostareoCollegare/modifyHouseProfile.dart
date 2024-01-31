@@ -1452,7 +1452,8 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                           house.idHouse)
                                       .deleteHouseProfileAdj();
                                   if (mounted) {
-                                    Navigator.pop(context);
+                                    Navigator.popAndPushNamed(
+                                        context, "/homepageHouse");
                                   }
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
