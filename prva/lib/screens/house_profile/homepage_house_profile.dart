@@ -104,12 +104,12 @@ class _HouseProfSelState extends State<HouseProfSel> {
                 icon: Icon(Icons.alarm),
                 label: Text('Notifies'),
                 onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => NotificationLayout(),
-                ),
-              );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NotificationLayout(house: house),
+                    ),
+                  );
                 },
               ),
             ],

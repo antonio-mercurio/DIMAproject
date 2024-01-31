@@ -67,24 +67,22 @@ class MatchService extends ChangeNotifier {
         .snapshots();
   }
 
-
   MatchPeople _matchFromSnapshot(DocumentSnapshot snapshot) {
-     return MatchPeople(
-        userID: snapshot.get('user1'),
-        otheUserID: snapshot.get('user2'),
-        timestamp: snapshot.get('timestamp'),
-      );
+    return MatchPeople(
+      userID: snapshot.get('user1'),
+      otheUserID: snapshot.get('user2'),
+      timestamp: snapshot.get('timestamp'),
+    );
   }
 
-
-  Stream<MatchPeople>? get getMatches{
+  Stream<MatchPeople>? get getMatches {
     return _firebaseFirestore
-        .collection('matches_room')
+        .collection('match')
         .doc(uid)
         .collection('matched_profiles')
         .doc(otheruid)
         .snapshots()
-        .map(_matchFromSnapshot);    
+        .map(_matchFromSnapshot);
   }
 
   List<PreferenceForMatch> _preferenceFromSnapshot(QuerySnapshot snapshot) {
@@ -104,7 +102,8 @@ class MatchService extends ChangeNotifier {
   }
 
   /* create a new match */
-  Future createNewMatch(String userID, String otherUserID, Timestamp timestamp) async {
+  Future createNewMatch(
+      String userID, String otherUserID, Timestamp timestamp) async {
     //add new message to match
     await _firebaseFirestore
         .collection('match')
