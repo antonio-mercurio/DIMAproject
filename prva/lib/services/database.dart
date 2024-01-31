@@ -121,4 +121,8 @@ class DatabaseService {
         .snapshots()
         .map((_allPersProfileDataFromSnapshotAdj));
   }
+
+  deleteProfile() async {
+    return await persProfileCollection.doc(uid).delete();
+  }
 }
