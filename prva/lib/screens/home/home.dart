@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prva/screens/house_profile/show_all_my_house_profile.dart';
+import 'package:prva/screens/notifiche_schermo_adj.dart';
 import 'package:prva/screens/wrapperCreationProfile.dart';
 import 'package:prva/services/auth.dart';
 
@@ -100,7 +101,7 @@ class _HomepageState extends State<Homepage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ShowHomeProfile()),
+                            builder: (context) => List17NotificationsWidget()),
                       );
                     },
                     child: Container(
