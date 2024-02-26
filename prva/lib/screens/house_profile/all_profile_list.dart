@@ -6,12 +6,10 @@ import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/preference.dart';
-import 'package:prva/screens/multipleImagePicker.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseFilterPerson.dart';
-import 'package:prva/services/databaseForFilters.dart';
 import 'package:prva/services/match/match_service.dart';
-import 'package:prva/swipe_betweeen_images_profile.dart';
+import 'package:prva/screens/house_profile/swipe_betweeen_images_profile.dart';
 
 /* Class used by House Profile to show the Search
 of the people */

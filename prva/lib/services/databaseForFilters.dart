@@ -17,7 +17,6 @@ class DatabaseServiceFilters {
   ];
 
   //filters for the house utilized by person Profile
-  /* vecchio, riscritto */
 
   Future updateFiltersAdj(
       String city,
@@ -48,7 +47,7 @@ class DatabaseServiceFilters {
       doubleRoom: snapshot.get(typeOfAppartament[2]),
       studioApartment: snapshot.get(typeOfAppartament[3]),
       twoRoomsApartment: snapshot.get(typeOfAppartament[4]),
-      budget: double.parse(snapshot.get('budget').toString()) ?? 0.0,
+      budget: double.parse(snapshot.get('budget').toString()),
     );
   }
 

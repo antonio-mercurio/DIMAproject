@@ -4,21 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/daSpostareoCollegare/modifyHouseProfile.dart';
 import 'package:badges/badges.dart' as badges;
-import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/screens/chat/chat.dart';
-import 'package:prva/screens/filters_people_adj.dart';
+import 'package:prva/screens/house_profile/filters_people_adj.dart';
 import 'package:prva/screens/house_profile/all_profile_list.dart';
-import 'package:prva/screens/house_profile/filtersFormPerson.dart';
-import 'package:prva/screens/house_profile/form_modify_house.dart';
-import 'package:prva/screens/notification.dart';
+import 'package:prva/screens/house_profile/notification.dart';
 import 'package:prva/services/database.dart';
-import 'package:prva/services/databaseFilterPerson.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/services/match/match_service.dart';
 import 'package:prva/shared/loading.dart';
-import 'package:prva/show_detailed_profile.dart';
+import 'package:prva/screens/house_profile/show_detailed_profile.dart';
 
 //When we have the list of our "house profile", when clicking on one of them show this home page
 //in this home page we have the search option, which show all the people that are looking for an house

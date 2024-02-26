@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:prva/form_house_profile_adj.dart';
+import 'package:prva/screens/house_profile/form_house_profile_adj.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/user.dart';
 import 'package:prva/screens/house_profile/houses_list.dart';
-import 'package:prva/screens/house_profile/creation_house_profile.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 

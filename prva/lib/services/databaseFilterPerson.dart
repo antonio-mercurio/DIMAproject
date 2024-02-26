@@ -1,8 +1,6 @@
-import 'dart:collection';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:prva/models/filters.dart';
-import 'package:prva/models/houseProfile.dart';
 
 /* Database to set the filters for the house profile 
 and used to get your house profile*/
@@ -56,7 +54,5 @@ class DatabaseServiceFiltersPerson {
         .doc(uid)
         .snapshots()
         .map((_filtersPersonFromSnapshotAdj));
-  }
-
-  
+  } 
 }

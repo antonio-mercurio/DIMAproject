@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:prva/models/filters.dart';
 import 'package:prva/models/personalProfile.dart';
 
 /* Service used for the update of the personal profile
@@ -11,15 +10,6 @@ class DatabaseService {
   //collection reference
   final CollectionReference persProfileCollection =
       FirebaseFirestore.instance.collection('personalProfiles');
-
-/* Vecchio, da cancellare  riscritto*/
-  Future updatePersonalProfile(String name, String surname, int age) async {
-    return await persProfileCollection.doc(uid).set({
-      'name': name,
-      'surname': surname,
-      'age': age,
-    });
-  }
 
   Future updatePersonalProfileAdj(
       String name,

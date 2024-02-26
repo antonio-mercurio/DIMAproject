@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/personalProfile.dart';
-import 'package:prva/show_detailed_profile.dart';
+import 'package:prva/screens/house_profile/show_detailed_profile.dart';
 
 class DetailedPersonalProfile extends StatefulWidget {
   const DetailedPersonalProfile({super.key});

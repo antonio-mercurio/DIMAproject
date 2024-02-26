@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/user.dart';
-import 'package:prva/screens/form_personal_profile_adj.dart';
+import 'package:prva/screens/personal_profile/form_personal_profile_adj.dart';
 import 'package:prva/screens/personal_profile/userHomepage.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/shared/loading.dart';

@@ -2,23 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/daSpostareoCollegare/modifyPersonalProfile.dart';
-import 'package:prva/form_filter_people_adj.dart';
+import 'package:prva/screens/personal_profile/form_filter_people_adj.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/user.dart';
-import 'package:prva/notificationPerson.dart';
+import 'package:prva/screens/personal_profile/notificationPerson.dart';
 import 'package:prva/screens/chat/chat.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:prva/screens/personal_profile/allHousesList.dart';
-import 'package:prva/screens/personal_profile/filtersForm.dart';
-import 'package:prva/screens/personal_profile/updatePersonalProfile.dart';
 import 'package:prva/services/database.dart';
-import 'package:prva/services/databaseForFilters.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/services/match/match_service.dart';
-import 'package:prva/shared/loading.dart';
-import 'package:prva/show_details_personal_profile.dart';
+import 'package:prva/screens/personal_profile/show_details_personal_profile.dart';
 
 class UserHomepage extends StatefulWidget {
   const UserHomepage({super.key});
