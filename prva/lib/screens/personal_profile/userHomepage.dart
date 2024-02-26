@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
-import 'package:prva/daSpostareoCollegare/modifyPersonalProfile.dart';
+import 'package:prva/screens/personal_profile/modifyPersonalProfile.dart';
 import 'package:prva/screens/personal_profile/form_filter_people_adj.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';

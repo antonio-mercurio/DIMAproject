@@ -2,7 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:prva/daSpostareoCollegare/modifyHouseProfile.dart';
+import 'package:prva/screens/house_profile/modifyHouseProfile.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
