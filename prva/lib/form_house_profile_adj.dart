@@ -1368,14 +1368,9 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                     '' /*&& imageURLs[0]!='' && imageURLs[0]!='' && imageURLs[0]!=''*/) {
                                   setState(() {});
 
-                                  //TODO SISTEMARE
-
-                                  await MatchService(uid: user.uid)
-                                      .createNotification(0);
-
                                   await DatabaseServiceHouseProfile(user.uid)
                                       .createUserDataHouseProfileAdj(
-                                          _type ?? 'apartment',
+                                          _type ?? 'Apartment',
                                           _address ?? '',
                                           _city ?? '',
                                           _description ?? '',

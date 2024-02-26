@@ -88,6 +88,7 @@ class DatabaseServiceHouseProfile {
         imageURL2: doc.get('imageURL2') ?? "",
         imageURL3: doc.get('imageURL3') ?? "",
         imageURL4: doc.get('imageURL4') ?? "",
+        numberNotifies: doc.get('numberNotifies') ?? 0,
       );
     }).toList();
   }
@@ -132,6 +133,7 @@ class DatabaseServiceHouseProfile {
       imageURL2: snapshot.get('imageURL2') ?? "",
       imageURL3: snapshot.get('imageURL3') ?? "",
       imageURL4: snapshot.get('imageURL4') ?? "",
+      numberNotifies: snapshot.get('numberNotifies') ?? 0,
     );
   }
 
@@ -163,7 +165,8 @@ class DatabaseServiceHouseProfile {
       String imageURL1,
       String imageURL2,
       String imageURL3,
-      String imageURL4) async {
+      String imageURL4,
+      int numberNotifies) async {
     return await houseProfileCollection.doc(uid).set({
       'owner': owner,
       'type': type,
@@ -186,10 +189,15 @@ class DatabaseServiceHouseProfile {
       'imageURL2': imageURL2,
       'imageURL3': imageURL3,
       'imageURL4': imageURL4,
+      'numberNotifies' : numberNotifies,
     });
   }
 
   deleteHouseProfileAdj() async {
     return await houseProfileCollection.doc(uid).delete();
+  }
+
+  updateNotificationHouseProfileAdj(int notifies) async {
+    return await houseProfileCollection.doc(uid).update({'numberNotifies': notifies});
   }
 }

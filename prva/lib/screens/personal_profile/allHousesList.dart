@@ -28,7 +28,6 @@ class _AllHousesListState extends State<AllHousesList> {
   List<PreferenceForMatch>? preferencesOther;
   final PersonalProfileAdj myProfile;
   FiltersHouseAdj? filtri;
-  int? notifiesOther;
   int? myNotifies;
   _AllHousesListState({required this.myProfile});
 
@@ -103,12 +102,6 @@ class _AllHousesListState extends State<AllHousesList> {
         preferencesOther = content;
       });
 
-      final retrievedNotifiesOther =
-          MatchService(uid: houses[0].idHouse).getNotification;
-      retrievedNotifiesOther.listen((content) {
-        notifiesOther = content;
-      });
-
       final retrievedNotifies = MatchService(uid: myUser.uidA).getNotification;
       retrievedNotifies.listen((content) {
         myNotifies = content;
@@ -126,11 +119,12 @@ class _AllHousesListState extends State<AllHousesList> {
                 onPressed: () async {
                   /* Put like */
                   String hID = houses[0].idHouse;
+                  int hNotifies = houses[0].numberNotifies;
                   await MatchService().putPrefence(myUser.uidA, hID, "like");
                   print('persona mette mi piace');
                   try {
                     final ok = await MatchService().checkMatch(myUser.uidA, hID,
-                        preferencesOther, notifiesOther, myNotifies);
+                        preferencesOther, false, hNotifies, myNotifies);
                     print('persona controlla match');
                     print(ok.toString());
                     if (ok) {

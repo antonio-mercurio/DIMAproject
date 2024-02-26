@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/preference.dart';
+import 'package:prva/services/databaseForHouseProfile.dart';
 
 class MatchService extends ChangeNotifier {
   final String? uid;
@@ -46,8 +47,9 @@ class MatchService extends ChangeNotifier {
       String senderID,
       String receiverID,
       List<PreferenceForMatch>? preferencesOther,
-      int? notifiesOther,
-      int? notifiesYours) async {
+      bool fromHouse,
+      int notifiesHouse,
+      int? notifiesPerson) async {
     final searchedPreference =
         PreferenceForMatch(reciverPreferenceId: senderID, choice: "like");
     if (preferencesOther != null) {
@@ -57,13 +59,13 @@ class MatchService extends ChangeNotifier {
               searchedPreference.reciverPreferenceId)) {
         /* there is a match */
         await _putMatch(senderID, receiverID);
-        if (notifiesOther != null) {
-          MatchService(uid: receiverID).createNotification(notifiesOther + 1);
+        if (fromHouse) {
+          DatabaseServiceHouseProfile(senderID).updateNotificationHouseProfileAdj(notifiesHouse + 1);
         } else {
-          MatchService(uid: receiverID).createNotification(1);
+          DatabaseServiceHouseProfile(receiverID).updateNotificationHouseProfileAdj(notifiesHouse + 1);
         }
-        if (notifiesYours != null) {
-          MatchService(uid: senderID).createNotification(notifiesYours + 1);
+        if (notifiesPerson != null) {
+          MatchService(uid: senderID).createNotification(notifiesPerson + 1);
         } else {
           MatchService(uid: senderID).createNotification(1);
         }

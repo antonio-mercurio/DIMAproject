@@ -1415,7 +1415,8 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                           imageURLs[0],
                                           imageURLs[1],
                                           imageURLs[2],
-                                          imageURLs[3]);
+                                          imageURLs[3],
+                                          house.numberNotifies);
                                   if (mounted) {
                                     Navigator.pop(context);
                                   }

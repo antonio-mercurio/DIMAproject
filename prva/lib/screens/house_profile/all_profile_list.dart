@@ -28,7 +28,6 @@ class _AllProfilesListState extends State<AllProfilesList> {
   List<String>? alreadySeenProfiles;
   List<PersonalProfileAdj>? profiles;
   int? notifiesOther;
-  int? myNotifies;
   final HouseProfileAdj house;
   FiltersPersonAdj? filtri;
   _AllProfilesListState({required this.house});
@@ -101,11 +100,6 @@ class _AllProfilesListState extends State<AllProfilesList> {
         notifiesOther = content;
       });
 
-      final retrievedNotifies =
-          MatchService(uid: myHouse.idHouse).getNotification;
-      retrievedNotifies.listen((content) {
-        myNotifies = content;
-      });
       return Column(
         children: <Widget>[
           SwipePersonalWidget(personalProfile: profiles[0]),
@@ -127,7 +121,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
                     try {
                       // search if the other has seen your profile and put a like
                       final ok = await MatchService().checkMatch(
-                          myHouse.idHouse, persID, preferencesOther, notifiesOther, myNotifies);
+                          myHouse.idHouse, persID, preferencesOther, true, myHouse.numberNotifies, notifiesOther);
 
                       if (ok) {
                         if (mounted) {

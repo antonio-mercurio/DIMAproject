@@ -19,10 +19,9 @@ class HouseProfileAdj {
   final String imageURL4;
   final String idHouse;
   final String owner;
-
   final double latitude;
-
   final double longitude;
+  final int numberNotifies;
 
   HouseProfileAdj(
       {required this.owner,
@@ -46,5 +45,6 @@ class HouseProfileAdj {
       required this.imageURL1,
       required this.imageURL2,
       required this.imageURL3,
-      required this.imageURL4});
+      required this.imageURL4,
+      required this.numberNotifies});
 }
