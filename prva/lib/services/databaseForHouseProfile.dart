@@ -34,7 +34,8 @@ class DatabaseServiceHouseProfile {
       String imageURL1,
       String imageURL2,
       String imageURL3,
-      String imageURL4) async {
+      String imageURL4,
+      int numberNotifies) async {
     await houseProfileCollection.doc().set({
       'owner': uid,
       'type': type,
@@ -57,6 +58,7 @@ class DatabaseServiceHouseProfile {
       'imageURL2': imageURL2,
       'imageURL3': imageURL3,
       'imageURL4': imageURL4,
+      'numberNotifies': numberNotifies,
     });
   }
 

@@ -103,17 +103,17 @@ class _AllHousesListState extends State<AllHousesList> {
         preferencesOther = content;
       });
 
-       final retrievedNotifiesOther =
+      final retrievedNotifiesOther =
           MatchService(uid: houses[0].idHouse).getNotification;
       retrievedNotifiesOther.listen((content) {
         notifiesOther = content;
       });
 
-      final retrievedNotifies =
-          MatchService(uid: myUser.uidA).getNotification;
+      final retrievedNotifies = MatchService(uid: myUser.uidA).getNotification;
       retrievedNotifies.listen((content) {
         myNotifies = content;
       });
+
       return Column(children: <Widget>[
         SwipeWidget(houseProfile: houses[0]),
         Row(
@@ -129,8 +129,8 @@ class _AllHousesListState extends State<AllHousesList> {
                   await MatchService().putPrefence(myUser.uidA, hID, "like");
                   print('persona mette mi piace');
                   try {
-                    final ok = await MatchService()
-                        .checkMatch(myUser.uidA, hID, preferencesOther, notifiesOther, myNotifies);
+                    final ok = await MatchService().checkMatch(myUser.uidA, hID,
+                        preferencesOther, notifiesOther, myNotifies);
                     print('persona controlla match');
                     print(ok.toString());
                     if (ok) {

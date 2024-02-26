@@ -1368,6 +1368,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                     '' /*&& imageURLs[0]!='' && imageURLs[0]!='' && imageURLs[0]!=''*/) {
                                   setState(() {});
 
+                                  //TODO SISTEMARE
+
                                   await MatchService(uid: user.uid)
                                       .createNotification(0);
 
@@ -1392,7 +1394,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                           imageURLs[0],
                                           imageURLs[1],
                                           imageURLs[2],
-                                          imageURLs[3]);
+                                          imageURLs[3],
+                                          0);
                                   if (mounted) {
                                     Navigator.pop(context);
                                   }
