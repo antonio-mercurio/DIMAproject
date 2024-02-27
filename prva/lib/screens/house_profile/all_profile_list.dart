@@ -124,6 +124,9 @@ class _AllProfilesListState extends State<AllProfilesList> {
                       if (ok) {
                         if (mounted) {
                           await showMyDialog(context);
+                          setState(() {
+                            
+                          });
                         }
                       }
                     } catch (e) {

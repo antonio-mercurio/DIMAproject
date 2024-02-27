@@ -119,6 +119,9 @@ class _HouseProfSelState extends State<HouseProfSel> {
                               NotificationLayout(house: house),
                         ),
                       );
+                      setState(() {
+                            
+                          });
                     }
                   },
                 ),

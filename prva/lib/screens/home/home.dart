@@ -101,7 +101,7 @@ class _HomepageState extends State<Homepage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => List17NotificationsWidget()),
+                            builder: (context) => ShowHomeProfile()),
                       );
                     },
                     child: Container(
