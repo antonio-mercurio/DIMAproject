@@ -34,6 +34,7 @@ class _HouseProfSelState extends State<HouseProfSel> {
   _HouseProfSelState({required this.house});
 
   int _selectedIndex = 0;
+  int? myNotifies;
 
   static List<Widget> _widgetOptions = <Widget>[
     SearchLayout(),
@@ -62,7 +63,14 @@ class _HouseProfSelState extends State<HouseProfSel> {
 
   @override
   Widget build(BuildContext context) {
-
+    final retrievedNotifies =
+        DatabaseServiceHouseProfile(house.idHouse).getNotification;
+    retrievedNotifies.listen((content) {
+      myNotifies = content;
+      if (mounted) {
+        setState(() {});
+      }
+    });
     return StreamProvider<HouseProfileAdj>.value(
         value: DatabaseServiceHouseProfile(house.idHouse).getMyHouseAdj,
         initialData: HouseProfileAdj(
@@ -102,15 +110,16 @@ class _HouseProfSelState extends State<HouseProfSel> {
                 },
               ),
               badges.Badge(
-                showBadge: (house.numberNotifies!=0),
-                badgeContent: Text(house.numberNotifies.toString()),
+                showBadge: (myNotifies != null && myNotifies != 0),
+                badgeContent: Text(myNotifies?.toString() ?? ""),
                 position: badges.BadgePosition.topEnd(top: 10, end: 10),
                 badgeStyle: BadgeStyle(padding: EdgeInsets.all(4)),
                 child: IconButton(
                   icon: Icon(Icons.notifications),
                   color: Colors.white,
                   onPressed: () async {
-                    await DatabaseServiceHouseProfile(house.idHouse).updateNotificationHouseProfileAdj(0);
+                    await DatabaseServiceHouseProfile(house.idHouse)
+                        .updateNotificationHouseProfileAdj(0);
                     if (mounted) {
                       Navigator.push(
                         context,
@@ -119,9 +128,7 @@ class _HouseProfSelState extends State<HouseProfSel> {
                               NotificationLayout(house: house),
                         ),
                       );
-                      setState(() {
-                            
-                          });
+                      setState(() {});
                     }
                   },
                 ),

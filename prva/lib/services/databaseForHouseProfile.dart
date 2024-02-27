@@ -188,7 +188,7 @@ class DatabaseServiceHouseProfile {
       'imageURL2': imageURL2,
       'imageURL3': imageURL3,
       'imageURL4': imageURL4,
-      'numberNotifies' : numberNotifies,
+      'numberNotifies': numberNotifies,
     });
   }
 
@@ -197,6 +197,19 @@ class DatabaseServiceHouseProfile {
   }
 
   updateNotificationHouseProfileAdj(int notifies) async {
-    return await houseProfileCollection.doc(uid).update({'numberNotifies': notifies});
+    return await houseProfileCollection
+        .doc(uid)
+        .update({'numberNotifies': notifies});
+  }
+
+  int _getNotificationFromSnapshot(DocumentSnapshot snapshot) {
+    return snapshot.get('numberNotifies');
+  }
+
+  Stream<int> get getNotification {
+    return houseProfileCollection
+        .doc(uid)
+        .snapshots()
+        .map((_getNotificationFromSnapshot));
   }
 }

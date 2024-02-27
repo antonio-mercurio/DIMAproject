@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
+import 'package:prva/screens/house_profile/homepage_house_profile.dart';
 import 'package:prva/screens/personal_profile/showDetailsPersonalProfile.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
@@ -52,7 +53,6 @@ class _AllProfilesListState extends State<AllProfilesList> {
         setState(() {});
       }
     });
-    
 
     if (alreadySeenProfiles != null) {
       profiles.removeWhere(
@@ -119,14 +119,17 @@ class _AllProfilesListState extends State<AllProfilesList> {
                     try {
                       // search if the other has seen your profile and put a like
                       final ok = await MatchService().checkMatch(
-                          myHouse.idHouse, persID, preferencesOther, true, myHouse.numberNotifies, notifiesOther);
-
+                          myHouse.idHouse,
+                          persID,
+                          preferencesOther,
+                          true,
+                          myHouse.numberNotifies,
+                          notifiesOther);
+                      print('casa controlla match');
+                      print(ok.toString());
                       if (ok) {
                         if (mounted) {
                           await showMyDialog(context);
-                          setState(() {
-                            
-                          });
                         }
                       }
                     } catch (e) {
