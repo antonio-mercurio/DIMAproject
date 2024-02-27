@@ -58,15 +58,23 @@ class MatchService extends ChangeNotifier {
               searchedPreference.reciverPreferenceId)) {
         /* there is a match */
         await _putMatch(senderID, receiverID);
+        String houseID;
+        String personID;
         if (fromHouse) {
-          DatabaseServiceHouseProfile(senderID).updateNotificationHouseProfileAdj(notifiesHouse + 1);
+          houseID = senderID;
+          personID = receiverID;
+          DatabaseServiceHouseProfile(houseID)
+              .updateNotificationHouseProfileAdj(notifiesHouse + 1);
         } else {
-          DatabaseServiceHouseProfile(receiverID).updateNotificationHouseProfileAdj(notifiesHouse + 1);
+          houseID = receiverID;
+          personID = senderID;
+          DatabaseServiceHouseProfile(houseID)
+              .updateNotificationHouseProfileAdj(notifiesHouse + 1);
         }
         if (notifiesPerson != null) {
-          MatchService(uid: senderID).createNotification(notifiesPerson + 1);
+          MatchService(uid: personID).createNotification(notifiesPerson + 1);
         } else {
-          MatchService(uid: senderID).createNotification(1);
+          MatchService(uid: personID).createNotification(1);
         }
         return true;
       }
