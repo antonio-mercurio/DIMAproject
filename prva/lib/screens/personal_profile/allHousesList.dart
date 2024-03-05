@@ -35,6 +35,9 @@ class _AllHousesListState extends State<AllHousesList> {
   Widget build(BuildContext context) {
     final allHouses = Provider.of<List<HouseProfileAdj>>(context);
     final houses = List.from(allHouses);
+
+    print('39 allhouses');
+    print(houses.length.toString());
     try {
       final retrievedFilters =
           DatabaseServiceFilters(myProfile.uidA).getFiltersAdj;
@@ -57,6 +60,8 @@ class _AllHousesListState extends State<AllHousesList> {
       print('exception thrown by already seen houses');
     }
 
+    print('60 allhouses');
+    print(houses.length.toString());
     if (alreadySeenHouses != null) {
       houses.removeWhere(
           (element) => alreadySeenHouses!.contains(element.idHouse));
@@ -84,7 +89,8 @@ class _AllHousesListState extends State<AllHousesList> {
         houses.removeWhere((element) => element.type == "Two-room apartment");
       }
     }
-
+    print('87 allhouses');
+    print(houses.length.toString());
     if (houses.isEmpty) {
       return const Center(
         child: Text('non ci sono case da visualizzare',
