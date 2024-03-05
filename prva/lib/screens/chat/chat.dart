@@ -12,8 +12,7 @@ class ChatPage extends StatefulWidget {
       {super.key,
       required this.receiverUserEmail,
       required this.receiverUserID,
-      required this.senderUserID
-      });
+      required this.senderUserID});
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -21,12 +20,12 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   final TextEditingController _messageController = TextEditingController();
-  final ChatService _chatService = ChatService();
+  final ChatService _chatService = ChatService(null);
 
   void sendMessage() async {
     if (_messageController.text.isNotEmpty) {
       await _chatService.sendMessage(
-          widget.senderUserID,widget.receiverUserID, _messageController.text);
+          widget.senderUserID, widget.receiverUserID, _messageController.text);
       _messageController.clear();
       //clear the controller after sending the message
     }

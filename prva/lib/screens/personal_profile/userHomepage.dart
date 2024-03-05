@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +13,7 @@ import 'package:prva/screens/personal_profile/notificationPerson.dart';
 import 'package:prva/screens/chat/chat.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:prva/screens/personal_profile/allHousesList.dart';
+import 'package:prva/services/chat/chat_service.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/services/match/match_service.dart';
@@ -211,7 +214,7 @@ class ChatLayout extends StatefulWidget {
 
 class _ChatLayoutState extends State<ChatLayout> {
   List<String>? matches;
-
+  List<String>? chats;
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Utente>(context);
@@ -223,15 +226,121 @@ class _ChatLayoutState extends State<ChatLayout> {
         setState(() {});
       }
     });
-    //print('199 user homepage');
-    print(matches);
-    return _buildUserList(user, matches);
+    final retrievedStartedChats = ChatService(user.uid).getChats;
+    retrievedStartedChats.listen((content) {
+      chats = content;
+      if (mounted) {
+        setState(() {});
+      }
+    });
+    return Column(
+        children: [_buildUserList(user, matches), _buildChatList(user, chats)]);
   }
 }
 
+Widget _buildChatList(Utente user, List<String>? chats) {
+  return Column(children: [
+    Padding(
+      padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+      child: Text(
+        'Chats',
+        style: TextStyle(
+          fontFamily: 'Plus Jakarta Sans',
+          color: Color(0xFF57636C),
+          fontSize: 14,
+          fontWeight: FontWeight.normal,
+        ),
+      ),
+    ),
+    Padding(
+      padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 44),
+      child: ListView(
+          padding: EdgeInsets.zero,
+          primary: false,
+          shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+          children: [
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 8),
+              child: Container(
+                width: double.infinity,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 4,
+                      color: Color(0x32000000),
+                      offset: Offset(0, 2),
+                    )
+                  ],
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(26),
+                        child: Image.network(
+                          'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60',
+                          width: 36,
+                          height: 36,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Username',
+                                style: TextStyle(
+                                  fontFamily: 'Plus Jakarta Sans',
+                                  color: Color(0xFF14181B),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 4, 0, 0),
+                                    child: Text(
+                                      'user@domainname.com',
+                                      style: TextStyle(
+                                        fontFamily: 'Plus Jakarta Sans',
+                                        color: Color(0xFF57636C),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ]),
+    )
+  ]);
+}
+
 Widget _buildUserList(Utente user, List<String>? matches) {
-  //print('223 homepage');
-  //print(matches);
   return StreamBuilder<QuerySnapshot>(
     stream: MatchService().getChatsPers(matches),
     builder: (context, snapshot) {
@@ -276,7 +385,7 @@ Widget _buildUserList(Utente user, List<String>? matches) {
                           (doc) => _buildUserListItem(context, doc, user))
                       .toList(),
                 ),
-              )
+              ),
             ],
           ),
         );

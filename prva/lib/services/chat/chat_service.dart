@@ -2,11 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:prva/models/message.dart';
+import 'package:prva/screens/chat_adj.dart';
 
 class ChatService extends ChangeNotifier {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+  final CollectionReference houseProfileCollection =
+      FirebaseFirestore.instance.collection('houseProfiles');
+  final String? uid;
 
+  ChatService(this.uid);
   //send message
   Future<void> sendMessage(
       String senderID, String receiverID, String message) async {
@@ -58,5 +63,33 @@ class ChatService extends ChangeNotifier {
         .collection('messages')
         .orderBy('timestamp', descending: false)
         .snapshots();
+  }
+
+  Stream<List<String>> get getChats {
+    return _firebaseFirestore
+        .collection('chat_rooms')
+        .doc(uid)
+        .collection('myChats')
+        .snapshots()
+        .map((_chatsFromSnap));
+  }
+
+  List<String> _chatsFromSnap(QuerySnapshot snapshot) {
+    return snapshot.docs.map<String>((doc) {
+      return doc.reference.id;
+    }).toList();
+  }
+
+  //used in userHomepage
+  Stream<QuerySnapshot<Object?>>? getMyChats(List<String>? startedChatsHouses) {
+    Query query = houseProfileCollection;
+
+    if (startedChatsHouses != null) {
+      if (startedChatsHouses.isNotEmpty) {
+        query = query.where(FieldPath.documentId, whereIn: startedChatsHouses);
+        return query.snapshots();
+      }
+    }
+    return null;
   }
 }
