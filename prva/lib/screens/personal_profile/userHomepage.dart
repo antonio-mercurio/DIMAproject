@@ -239,105 +239,55 @@ class _ChatLayoutState extends State<ChatLayout> {
 }
 
 Widget _buildChatList(Utente user, List<String>? chats) {
-  return Column(children: [
-    Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
-      child: Text(
-        'Chats',
-        style: TextStyle(
-          fontFamily: 'Plus Jakarta Sans',
-          color: Color(0xFF57636C),
-          fontSize: 14,
-          fontWeight: FontWeight.normal,
-        ),
-      ),
-    ),
-    Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 44),
-      child: ListView(
-          padding: EdgeInsets.zero,
-          primary: false,
-          shrinkWrap: true,
-          scrollDirection: Axis.vertical,
-          children: [
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 8),
-              child: Container(
-                width: double.infinity,
-                height: 80,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 4,
-                      color: Color(0x32000000),
-                      offset: Offset(0, 2),
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(26),
-                        child: Image.network(
-                          'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60',
-                          width: 36,
-                          height: 36,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Username',
-                                style: TextStyle(
-                                  fontFamily: 'Plus Jakarta Sans',
-                                  color: Color(0xFF14181B),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 4, 0, 0),
-                                    child: Text(
-                                      'user@domainname.com',
-                                      style: TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
-                                        color: Color(0xFF57636C),
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+  return StreamBuilder<QuerySnapshot>(
+    stream: ChatService(user.uid).getMyChats(chats),
+    builder: (context, snapshot) {
+      if (snapshot.hasError) {
+        return Text('error');
+      }
+      /*if (snapshot.connectionState == ConnectionState.waiting) {
+        return Loading();
+      }*/
+
+      if (snapshot.hasData) {
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+                child: Text(
+                  'Chats',
+                  style: TextStyle(
+                    fontFamily: 'Plus Jakarta Sans',
+                    color: Color(0xFF57636C),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
                   ),
                 ),
               ),
-            ),
-          ]),
-    )
-  ]);
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 44),
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  primary: false,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  children: snapshot.data!.docs
+                      .map<Widget>(
+                          (doc) => _buildChatListItem(context, doc, user))
+                      .toList(),
+                ),
+              ),
+            ],
+          ),
+        );
+      } else {
+        return Center(
+          child: Text("Non hai ancora match"),
+        );
+      }
+    },
+  );
 }
 
 Widget _buildUserList(Utente user, List<String>? matches) {
@@ -396,6 +346,110 @@ Widget _buildUserList(Utente user, List<String>? matches) {
       }
     },
   );
+}
+
+Widget _buildChatListItem(
+    BuildContext context, DocumentSnapshot document, Utente user) {
+  Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+  return InkWell(
+      splashColor: Colors.transparent,
+      focusColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ChatPage(
+              senderUserID: user.uid,
+              receiverUserEmail: data['type'] + " " + data['city'],
+              receiverUserID: document.reference.id,
+            ),
+          ),
+        );
+      },
+      child: Padding(
+        padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 8),
+        child: Container(
+          width: double.infinity,
+          height: 80,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 4,
+                color: Color(0x32000000),
+                offset: Offset(0, 2),
+              )
+            ],
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(26),
+                  child: data['imageURL1'] != ""
+                      ? Image.network(
+                          data['imageURL1'],
+                          width: 36,
+                          height: 36,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.asset(
+                          'assets/userPhoto.jpg',
+                          width: 36,
+                          height: 36,
+                          fit: BoxFit.cover,
+                        ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          data['type'] + " " + data['city'],
+                          style: TextStyle(
+                            fontFamily: 'Plus Jakarta Sans',
+                            color: Color(0xFF14181B),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                              child: Text(
+                                'chat iniziata',
+                                style: TextStyle(
+                                  fontFamily: 'Plus Jakarta Sans',
+                                  color: Color(0xFF57636C),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ));
 }
 
 Widget _buildUserListItem(
