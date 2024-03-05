@@ -31,20 +31,20 @@ class ChatService extends ChangeNotifier {
     //construct chat roo id from current user and receiver id (sorted to ensure uniqueness)
     List<String> ids = [currentUserID, receiverID];
     ids.sort();
-    String chatRoomID = ids.join("_");
+    //String chatRoomID = ids.join("_");
     //add new message to database
     await _firebaseFirestore
         .collection('chat_rooms')
         .doc(senderID)
         .collection('myChats')
-        .doc(chatRoomID)
+        .doc(receiverID)
         .collection('messages')
         .add(newMessage.toMap());
     await _firebaseFirestore
         .collection('chat_rooms')
         .doc(receiverID)
         .collection('myChats')
-        .doc(chatRoomID)
+        .doc(senderID)
         .collection('messages')
         .add(newMessage.toMap());
   }
@@ -54,12 +54,12 @@ class ChatService extends ChangeNotifier {
     //construct chat room id from user ids
     List<String> ids = [userID, otherUserID];
     ids.sort();
-    String chatRoomID = ids.join("_");
+    //String chatRoomID = ids.join("_");
     return _firebaseFirestore
         .collection('chat_rooms')
         .doc(userID)
         .collection('myChats')
-        .doc(chatRoomID)
+        .doc(otherUserID)
         .collection('messages')
         .orderBy('timestamp', descending: false)
         .snapshots();

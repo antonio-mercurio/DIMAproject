@@ -233,6 +233,7 @@ class _ChatLayoutState extends State<ChatLayout> {
         setState(() {});
       }
     });
+    print(chats.toString());
     return Column(
         children: [_buildUserList(user, matches), _buildChatList(user, chats)]);
   }
@@ -283,7 +284,7 @@ Widget _buildChatList(Utente user, List<String>? chats) {
         );
       } else {
         return Center(
-          child: Text("Non hai ancora match"),
+          child: Text("xs"),
         );
       }
     },
