@@ -38,22 +38,23 @@ class _UserHomepageState extends State<UserHomepage> {
       });
     }
   }
-void _showFiltersPanel() {
-      showModalBottomSheet(
-          context: context,
-          builder: (context) {
-            return Container(
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-              child: FormFilterPeopleAdj(),
-            );
-          });
-    }
+
+  void _showFiltersPanel() {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+            child: FormFilterPeopleAdj(),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Utente>(context);
 
-     final retrievedNotifies =
-        MatchService(uid: user.uid).getNotification;
+    final retrievedNotifies = MatchService(uid: user.uid).getNotification;
     retrievedNotifies.listen((content) {
       myNotifies = content;
       if (mounted) {
@@ -90,25 +91,26 @@ void _showFiltersPanel() {
                 },
               ),
               badges.Badge(
-                showBadge: (myNotifies!= null && myNotifies!=0),
-                badgeContent : Text(myNotifies?.toString() ?? ""),
+                showBadge: (myNotifies != null && myNotifies != 0),
+                badgeContent: Text(myNotifies?.toString() ?? ""),
                 position: badges.BadgePosition.topEnd(top: 10, end: 10),
-                badgeStyle: badges.BadgeStyle( padding: EdgeInsets.all(4)),
+                badgeStyle: badges.BadgeStyle(padding: EdgeInsets.all(4)),
                 child: IconButton(
-                icon: Icon(Icons.notifications),
-                color: Colors.white,
-                onPressed: () async {
-                  await MatchService(uid: user.uid).createNotification(0);
-                  if(mounted){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NotificationPersonLayout(profile:user.uid ),
-                    ),
-                  );
-                  }
-                },
-              ),
+                  icon: Icon(Icons.notifications),
+                  color: Colors.white,
+                  onPressed: () async {
+                    await MatchService(uid: user.uid).createNotification(0);
+                    if (mounted) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              NotificationPersonLayout(profile: user.uid),
+                        ),
+                      );
+                    }
+                  },
+                ),
               )
             ],
           ),
