@@ -19,6 +19,26 @@ class _NotificationLayoutState extends State<NotificationLayout> {
   List<String>? idmatches;
   final HouseProfileAdj house;
   _NotificationLayoutState({required this.house});
+
+  String calculateTimestamp(Timestamp tmp){
+    final difference= tmp.toDate().difference(Timestamp.now().toDate());
+    if(difference.inSeconds<60){
+      return difference.inSeconds.toString() + ' seconds ago';
+    }else if(difference.inMinutes <60){
+       return difference.inMinutes.toString() + ' minutes ago';
+
+    }else if(difference.inHours<24){
+      return difference.inHours.toString() + ' hours ago';
+
+    }else if(difference.inDays<31){
+      return difference.inDays.toString() + ' days ago';
+    }else {
+      final differenceM = (difference.inDays/31).floor();
+      return differenceM.toString() +  ' months ago';
+
+    }
+      }
+
   @override
   Widget build(BuildContext context) {
     final retrievedMatch = MatchService(uid: house.idHouse).getMatchedProfile;
@@ -150,7 +170,7 @@ Widget _buildUserListItem(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                                 child: Text(
-                                  'You have matched with' + data['name'] + " " + data['surname']+ '! Go to the chat to start a conversation! ',
+                                  'You have matched with ' + data['name'] + " " + data['surname']+ '! Go to the chat to start a conversation! ',
                                   maxLines: 4,
                                   style: 
                                        const TextStyle(
@@ -231,7 +251,8 @@ Widget _buildUserListItem(
                       )
                     ],
                   )));*/
-        } else
+        } else {
           return Text('');
+        }
       });
 }
