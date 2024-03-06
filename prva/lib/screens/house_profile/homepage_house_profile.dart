@@ -114,6 +114,20 @@ class _HouseProfSelState extends State<HouseProfSel> {
                 badgeContent: Text(myNotifies?.toString() ?? ""),
                 position: badges.BadgePosition.topEnd(top: 10, end: 10),
                 badgeStyle: BadgeStyle(padding: EdgeInsets.all(4)),
+                onTap: () async {
+                    await DatabaseServiceHouseProfile(house.idHouse)
+                        .updateNotificationHouseProfileAdj(0);
+                    if (mounted) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              NotificationLayout(house: house),
+                        ),
+                      );
+                      setState(() {});
+                    }
+                  },
                 child: IconButton(
                   icon: Icon(Icons.notifications),
                   color: Colors.white,

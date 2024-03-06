@@ -98,6 +98,18 @@ class _UserHomepageState extends State<UserHomepage> {
                 badgeContent: Text(myNotifies?.toString() ?? ""),
                 position: badges.BadgePosition.topEnd(top: 10, end: 10),
                 badgeStyle: badges.BadgeStyle(padding: EdgeInsets.all(4)),
+                onTap: () async {
+                    await MatchService(uid: user.uid).createNotification(0);
+                    if (mounted) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              NotificationPersonLayout(profile: user.uid),
+                        ),
+                      );
+                    }
+                  },
                 child: IconButton(
                   icon: Icon(Icons.notifications),
                   color: Colors.white,

@@ -20,25 +20,6 @@ class _NotificationLayoutState extends State<NotificationLayout> {
   final HouseProfileAdj house;
   _NotificationLayoutState({required this.house});
 
-  String calculateTimestamp(Timestamp tmp){
-    final difference= tmp.toDate().difference(Timestamp.now().toDate());
-    if(difference.inSeconds<60){
-      return difference.inSeconds.toString() + ' seconds ago';
-    }else if(difference.inMinutes <60){
-       return difference.inMinutes.toString() + ' minutes ago';
-
-    }else if(difference.inHours<24){
-      return difference.inHours.toString() + ' hours ago';
-
-    }else if(difference.inDays<31){
-      return difference.inDays.toString() + ' days ago';
-    }else {
-      final differenceM = (difference.inDays/31).floor();
-      return differenceM.toString() +  ' months ago';
-
-    }
-      }
-
   @override
   Widget build(BuildContext context) {
     final retrievedMatch = MatchService(uid: house.idHouse).getMatchedProfile;
@@ -53,12 +34,11 @@ class _NotificationLayoutState extends State<NotificationLayout> {
       backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.black,
-          automaticallyImplyLeading: false,
           title: Text(
             'Notifications',
           ),
           actions: [],
-          centerTitle: false,
+          centerTitle: true,
           elevation: 0,
         ),
       body: _buildNotificationList(context, house, idmatches));
@@ -102,13 +82,32 @@ Widget _buildUserListItem(
     BuildContext context, DocumentSnapshot document, HouseProfileAdj house) {
   Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
+  String calculateTimestamp(Timestamp tmp){
+    final difference= Timestamp.now().toDate().difference(tmp.toDate());
+    if(difference.inSeconds<60){
+      return difference.inSeconds.toString() + ' seconds ago';
+    }else if(difference.inMinutes <60){
+       return difference.inMinutes.toString() + ' minutes ago';
+
+    }else if(difference.inHours<24){
+      return difference.inHours.toString() + ' hours ago';
+
+    }else if(difference.inDays<31){
+      return difference.inDays.toString() + ' days ago';
+    }else {
+      final differenceM = (difference.inDays/31).floor();
+      return differenceM.toString() +  ' months ago';
+
+    }
+      }
+
   return StreamBuilder<MatchPeople>(
       stream:
           MatchService(uid: house.idHouse, otheruid: document.id).getMatches,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+              padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 8),
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -140,7 +139,7 @@ Widget _buildUserListItem(
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(0),
                             child: Image.network(
-                              'https://source.unsplash.com/random/1280x720?profile&5',
+                              data['imageURL1'],
                               width: 44,
                               height: 44,
                               fit: BoxFit.cover,
@@ -150,7 +149,7 @@ Widget _buildUserListItem(
                       ),
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(12, 0, 4, 0),
+                          padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 8),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -184,16 +183,103 @@ Widget _buildUserListItem(
                               Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 8, 0, 4),
-                                child: Text(
-                                  '2 hours ago',
-                                  style: const TextStyle(
+                                child: Text((calculateTimestamp(snapshot.data?.timestamp ?? Timestamp.now())), 
+                                style: const TextStyle(
                                           fontFamily: 'Plus Jakarta Sans',
                                           color: Color(0xFF101213),
                                           fontSize: 12,
                                           fontWeight: FontWeight.w500,
-                                        ),
-                                ),
+                                        ),),
+                                /*
+                                
+                                Row(children: [
+                          Text((snapshot.data?.timestamp
+                                  .toDate()
+                                  .day
+                                  .toString()) ??
+                              "",
+                              style: const TextStyle(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          color: Color(0xFF101213),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                        ),),
+                          Text('/',
+                          style: const TextStyle(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          color: Color(0xFF101213),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                        ),),
+                          Text((snapshot.data?.timestamp
+                                  .toDate()
+                                  .month
+                                  .toString()) ??
+                              "",
+                              style: const TextStyle(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          color: Color(0xFF101213),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                        ),),
+                          Text('/',
+                          style: const TextStyle(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          color: Color(0xFF101213),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                        ),),
+                          Text((snapshot.data?.timestamp
+                                  .toDate()
+                                  .year
+                                  .toString()) ??
+                              "",
+                              style: const TextStyle(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          color: Color(0xFF101213),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                        ),),
+                          Text('-',
+                          style: const TextStyle(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          color: Color(0xFF101213),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                        ),),
+                          Text((snapshot.data?.timestamp
+                                  .toDate()
+                                  .hour
+                                  .toString()) ??
+                              "",
+                              style: const TextStyle(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          color: Color(0xFF101213),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                        ),),
+                          Text(":",
+                          style: const TextStyle(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          color: Color(0xFF101213),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                        ),),
+                          Text((snapshot.data?.timestamp
+                                  .toDate()
+                                  .minute
+                                  .toString()) ??
+                              "",
+                              style: const TextStyle(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          color: Color(0xFF101213),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                        ),)
+                        ]),*/
+                                  
                               ),
+                              
                             ],
                           ),
                         ),
