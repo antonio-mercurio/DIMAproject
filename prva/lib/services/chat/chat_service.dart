@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:prva/models/message.dart';
 import 'package:prva/screens/chat_adj.dart';
@@ -9,9 +10,9 @@ class ChatService extends ChangeNotifier {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   final CollectionReference houseProfileCollection =
       FirebaseFirestore.instance.collection('houseProfiles');
-  final String? uid;
+  final String uid = 'pkQNhr3TZJMX6ELTfE60l1iPpEg2';
 
-  ChatService(this.uid);
+  //ChatService(this.uid);
   //send message
   Future<void> sendMessage(
       String senderID, String receiverID, String message) async {
@@ -65,8 +66,8 @@ class ChatService extends ChangeNotifier {
         .snapshots();
   }
 
-  Stream<List<String>> get getChats {
-    return _firebaseFirestore
+  Stream<List<String>> get getMatchedChats {
+    return FirebaseFirestore.instance
         .collection('chat_rooms')
         .doc(uid)
         .collection('myChats')

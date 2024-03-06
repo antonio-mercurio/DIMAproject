@@ -20,7 +20,7 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   final TextEditingController _messageController = TextEditingController();
-  final ChatService _chatService = ChatService(null);
+  final ChatService _chatService = ChatService();
 
   void sendMessage() async {
     if (_messageController.text.isNotEmpty) {
@@ -59,11 +59,16 @@ class _ChatPageState extends State<ChatPage> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Loading();
           }
-          return ListView(
-            children: snapshot.data!.docs
-                .map((document) => _buildMessageItem(document))
-                .toList(),
-          );
+
+          if (snapshot.hasData) {
+            return ListView(
+              children: snapshot.data!.docs
+                  .map((document) => _buildMessageItem(document))
+                  .toList(),
+            );
+          } else {
+            return Text('no chat started');
+          }
         });
   }
 

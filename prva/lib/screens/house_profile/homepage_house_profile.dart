@@ -115,19 +115,18 @@ class _HouseProfSelState extends State<HouseProfSel> {
                 position: badges.BadgePosition.topEnd(top: 10, end: 10),
                 badgeStyle: BadgeStyle(padding: EdgeInsets.all(4)),
                 onTap: () async {
-                    await DatabaseServiceHouseProfile(house.idHouse)
-                        .updateNotificationHouseProfileAdj(0);
-                    if (mounted) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              NotificationLayout(house: house),
-                        ),
-                      );
-                      setState(() {});
-                    }
-                  },
+                  await DatabaseServiceHouseProfile(house.idHouse)
+                      .updateNotificationHouseProfileAdj(0);
+                  if (mounted) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NotificationLayout(house: house),
+                      ),
+                    );
+                    setState(() {});
+                  }
+                },
                 child: IconButton(
                   icon: Icon(Icons.notifications),
                   color: Colors.white,
@@ -270,9 +269,9 @@ Widget _buildUserList(HouseProfileAdj house, List<String>? matches) {
       if (snapshot.hasError) {
         return Text('error');
       }
-      /*if (snapshot.connectionState == ConnectionState.waiting) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
         return Loading();
-      }*/
+      }
 
       if (snapshot.hasData) {
         return ListView(

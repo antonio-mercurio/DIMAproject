@@ -18,6 +18,7 @@ import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/services/match/match_service.dart';
 import 'package:prva/screens/personal_profile/show_details_personal_profile.dart';
+import 'package:prva/shared/loading.dart';
 
 class UserHomepage extends StatefulWidget {
   const UserHomepage({super.key});
@@ -98,18 +99,6 @@ class _UserHomepageState extends State<UserHomepage> {
                 badgeContent: Text(myNotifies?.toString() ?? ""),
                 position: badges.BadgePosition.topEnd(top: 10, end: 10),
                 badgeStyle: badges.BadgeStyle(padding: EdgeInsets.all(4)),
-                onTap: () async {
-                    await MatchService(uid: user.uid).createNotification(0);
-                    if (mounted) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              NotificationPersonLayout(profile: user.uid),
-                        ),
-                      );
-                    }
-                  },
                 child: IconButton(
                   icon: Icon(Icons.notifications),
                   color: Colors.white,
@@ -226,131 +215,43 @@ class ChatLayout extends StatefulWidget {
 
 class _ChatLayoutState extends State<ChatLayout> {
   List<String>? matches;
-  List<String>? chats;
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Utente>(context);
-    final retrievedMatch = MatchService(uid: user.uid).getMatchedProfile;
+    final retrievedChat = ChatService().getMatchedChats;
 
-    retrievedMatch.listen((content) {
+    retrievedChat.listen((content) {
       matches = content;
       if (mounted) {
         setState(() {});
       }
     });
-    final retrievedStartedChats = ChatService(user.uid).getChats;
-    retrievedStartedChats.listen((content) {
-      chats = content;
-      if (mounted) {
-        setState(() {});
-      }
-    });
-    print(chats.toString());
-    return Column(
-        children: [_buildUserList(user, matches), _buildChatList(user, chats)]);
+    print(matches);
+    matches?.add('pkQNhr3TZJMX6ELTfE60l1iPpEg2');
+    print(matches);
+    return _buildUserList(user, matches);
   }
 }
 
-Widget _buildChatList(Utente user, List<String>? chats) {
-  return StreamBuilder<QuerySnapshot>(
-    stream: ChatService(user.uid).getMyChats(chats),
-    builder: (context, snapshot) {
-      if (snapshot.hasError) {
-        return Text('error');
-      }
-      /*if (snapshot.connectionState == ConnectionState.waiting) {
-        return Loading();
-      }*/
-
-      if (snapshot.hasData) {
-        return SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
-                child: Text(
-                  'Chats',
-                  style: TextStyle(
-                    fontFamily: 'Plus Jakarta Sans',
-                    color: Color(0xFF57636C),
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 44),
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  primary: false,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  children: snapshot.data!.docs
-                      .map<Widget>(
-                          (doc) => _buildChatListItem(context, doc, user))
-                      .toList(),
-                ),
-              ),
-            ],
-          ),
-        );
-      } else {
-        return Center(
-          child: Text("xs"),
-        );
-      }
-    },
-  );
-}
-
 Widget _buildUserList(Utente user, List<String>? matches) {
+  //print('223 homepage');
+  //print(matches);
   return StreamBuilder<QuerySnapshot>(
     stream: MatchService().getChatsPers(matches),
     builder: (context, snapshot) {
       if (snapshot.hasError) {
         return Text('error');
       }
-      /*if (snapshot.connectionState == ConnectionState.waiting) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
         return Loading();
-      }*/
+      }
 
       if (snapshot.hasData) {
-        return SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(24, 10, 0, 0),
-                child: Text(
-                  'Match',
-                  style: TextStyle(
-                    fontFamily: 'Plus Jakarta Sans',
-                    color: Color(0xFF57636C),
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                height: 170,
-                decoration: BoxDecoration(
-                  color: Color(0xFFF1F4F8),
-                ),
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  primary: false,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  children: snapshot.data!.docs
-                      .map<Widget>(
-                          (doc) => _buildUserListItem(context, doc, user))
-                      .toList(),
-                ),
-              ),
-            ],
-          ),
+        return ListView(
+          children: snapshot.data!.docs
+              .map<Widget>((doc) => _buildUserListItem(context, doc, user))
+              .toList(),
         );
       } else {
         return Center(
@@ -361,260 +262,37 @@ Widget _buildUserList(Utente user, List<String>? matches) {
   );
 }
 
-Widget _buildChatListItem(
-    BuildContext context, DocumentSnapshot document, Utente user) {
-  Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-  return InkWell(
-      splashColor: Colors.transparent,
-      focusColor: Colors.transparent,
-      hoverColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ChatPage(
-              senderUserID: user.uid,
-              receiverUserEmail: data['type'] + " " + data['city'],
-              receiverUserID: document.reference.id,
-            ),
-          ),
-        );
-      },
-      child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 8),
-        child: Container(
-          width: double.infinity,
-          height: 80,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                blurRadius: 4,
-                color: Color(0x32000000),
-                offset: Offset(0, 2),
-              )
-            ],
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(26),
-                  child: data['imageURL1'] != ""
-                      ? Image.network(
-                          data['imageURL1'],
-                          width: 36,
-                          height: 36,
-                          fit: BoxFit.cover,
-                        )
-                      : Image.asset(
-                          'assets/userPhoto.jpg',
-                          width: 36,
-                          height: 36,
-                          fit: BoxFit.cover,
-                        ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          data['type'] + " " + data['city'],
-                          style: TextStyle(
-                            fontFamily: 'Plus Jakarta Sans',
-                            color: Color(0xFF14181B),
-                            fontSize: 14,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                              child: Text(
-                                'chat iniziata',
-                                style: TextStyle(
-                                  fontFamily: 'Plus Jakarta Sans',
-                                  color: Color(0xFF57636C),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ));
-}
-
 Widget _buildUserListItem(
     BuildContext context, DocumentSnapshot document, Utente user) {
   Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-
   return Padding(
-    padding: EdgeInsetsDirectional.fromSTEB(16, 12, 12, 12),
-    child: Container(
-      width: 140,
-      height: 150,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 4,
-            color: Color(0x34090F13),
-            offset: Offset(0, 2),
-          )
-        ],
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: InkWell(
-        splashColor: Colors.transparent,
-        focusColor: Colors.transparent,
-        hoverColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ChatPage(
-                senderUserID: user.uid,
-                receiverUserEmail: data['type'] + " " + data['city'],
-                receiverUserID: document.reference.id,
-              ),
-            ),
-          );
-        },
-        child: Padding(
-          padding: EdgeInsets.all(12),
+      padding: EdgeInsets.only(top: 8.0),
+      child: Card(
+          margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
           child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ClipRRect(
-                child: data['imageURL1'] != ""
-                    ? Image.network(
-                        data['imageURL1'],
-                        width: 60,
-                        height: 60,
-                        fit: BoxFit.cover,
-                      )
-                    : Image.asset(
-                        'assets/userPhoto.jpg',
-                        width: 80,
-                        height: 80,
-                        fit: BoxFit.cover,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                leading: CircleAvatar(
+                  radius: 25.0,
+                  backgroundColor: Colors.blue,
+                ),
+                title: Text(data['type'] + " " + data['city'],
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: Text('open to start a chat!'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ChatPage(
+                        senderUserID: user.uid,
+                        receiverUserEmail: data['type'] + " " + data['city'],
+                        receiverUserID: document.reference.id,
                       ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
-                child: Text(
-                  data['city'],
-                  style: TextStyle(
-                    fontFamily: 'Plus Jakarta Sans',
-                    color: Color(0xFF14181B),
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
-                child: Text(
-                  data['type'],
-                  style: TextStyle(
-                    fontFamily: 'Plus Jakarta Sans',
-                    color: Color(0xFF14181B),
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ),
+                    ),
+                  );
+                },
+              )
             ],
-          ),
-        ),
-      ),
-    ),
-  );
+          )));
 }
-/*
-class ChatLayout extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final user = Provider.of<Utente>(context);
-    return _buildUserList(user);
-  }
-
-  Widget _buildUserList(Utente user) {
-    List<String>? matches;
-
-    final retrievedMatch = MatchService(uid: user.uid).getMatchedProfile;
-
-    retrievedMatch.listen((content) {
-      matches = content;
-    });
-
-    return StreamBuilder<QuerySnapshot>(
-      stream: MatchService().getChatsPers(matches),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Text('error');
-        }
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Loading();
-        }
-
-        if (snapshot.hasData) {
-          return ListView(
-            children: snapshot.data!.docs
-                .map<Widget>((doc) => _buildUserListItem(context, doc, user))
-                .toList(),
-          );
-        } else {
-          return Center(
-            child: Text("Non hai ancora match"),
-          );
-        }
-      },
-    );
-  }
-
-  Widget _buildUserListItem(
-      BuildContext context, DocumentSnapshot document, Utente user) {
-    Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-
-    return ListTile(
-      title: Text(data['type'] + " " + data['city']),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ChatPage(
-              senderUserID: user.uid,
-              receiverUserEmail: data['type'] + " " + data['city'],
-              receiverUserID: document.reference.id,
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
-*/

@@ -43,7 +43,7 @@ Widget _buildNotificationList(
         return Text('error');
       }
       if (snapshot.connectionState == ConnectionState.waiting) {
-        //return Loading();
+        return Loading();
       }
       if (snapshot.hasData) {
         return ListView(
@@ -65,9 +65,11 @@ Widget _buildUserListItem(
   Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
   return StreamBuilder<MatchPeople>(
-      stream:
-          MatchService(uid: profile, otheruid: document.id).getMatches,
+      stream: MatchService(uid: profile, otheruid: document.id).getMatches,
       builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Loading();
+        }
         if (snapshot.hasData) {
           return Padding(
               padding: EdgeInsets.only(top: 8.0),
