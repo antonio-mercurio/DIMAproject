@@ -102,9 +102,6 @@ Widget _buildUserListItem(
       stream:
           MatchService(uid: house.idHouse, otheruid: document.id).getMatches,
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Loading();
-        }
         if (snapshot.hasData) {
           return Padding(
             padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 8),
@@ -342,7 +339,7 @@ Widget _buildUserListItem(
                     ],
                   )));*/
         } else {
-          return Text('');
+          return Text('342 not.dart');
         }
       });
 }
