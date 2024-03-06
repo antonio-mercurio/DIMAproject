@@ -244,7 +244,7 @@ Widget _buildUserList(Utente user, List<String>? matches) {
         return Text('error');
       }
       if (snapshot.connectionState == ConnectionState.waiting) {
-        return Loading();
+        // return Loading();
       }
 
       if (snapshot.hasData) {
