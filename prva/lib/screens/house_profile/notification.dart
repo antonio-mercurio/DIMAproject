@@ -1,12 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/preference.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/match/match_service.dart';
-import 'package:prva/shared/loading.dart';
 
 class NotificationLayout extends StatefulWidget {
   final HouseProfileAdj house;
@@ -185,93 +183,6 @@ Widget _buildUserListItem(
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
-                              /*
-                                
-                                Row(children: [
-                          Text((snapshot.data?.timestamp
-                                  .toDate()
-                                  .day
-                                  .toString()) ??
-                              "",
-                              style: const TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF101213),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                        ),),
-                          Text('/',
-                          style: const TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF101213),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                        ),),
-                          Text((snapshot.data?.timestamp
-                                  .toDate()
-                                  .month
-                                  .toString()) ??
-                              "",
-                              style: const TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF101213),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                        ),),
-                          Text('/',
-                          style: const TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF101213),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                        ),),
-                          Text((snapshot.data?.timestamp
-                                  .toDate()
-                                  .year
-                                  .toString()) ??
-                              "",
-                              style: const TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF101213),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                        ),),
-                          Text('-',
-                          style: const TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF101213),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                        ),),
-                          Text((snapshot.data?.timestamp
-                                  .toDate()
-                                  .hour
-                                  .toString()) ??
-                              "",
-                              style: const TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF101213),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                        ),),
-                          Text(":",
-                          style: const TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF101213),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                        ),),
-                          Text((snapshot.data?.timestamp
-                                  .toDate()
-                                  .minute
-                                  .toString()) ??
-                              "",
-                              style: const TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF101213),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                        ),)
-                        ]),*/
                             ),
                           ],
                         ),
@@ -282,54 +193,7 @@ Widget _buildUserListItem(
               ),
             ),
           );
-          /* Padding(
-              padding: EdgeInsets.only(top: 8.0),
-              child: Card(
-                  margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      ListTile(
-                        leading: CircleAvatar(
-                          radius: 25.0,
-                          backgroundColor: Colors.blue,
-                        ),
-                        title: Text(data['name'] + " " + data['surname'],
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        subtitle: Row(children: [
-                          Text((snapshot.data?.timestamp
-                                  .toDate()
-                                  .day
-                                  .toString()) ??
-                              ""),
-                          Text('/'),
-                          Text((snapshot.data?.timestamp
-                                  .toDate()
-                                  .month
-                                  .toString()) ??
-                              ""),
-                          Text('/'),
-                          Text((snapshot.data?.timestamp
-                                  .toDate()
-                                  .year
-                                  .toString()) ??
-                              ""),
-                          Text('-'),
-                          Text((snapshot.data?.timestamp
-                                  .toDate()
-                                  .hour
-                                  .toString()) ??
-                              ""),
-                          Text(":"),
-                          Text((snapshot.data?.timestamp
-                                  .toDate()
-                                  .minute
-                                  .toString()) ??
-                              "")
-                        ]),
-                      )
-                    ],
-                  )));*/
+         
         } else {
           return Text('342 not.dart');
         }
