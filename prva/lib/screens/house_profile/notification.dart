@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/houseProfile.dart';
+import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/preference.dart';
+import 'package:prva/services/database.dart';
 import 'package:prva/services/match/match_service.dart';
 import 'package:prva/shared/loading.dart';
 
@@ -16,13 +18,13 @@ class NotificationLayout extends StatefulWidget {
 }
 
 class _NotificationLayoutState extends State<NotificationLayout> {
-  List<String>? idmatches;
+  List<MatchPeople>? idmatches;
   final HouseProfileAdj house;
   _NotificationLayoutState({required this.house});
 
   @override
   Widget build(BuildContext context) {
-    final retrievedMatch = MatchService(uid: house.idHouse).getMatchedProfile;
+    final retrievedMatch = MatchService(uid: house.idHouse).getMatchWithTmp;
 
     retrievedMatch.listen((content) {
       idmatches = content;
@@ -46,18 +48,9 @@ class _NotificationLayoutState extends State<NotificationLayout> {
 }
 
 Widget _buildNotificationList(
-    BuildContext context, HouseProfileAdj house, List<String>? idmatches) {
-  return StreamBuilder<QuerySnapshot>(
-    stream: MatchService().getChats(idmatches),
-    builder: (context, snapshot) {
-      if (snapshot.hasError) {
-        return Text('error');
-      }
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return Loading();
-      }
-      if (snapshot.hasData) {
-        return ListView(
+    BuildContext context, HouseProfileAdj house, List<MatchPeople>? idmatches) {
+      if(idmatches!= null){
+        return ListView.builder(
           padding: EdgeInsets.fromLTRB(
             0,
             8,
@@ -65,23 +58,20 @@ Widget _buildNotificationList(
             44,
           ),
           scrollDirection: Axis.vertical,
-          children: snapshot.data!.docs
-              .map<Widget>((doc) => _buildUserListItem(context, doc, house))
-              .toList(),
-        );
+      itemCount: idmatches.length,
+      itemBuilder: (context, index) {
+        return _buildUserListItem(context, idmatches[index], house);
+      },
+    );
       } else {
         return Center(
           child: Text("Non hai ancora notifiche"),
         );
       }
-    },
-  );
-}
+    }
 
 Widget _buildUserListItem(
-    BuildContext context, DocumentSnapshot document, HouseProfileAdj house) {
-  Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-
+    BuildContext context, MatchPeople idmatch, HouseProfileAdj house) {
   String calculateTimestamp(Timestamp tmp) {
     final difference = Timestamp.now().toDate().difference(tmp.toDate());
     if (difference.inSeconds < 60) {
@@ -98,14 +88,14 @@ Widget _buildUserListItem(
     }
   }
 
-  return StreamBuilder<MatchPeople>(
+  return StreamBuilder<PersonalProfileAdj>(
       stream:
-          MatchService(uid: house.idHouse, otheruid: document.id).getMatches,
+          DatabaseService(idmatch.otheUserID).persProfileDataAdj,
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Loading();
-        }
         if (snapshot.hasData) {
+          final image = snapshot.data?.imageURL1 ?? "";
+          final name=  snapshot.data?.nameA ?? "";
+          final surname=  snapshot.data?.surnameA ?? "";
           return Padding(
             padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 8),
             child: Container(
@@ -139,7 +129,7 @@ Widget _buildUserListItem(
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(0),
                           child: Image.network(
-                            data['imageURL1'],
+                            image,
                             width: 44,
                             height: 44,
                             fit: BoxFit.cover,
@@ -170,9 +160,9 @@ Widget _buildUserListItem(
                                   EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                               child: Text(
                                 'You have matched with ' +
-                                    data['name'] +
+                                    name+
                                     " " +
-                                    data['surname'] +
+                                    surname +
                                     '! Go to the chat to start a conversation! ',
                                 maxLines: 4,
                                 style: const TextStyle(
@@ -187,8 +177,7 @@ Widget _buildUserListItem(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 8, 0, 4),
                               child: Text(
-                                (calculateTimestamp(snapshot.data?.timestamp ??
-                                    Timestamp.now())),
+                                (calculateTimestamp(idmatch.timestamp)),
                                 style: const TextStyle(
                                   fontFamily: 'Plus Jakarta Sans',
                                   color: Color(0xFF101213),

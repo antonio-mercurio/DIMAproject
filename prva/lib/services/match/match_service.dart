@@ -126,6 +126,25 @@ class MatchService extends ChangeNotifier {
         .map(_matchFromSnapshot);
   }
 
+
+
+   List<MatchPeople> _matchWithTmpFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map<MatchPeople>((doc) {
+      return MatchPeople(
+          userID : "", otheUserID: doc.reference.id, timestamp: doc.get('timestamp'));
+    }).toList();
+  }
+
+  Stream<List<MatchPeople>> get getMatchWithTmp {
+    return _firebaseFirestore
+        .collection('match')
+        .doc(uid)
+        .collection('matched_profiles')
+        .orderBy('timestamp', descending: true)
+        .snapshots()
+        .map((_matchWithTmpFromSnapshot));
+  }
+
   List<PreferenceForMatch> _preferenceFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map<PreferenceForMatch>((doc) {
       return PreferenceForMatch(
