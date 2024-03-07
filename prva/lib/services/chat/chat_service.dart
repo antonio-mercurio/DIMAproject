@@ -35,16 +35,28 @@ class ChatService extends ChangeNotifier {
     //String chatRoomID = ids.join("_");
     //add new message to database
     await _firebaseFirestore
-        .collection('chat_rooms')
+        .collection('match')
         .doc(senderID)
-        .collection('myChats')
+        .collection('matched_profiles')
+        .doc(receiverID)
+        .update({'startedChat': true});
+    await _firebaseFirestore
+        .collection('match')
+        .doc(receiverID)
+        .collection('matched_profiles')
+        .doc(senderID)
+        .update({'startedChat': true});
+    await _firebaseFirestore
+        .collection('match')
+        .doc(senderID)
+        .collection('matched_profiles')
         .doc(receiverID)
         .collection('messages')
         .add(newMessage.toMap());
     await _firebaseFirestore
-        .collection('chat_rooms')
+        .collection('match')
         .doc(receiverID)
-        .collection('myChats')
+        .collection('matched_profiles')
         .doc(senderID)
         .collection('messages')
         .add(newMessage.toMap());
@@ -57,9 +69,9 @@ class ChatService extends ChangeNotifier {
     ids.sort();
     //String chatRoomID = ids.join("_");
     return _firebaseFirestore
-        .collection('chat_rooms')
+        .collection('match')
         .doc(userID)
-        .collection('myChats')
+        .collection('matched_profiles')
         .doc(otherUserID)
         .collection('messages')
         .orderBy('timestamp', descending: false)
@@ -68,9 +80,10 @@ class ChatService extends ChangeNotifier {
 
   Stream<List<String>> get getMatchedChats {
     return FirebaseFirestore.instance
-        .collection('chat_rooms')
+        .collection('notificationMatch')
         .doc(uid)
-        .collection('myChats')
+        .collection('matched_profiles')
+        .where('startedChat', isEqualTo: true)
         .snapshots()
         .map((_chatsFromSnap));
   }

@@ -38,8 +38,10 @@ class MatchService extends ChangeNotifier {
     String userID,
     String otherUserID,
   ) async {
-    await MatchService().createNewMatch(userID, otherUserID, Timestamp.now());
-    await MatchService().createNewMatch(otherUserID, userID, Timestamp.now());
+    await MatchService()
+        .createNewMatch(userID, otherUserID, Timestamp.now(), false);
+    await MatchService()
+        .createNewMatch(otherUserID, userID, Timestamp.now(), false);
   }
 
   Future checkMatch(
@@ -126,12 +128,12 @@ class MatchService extends ChangeNotifier {
         .map(_matchFromSnapshot);
   }
 
-
-
-   List<MatchPeople> _matchWithTmpFromSnapshot(QuerySnapshot snapshot) {
+  List<MatchPeople> _matchWithTmpFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map<MatchPeople>((doc) {
       return MatchPeople(
-          userID : "", otheUserID: doc.reference.id, timestamp: doc.get('timestamp'));
+          userID: "",
+          otheUserID: doc.reference.id,
+          timestamp: doc.get('timestamp'));
     }).toList();
   }
 
@@ -162,15 +164,20 @@ class MatchService extends ChangeNotifier {
   }
 
   /* create a new match */
-  Future createNewMatch(
-      String userID, String otherUserID, Timestamp timestamp) async {
+  Future createNewMatch(String userID, String otherUserID, Timestamp timestamp,
+      bool startedChat) async {
     //add new message to match
     await _firebaseFirestore
         .collection('match')
         .doc(userID)
         .collection('matched_profiles')
         .doc(otherUserID)
-        .set({'user1': userID, 'user2': otherUserID, 'timestamp': timestamp});
+        .set({
+      'user1': userID,
+      'user2': otherUserID,
+      'timestamp': timestamp,
+      'startedChat': startedChat
+    });
   }
   /*retrieve chat */
 
