@@ -34,8 +34,8 @@ class MatchService extends ChangeNotifier {
         .map((_getNotificationFromSnapshot));
   }
 
-  Future resetNotification() async{
-  await _firebaseFirestore
+  Future resetNotification() async {
+    await _firebaseFirestore
         .collection('match')
         .doc(uid)
         .collection('matched_profiles')
@@ -47,10 +47,10 @@ class MatchService extends ChangeNotifier {
     String userID,
     String otherUserID,
   ) async {
-    await MatchService()
-        .createNewMatch(userID, otherUserID, Timestamp.now(), false, 0, "", Timestamp.now());
-    await MatchService()
-        .createNewMatch(otherUserID, userID, Timestamp.now(), false, 0, "", Timestamp.now());
+    await MatchService().createNewMatch(
+        userID, otherUserID, Timestamp.now(), false, 0, "", Timestamp.now());
+    await MatchService().createNewMatch(
+        otherUserID, userID, Timestamp.now(), false, 0, "", Timestamp.now());
   }
 
   Future checkMatch(
@@ -173,8 +173,14 @@ class MatchService extends ChangeNotifier {
   }
 
   /* create a new match */
-  Future createNewMatch(String userID, String otherUserID, Timestamp timestamp,
-      bool startedChat, int unreadMsg, String lastMsg, Timestamp timeLastMsg) async {
+  Future createNewMatch(
+      String userID,
+      String otherUserID,
+      Timestamp timestamp,
+      bool startedChat,
+      int unreadMsg,
+      String lastMsg,
+      Timestamp timeLastMsg) async {
     //add new message to match
     await _firebaseFirestore
         .collection('match')
