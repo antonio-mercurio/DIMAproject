@@ -192,7 +192,18 @@ class MatchService extends ChangeNotifier {
         .collection('match')
         .doc(uid)
         .collection('matched_profiles')
-        .orderBy('timestamp')
+        .where('startedChat', isEqualTo: false)
+        .orderBy('timestamp', descending: true)
+        .snapshots()
+        .map((_profileMatchedFromSnapshot));
+  }
+
+  Stream<List<String>> get getStartedChats {
+    return FirebaseFirestore.instance
+        .collection('match')
+        .doc(uid)
+        .collection('matched_profiles')
+        .where('startedChat', isEqualTo: true)
         .snapshots()
         .map((_profileMatchedFromSnapshot));
   }

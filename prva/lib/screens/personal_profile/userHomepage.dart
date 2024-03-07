@@ -18,7 +18,6 @@ import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/services/match/match_service.dart';
 import 'package:prva/screens/personal_profile/show_details_personal_profile.dart';
-import 'package:prva/shared/loading.dart';
 
 class UserHomepage extends StatefulWidget {
   const UserHomepage({super.key});
@@ -99,6 +98,18 @@ class _UserHomepageState extends State<UserHomepage> {
                 badgeContent: Text(myNotifies?.toString() ?? ""),
                 position: badges.BadgePosition.topEnd(top: 10, end: 10),
                 badgeStyle: badges.BadgeStyle(padding: EdgeInsets.all(4)),
+                onTap: () async {
+                  await MatchService(uid: user.uid).createNotification(0);
+                  if (mounted) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            NotificationPersonLayout(profile: user.uid),
+                      ),
+                    );
+                  }
+                },
                 child: IconButton(
                   icon: Icon(Icons.notifications),
                   color: Colors.white,
@@ -215,84 +226,396 @@ class ChatLayout extends StatefulWidget {
 
 class _ChatLayoutState extends State<ChatLayout> {
   List<String>? matches;
-
+  List<String>? chats;
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Utente>(context);
-    final retrievedChat = ChatService().getMatchedChats;
+    //restituisce quelli con chat non iniziate
+    final retrievedMatch = MatchService(uid: user.uid).getMatchedProfile;
 
-    retrievedChat.listen((content) {
+    retrievedMatch.listen((content) {
       matches = content;
       if (mounted) {
         setState(() {});
       }
     });
-    print(matches);
-    matches?.add('pkQNhr3TZJMX6ELTfE60l1iPpEg2');
-    print(matches);
-    return _buildUserList(user, matches);
+    //restituisce quelli con chat iniziate
+    final retrievedStartedChats = ChatService(user.uid).getStartedChats;
+    retrievedStartedChats.listen((content) {
+      chats = content;
+      if (mounted) {
+        setState(() {});
+      }
+    });
+    print(chats.toString());
+    return Column(
+        children: [_buildUserList(user, matches), _buildChatList(user, chats)]);
+  }
+}
+
+Widget _buildChatList(Utente user, List<String>? chats) {
+  if (chats != null) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+            child: Text(
+              'Chats',
+              style: TextStyle(
+                fontFamily: 'Plus Jakarta Sans',
+                color: Color(0xFF57636C),
+                fontSize: 14,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 44),
+            child: ListView.builder(
+              padding: EdgeInsets.zero,
+              primary: false,
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              itemCount: chats.length,
+              itemBuilder: (context, index) {
+                return _buildChatListItem(context, chats[index], user);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  } else {
+    return Center(
+      child: Text("xs"),
+    );
   }
 }
 
 Widget _buildUserList(Utente user, List<String>? matches) {
-  //print('223 homepage');
-  //print(matches);
-  return StreamBuilder<QuerySnapshot>(
-    stream: MatchService().getChatsPers(matches),
-    builder: (context, snapshot) {
-      if (snapshot.hasError) {
-        return Text('error');
-      }
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        // return Loading();
-      }
-
-      if (snapshot.hasData) {
-        return ListView(
-          children: snapshot.data!.docs
-              .map<Widget>((doc) => _buildUserListItem(context, doc, user))
-              .toList(),
-        );
-      } else {
-        return Center(
-          child: Text("Non hai ancora match"),
-        );
-      }
-    },
-  );
+  if (matches != null) {
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(24, 10, 0, 0),
+            child: Text(
+              'Match',
+              style: TextStyle(
+                fontFamily: 'Plus Jakarta Sans',
+                color: Color(0xFF57636C),
+                fontSize: 14,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            height: 170,
+            decoration: BoxDecoration(
+              color: Color(0xFFF1F4F8),
+            ),
+            child: ListView.builder(
+                padding: EdgeInsets.zero,
+                primary: false,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: matches.length,
+                itemBuilder: (context, index) {
+                  return _buildUserListItem(context, matches[index], user);
+                }),
+          ),
+        ],
+      ),
+    );
+  } else {
+    return Center(
+      child: Text("Non hai ancora match"),
+    );
+  }
 }
 
-Widget _buildUserListItem(
-    BuildContext context, DocumentSnapshot document, Utente user) {
-  Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-  return Padding(
-      padding: EdgeInsets.only(top: 8.0),
-      child: Card(
-          margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                leading: CircleAvatar(
-                  radius: 25.0,
-                  backgroundColor: Colors.blue,
+Widget _buildChatListItem(BuildContext context, String idChat, Utente user) {
+  return StreamBuilder<HouseProfileAdj>(
+      stream: DatabaseServiceHouseProfile(idChat).getMyHouseAdj,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final image = snapshot.data?.imageURL1 ?? "";
+          final type = snapshot.data?.type ?? "";
+          final city = snapshot.data?.city ?? "";
+          return InkWell(
+              splashColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChatPage(
+                      senderUserID: user.uid,
+                      receiverUserEmail: type + " " + city,
+                      receiverUserID: snapshot.data?.owner ?? "",
+                    ),
+                  ),
+                );
+              },
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 8),
+                child: Container(
+                  width: double.infinity,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 4,
+                        color: Color(0x32000000),
+                        offset: Offset(0, 2),
+                      )
+                    ],
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(26),
+                          child: image != ""
+                              ? Image.network(
+                                  image,
+                                  width: 36,
+                                  height: 36,
+                                  fit: BoxFit.cover,
+                                )
+                              : Image.asset(
+                                  'assets/userPhoto.jpg',
+                                  width: 36,
+                                  height: 36,
+                                  fit: BoxFit.cover,
+                                ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  type + " " + city,
+                                  style: TextStyle(
+                                    fontFamily: 'Plus Jakarta Sans',
+                                    color: Color(0xFF14181B),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 4, 0, 0),
+                                      child: Text(
+                                        'chat iniziata',
+                                        style: TextStyle(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          color: Color(0xFF57636C),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                title: Text(data['type'] + " " + data['city'],
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                subtitle: Text('open to start a chat!'),
+              ));
+        } else {
+          return Center(
+            child: Text('no chat'),
+          );
+        }
+      });
+}
+
+Widget _buildUserListItem(BuildContext context, String idMatch, Utente user) {
+  return StreamBuilder<HouseProfileAdj>(
+      stream: DatabaseServiceHouseProfile(idMatch).getMyHouseAdj,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final image = snapshot.data?.imageURL1 ?? "";
+          final type = snapshot.data?.type ?? "";
+          final city = snapshot.data?.city ?? "";
+
+          return Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(16, 12, 12, 12),
+            child: Container(
+              width: 140,
+              height: 150,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 4,
+                    color: Color(0x34090F13),
+                    offset: Offset(0, 2),
+                  )
+                ],
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => ChatPage(
                         senderUserID: user.uid,
-                        receiverUserEmail: data['type'] + " " + data['city'],
-                        receiverUserID: document.reference.id,
+                        receiverUserEmail: type + " " + city,
+                        receiverUserID: snapshot.data?.owner ?? "",
                       ),
                     ),
                   );
                 },
-              )
-            ],
-          )));
+                child: Padding(
+                  padding: EdgeInsets.all(12),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ClipRRect(
+                        child: image != ""
+                            ? Image.network(
+                                image,
+                                width: 60,
+                                height: 20,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.asset(
+                                'assets/userPhoto.jpg',
+                                width: 80,
+                                height: 80,
+                                fit: BoxFit.cover,
+                              ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                        child: Text(
+                          city,
+                          style: TextStyle(
+                            fontFamily: 'Plus Jakarta Sans',
+                            color: Color(0xFF14181B),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                        child: Text(
+                          type,
+                          style: TextStyle(
+                            fontFamily: 'Plus Jakarta Sans',
+                            color: Color(0xFF14181B),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        } else {
+          return Center(
+            child: Text('no new matches'),
+          );
+        }
+      });
 }
+
+/*
+class ChatLayout extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final user = Provider.of<Utente>(context);
+    return _buildUserList(user);
+  }
+
+  Widget _buildUserList(Utente user) {
+    List<String>? matches;
+
+    final retrievedMatch = MatchService(uid: user.uid).getMatchedProfile;
+
+    retrievedMatch.listen((content) {
+      matches = content;
+    });
+
+    return StreamBuilder<QuerySnapshot>(
+      stream: MatchService().getChatsPers(matches),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text('error');
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Loading();
+        }
+
+        if (snapshot.hasData) {
+          return ListView(
+            children: snapshot.data!.docs
+                .map<Widget>((doc) => _buildUserListItem(context, doc, user))
+                .toList(),
+          );
+        } else {
+          return Center(
+            child: Text("Non hai ancora match"),
+          );
+        }
+      },
+    );
+  }
+
+  Widget _buildUserListItem(
+      BuildContext context, DocumentSnapshot document, Utente user) {
+    Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+
+    return ListTile(
+      title: Text(data['type'] + " " + data['city']),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ChatPage(
+              senderUserID: user.uid,
+              receiverUserEmail: data['type'] + " " + data['city'],
+              receiverUserID: document.reference.id,
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+*/

@@ -20,7 +20,7 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   final TextEditingController _messageController = TextEditingController();
-  final ChatService _chatService = ChatService();
+  final ChatService _chatService = ChatService(null);
 
   void sendMessage() async {
     if (_messageController.text.isNotEmpty) {

@@ -10,9 +10,9 @@ class ChatService extends ChangeNotifier {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   final CollectionReference houseProfileCollection =
       FirebaseFirestore.instance.collection('houseProfiles');
-  final String uid = 'pkQNhr3TZJMX6ELTfE60l1iPpEg2';
+  final String? uid;
 
-  //ChatService(this.uid);
+  ChatService(this.uid);
   //send message
   Future<void> sendMessage(
       String senderID, String receiverID, String message) async {
@@ -78,9 +78,9 @@ class ChatService extends ChangeNotifier {
         .snapshots();
   }
 
-  Stream<List<String>> get getMatchedChats {
+  Stream<List<String>> get getStartedChats {
     return FirebaseFirestore.instance
-        .collection('notificationMatch')
+        .collection('match')
         .doc(uid)
         .collection('matched_profiles')
         .where('startedChat', isEqualTo: true)

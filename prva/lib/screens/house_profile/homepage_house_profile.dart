@@ -261,8 +261,6 @@ class _ChatLayoutState extends State<ChatLayout> {
 }
 
 Widget _buildUserList(HouseProfileAdj house, List<String>? matches) {
-  //print('223 homepage');
-  //print(matches);
   return StreamBuilder<QuerySnapshot>(
     stream: MatchService().getChats(matches),
     builder: (context, snapshot) {
