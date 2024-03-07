@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
+import 'package:prva/models/message.dart';
 import 'package:prva/screens/personal_profile/modifyPersonalProfile.dart';
 import 'package:prva/screens/personal_profile/form_filter_people_adj.dart';
 import 'package:prva/models/filters.dart';
@@ -226,7 +227,7 @@ class ChatLayout extends StatefulWidget {
 
 class _ChatLayoutState extends State<ChatLayout> {
   List<String>? matches;
-  List<String>? chats;
+  List<Chat>? chats;
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Utente>(context);
@@ -253,7 +254,7 @@ class _ChatLayoutState extends State<ChatLayout> {
   }
 }
 
-Widget _buildChatList(Utente user, List<String>? chats) {
+Widget _buildChatList(Utente user, List<Chat>? chats) {
   if (chats != null) {
     return SingleChildScrollView(
       child: Column(
@@ -338,15 +339,88 @@ Widget _buildUserList(Utente user, List<String>? matches) {
   }
 }
 
-Widget _buildChatListItem(BuildContext context, String idChat, Utente user) {
+Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
   return StreamBuilder<HouseProfileAdj>(
-      stream: DatabaseServiceHouseProfile(idChat).getMyHouseAdj,
+      stream: DatabaseServiceHouseProfile(chat.id).getMyHouseAdj,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final image = snapshot.data?.imageURL1 ?? "";
           final type = snapshot.data?.type ?? "";
           final city = snapshot.data?.city ?? "";
-          return InkWell(
+          final idHouse = snapshot.data?.idHouse;
+          return Padding(
+        padding: EdgeInsets.only(top: 8.0),
+        child: Card(
+          margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
+          child: ListTile(
+            onTap:() {
+             MatchService(uid: user.uid, otheruid: idHouse).resetNotification;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChatPage(
+                      senderUserID: user.uid,
+                      receiverUserEmail: type + " " + city,
+                      receiverUserID: snapshot.data?.idHouse ?? "",
+                    ),
+                  ),
+                );
+             
+            },
+              leading: ClipRRect(
+                          borderRadius: BorderRadius.circular(26),
+                          child: image != ""
+                              ? Image.network(
+                                  image,
+                                  width: 36,
+                                  height: 36,
+                                  fit: BoxFit.cover,
+                                )
+                              : Image.asset(
+                                  'assets/userPhoto.jpg',
+                                  width: 36,
+                                  height: 36,
+                                  fit: BoxFit.cover,
+                                ),
+                        ),
+              title:  Text(
+                                  type + " " + city,
+                                  style: TextStyle(
+                                    fontFamily: 'Plus Jakarta Sans',
+                                    color: Color(0xFF14181B),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+              subtitle: Text(
+                                        chat.lastMsg,
+                                        style: TextStyle(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          color: Color(0xFF57636C),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.normal,
+                                        ),),
+            trailing: (chat.unreadMsg==0) ? null
+            : Container(
+              child: Text(chat.unreadMsg.toString(),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Plus Jakarta Sans',
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.w600
+              ),
+              ),
+    height: 16,
+    width: 16,
+    decoration: BoxDecoration(
+      color: Color(0xFF4B39EF),
+      borderRadius: BorderRadius.all(Radius.circular(100)),
+    ),
+  ),
+             ),
+        ));
+          /* InkWell(
               splashColor: Colors.transparent,
               focusColor: Colors.transparent,
               hoverColor: Colors.transparent,
@@ -445,7 +519,7 @@ Widget _buildChatListItem(BuildContext context, String idChat, Utente user) {
                     ),
                   ),
                 ),
-              ));
+              ));*/
         } else {
           return Center(
             child: Text('no chat'),

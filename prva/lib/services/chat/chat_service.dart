@@ -39,13 +39,13 @@ class ChatService extends ChangeNotifier {
         .doc(senderID)
         .collection('matched_profiles')
         .doc(receiverID)
-        .update({'startedChat': true});
+        .update({'startedChat': true, 'lastMsg': message, 'timeLastMsg': timestamp});
     await _firebaseFirestore
         .collection('match')
         .doc(receiverID)
         .collection('matched_profiles')
         .doc(senderID)
-        .update({'startedChat': true});
+        .update({'startedChat': true, 'lastMsg': message, 'timeLastMsg': timestamp, 'unreadMsg':FieldValue.increment(1)});
     await _firebaseFirestore
         .collection('match')
         .doc(senderID)
@@ -78,7 +78,7 @@ class ChatService extends ChangeNotifier {
         .snapshots();
   }
 
-  Stream<List<String>> get getStartedChats {
+  Stream<List<Chat>> get getStartedChats {
     return FirebaseFirestore.instance
         .collection('match')
         .doc(uid)
@@ -88,9 +88,14 @@ class ChatService extends ChangeNotifier {
         .map((_chatsFromSnap));
   }
 
-  List<String> _chatsFromSnap(QuerySnapshot snapshot) {
-    return snapshot.docs.map<String>((doc) {
-      return doc.reference.id;
+  List<Chat> _chatsFromSnap(QuerySnapshot snapshot) {
+    return snapshot.docs.map<Chat>((doc) {
+      return Chat(
+        id: doc.reference.id,
+        lastMsg: doc.get('lastMsg'),
+        timestamp: doc.get('timeLastMsg'),
+        unreadMsg: doc.get('unreadMsg'),
+      );
     }).toList();
   }
 

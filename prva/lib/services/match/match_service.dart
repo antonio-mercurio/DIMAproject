@@ -34,14 +34,23 @@ class MatchService extends ChangeNotifier {
         .map((_getNotificationFromSnapshot));
   }
 
+  Future resetNotification() async{
+  await _firebaseFirestore
+        .collection('match')
+        .doc(uid)
+        .collection('matched_profiles')
+        .doc(otheruid)
+        .update({'unreadMsg': 0});
+  }
+
   Future _putMatch(
     String userID,
     String otherUserID,
   ) async {
     await MatchService()
-        .createNewMatch(userID, otherUserID, Timestamp.now(), false);
+        .createNewMatch(userID, otherUserID, Timestamp.now(), false, 0, "", Timestamp.now());
     await MatchService()
-        .createNewMatch(otherUserID, userID, Timestamp.now(), false);
+        .createNewMatch(otherUserID, userID, Timestamp.now(), false, 0, "", Timestamp.now());
   }
 
   Future checkMatch(
@@ -165,7 +174,7 @@ class MatchService extends ChangeNotifier {
 
   /* create a new match */
   Future createNewMatch(String userID, String otherUserID, Timestamp timestamp,
-      bool startedChat) async {
+      bool startedChat, int unreadMsg, String lastMsg, Timestamp timeLastMsg) async {
     //add new message to match
     await _firebaseFirestore
         .collection('match')
@@ -176,7 +185,10 @@ class MatchService extends ChangeNotifier {
       'user1': userID,
       'user2': otherUserID,
       'timestamp': timestamp,
-      'startedChat': startedChat
+      'startedChat': startedChat,
+      'unreadMsg': unreadMsg,
+      'lastMsg': lastMsg,
+      'timeLastMsg': timeLastMsg,
     });
   }
   /*retrieve chat */
