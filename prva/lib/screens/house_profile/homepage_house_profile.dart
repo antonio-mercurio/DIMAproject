@@ -269,9 +269,6 @@ Widget _buildUserList(HouseProfileAdj house, List<String>? matches) {
       if (snapshot.hasError) {
         return Text('error');
       }
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return Loading();
-      }
 
       if (snapshot.hasData) {
         return ListView(
