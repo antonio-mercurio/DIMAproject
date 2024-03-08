@@ -347,12 +347,154 @@ Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
           final image = snapshot.data?.imageURL1 ?? "";
           final type = snapshot.data?.type ?? "";
           final city = snapshot.data?.city ?? "";
-          final idHouse = snapshot.data?.idHouse;
-          return Padding(
-              padding: EdgeInsets.only(top: 8.0),
-              child: Card(
-                margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
-                child: ListTile(
+          final idHouse = snapshot.data?.idHouse ?? "";
+          return InkWell(
+              splashColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () async {
+                    await MatchService(uid: user.uid, otheruid: idHouse)
+                        .resetNotification();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChatPage(
+                      senderUserID: user.uid,
+                      receiverUserEmail: type + " " + city,
+                      receiverUserID: idHouse,
+                    ),
+                  ),
+                );
+              },
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 8),
+                child: Container(
+                  width: double.infinity,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 4,
+                        color: Color(0x32000000),
+                        offset: Offset(0, 2),
+                      )
+                    ],
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(26),
+                    child: image != ""
+                        ? Image.network(
+                            image,
+                            width: 36,
+                            height: 36,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.asset(
+                            'assets/userPhoto.jpg',
+                            width: 36,
+                            height: 36,
+                            fit: BoxFit.cover,
+                          ),
+                  ),
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text(
+                        type + " " + city,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          letterSpacing: 0.2,
+                          wordSpacing: 1.5,
+                          fontFamily: 'Plus Jakarta Sans',
+                          color: Color(0xFF14181B),
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                      child: Text(
+                        chat.lastMsg,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'Plus Jakarta Sans',
+                      color: Color(0xFF14181B),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    Text(
+                      chat.timestamp.toDate().hour.toString()
+                      + ":" 
+                      + chat.timestamp.toDate().minute.toString()
+                      + " " 
+                      + chat.timestamp.toDate().day.toString()
+                      + "/"
+                      +chat.timestamp.toDate().month.toString()
+                      + "/"
+                      +chat.timestamp.toDate().year.toString(),
+                      style: const TextStyle(
+                        fontSize: 11,
+                        letterSpacing: -0.2,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Plus Jakarta Sans',
+                      color: Color(0xFF14181B),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                   (chat.unreadMsg == 0) 
+                   ? Text('') 
+                   : Container(
+                      width: 18,
+                      height: 18,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF4B39EF),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: Text(
+                          chat.unreadMsg.toString(),
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+                
+            ])),),),);
+                /* ListTile(
                   onTap: () async {
                     await MatchService(uid: user.uid, otheruid: idHouse)
                         .resetNotification();
@@ -423,7 +565,7 @@ Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
                         ),
                 ),
               ));
-          /* InkWell(
+          InkWell(
               splashColor: Colors.transparent,
               focusColor: Colors.transparent,
               hoverColor: Colors.transparent,
