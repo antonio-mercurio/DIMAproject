@@ -84,6 +84,7 @@ class ChatService extends ChangeNotifier {
         .doc(uid)
         .collection('matched_profiles')
         .where('startedChat', isEqualTo: true)
+        .orderBy('timestamp', descending: true)
         .snapshots()
         .map((_chatsFromSnap));
   }
@@ -97,18 +98,5 @@ class ChatService extends ChangeNotifier {
         unreadMsg: doc.get('unreadMsg'),
       );
     }).toList();
-  }
-
-  //used in userHomepage
-  Stream<QuerySnapshot<Object?>>? getMyChats(List<String>? startedChatsHouses) {
-    Query query = houseProfileCollection;
-
-    if (startedChatsHouses != null) {
-      if (startedChatsHouses.isNotEmpty) {
-        query = query.where(FieldPath.documentId, whereIn: startedChatsHouses);
-        return query.snapshots();
-      }
-    }
-    return null;
   }
 }

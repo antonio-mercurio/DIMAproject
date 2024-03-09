@@ -494,177 +494,7 @@ Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
               ),
                 
             ])),),),);
-                /* ListTile(
-                  onTap: () async {
-                    await MatchService(uid: user.uid, otheruid: idHouse)
-                        .resetNotification();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChatPage(
-                          senderUserID: user.uid,
-                          receiverUserEmail: type + " " + city,
-                          receiverUserID: snapshot.data?.idHouse ?? "",
-                        ),
-                      ),
-                    );
-                  },
-                  leading: ClipRRect(
-                    borderRadius: BorderRadius.circular(26),
-                    child: image != ""
-                        ? Image.network(
-                            image,
-                            width: 36,
-                            height: 36,
-                            fit: BoxFit.cover,
-                          )
-                        : Image.asset(
-                            'assets/userPhoto.jpg',
-                            width: 36,
-                            height: 36,
-                            fit: BoxFit.cover,
-                          ),
-                  ),
-                  title: Text(
-                    type + " " + city,
-                    style: TextStyle(
-                      fontFamily: 'Plus Jakarta Sans',
-                      color: Color(0xFF14181B),
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  subtitle: Text(
-                    chat.lastMsg,
-                    style: TextStyle(
-                      fontFamily: 'Plus Jakarta Sans',
-                      color: Color(0xFF57636C),
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  trailing: (chat.unreadMsg == 0)
-                      ? null
-                      : Container(
-                          child: Text(
-                            chat.unreadMsg.toString(),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontFamily: 'Plus Jakarta Sans',
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          height: 16,
-                          width: 16,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF4B39EF),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(100)),
-                          ),
-                        ),
-                ),
-              ));
-          InkWell(
-              splashColor: Colors.transparent,
-              focusColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ChatPage(
-                      senderUserID: user.uid,
-                      receiverUserEmail: type + " " + city,
-                      receiverUserID: snapshot.data?.owner ?? "",
-                    ),
-                  ),
-                );
-              },
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 8),
-                child: Container(
-                  width: double.infinity,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 4,
-                        color: Color(0x32000000),
-                        offset: Offset(0, 2),
-                      )
-                    ],
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(26),
-                          child: image != ""
-                              ? Image.network(
-                                  image,
-                                  width: 36,
-                                  height: 36,
-                                  fit: BoxFit.cover,
-                                )
-                              : Image.asset(
-                                  'assets/userPhoto.jpg',
-                                  width: 36,
-                                  height: 36,
-                                  fit: BoxFit.cover,
-                                ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  type + " " + city,
-                                  style: TextStyle(
-                                    fontFamily: 'Plus Jakarta Sans',
-                                    color: Color(0xFF14181B),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 4, 0, 0),
-                                      child: Text(
-                                        'chat iniziata',
-                                        style: TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF57636C),
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ));*/
+                
         } else {
           return Center(
             child: Text('no chat'),
@@ -681,6 +511,7 @@ Widget _buildUserListItem(BuildContext context, String idMatch, Utente user) {
           final image = snapshot.data?.imageURL1 ?? "";
           final type = snapshot.data?.type ?? "";
           final city = snapshot.data?.city ?? "";
+          final idHouse = snapshot.data?.idHouse ?? "";
 
           return Padding(
             padding: EdgeInsetsDirectional.fromSTEB(16, 12, 12, 12),
@@ -710,7 +541,7 @@ Widget _buildUserListItem(BuildContext context, String idMatch, Utente user) {
                       builder: (context) => ChatPage(
                         senderUserID: user.uid,
                         receiverUserEmail: type + " " + city,
-                        receiverUserID: snapshot.data?.owner ?? "",
+                        receiverUserID: idHouse,
                       ),
                     ),
                   );
@@ -774,67 +605,3 @@ Widget _buildUserListItem(BuildContext context, String idMatch, Utente user) {
       });
 }
 
-/*
-class ChatLayout extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final user = Provider.of<Utente>(context);
-    return _buildUserList(user);
-  }
-
-  Widget _buildUserList(Utente user) {
-    List<String>? matches;
-
-    final retrievedMatch = MatchService(uid: user.uid).getMatchedProfile;
-
-    retrievedMatch.listen((content) {
-      matches = content;
-    });
-
-    return StreamBuilder<QuerySnapshot>(
-      stream: MatchService().getChatsPers(matches),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Text('error');
-        }
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Loading();
-        }
-
-        if (snapshot.hasData) {
-          return ListView(
-            children: snapshot.data!.docs
-                .map<Widget>((doc) => _buildUserListItem(context, doc, user))
-                .toList(),
-          );
-        } else {
-          return Center(
-            child: Text("Non hai ancora match"),
-          );
-        }
-      },
-    );
-  }
-
-  Widget _buildUserListItem(
-      BuildContext context, DocumentSnapshot document, Utente user) {
-    Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-
-    return ListTile(
-      title: Text(data['type'] + " " + data['city']),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ChatPage(
-              senderUserID: user.uid,
-              receiverUserEmail: data['type'] + " " + data['city'],
-              receiverUserID: document.reference.id,
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
-*/

@@ -2,6 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:prva/models/message.dart';
 import 'package:prva/screens/house_profile/modifyHouseProfile.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:prva/models/houseProfile.dart';
@@ -10,6 +11,7 @@ import 'package:prva/screens/chat/chat.dart';
 import 'package:prva/screens/house_profile/filters_people_adj.dart';
 import 'package:prva/screens/house_profile/all_profile_list.dart';
 import 'package:prva/screens/house_profile/notification.dart';
+import 'package:prva/services/chat/chat_service.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/services/match/match_service.dart';
@@ -244,11 +246,12 @@ class ChatLayout extends StatefulWidget {
 
 class _ChatLayoutState extends State<ChatLayout> {
   List<String>? matches;
-
+  List<Chat>? chats;
   @override
   Widget build(BuildContext context) {
     final house = Provider.of<HouseProfileAdj>(context);
-    final retrievedMatch = MatchService(uid: house.idHouse).getMatchedProfile;
+    //restituisce quelli con chat non iniziate
+    final retrievedMatch = MatchService(uid: house.idHouse ).getMatchedProfile;
 
     retrievedMatch.listen((content) {
       matches = content;
@@ -256,64 +259,367 @@ class _ChatLayoutState extends State<ChatLayout> {
         setState(() {});
       }
     });
-    return _buildUserList(house, matches);
+    //restituisce quelli con chat iniziate
+    final retrievedStartedChats = ChatService(house.idHouse).getStartedChats;
+    retrievedStartedChats.listen((content) {
+      chats = content;
+      if (mounted) {
+        setState(() {});
+      }
+    });
+    //print(chats.toString());
+    return Column(
+        children: [_buildUserList(house, matches), _buildChatList(house, chats)]);
+  }
+}
+
+Widget _buildChatList(HouseProfileAdj house, List<Chat>? chats) {
+  if (chats != null) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+            child: Text(
+              'Chats',
+              style: TextStyle(
+                fontFamily: 'Plus Jakarta Sans',
+                color: Color(0xFF57636C),
+                fontSize: 14,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 44),
+            child: ListView.builder(
+              padding: EdgeInsets.zero,
+              primary: false,
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              itemCount: chats.length,
+              itemBuilder: (context, index) {
+                return _buildChatListItem(context, chats[index], house);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  } else {
+    return Center(
+      child: Text("xs"),
+    );
   }
 }
 
 Widget _buildUserList(HouseProfileAdj house, List<String>? matches) {
-  return StreamBuilder<QuerySnapshot>(
-    stream: MatchService().getChats(matches),
-    builder: (context, snapshot) {
-      if (snapshot.hasError) {
-        return Text('error');
-      }
-
-      if (snapshot.hasData) {
-        return ListView(
-          children: snapshot.data!.docs
-              .map<Widget>((doc) => _buildUserListItem(context, doc, house))
-              .toList(),
-        );
-      } else {
-        return Center(
-          child: Text("Non hai ancora match"),
-        );
-      }
-    },
-  );
+  if (matches != null) {
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(24, 10, 0, 0),
+            child: Text(
+              'Match',
+              style: TextStyle(
+                fontFamily: 'Plus Jakarta Sans',
+                color: Color(0xFF57636C),
+                fontSize: 14,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            height: 170,
+            decoration: BoxDecoration(
+              color: Color(0xFFF1F4F8),
+            ),
+            child: ListView.builder(
+                padding: EdgeInsets.zero,
+                primary: false,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: matches.length,
+                itemBuilder: (context, index) {
+                  return _buildUserListItem(context, matches[index], house);
+                }),
+          ),
+        ],
+      ),
+    );
+  } else {
+    return Center(
+      child: Text("Non hai ancora match"),
+    );
+  }
 }
 
-Widget _buildUserListItem(
-    BuildContext context, DocumentSnapshot document, HouseProfileAdj house) {
-  Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-  return Padding(
-      padding: EdgeInsets.only(top: 8.0),
-      child: Card(
-          margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                leading: CircleAvatar(
-                  radius: 25.0,
-                  backgroundColor: Colors.blue,
+Widget _buildChatListItem(BuildContext context, Chat chat, HouseProfileAdj house) {
+  return StreamBuilder<PersonalProfileAdj>(
+      stream: DatabaseService(chat.id).persProfileDataAdj,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final image = snapshot.data?.imageURL1 ?? "";
+          final name = snapshot.data?.nameA ?? "";
+          final surname = snapshot.data?.surnameA ?? "";
+          final idPerson= snapshot.data?.uidA ?? "";
+          return InkWell(
+              splashColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () async {
+                    await MatchService(uid: house.idHouse, otheruid: idPerson)
+                        .resetNotification();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChatPage(
+                      senderUserID: house.idHouse,
+                      receiverUserEmail: name + " " + surname,
+                      receiverUserID: idPerson,
+                    ),
+                  ),
+                );
+              },
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 8),
+                child: Container(
+                  width: double.infinity,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 4,
+                        color: Color(0x32000000),
+                        offset: Offset(0, 2),
+                      )
+                    ],
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(26),
+                    child: image != ""
+                        ? Image.network(
+                            image,
+                            width: 36,
+                            height: 36,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.asset(
+                            'assets/userPhoto.jpg',
+                            width: 36,
+                            height: 36,
+                            fit: BoxFit.cover,
+                          ),
+                  ),
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text(
+                        name + " " + surname,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          letterSpacing: 0.2,
+                          wordSpacing: 1.5,
+                          fontFamily: 'Plus Jakarta Sans',
+                          color: Color(0xFF14181B),
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                      child: Text(
+                        chat.lastMsg,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'Plus Jakarta Sans',
+                      color: Color(0xFF14181B),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                title: Text(data['name'] + " " + data['surname'],
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                subtitle: Text('open to start a chat!'),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    Text(
+                      chat.timestamp.toDate().hour.toString()
+                      + ":" 
+                      + chat.timestamp.toDate().minute.toString()
+                      + " " 
+                      + chat.timestamp.toDate().day.toString()
+                      + "/"
+                      +chat.timestamp.toDate().month.toString()
+                      + "/"
+                      +chat.timestamp.toDate().year.toString(),
+                      style: const TextStyle(
+                        fontSize: 11,
+                        letterSpacing: -0.2,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Plus Jakarta Sans',
+                      color: Color(0xFF14181B),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                   (chat.unreadMsg == 0) 
+                   ? Text('') 
+                   : Container(
+                      width: 18,
+                      height: 18,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF4B39EF),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: Text(
+                          chat.unreadMsg.toString(),
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+                
+            ])),),),);
+                
+        } else {
+          return Center(
+            child: Text('no chat'),
+          );
+        }
+      });
+}
+
+Widget _buildUserListItem(BuildContext context, String idMatch, HouseProfileAdj house) {
+  return StreamBuilder<PersonalProfileAdj>(
+      stream: DatabaseService(idMatch).persProfileDataAdj,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final image = snapshot.data?.imageURL1 ?? "";
+          final name = snapshot.data?.nameA ?? "";
+          final surname = snapshot.data?.surnameA ?? "";
+          final idPerson = snapshot.data?.uidA ?? "";
+
+          return Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(16, 12, 12, 12),
+            child: Container(
+              width: 140,
+              height: 150,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 4,
+                    color: Color(0x34090F13),
+                    offset: Offset(0, 2),
+                  )
+                ],
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => ChatPage(
                         senderUserID: house.idHouse,
-                        receiverUserEmail: data['name'] + " " + data['surname'],
-                        receiverUserID: document.reference.id,
+                        receiverUserEmail: name + " " + surname,
+                        receiverUserID: idPerson,
                       ),
                     ),
                   );
                 },
-              )
-            ],
-          )));
+                child: Padding(
+                  padding: EdgeInsets.all(12),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ClipRRect(
+                        child: image != ""
+                            ? Image.network(
+                                image,
+                                width: 60,
+                                height: 20,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.asset(
+                                'assets/userPhoto.jpg',
+                                width: 80,
+                                height: 80,
+                                fit: BoxFit.cover,
+                              ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                        child: Text(
+                          name,
+                          style: TextStyle(
+                            fontFamily: 'Plus Jakarta Sans',
+                            color: Color(0xFF14181B),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                        child: Text(
+                          surname,
+                          style: TextStyle(
+                            fontFamily: 'Plus Jakarta Sans',
+                            color: Color(0xFF14181B),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        } else {
+          return Center(
+            child: Text('no new matches'),
+          );
+        }
+      });
 }
