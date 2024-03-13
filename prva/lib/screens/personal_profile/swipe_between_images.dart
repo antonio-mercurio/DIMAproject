@@ -10,8 +10,9 @@ class SwipeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
       Container(
-          width: double.infinity,
-          height: MediaQuery.sizeOf(context).height * 0.70,
+          width: MediaQuery.of(context).size.width<600 
+            ? double.infinity : MediaQuery.sizeOf(context).width * 0.5,
+          height: MediaQuery.sizeOf(context).height * 0.71,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             image: DecorationImage(
@@ -24,14 +25,9 @@ class SwipeWidget extends StatelessWidget {
             height: MediaQuery.sizeOf(context).height * 0.15,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  Color.fromARGB(255, 131, 130, 130),
-                  Color.fromARGB(0, 219, 225, 228),
-                  Colors.black
-                ],
-                stops: [0, 0.5, 1],
-                begin: AlignmentDirectional(0, -1),
-                end: AlignmentDirectional(0, 1),
+                begin: Alignment.center,
+                end: Alignment.bottomCenter,
+                colors: [Colors.transparent, Colors.black],
               ),
             ),
             child: Padding(

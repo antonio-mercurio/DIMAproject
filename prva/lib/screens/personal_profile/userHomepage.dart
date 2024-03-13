@@ -167,9 +167,7 @@ class _SearchLayoutState extends State<SearchLayout> {
               )
             ],
           ),
-          body: AllHousesList(
-            myProfile: personalProfile,
-          ),
+          body: AllHousesList( myProfile: personalProfile,)
         ));
   }
 }

@@ -10,12 +10,12 @@ import 'package:prva/screens/personal_profile/swipe_between_images.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForFilters.dart';
 import 'package:prva/services/match/match_service.dart';
-import 'package:prva/screens/house_profile/show_detailed_profile.dart';
-import 'package:prva/screens/personal_profile/show_details_personal_profile.dart';
+import 'package:prva/shared/empty.dart';
+
 
 class AllHousesList extends StatefulWidget {
   final PersonalProfileAdj myProfile;
-  const AllHousesList({required this.myProfile});
+  const AllHousesList({super.key, required this.myProfile});
 
   @override
   State<AllHousesList> createState() =>
@@ -36,8 +36,6 @@ class _AllHousesListState extends State<AllHousesList> {
     final allHouses = Provider.of<List<HouseProfileAdj>>(context);
     final houses = List.from(allHouses);
 
-    //print('39 allhouses');
-    //print(houses.length.toString());
     try {
       final retrievedFilters =
           DatabaseServiceFilters(myProfile.uidA).getFiltersAdj;
@@ -60,8 +58,6 @@ class _AllHousesListState extends State<AllHousesList> {
       print('exception thrown by already seen houses');
     }
 
-    //print('60 allhouses');
-    //print(houses.length.toString());
     if (alreadySeenHouses != null) {
       houses.removeWhere(
           (element) => alreadySeenHouses!.contains(element.idHouse));
@@ -89,17 +85,9 @@ class _AllHousesListState extends State<AllHousesList> {
         houses.removeWhere((element) => element.type == "Two-room apartment");
       }
     }
-    //print('87 allhouses');
-    //print(houses.length.toString());
+    
     if (houses.isEmpty) {
-      return const Center(
-        child: Text('non ci sono case da visualizzare',
-            style: TextStyle(
-                fontFamily: 'Outfit',
-                color: Colors.black,
-                fontSize: 25,
-                fontWeight: FontWeight.w500)),
-      );
+      return const EmptyProfile();
     } else {
       final myUser = Provider.of<PersonalProfileAdj>(context);
       final retrievedPreferences =
@@ -113,26 +101,32 @@ class _AllHousesListState extends State<AllHousesList> {
         myNotifies = content;
       });
 
-      return Column(children: <Widget>[
+      return 
+      MediaQuery.of(context).size.width<600 ?
+      Column(children: <Widget>[
         SwipeWidget(houseProfile: houses[0]),
+        SizedBox(height: MediaQuery.sizeOf(context).height * 0.012),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            IconButton(
-                icon: Icon(Icons.favorite_outline,
-                    size: MediaQuery.sizeOf(context).height * 0.04),
-                color: Colors.black,
+            ElevatedButton(
+              style: ButtonStyle(
+    shape: MaterialStateProperty.all(const CircleBorder()),
+    padding: MaterialStateProperty.all(EdgeInsets.all(MediaQuery.sizeOf(context).height * 0.024)),
+    backgroundColor: MaterialStateProperty.all(const Color(0xFF4B39EF)), // <-- Button color
+    overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
+      if (states.contains(MaterialState.pressed)) return const Color(0xFFFF5963);
+      return null; // <-- Splash color
+    }),
+  ),
                 onPressed: () async {
                   /* Put like */
                   String hID = houses[0].idHouse;
                   int hNotifies = houses[0].numberNotifies;
                   await MatchService().putPrefence(myUser.uidA, hID, "like");
-                  print('persona mette mi piace');
                   try {
                     final ok = await MatchService().checkMatch(myUser.uidA, hID,
                         preferencesOther, false, hNotifies, myNotifies);
-                    print('persona controlla match');
-                    print(ok.toString());
                     if (ok) {
                       if (mounted) {
                         await showMyDialog(context);
@@ -141,21 +135,35 @@ class _AllHousesListState extends State<AllHousesList> {
                   } catch (e) {
                     //catch code block
                   }
-                }),
+                },
+              child: const Icon(Icons.favorite_rounded)),
             SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
-            IconButton(
-                icon: Icon(Icons.close_outlined,
-                    size: MediaQuery.sizeOf(context).height * 0.04),
-                color: Colors.black,
+             ElevatedButton(
+              style: ButtonStyle(
+    shape: MaterialStateProperty.all(const CircleBorder()),
+    padding: MaterialStateProperty.all(EdgeInsets.all(MediaQuery.sizeOf(context).height * 0.024)),
+    backgroundColor: MaterialStateProperty.all(const Color(0xFF4B39EF)), // <-- Button color
+    overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
+      if (states.contains(MaterialState.pressed)) return const Color(0xFFFF5963);
+      return null; // <-- Splash color
+    }),
+  ),
                 onPressed: () async {
                   await MatchService()
                       .putPrefence(myUser.uidA, houses[0].idHouse, "dislike");
-                }),
-            SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
-            IconButton(
-                icon: Icon(Icons.info,
-                    size: MediaQuery.sizeOf(context).height * 0.04),
-                color: Colors.black,
+                },
+              child: const Icon(Icons.close_rounded)),
+             SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
+              ElevatedButton(
+            style: ButtonStyle(
+            shape: MaterialStateProperty.all(const CircleBorder()),
+            padding: MaterialStateProperty.all(EdgeInsets.all(MediaQuery.sizeOf(context).height * 0.024)),
+            backgroundColor: MaterialStateProperty.all(const Color(0xFF4B39EF)), // <-- Button color
+    overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
+      if (states.contains(MaterialState.pressed)) return const Color(0xFFFF5963);
+      return null; // <-- Splash color
+    }),
+  ),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -163,10 +171,33 @@ class _AllHousesListState extends State<AllHousesList> {
                         builder: (context) =>
                             ViewProfile(houseProfile: houses[0])),
                   );
-                }),
+                },
+              child: const Icon(Icons.info_rounded))
+              
           ],
         ),
-      ]);
+      ])
+      : 
+      Row(
+      children: <Widget>[
+        Expanded(
+          child: Container(
+            color: Colors.blue,
+            child: Center(
+              child: Text('Column 1', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Container(
+            color: Colors.green,
+            child: Center(
+              child: Text('Column 2', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+        ),
+      ],
+    );
     }
   }
 }
@@ -180,10 +211,10 @@ class ViewProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(backgroundColor: Colors.black),
+        appBar: AppBar(backgroundColor: const Color(0xFF4B39EF)),
         body: Column(mainAxisSize: MainAxisSize.max, children: [
           Expanded(
-              child: SingleChildScrollView(
+            child: SingleChildScrollView(
             child: ShowDetailedHouseProfile(houseProfile: houseProfile),
           ))
         ]));
