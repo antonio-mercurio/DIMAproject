@@ -1,10 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:prva/alphaTestLib/screens/login/login_screen.dart';
-import 'package:prva/services/auth.dart';
-import 'package:prva/shared/loading.dart';
 
 bool showSignIn = true;
 void toggleView() {
@@ -23,6 +20,12 @@ MaterialApp app = MaterialApp(
 );
 
 void main() {
+  late TestWidgetsFlutterBinding binding;
+
+  setUp(() {
+    binding = TestWidgetsFlutterBinding.ensureInitialized();
+  });
+
   // Define a test. The TestWidgets function also provides a WidgetTester
   // to work with. The WidgetTester allows building and interacting
   // with widgets in the test environment.
@@ -53,11 +56,11 @@ void main() {
     expect(createAccountTextFinder, findsOneWidget);
   });
 
-  testWidgets("Login Empty Input", (tester) async {
+  testWidgets("Register Empty Input", (tester) async {
     //build the widget
+    await tester.binding.setSurfaceSize(Size(1024, 768));
 
     await tester.pumpWidget(app);
-
     //find the widget
     final emailFieldFinder = find.byKey(emailField);
     expect(emailFieldFinder, findsOneWidget);
@@ -68,14 +71,18 @@ void main() {
     final signInButtonFinder = find.byKey(signInButton);
     expect(signInButtonFinder, findsOneWidget);
 
-    await tester.tap(signInButtonFinder);
-    await tester.pump();
+    final getStartedButtonFinder = find.byKey(getStartedButton);
+    expect(getStartedButtonFinder, findsOneWidget);
 
-    expect(find.text("Please enter your email"), findsOneWidget);
-    expect(find.text("Please enter your Password"), findsOneWidget);
+    await tester.tap(getStartedButtonFinder);
+    await tester.pump();
+    expect(find.text("Enter an email"), findsOneWidget);
+    expect(find.text("Enter a password 6+ chars long"), findsNWidgets(2));
   });
   testWidgets('Wrong password', (tester) async {
     // Create the widget by telling the tester to build it.
+    await tester.binding.setSurfaceSize(Size(1024, 768));
+
     await tester.pumpWidget(app);
 
     // Create the Finders.
@@ -92,5 +99,51 @@ void main() {
     expect(pwdFieldFinder, findsOneWidget);
     expect(confirmPwdFieldFinder, findsOneWidget);
     expect(createAccountTextFinder, findsOneWidget);
+
+    await tester.enterText(emailFieldFinder, "testmail@mail.it");
+    await tester.enterText(pwdFieldFinder, "password");
+    await tester.enterText(confirmPwdFieldFinder, "wrongPassword");
+    await tester.tap(getStartedButtonFinder);
+
+    await tester.pumpAndSettle(const Duration(milliseconds: 100));
+    expect(
+        find.text(
+          'Passwords don\'t match!',
+        ),
+        findsOneWidget);
+  });
+
+  testWidgets("Correct Registration", (tester) async {
+    await tester.binding.setSurfaceSize(Size(1024, 768));
+
+    await tester.pumpWidget(app);
+
+    // Create the Finders.
+    final emailFieldFinder = find.byKey(emailField);
+    final signInButtonFinder = find.byKey(signInButton);
+    final getStartedButtonFinder = find.byKey(getStartedButton);
+    final pwdFieldFinder = find.byKey(pwdField);
+    final confirmPwdFieldFinder = find.byKey(confirmPwdField);
+    final createAccountTextFinder = find.byKey(createAccountButton);
+
+    expect(emailFieldFinder, findsOneWidget);
+    expect(signInButtonFinder, findsOneWidget);
+    expect(getStartedButtonFinder, findsOneWidget);
+    expect(pwdFieldFinder, findsOneWidget);
+    expect(confirmPwdFieldFinder, findsOneWidget);
+    expect(createAccountTextFinder, findsOneWidget);
+
+    await tester.enterText(emailFieldFinder, "testmail@mail.it");
+    await tester.enterText(pwdFieldFinder, "password");
+    await tester.enterText(confirmPwdFieldFinder, "password");
+    await tester.tap(getStartedButtonFinder);
+
+    await tester.pump();
+    expect(
+        find.text(
+          'Passwords don\'t match!',
+        ),
+        findsNothing);
+    //expect(find.byKey(Key('correctReg')), findsOneWidget);
   });
 }

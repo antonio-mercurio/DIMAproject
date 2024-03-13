@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:prva/services/auth.dart';
 import 'package:prva/shared/loading.dart';
 import 'package:mockito/mockito.dart';
 
 class MockFirebaseAuth extends Mock implements FirebaseAuth {
-  registerWithEmailAndPassword(String email, String password) {}
+  registerWithEmailAndPassword(String email, String password) {
+    return Text(key: Key('correctReg'), "correct");
+  }
 }
 
 class MockAuthResult extends Mock implements User {}

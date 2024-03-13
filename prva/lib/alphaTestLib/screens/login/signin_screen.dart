@@ -344,11 +344,13 @@ class _SigniInPageState extends State<SigniInPage> {
                                             },
                                             style: ElevatedButton.styleFrom(
                                               fixedSize: const Size(230, 52),
-                                              backgroundColor: const Color(0xFF4B39EF),
+                                              backgroundColor:
+                                                  const Color(0xFF4B39EF),
                                               elevation: 3.0,
                                               shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(40),
-                                       ),
+                                                borderRadius:
+                                                    BorderRadius.circular(40),
+                                              ),
                                               side: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1,
