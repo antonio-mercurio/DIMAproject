@@ -52,6 +52,7 @@ dependencies:
   geocoding_resolver: ^0.0.3+2
   badges: ^3.1.2
   http: ^0.13.6
+  coverage: ^1.7.2
 
  
  
