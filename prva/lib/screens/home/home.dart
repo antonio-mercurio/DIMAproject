@@ -19,6 +19,7 @@ class _HomepageState extends State<Homepage> {
     return GestureDetector(
       onTap: () => {},
       child: Scaffold(
+        key: const ValueKey("logout"),
         backgroundColor: Colors.black,
         appBar: AppBar(
           actions: <Widget>[
