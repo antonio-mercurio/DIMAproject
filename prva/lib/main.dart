@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:prva/screens/personal_profile/form_filter_people_adj.dart';
-import 'package:prva/screens/house_profile/form_house_profile_adj.dart';
 import 'package:prva/models/user.dart';
 import 'package:prva/screens/house_profile/show_all_my_house_profile.dart';
 import 'package:prva/screens/wrapper.dart';
@@ -24,6 +23,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final data = MediaQueryData.fromView(View.of(context));
+if(data.size.shortestSide > 600) { // check if its bigger
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+  ]);
+} else { // otherwise will be ..
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+}
     return StreamProvider<Utente?>.value(
       value: AuthService().user,
       initialData: null,
