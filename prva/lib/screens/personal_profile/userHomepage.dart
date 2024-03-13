@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -29,11 +28,10 @@ class UserHomepage extends StatefulWidget {
 
 class _UserHomepageState extends State<UserHomepage> {
   int _selectedIndex = 0;
-  int? myNotifies;
-  static List<Widget> _widgetOptions = <Widget>[
-    SearchLayout(),
+  static final List<Widget> _widgetOptions = <Widget>[
+    const SearchLayout(),
     ProfileLayout(),
-    ChatLayout(),
+    const ChatLayout(),
   ];
   void _onItemTapped(int index) {
     if (mounted) {
@@ -43,28 +41,9 @@ class _UserHomepageState extends State<UserHomepage> {
     }
   }
 
-  void _showFiltersPanel() {
-    showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return Container(
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-            child: FormFilterPeopleAdj(),
-          );
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Utente>(context);
-
-    final retrievedNotifies = MatchService(uid: user.uid).getNotification;
-    retrievedNotifies.listen((content) {
-      myNotifies = content;
-      if (mounted) {
-        setState(() {});
-      }
-    });
 
     return StreamProvider<PersonalProfileAdj>.value(
         value: DatabaseService(user.uid).persProfileDataAdj,
@@ -84,54 +63,10 @@ class _UserHomepageState extends State<UserHomepage> {
             imageURL4: ''),
         child: Scaffold(
           backgroundColor: Colors.white,
-          appBar: AppBar(
-            backgroundColor: Colors.black,
-            title: Text('Personal page'),
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.settings, color: Colors.white),
-                onPressed: () async {
-                  _showFiltersPanel();
-                },
-              ),
-              badges.Badge(
-                showBadge: (myNotifies != null && myNotifies != 0),
-                badgeContent: Text(myNotifies?.toString() ?? ""),
-                position: badges.BadgePosition.topEnd(top: 10, end: 10),
-                badgeStyle: badges.BadgeStyle(padding: EdgeInsets.all(4)),
-                onTap: () async {
-                  await MatchService(uid: user.uid).createNotification(0);
-                  if (mounted) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            NotificationPersonLayout(profile: user.uid),
-                      ),
-                    );
-                  }
-                },
-                child: IconButton(
-                  icon: Icon(Icons.notifications),
-                  color: Colors.white,
-                  onPressed: () async {
-                    await MatchService(uid: user.uid).createNotification(0);
-                    if (mounted) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              NotificationPersonLayout(profile: user.uid),
-                        ),
-                      );
-                    }
-                  },
-                ),
-              )
-            ],
-          ),
           body: _widgetOptions.elementAt(_selectedIndex),
           bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: const Color(0xFF4B39EF),
+            selectedItemColor: Colors.white,
             iconSize: MediaQuery.sizeOf(context).height * 0.03,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
@@ -164,15 +99,74 @@ class SearchLayout extends StatefulWidget {
 class _SearchLayoutState extends State<SearchLayout> {
   FiltersHouseAdj? filtri;
   List<String>? alreadySeenProfiles;
+   int? myNotifies;
 
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Utente>(context);
     final personalProfile = Provider.of<PersonalProfileAdj>(context);
+    final retrievedNotifies = MatchService(uid: user.uid).getNotification;
+    retrievedNotifies.listen((content) {
+      myNotifies = content;
+      if (mounted) {
+        setState(() {});
+      }
+    });
     return StreamProvider<List<HouseProfileAdj>>.value(
         value: DatabaseServiceHouseProfile(user.uid).getAllHousesAdj,
-        initialData: [],
+        initialData: const [],
         child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: const Color(0xFF4B39EF),
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.settings, color: Colors.white),
+                onPressed: () async {
+                   Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            const FormFilterPeopleAdj(),
+                      ),
+                    );
+                },
+              ),
+              badges.Badge(
+                showBadge: (myNotifies != null && myNotifies != 0),
+                badgeContent: Text(myNotifies?.toString() ?? ""),
+                position: badges.BadgePosition.topEnd(top: 10, end: 10),
+                badgeStyle: const badges.BadgeStyle(padding: EdgeInsets.all(4)),
+                onTap: () async {
+                  await MatchService(uid: user.uid).createNotification(0);
+                  if (mounted) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            NotificationPersonLayout(profile: user.uid),
+                      ),
+                    );
+                  }
+                },
+                child: IconButton(
+                  icon: const Icon(Icons.notifications),
+                  color: Colors.white,
+                  onPressed: () async {
+                    await MatchService(uid: user.uid).createNotification(0);
+                    if (mounted) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              NotificationPersonLayout(profile: user.uid),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              )
+            ],
+          ),
           body: AllHousesList(
             myProfile: personalProfile,
           ),
@@ -181,26 +175,33 @@ class _SearchLayoutState extends State<SearchLayout> {
 }
 
 class ProfileLayout extends StatelessWidget {
+  const ProfileLayout({super.key});
+
   @override
   Widget build(BuildContext context) {
     final personalData = Provider.of<PersonalProfileAdj>(context);
 
-    //return ShowPersonalProfile();
+    return Scaffold(
+          appBar: AppBar(
+            backgroundColor: const Color(0xFF4B39EF),),
 
-    return Column(mainAxisSize: MainAxisSize.max, children: [
+            body: Column(mainAxisSize: MainAxisSize.max, children: [
       Expanded(
           child: SingleChildScrollView(
               child: Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          DetailedPersonalProfile(),
-          SizedBox(
+          const DetailedPersonalProfile(),
+          const SizedBox(
             height: 20,
           ),
-          Center(
-            child: ElevatedButton(
-              child: Text('Modifica'),
+          Align(
+                                alignment: const AlignmentDirectional(0, 0),
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 0, 16),
+                                      child:  ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
@@ -210,12 +211,33 @@ class ProfileLayout extends StatelessWidget {
                           )),
                 );
               },
+              style: ElevatedButton.styleFrom(
+                                      fixedSize: const Size(230, 52),
+                                      backgroundColor:const Color(0xFF4B39EF),
+                                       elevation: 3.0,
+                                       shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                       ),
+                                       side: const BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1,
+                                      ),
+                                    ),
+                                    child : const Text('Modify your profile!',
+                                    style: TextStyle(
+                                      fontFamily: 'Plus Jakarta Sans',
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                    ),
+                                    ),
+                                    ),
             ),
           )
         ],
       )))
-    ]);
-  }
+    ])
+  );}
 }
 
 class ChatLayout extends StatefulWidget {
@@ -249,8 +271,12 @@ class _ChatLayoutState extends State<ChatLayout> {
       }
     });
     //print(chats.toString());
-    return Column(
-        children: [_buildUserList(user, matches), _buildChatList(user, chats)]);
+    return Scaffold(
+          appBar: AppBar(
+            backgroundColor: const Color(0xFF4B39EF),),
+
+            body:Column(
+        children: [_buildUserList(user, matches), _buildChatList(user, chats)]));
   }
 }
 

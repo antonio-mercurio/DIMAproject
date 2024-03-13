@@ -58,6 +58,8 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
           checkboxListTileValue5 = initialType4(oldFilters);
 
           return Scaffold(
+            appBar: AppBar(
+            backgroundColor: const Color(0xFF4B39EF),),
             backgroundColor: Colors.white,
             body: SafeArea(
               top: true,
@@ -69,8 +71,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                        padding: const EdgeInsets.all(12),
                         child: Container(
                           width: double.infinity,
                           height: 48,
@@ -83,7 +84,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                             style: TextStyle(
                               fontFamily: 'Plus Jakarta Sans',
                               color: Color(0xFF101213),
-                              fontSize: 36,
+                              fontSize: 32,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -425,7 +426,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Expanded(
+                                         Expanded(
                                           child: Theme(
                                             data: ThemeData(
                                               checkboxTheme:
@@ -447,7 +448,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                                         newValue!);
                                               },
                                               title: Text(
-                                                typeOfAppartament[3],
+                                                typeOfAppartament[0],
                                                 style: const TextStyle(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
@@ -457,7 +458,8 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                                 ),
                                               ),
                                               tileColor: Colors.white,
-                                              activeColor: Colors.white,
+                                              activeColor:
+                                                  const Color(0xFFE0E3E7),
                                               checkColor:
                                                   const Color(0xFF4B39EF),
                                               dense: false,
@@ -467,6 +469,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                             ),
                                           ),
                                         ),
+                                      
                                       ]),
                                   Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -584,8 +587,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                             padding: const EdgeInsetsDirectional
                                                 .fromSTEB(0, 0, 0, 16),
                                             child: Text(
-                                              sliderValue?.round().toString() ??
-                                                  '50',
+                                              sliderValue.round().toString(),
                                               textAlign: TextAlign.center,
                                               style: const TextStyle(
                                                 fontFamily: 'Plus Jakarta Sans',
@@ -600,12 +602,11 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                     ],
                                   ),
                                   Align(
-                                    alignment: const AlignmentDirectional(0, 0),
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0, 0, 0, 16),
-                                      child: ElevatedButton(
+                                alignment: const AlignmentDirectional(0, 0),
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 0, 16),
+                                      child:  ElevatedButton(
                                         onPressed: () async {
                                           if (scaffoldKey.currentState!
                                               .validate()) {
@@ -641,25 +642,26 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                           }
                                         },
                                         style: ElevatedButton.styleFrom(
-                                          fixedSize: const Size(230, 52),
-                                          backgroundColor: Colors.black,
-                                          elevation: 3.0,
-                                          side: const BorderSide(
-                                            color: Colors.transparent,
-                                            width: 1,
-                                          ),
-                                        ),
-                                        child: const Text(
-                                          'Update filters',
-                                          style: TextStyle(
-                                            fontFamily: 'Plus Jakarta Sans',
+                                      fixedSize: const Size(230, 52),
+                                      backgroundColor:const Color(0xFF4B39EF),
+                                       elevation: 3.0,
+                                       shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                       ),
+                                       side: const BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1,
+                                      ),
+                                    ),
+                                    child : const Text('Set your filters!',
+                                    style: TextStyle(
+                                      fontFamily: 'Plus Jakarta Sans',
                                             color: Colors.white,
                                             fontSize: 16,
                                             fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
+                                    ),),
                                     ),
+                                      ),
                                   ),
                                 ],
                               ),
