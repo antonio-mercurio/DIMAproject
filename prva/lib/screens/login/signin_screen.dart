@@ -47,7 +47,7 @@ class _SigniInPageState extends State<SigniInPage> {
         : Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
-                backgroundColor: Colors.black,
+                backgroundColor: const Color(0xFF4B39EF),
                 elevation: 0.0,
                 title: const Text(
                   'Affinder',
@@ -157,7 +157,7 @@ class _SigniInPageState extends State<SigniInPage> {
                                       Padding(
                                         padding: const EdgeInsetsDirectional
                                             .fromSTEB(0, 0, 0, 16),
-                                        child: Container(
+                                        child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
                                               decoration: InputDecoration(
@@ -207,7 +207,7 @@ class _SigniInPageState extends State<SigniInPage> {
                                                 filled: true,
                                                 fillColor: Colors.white,
                                                 contentPadding:
-                                                    EdgeInsets.all(24),
+                                                    const EdgeInsets.all(24),
                                               ),
                                               style: const TextStyle(
                                                 fontFamily: 'Plus Jakarta Sans',
@@ -228,10 +228,10 @@ class _SigniInPageState extends State<SigniInPage> {
                                       Padding(
                                         padding: const EdgeInsetsDirectional
                                             .fromSTEB(0, 0, 0, 16),
-                                        child: Container(
+                                        child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
-                                              autofillHints: [
+                                              autofillHints: const [
                                                 AutofillHints.password
                                               ],
                                               obscureText:
@@ -283,7 +283,7 @@ class _SigniInPageState extends State<SigniInPage> {
                                                 filled: true,
                                                 fillColor: Colors.white,
                                                 contentPadding:
-                                                    EdgeInsets.all(24),
+                                                    const EdgeInsets.all(24),
                                                 suffixIcon: InkWell(
                                                   onTap: () => setState(
                                                     () => _model
@@ -343,9 +343,12 @@ class _SigniInPageState extends State<SigniInPage> {
                                               }
                                             },
                                             style: ElevatedButton.styleFrom(
-                                              fixedSize: Size(230, 52),
-                                              backgroundColor: Colors.black,
+                                              fixedSize: const Size(230, 52),
+                                              backgroundColor: const Color(0xFF4B39EF),
                                               elevation: 3.0,
+                                              shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                       ),
                                               side: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1,

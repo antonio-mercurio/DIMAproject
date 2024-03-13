@@ -17,7 +17,7 @@ class ModelRegister {
 
 class LoginPage extends StatefulWidget {
   final Function toggleView;
-  LoginPage({required this.toggleView});
+  const LoginPage({super.key, required this.toggleView});
  
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
         : Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
-                backgroundColor: Colors.black,
+                backgroundColor: const Color(0xFF4B39EF),
                 elevation: 0.0,
                 title: const Text('Affinder',
                  textAlign: TextAlign.start,
@@ -162,7 +162,7 @@ class _LoginPageState extends State<LoginPage> {
                               Padding(
                                 padding:
                                     const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
-                                child: Container(
+                                child: SizedBox(
                                   width: double.infinity,
                                   child: TextFormField(
                                     decoration: InputDecoration(
@@ -203,7 +203,7 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                       filled: true,
                                       fillColor: Colors.white,
-                                      contentPadding: EdgeInsets.all(24),
+                                      contentPadding: const EdgeInsets.all(24),
                                     ),
                                     style: const TextStyle(
                                           fontFamily: 'Plus Jakarta Sans',
@@ -223,10 +223,10 @@ class _LoginPageState extends State<LoginPage> {
                               Padding(
                                 padding:
                                     const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
-                                child: Container(
+                                child: SizedBox(
                                   width: double.infinity,
                                   child: TextFormField(
-                                    autofillHints: [AutofillHints.password],
+                                    autofillHints: const [AutofillHints.password],
                                     obscureText: !_model.passwordVisibility,
                                     decoration: InputDecoration(
                                       labelText: 'Password',
@@ -278,7 +278,7 @@ class _LoginPageState extends State<LoginPage> {
                                           _model.passwordVisibility
                                               ? Icons.visibility_outlined
                                               : Icons.visibility_off_outlined,
-                                          color: Color(0xFF57636C),
+                                          color: const Color(0xFF57636C),
                                           size: 24,
                                         ),
                                       ),
@@ -301,11 +301,11 @@ class _LoginPageState extends State<LoginPage> {
                               Padding(
                                 padding:
                                     const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
-                                child: Container(
+                                child: SizedBox(
                                   width: double.infinity,
                                   child: TextFormField(
                                     autofocus: true,
-                                    autofillHints: [AutofillHints.password],
+                                    autofillHints: const [AutofillHints.password],
                                     obscureText:
                                         !_model.confirmPasswordVisibility,
                                     decoration: InputDecoration(
@@ -346,7 +346,7 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                       filled: true,
                                       fillColor: Colors.white,
-                                      contentPadding: EdgeInsets.all(24),
+                                      contentPadding: const EdgeInsets.all(24),
                                       suffixIcon: InkWell(
                                         onTap: () => setState(
                                           () => _model
@@ -359,7 +359,7 @@ class _LoginPageState extends State<LoginPage> {
                                           _model.confirmPasswordVisibility
                                               ? Icons.visibility_outlined
                                               : Icons.visibility_off_outlined,
-                                          color: Color(0xFF57636C),
+                                          color: const Color(0xFF57636C),
                                           size: 24,
                                         ),
                                       ),
@@ -384,8 +384,8 @@ class _LoginPageState extends State<LoginPage> {
                                 child: Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
-                                  child:  ElevatedButton(
-                                  onPressed: () async {
+                                      child:  ElevatedButton(
+                                      onPressed: () async {
                                       if (password!= confirmPassword) {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
@@ -411,8 +411,11 @@ class _LoginPageState extends State<LoginPage> {
                         },
                                     style: ElevatedButton.styleFrom(
                                       fixedSize: const Size(230, 52),
-                                      backgroundColor:Colors.black,
+                                      backgroundColor:const Color(0xFF4B39EF),
                                        elevation: 3.0,
+                                       shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                       ),
                                        side: const BorderSide(
                                         color: Colors.transparent,
                                         width: 1,
@@ -426,9 +429,8 @@ class _LoginPageState extends State<LoginPage> {
                                             fontWeight: FontWeight.w500,
                                     ),),
                                     ),
-  
+                                      ),
                                   ),
-                                ),
                                 ]
                               ),
                             
