@@ -10,7 +10,6 @@ import 'package:prva/models/preference.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseFilterPerson.dart';
 import 'package:prva/services/match/match_service.dart';
-import 'package:prva/screens/house_profile/swipe_betweeen_images_profile.dart';
 
 /* Class used by House Profile to show the Search
 of the people */
@@ -100,7 +99,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
 
       return Column(
         children: <Widget>[
-          SwipePersonalWidget(personalProfile: profiles[0]),
+          //SwipePersonalWidget(personalProfile: profiles[0]),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[

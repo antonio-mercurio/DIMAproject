@@ -6,7 +6,7 @@ import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/preference.dart';
 import 'package:prva/screens/house_profile/all_profile_list.dart';
-import 'package:prva/screens/personal_profile/swipe_between_images.dart';
+import 'package:prva/shared/swipe_between_images.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForFilters.dart';
 import 'package:prva/services/match/match_service.dart';
@@ -114,7 +114,7 @@ class _AllHousesListState extends State<AllHousesList> {
       });
 
       return Column(children: <Widget>[
-        SwipeWidget(houseProfile: houses[0]),
+       // SwipeWidget(houseProfile: houses[0]),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[

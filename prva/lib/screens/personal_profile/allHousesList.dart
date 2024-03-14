@@ -6,7 +6,7 @@ import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/preference.dart';
 import 'package:prva/screens/house_profile/all_profile_list.dart';
-import 'package:prva/screens/personal_profile/swipe_between_images.dart';
+import 'package:prva/shared/swipe_between_images.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForFilters.dart';
 import 'package:prva/services/match/match_service.dart';
@@ -103,7 +103,7 @@ class _AllHousesListState extends State<AllHousesList> {
 
       return MediaQuery.of(context).size.width < widthSize
           ? Column(children: <Widget>[
-              SwipeWidget(houseProfile: houses[0]),
+              SwipeWidget(firstName: houses[0].type, image : houses[0].imageURL1, lastName: houses[0].city, price: houses[0].price, ),
               SizedBox(height: MediaQuery.sizeOf(context).height * 0.012),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -199,7 +199,7 @@ class _AllHousesListState extends State<AllHousesList> {
                       width: MediaQuery.sizeOf(context).width * 0.49,
                       height: double.infinity,
                       child: Column(children: <Widget>[
-                        SwipeWidget(houseProfile: houses[0]),
+                       SwipeWidget(firstName: houses[0].type, image : houses[0].imageURL1, lastName: houses[0].city, price: houses[0].price, ),
                         SizedBox(
                             height: MediaQuery.sizeOf(context).height * 0.012),
                         Row(
