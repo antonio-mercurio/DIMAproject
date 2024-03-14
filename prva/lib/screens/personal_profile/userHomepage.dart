@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/message.dart';
 import 'package:prva/screens/personal_profile/modifyPersonalProfile.dart';
@@ -18,6 +17,7 @@ import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/services/match/match_service.dart';
 import 'package:prva/screens/personal_profile/show_details_personal_profile.dart';
+import 'package:prva/shared/constant.dart';
 
 class UserHomepage extends StatefulWidget {
   const UserHomepage({super.key});
@@ -62,12 +62,14 @@ class _UserHomepageState extends State<UserHomepage> {
             imageURL3: '',
             imageURL4: ''),
         child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: backgroundColor,
           body: _widgetOptions.elementAt(_selectedIndex),
           bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: const Color(0xFF4B39EF),
-            selectedItemColor: Colors.white,
-            iconSize: MediaQuery.sizeOf(context).height * 0.03,
+            backgroundColor: mainColor,
+            selectedItemColor: backgroundColor,
+            iconSize: MediaQuery.of(context).size.width<widthSize 
+            ? MediaQuery.sizeOf(context).height * 0.03
+            :  MediaQuery.sizeOf(context).height * 0.032,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.search),
@@ -117,10 +119,10 @@ class _SearchLayoutState extends State<SearchLayout> {
         initialData: const [],
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: const Color(0xFF4B39EF),
+            backgroundColor: mainColor,
             actions: <Widget>[
               IconButton(
-                icon: const Icon(Icons.settings, color: Colors.white),
+                icon: Icon(Icons.settings, color: backgroundColor),
                 onPressed: () async {
                    Navigator.push(
                       context,
@@ -131,7 +133,9 @@ class _SearchLayoutState extends State<SearchLayout> {
                     );
                 },
               ),
-              badges.Badge(
+              Align(
+                child:
+                badges.Badge(
                 showBadge: (myNotifies != null && myNotifies != 0),
                 badgeContent: Text(myNotifies?.toString() ?? ""),
                 position: badges.BadgePosition.topEnd(top: 10, end: 10),
@@ -149,8 +153,11 @@ class _SearchLayoutState extends State<SearchLayout> {
                   }
                 },
                 child: IconButton(
-                  icon: const Icon(Icons.notifications),
-                  color: Colors.white,
+                  icon: Icon(Icons.notifications, 
+                  size: MediaQuery.sizeOf(context).width<widthSize 
+                  ? MediaQuery.sizeOf(context).height * 0.03
+                  :  MediaQuery.sizeOf(context).height * 0.032,),
+                 color: backgroundColor,
                   onPressed: () async {
                     await MatchService(uid: user.uid).createNotification(0);
                     if (mounted) {
@@ -165,7 +172,7 @@ class _SearchLayoutState extends State<SearchLayout> {
                   },
                 ),
               )
-            ],
+          ),],
           ),
           body: AllHousesList( myProfile: personalProfile,)
         ));
@@ -181,7 +188,7 @@ class ProfileLayout extends StatelessWidget {
 
     return Scaffold(
           appBar: AppBar(
-            backgroundColor: const Color(0xFF4B39EF),),
+            backgroundColor: mainColor,),
 
             body: Column(mainAxisSize: MainAxisSize.max, children: [
       Expanded(
@@ -211,7 +218,7 @@ class ProfileLayout extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                                       fixedSize: const Size(230, 52),
-                                      backgroundColor:const Color(0xFF4B39EF),
+                                      backgroundColor:mainColor,
                                        elevation: 3.0,
                                        shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(40),
@@ -221,10 +228,10 @@ class ProfileLayout extends StatelessWidget {
                                         width: 1,
                                       ),
                                     ),
-                                    child : const Text('Modify your profile!',
+                                    child : Text('Modify your profile!',
                                     style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
-                                            color: Colors.white,
+                                            color: backgroundColor,
                                             fontSize: 16,
                                             fontWeight: FontWeight.w500,
                                     ),
@@ -271,7 +278,7 @@ class _ChatLayoutState extends State<ChatLayout> {
     //print(chats.toString());
     return Scaffold(
           appBar: AppBar(
-            backgroundColor: const Color(0xFF4B39EF),),
+            backgroundColor: mainColor,),
 
             body:Column(
         children: [_buildUserList(user, matches), _buildChatList(user, chats)]));
@@ -397,7 +404,7 @@ Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
                   width: double.infinity,
                   height: 80,
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: backgroundColor,
                     boxShadow: [
                       BoxShadow(
                         blurRadius: 4,
@@ -508,7 +515,7 @@ Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
                           chat.unreadMsg.toString(),
                           style: TextStyle(
                             fontSize: 10,
-                            color: Colors.white,
+                            color: backgroundColor,
                           ),
                         ),
                       ),
@@ -543,7 +550,7 @@ Widget _buildUserListItem(BuildContext context, String idMatch, Utente user) {
               width: 140,
               height: 150,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: backgroundColor,
                 boxShadow: [
                   BoxShadow(
                     blurRadius: 4,

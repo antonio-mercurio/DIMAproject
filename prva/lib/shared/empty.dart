@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prva/shared/constant.dart';
 
 
 class EmptyProfile extends StatelessWidget{
@@ -20,7 +21,7 @@ class EmptyProfile extends StatelessWidget{
                         maxWidth: 770,
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: backgroundColor,
                         boxShadow: const [
                           BoxShadow(
                             blurRadius: 3,
@@ -30,7 +31,7 @@ class EmptyProfile extends StatelessWidget{
                         ],
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: const Color(0xFFF1F4F8),
+                          color: backgroundColor,
                         ),
                       ),
                       child: Padding(
@@ -53,7 +54,7 @@ class EmptyProfile extends StatelessWidget{
                                     shape: BoxShape.circle,
                                     border: Border.all(
                                       color:
-                                         const Color(0xFFF1F4F8),
+                                         backgroundColor,
                                       width: 4,
                                     ),
                                   ),
@@ -63,17 +64,17 @@ class EmptyProfile extends StatelessWidget{
                                       width: 140,
                                       height: 140,
                                       decoration: BoxDecoration(
-                                        color: const Color(0xFF4B39EF),
+                                        color: mainColor,
                                         shape: BoxShape.circle,
                                         border: Border.all(
-                                          color: const Color(0xFFF1F4F8),
+                                          color: backgroundColor,
                                           width: 4,
                                         ),
                                       ),
-                                      child: const Icon(
+                                      child: Icon(
                                         Icons.check_rounded,
                                         color:
-                                            Colors.white,
+                                            backgroundColor,
                                         size: 64,
                                       ),
                                     ),

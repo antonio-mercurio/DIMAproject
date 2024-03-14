@@ -10,8 +10,7 @@ class SwipeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
       Container(
-          width: MediaQuery.of(context).size.width<600 
-            ? double.infinity : MediaQuery.sizeOf(context).width * 0.5,
+          width: double.infinity ,
           height: MediaQuery.sizeOf(context).height * 0.71,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),

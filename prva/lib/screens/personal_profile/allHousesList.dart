@@ -10,6 +10,7 @@ import 'package:prva/screens/personal_profile/swipe_between_images.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForFilters.dart';
 import 'package:prva/services/match/match_service.dart';
+import 'package:prva/shared/constant.dart';
 import 'package:prva/shared/empty.dart';
 
 
@@ -102,7 +103,7 @@ class _AllHousesListState extends State<AllHousesList> {
       });
 
       return 
-      MediaQuery.of(context).size.width<600 ?
+      MediaQuery.of(context).size.width<widthSize ?
       Column(children: <Widget>[
         SwipeWidget(houseProfile: houses[0]),
         SizedBox(height: MediaQuery.sizeOf(context).height * 0.012),
@@ -113,9 +114,9 @@ class _AllHousesListState extends State<AllHousesList> {
               style: ButtonStyle(
     shape: MaterialStateProperty.all(const CircleBorder()),
     padding: MaterialStateProperty.all(EdgeInsets.all(MediaQuery.sizeOf(context).height * 0.024)),
-    backgroundColor: MaterialStateProperty.all(const Color(0xFF4B39EF)), // <-- Button color
+    backgroundColor: MaterialStateProperty.all(mainColor), // <-- Button color
     overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
-      if (states.contains(MaterialState.pressed)) return const Color(0xFFFF5963);
+      if (states.contains(MaterialState.pressed)) return errorColor;
       return null; // <-- Splash color
     }),
   ),
@@ -142,10 +143,10 @@ class _AllHousesListState extends State<AllHousesList> {
               style: ButtonStyle(
     shape: MaterialStateProperty.all(const CircleBorder()),
     padding: MaterialStateProperty.all(EdgeInsets.all(MediaQuery.sizeOf(context).height * 0.024)),
-    backgroundColor: MaterialStateProperty.all(const Color(0xFF4B39EF)), // <-- Button color
+    backgroundColor: MaterialStateProperty.all(mainColor), 
     overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
-      if (states.contains(MaterialState.pressed)) return const Color(0xFFFF5963);
-      return null; // <-- Splash color
+      if (states.contains(MaterialState.pressed)) return errorColor;
+      return null; 
     }),
   ),
                 onPressed: () async {
@@ -158,9 +159,9 @@ class _AllHousesListState extends State<AllHousesList> {
             style: ButtonStyle(
             shape: MaterialStateProperty.all(const CircleBorder()),
             padding: MaterialStateProperty.all(EdgeInsets.all(MediaQuery.sizeOf(context).height * 0.024)),
-            backgroundColor: MaterialStateProperty.all(const Color(0xFF4B39EF)), // <-- Button color
+            backgroundColor: MaterialStateProperty.all(mainColor), // <-- Button color
     overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
-      if (states.contains(MaterialState.pressed)) return const Color(0xFFFF5963);
+      if (states.contains(MaterialState.pressed)) return errorColor;
       return null; // <-- Splash color
     }),
   ),
@@ -181,26 +182,82 @@ class _AllHousesListState extends State<AllHousesList> {
       Row(
       children: <Widget>[
         Expanded(
-          child: Container(
-            color: Colors.blue,
-            child: Center(
-              child: Text('Column 1', style: TextStyle(color: Colors.white)),
-            ),
+          child: SizedBox(
+            width: MediaQuery.sizeOf(context).width * 0.49,
+            height: double.infinity,
+            child:  Column(children: <Widget>[
+        SwipeWidget(houseProfile: houses[0]),
+        SizedBox(height: MediaQuery.sizeOf(context).height * 0.012),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ElevatedButton(
+              style: ButtonStyle(
+    shape: MaterialStateProperty.all(const CircleBorder()),
+    padding: MaterialStateProperty.all(EdgeInsets.all(MediaQuery.sizeOf(context).height * 0.024)),
+    backgroundColor: MaterialStateProperty.all(mainColor), // <-- Button color
+    overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
+      if (states.contains(MaterialState.pressed)) return errorColor;
+      return null; // <-- Splash color
+    }),
+  ),
+                onPressed: () async {
+                  /* Put like */
+                  String hID = houses[0].idHouse;
+                  int hNotifies = houses[0].numberNotifies;
+                  await MatchService().putPrefence(myUser.uidA, hID, "like");
+                  try {
+                    final ok = await MatchService().checkMatch(myUser.uidA, hID,
+                        preferencesOther, false, hNotifies, myNotifies);
+                    if (ok) {
+                      if (mounted) {
+                        await showMyDialog(context);
+                      }
+                    }
+                  } catch (e) {
+                    //catch code block
+                  }
+                },
+              child: const Icon(Icons.favorite_rounded)),
+            SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
+             ElevatedButton(
+              style: ButtonStyle(
+    shape: MaterialStateProperty.all(const CircleBorder()),
+    padding: MaterialStateProperty.all(EdgeInsets.all(MediaQuery.sizeOf(context).height * 0.024)),
+    backgroundColor: MaterialStateProperty.all(mainColor), 
+    overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
+      if (states.contains(MaterialState.pressed)) return errorColor;
+      return null; 
+    }),
+  ),
+                onPressed: () async {
+                  await MatchService()
+                      .putPrefence(myUser.uidA, houses[0].idHouse, "dislike");
+                },
+              child: const Icon(Icons.close_rounded)),
+              
+          ],
+        ),
+      ])
           ),
         ),
         Expanded(
-          child: Container(
-            color: Colors.green,
-            child: Center(
-              child: Text('Column 2', style: TextStyle(color: Colors.white)),
-            ),
+          child: SizedBox(
+            width: MediaQuery.sizeOf(context).width * 0.49,
+            height: double.infinity,
+            child: Column(mainAxisSize: MainAxisSize.max, children: [
+          Expanded(
+            child: SingleChildScrollView(
+            child: ShowDetailedHouseProfile(houseProfile: houses[0]),
+          ))
+        ]))
           ),
-        ),
       ],
     );
     }
   }
 }
+
 
 class ViewProfile extends StatelessWidget {
   final HouseProfileAdj houseProfile;
@@ -211,7 +268,7 @@ class ViewProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(backgroundColor: const Color(0xFF4B39EF)),
+        appBar: AppBar(backgroundColor: mainColor),
         body: Column(mainAxisSize: MainAxisSize.max, children: [
           Expanded(
             child: SingleChildScrollView(
@@ -229,7 +286,7 @@ class AllHousesTiles extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.only(top: 8.0),
         child: Card(
-            margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
+            margin: const EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
             child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
               ListTile(
                 leading: CircleAvatar(
