@@ -13,7 +13,6 @@ import 'package:prva/services/match/match_service.dart';
 import 'package:prva/shared/constant.dart';
 import 'package:prva/shared/empty.dart';
 
-
 class AllHousesList extends StatefulWidget {
   final PersonalProfileAdj myProfile;
   const AllHousesList({super.key, required this.myProfile});
@@ -86,7 +85,7 @@ class _AllHousesListState extends State<AllHousesList> {
         houses.removeWhere((element) => element.type == "Two-room apartment");
       }
     }
-    
+
     if (houses.isEmpty) {
       return const EmptyProfile();
     } else {
@@ -102,162 +101,198 @@ class _AllHousesListState extends State<AllHousesList> {
         myNotifies = content;
       });
 
-      return 
-      MediaQuery.of(context).size.width<widthSize ?
-      Column(children: <Widget>[
-        SwipeWidget(houseProfile: houses[0]),
-        SizedBox(height: MediaQuery.sizeOf(context).height * 0.012),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-              style: ButtonStyle(
-    shape: MaterialStateProperty.all(const CircleBorder()),
-    padding: MaterialStateProperty.all(EdgeInsets.all(MediaQuery.sizeOf(context).height * 0.024)),
-    backgroundColor: MaterialStateProperty.all(mainColor), // <-- Button color
-    overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
-      if (states.contains(MaterialState.pressed)) return errorColor;
-      return null; // <-- Splash color
-    }),
-  ),
-                onPressed: () async {
-                  /* Put like */
-                  String hID = houses[0].idHouse;
-                  int hNotifies = houses[0].numberNotifies;
-                  await MatchService().putPrefence(myUser.uidA, hID, "like");
-                  try {
-                    final ok = await MatchService().checkMatch(myUser.uidA, hID,
-                        preferencesOther, false, hNotifies, myNotifies);
-                    if (ok) {
-                      if (mounted) {
-                        await showMyDialog(context);
-                      }
-                    }
-                  } catch (e) {
-                    //catch code block
-                  }
-                },
-              child: const Icon(Icons.favorite_rounded)),
-            SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
-             ElevatedButton(
-              style: ButtonStyle(
-    shape: MaterialStateProperty.all(const CircleBorder()),
-    padding: MaterialStateProperty.all(EdgeInsets.all(MediaQuery.sizeOf(context).height * 0.024)),
-    backgroundColor: MaterialStateProperty.all(mainColor), 
-    overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
-      if (states.contains(MaterialState.pressed)) return errorColor;
-      return null; 
-    }),
-  ),
-                onPressed: () async {
-                  await MatchService()
-                      .putPrefence(myUser.uidA, houses[0].idHouse, "dislike");
-                },
-              child: const Icon(Icons.close_rounded)),
-             SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
-              ElevatedButton(
-            style: ButtonStyle(
-            shape: MaterialStateProperty.all(const CircleBorder()),
-            padding: MaterialStateProperty.all(EdgeInsets.all(MediaQuery.sizeOf(context).height * 0.024)),
-            backgroundColor: MaterialStateProperty.all(mainColor), // <-- Button color
-    overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
-      if (states.contains(MaterialState.pressed)) return errorColor;
-      return null; // <-- Splash color
-    }),
-  ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            ViewProfile(houseProfile: houses[0])),
-                  );
-                },
-              child: const Icon(Icons.info_rounded))
-              
-          ],
-        ),
-      ])
-      : 
-      Row(
-      children: <Widget>[
-        Expanded(
-          child: SizedBox(
-            width: MediaQuery.sizeOf(context).width * 0.49,
-            height: double.infinity,
-            child:  Column(children: <Widget>[
-        SwipeWidget(houseProfile: houses[0]),
-        SizedBox(height: MediaQuery.sizeOf(context).height * 0.012),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-              style: ButtonStyle(
-    shape: MaterialStateProperty.all(const CircleBorder()),
-    padding: MaterialStateProperty.all(EdgeInsets.all(MediaQuery.sizeOf(context).height * 0.024)),
-    backgroundColor: MaterialStateProperty.all(mainColor), // <-- Button color
-    overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
-      if (states.contains(MaterialState.pressed)) return errorColor;
-      return null; // <-- Splash color
-    }),
-  ),
-                onPressed: () async {
-                  /* Put like */
-                  String hID = houses[0].idHouse;
-                  int hNotifies = houses[0].numberNotifies;
-                  await MatchService().putPrefence(myUser.uidA, hID, "like");
-                  try {
-                    final ok = await MatchService().checkMatch(myUser.uidA, hID,
-                        preferencesOther, false, hNotifies, myNotifies);
-                    if (ok) {
-                      if (mounted) {
-                        await showMyDialog(context);
-                      }
-                    }
-                  } catch (e) {
-                    //catch code block
-                  }
-                },
-              child: const Icon(Icons.favorite_rounded)),
-            SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
-             ElevatedButton(
-              style: ButtonStyle(
-    shape: MaterialStateProperty.all(const CircleBorder()),
-    padding: MaterialStateProperty.all(EdgeInsets.all(MediaQuery.sizeOf(context).height * 0.024)),
-    backgroundColor: MaterialStateProperty.all(mainColor), 
-    overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
-      if (states.contains(MaterialState.pressed)) return errorColor;
-      return null; 
-    }),
-  ),
-                onPressed: () async {
-                  await MatchService()
-                      .putPrefence(myUser.uidA, houses[0].idHouse, "dislike");
-                },
-              child: const Icon(Icons.close_rounded)),
-              
-          ],
-        ),
-      ])
-          ),
-        ),
-        Expanded(
-          child: SizedBox(
-            width: MediaQuery.sizeOf(context).width * 0.49,
-            height: double.infinity,
-            child: Column(mainAxisSize: MainAxisSize.max, children: [
-          Expanded(
-            child: SingleChildScrollView(
-            child: ShowDetailedHouseProfile(houseProfile: houses[0]),
-          ))
-        ]))
-          ),
-      ],
-    );
+      return MediaQuery.of(context).size.width < widthSize
+          ? Column(children: <Widget>[
+              SwipeWidget(houseProfile: houses[0]),
+              SizedBox(height: MediaQuery.sizeOf(context).height * 0.012),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  ElevatedButton(
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(const CircleBorder()),
+                        padding: MaterialStateProperty.all(EdgeInsets.all(
+                            MediaQuery.sizeOf(context).height * 0.02)),
+                        backgroundColor: MaterialStateProperty.all(
+                            mainColor), // <-- Button color
+                        overlayColor:
+                            MaterialStateProperty.resolveWith<Color?>((states) {
+                          if (states.contains(MaterialState.pressed))
+                            return errorColor;
+                          return null; // <-- Splash color
+                        }),
+                      ),
+                      onPressed: () async {
+                        /* Put like */
+                        String hID = houses[0].idHouse;
+                        int hNotifies = houses[0].numberNotifies;
+                        await MatchService()
+                            .putPrefence(myUser.uidA, hID, "like");
+                        try {
+                          final ok = await MatchService().checkMatch(
+                              myUser.uidA,
+                              hID,
+                              preferencesOther,
+                              false,
+                              hNotifies,
+                              myNotifies);
+                          if (ok) {
+                            if (mounted) {
+                              await showMyDialog(context);
+                            }
+                          }
+                        } catch (e) {
+                          //catch code block
+                        }
+                      },
+                      child: const Icon(Icons.favorite_rounded)),
+                  SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
+                  ElevatedButton(
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(const CircleBorder()),
+                        padding: MaterialStateProperty.all(EdgeInsets.all(
+                            MediaQuery.sizeOf(context).height * 0.02)),
+                        backgroundColor: MaterialStateProperty.all(mainColor),
+                        overlayColor:
+                            MaterialStateProperty.resolveWith<Color?>((states) {
+                          if (states.contains(MaterialState.pressed))
+                            return errorColor;
+                          return null;
+                        }),
+                      ),
+                      onPressed: () async {
+                        await MatchService().putPrefence(
+                            myUser.uidA, houses[0].idHouse, "dislike");
+                      },
+                      child: const Icon(Icons.close_rounded)),
+                  SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
+                  ElevatedButton(
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(const CircleBorder()),
+                        padding: MaterialStateProperty.all(EdgeInsets.all(
+                            MediaQuery.sizeOf(context).height * 0.02)),
+                        backgroundColor: MaterialStateProperty.all(
+                            mainColor), // <-- Button color
+                        overlayColor:
+                            MaterialStateProperty.resolveWith<Color?>((states) {
+                          if (states.contains(MaterialState.pressed))
+                            return errorColor;
+                          return null; // <-- Splash color
+                        }),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ViewProfile(houseProfile: houses[0])),
+                        );
+                      },
+                      child: const Icon(Icons.info_rounded))
+                ],
+              ),
+            ])
+          : Row(
+              children: <Widget>[
+                Expanded(
+                  child: SizedBox(
+                      width: MediaQuery.sizeOf(context).width * 0.49,
+                      height: double.infinity,
+                      child: Column(children: <Widget>[
+                        SwipeWidget(houseProfile: houses[0]),
+                        SizedBox(
+                            height: MediaQuery.sizeOf(context).height * 0.012),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            ElevatedButton(
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all(
+                                      const CircleBorder()),
+                                  padding: MaterialStateProperty.all(
+                                      EdgeInsets.all(
+                                          MediaQuery.sizeOf(context).height *
+                                              0.02)),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      mainColor), // <-- Button color
+                                  overlayColor:
+                                      MaterialStateProperty.resolveWith<Color?>(
+                                          (states) {
+                                    if (states.contains(MaterialState.pressed))
+                                      return errorColor;
+                                    return null; // <-- Splash color
+                                  }),
+                                ),
+                                onPressed: () async {
+                                  /* Put like */
+                                  String hID = houses[0].idHouse;
+                                  int hNotifies = houses[0].numberNotifies;
+                                  await MatchService()
+                                      .putPrefence(myUser.uidA, hID, "like");
+                                  try {
+                                    final ok = await MatchService().checkMatch(
+                                        myUser.uidA,
+                                        hID,
+                                        preferencesOther,
+                                        false,
+                                        hNotifies,
+                                        myNotifies);
+                                    if (ok) {
+                                      if (mounted) {
+                                        await showMyDialog(context);
+                                      }
+                                    }
+                                  } catch (e) {
+                                    //catch code block
+                                  }
+                                },
+                                child: const Icon(Icons.favorite_rounded)),
+                            SizedBox(
+                                width: MediaQuery.sizeOf(context).width * 0.15),
+                            ElevatedButton(
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all(
+                                      const CircleBorder()),
+                                  padding: MaterialStateProperty.all(
+                                      EdgeInsets.all(
+                                          MediaQuery.sizeOf(context).height *
+                                              0.02)),
+                                  backgroundColor:
+                                      MaterialStateProperty.all(mainColor),
+                                  overlayColor:
+                                      MaterialStateProperty.resolveWith<Color?>(
+                                          (states) {
+                                    if (states.contains(MaterialState.pressed))
+                                      return errorColor;
+                                    return null;
+                                  }),
+                                ),
+                                onPressed: () async {
+                                  await MatchService().putPrefence(myUser.uidA,
+                                      houses[0].idHouse, "dislike");
+                                },
+                                child: const Icon(Icons.close_rounded)),
+                          ],
+                        ),
+                      ])),
+                ),
+                Expanded(
+                    child: SizedBox(
+                        width: MediaQuery.sizeOf(context).width * 0.49,
+                        height: double.infinity,
+                        child:
+                            Column(mainAxisSize: MainAxisSize.max, children: [
+                          Expanded(
+                              child: SingleChildScrollView(
+                            child: ShowDetailedHouseProfile(
+                                houseProfile: houses[0]),
+                          ))
+                        ]))),
+              ],
+            );
     }
   }
 }
-
 
 class ViewProfile extends StatelessWidget {
   final HouseProfileAdj houseProfile;
@@ -271,7 +306,7 @@ class ViewProfile extends StatelessWidget {
         appBar: AppBar(backgroundColor: mainColor),
         body: Column(mainAxisSize: MainAxisSize.max, children: [
           Expanded(
-            child: SingleChildScrollView(
+              child: SingleChildScrollView(
             child: ShowDetailedHouseProfile(houseProfile: houseProfile),
           ))
         ]));

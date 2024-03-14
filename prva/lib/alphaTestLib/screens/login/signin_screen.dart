@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prva/services/auth.dart';
+import 'package:prva/shared/constant.dart';
 import 'package:prva/shared/loading.dart';
 
 class ModelSigniIn {
@@ -45,16 +46,16 @@ class _SigniInPageState extends State<SigniInPage> {
     return loading
         ? Loading()
         : Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: backgroundColor,
             appBar: AppBar(
-                backgroundColor: const Color(0xFF4B39EF),
+                backgroundColor: mainColor,
                 elevation: 0.0,
-                title: const Text(
+                title: Text(
                   'Affinder',
                   textAlign: TextAlign.start,
                   style: TextStyle(
                     fontFamily: 'Plus Jakarta Sans',
-                    color: Colors.white,
+                    color: backgroundColor,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -63,12 +64,12 @@ class _SigniInPageState extends State<SigniInPage> {
                       onPressed: () {
                         widget.toggleView();
                       },
-                      icon: const Icon(Icons.person, color: Colors.white),
-                      label: const Text(
+                      icon: Icon(Icons.person, color: backgroundColor),
+                      label: Text(
                         'Register',
                         style: TextStyle(
                           fontFamily: 'Plus Jakarta Sans',
-                          color: Colors.white,
+                          color: backgroundColor,
                         ),
                       ))
                 ]),
@@ -105,7 +106,7 @@ class _SigniInPageState extends State<SigniInPage> {
                             maxWidth: 570,
                           ),
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: backgroundColor,
                             boxShadow: const [
                               BoxShadow(
                                 blurRadius: 4,
@@ -180,16 +181,16 @@ class _SigniInPageState extends State<SigniInPage> {
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFF4B39EF),
+                                                  borderSide: BorderSide(
+                                                    color: mainColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.circular(40),
                                                 ),
                                                 errorBorder: OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFFFF5963),
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
@@ -197,15 +198,15 @@ class _SigniInPageState extends State<SigniInPage> {
                                                 ),
                                                 focusedErrorBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFFFF5963),
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.circular(40),
                                                 ),
                                                 filled: true,
-                                                fillColor: Colors.white,
+                                                fillColor: backgroundColor,
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                               ),
@@ -256,16 +257,16 @@ class _SigniInPageState extends State<SigniInPage> {
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFF4B39EF),
+                                                  borderSide: BorderSide(
+                                                    color: mainColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.circular(40),
                                                 ),
                                                 errorBorder: OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFFFF5963),
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
@@ -273,15 +274,15 @@ class _SigniInPageState extends State<SigniInPage> {
                                                 ),
                                                 focusedErrorBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFFFF5963),
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.circular(40),
                                                 ),
                                                 filled: true,
-                                                fillColor: Colors.white,
+                                                fillColor: backgroundColor,
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                                 suffixIcon: InkWell(
@@ -344,8 +345,7 @@ class _SigniInPageState extends State<SigniInPage> {
                                             },
                                             style: ElevatedButton.styleFrom(
                                               fixedSize: const Size(230, 52),
-                                              backgroundColor:
-                                                  const Color(0xFF4B39EF),
+                                              backgroundColor: mainColor,
                                               elevation: 3.0,
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
@@ -356,11 +356,11 @@ class _SigniInPageState extends State<SigniInPage> {
                                                 width: 1,
                                               ),
                                             ),
-                                            child: const Text(
+                                            child: Text(
                                               'Log in',
                                               style: TextStyle(
                                                 fontFamily: 'Plus Jakarta Sans',
-                                                color: Colors.white,
+                                                color: backgroundColor,
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w500,
                                               ),
