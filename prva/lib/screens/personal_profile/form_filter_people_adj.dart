@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:provider/provider.dart';
+import 'package:prva/alphaTestLib/shared/constant.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/user.dart';
 import 'package:prva/services/databaseForFilters.dart';
@@ -59,8 +60,16 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
 
           return Scaffold(
             appBar: AppBar(
-            backgroundColor: const Color(0xFF4B39EF),),
-            backgroundColor: Colors.white,
+            backgroundColor: mainColor,
+            title: Text(
+                            'Set your preferences',
+                            style: TextStyle(
+                              fontFamily: 'Plus Jakarta Sans',
+                              color: backgroundColor,
+                              fontSize: 32,
+                              fontWeight: FontWeight.w600,
+                            ),),),
+            backgroundColor: backgroundColor,
             body: SafeArea(
               top: true,
               child: SingleChildScrollView(
@@ -70,27 +79,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Container(
-                          width: double.infinity,
-                          height: 48,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          alignment: const AlignmentDirectional(0, 0),
-                          child: const Text(
-                            'Set your preferences',
-                            style: TextStyle(
-                              fontFamily: 'Plus Jakarta Sans',
-                              color: Color(0xFF101213),
-                              fontSize: 32,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
+                     Padding(
                         padding: const EdgeInsets.all(12),
                         child: Container(
                           width: double.infinity,
@@ -98,7 +87,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                             maxWidth: 570,
                           ),
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: backgroundColor,
                             boxShadow: const [
                               BoxShadow(
                                 blurRadius: 4,
@@ -173,21 +162,21 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                               width: 2,
                                             ),
                                           ),
-                                          errorBorder: const OutlineInputBorder(
+                                          errorBorder:  OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xFFFF5963),
+                                              color: errorColor,
                                               width: 2,
                                             ),
                                           ),
                                           focusedErrorBorder:
-                                              const OutlineInputBorder(
+                                               OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xFFFF5963),
+                                              color: errorColor,
                                               width: 2,
                                             ),
                                           ),
                                           filled: true,
-                                          fillColor: Colors.white,
+                                          fillColor: backgroundColor,
                                           contentPadding:
                                               const EdgeInsets.all(24),
                                         ),
@@ -310,11 +299,11 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                               ),
-                                              tileColor: Colors.white,
+                                              tileColor: backgroundColor,
                                               activeColor:
                                                   const Color(0xFFE0E3E7),
                                               checkColor:
-                                                  const Color(0xFF4B39EF),
+                                                  mainColor,
                                               dense: false,
                                               controlAffinity:
                                                   ListTileControlAffinity
@@ -359,11 +348,11 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                               ),
-                                              tileColor: Colors.white,
+                                              tileColor: backgroundColor,
                                               activeColor:
                                                   const Color(0xFFE0E3E7),
                                               checkColor:
-                                                  const Color(0xFF4B39EF),
+                                                  mainColor,
                                               dense: false,
                                               controlAffinity:
                                                   ListTileControlAffinity
@@ -408,11 +397,11 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                               ),
-                                              tileColor: Colors.white,
+                                              tileColor: backgroundColor,
                                               activeColor:
                                                   const Color(0xFFE0E3E7),
                                               checkColor:
-                                                  const Color(0xFF4B39EF),
+                                                  mainColor,
                                               dense: false,
                                               controlAffinity:
                                                   ListTileControlAffinity
@@ -457,11 +446,11 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                               ),
-                                              tileColor: Colors.white,
+                                              tileColor: backgroundColor,
                                               activeColor:
                                                   const Color(0xFFE0E3E7),
                                               checkColor:
-                                                  const Color(0xFF4B39EF),
+                                                  mainColor,
                                               dense: false,
                                               controlAffinity:
                                                   ListTileControlAffinity
@@ -510,11 +499,11 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                                     fontWeight: FontWeight.w500,
                                                   ),
                                                 ),
-                                                tileColor: Colors.white,
+                                                tileColor: backgroundColor,
                                                 activeColor:
                                                     const Color(0xFFE0E3E7),
                                                 checkColor:
-                                                    const Color(0xFF4B39EF),
+                                                    mainColor,
                                                 dense: false,
                                                 controlAffinity:
                                                     ListTileControlAffinity
@@ -554,7 +543,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                             ),
                                             child: Slider(
                                               activeColor:
-                                                  const Color(0xFF4B39EF),
+                                                  mainColor,
                                               inactiveColor:
                                                   const Color.fromARGB(
                                                       255, 199, 197, 197),
@@ -643,7 +632,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                         },
                                         style: ElevatedButton.styleFrom(
                                       fixedSize: const Size(230, 52),
-                                      backgroundColor:const Color(0xFF4B39EF),
+                                      backgroundColor:mainColor,
                                        elevation: 3.0,
                                        shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(40),
@@ -653,10 +642,10 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                         width: 1,
                                       ),
                                     ),
-                                    child : const Text('Set your filters!',
+                                    child : Text('Set your filters!',
                                     style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
-                                            color: Colors.white,
+                                            color: backgroundColor,
                                             fontSize: 16,
                                             fontWeight: FontWeight.w500,
                                     ),),

@@ -30,7 +30,7 @@ class _UserHomepageState extends State<UserHomepage> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
     const SearchLayout(),
-    ProfileLayout(),
+    const ProfileLayout(),
     const ChatLayout(),
   ];
   void _onItemTapped(int index) {
@@ -101,7 +101,10 @@ class SearchLayout extends StatefulWidget {
 class _SearchLayoutState extends State<SearchLayout> {
   FiltersHouseAdj? filtri;
   List<String>? alreadySeenProfiles;
-   int? myNotifies;
+  int? myNotifies;
+  final ValueNotifier<int> choice = ValueNotifier<int>(1);
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -118,12 +121,14 @@ class _SearchLayoutState extends State<SearchLayout> {
         value: DatabaseServiceHouseProfile(user.uid).getAllHousesAdj,
         initialData: const [],
         child: Scaffold(
+          key: _scaffoldKey,
           appBar: AppBar(
             backgroundColor: mainColor,
             actions: <Widget>[
               IconButton(
                 icon: Icon(Icons.settings, color: backgroundColor),
                 onPressed: () async {
+                  if(MediaQuery.sizeOf(context).width<widthSize){
                    Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -131,6 +136,14 @@ class _SearchLayoutState extends State<SearchLayout> {
                             const FormFilterPeopleAdj(),
                       ),
                     );
+                  }else{
+                   
+                     setState(() {
+                     choice.value = 1;
+                    });
+                    _scaffoldKey.currentState?.openEndDrawer();
+
+                  }
                 },
               ),
               Align(
@@ -143,6 +156,7 @@ class _SearchLayoutState extends State<SearchLayout> {
                 onTap: () async {
                   await MatchService(uid: user.uid).createNotification(0);
                   if (mounted) {
+                    if(MediaQuery.sizeOf(context).width<widthSize){
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -150,6 +164,12 @@ class _SearchLayoutState extends State<SearchLayout> {
                             NotificationPersonLayout(profile: user.uid),
                       ),
                     );
+                    }else{
+                      setState(() {
+                     choice.value = 2;
+                    });
+                    _scaffoldKey.currentState?.openEndDrawer();
+                    }
                   }
                 },
                 child: IconButton(
@@ -161,6 +181,7 @@ class _SearchLayoutState extends State<SearchLayout> {
                   onPressed: () async {
                     await MatchService(uid: user.uid).createNotification(0);
                     if (mounted) {
+                       if(MediaQuery.sizeOf(context).width<widthSize){
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -168,12 +189,33 @@ class _SearchLayoutState extends State<SearchLayout> {
                               NotificationPersonLayout(profile: user.uid),
                         ),
                       );
+                    }else{
+                       setState(() {
+                     choice.value = 2;
+                    });
+                    _scaffoldKey.currentState?.openEndDrawer();
+                    }
                     }
                   },
                 ),
               )
-          ),],
-          ),
+          ),],),
+           endDrawer: ValueListenableBuilder<int>(
+        valueListenable: choice,
+        builder: (context, value, child) {
+          return value == 1
+              ? Drawer(
+                 
+                  width: MediaQuery.sizeOf(context).width * 0.4,
+                  child: const FormFilterPeopleAdj(),
+                )
+              : Drawer(
+                 
+                  width: MediaQuery.sizeOf(context).width * 0.4,
+                  child: NotificationPersonLayout(profile: user.uid),
+                );
+        },
+      ),
           body: AllHousesList( myProfile: personalProfile,)
         ));
   }

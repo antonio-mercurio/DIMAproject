@@ -4,6 +4,7 @@ import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/preference.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/services/match/match_service.dart';
+import 'package:prva/shared/constant.dart';
 
 class NotificationPersonLayout extends StatefulWidget {
   final String profile;
@@ -29,11 +30,18 @@ class _NotificationPersonLayoutState extends State<NotificationPersonLayout> {
       }
     });
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: backgroundColor,
         appBar: AppBar(
-          backgroundColor: Colors.black,
+          backgroundColor: mainColor,
           title: Text(
             'Notifications',
+            style: TextStyle(
+                                      fontFamily: 'Plus Jakarta Sans',
+                                            color: backgroundColor,
+                                            fontSize: 32,
+                                            fontWeight: FontWeight.w500,
+            ),
+
           ),
           actions: [],
           centerTitle: true,
@@ -71,16 +79,16 @@ Widget _buildUserListItem(
   String calculateTimestamp(Timestamp tmp) {
     final difference = Timestamp.now().toDate().difference(tmp.toDate());
     if (difference.inSeconds < 60) {
-      return difference.inSeconds.toString() + ' seconds ago';
+      return '${difference.inSeconds} seconds ago';
     } else if (difference.inMinutes < 60) {
-      return difference.inMinutes.toString() + ' minutes ago';
+      return '${difference.inMinutes} minutes ago';
     } else if (difference.inHours < 24) {
-      return difference.inHours.toString() + ' hours ago';
+      return '${difference.inHours} hours ago';
     } else if (difference.inDays < 31) {
-      return difference.inDays.toString() + ' days ago';
+      return '${difference.inDays} days ago';
     } else {
       final differenceM = (difference.inDays / 31).floor();
-      return differenceM.toString() + ' months ago';
+      return '$differenceM months ago';
     }
   }
 
@@ -93,12 +101,12 @@ Widget _buildUserListItem(
           final type=  snapshot.data?.type ?? "";
           final city=  snapshot.data?.city ?? "";
           return Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 8),
+            padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 8),
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 241, 242, 244),
-                boxShadow: [
+                color: const Color.fromARGB(255, 241, 242, 244),
+                boxShadow: const [
                   BoxShadow(
                     blurRadius: 3,
                     color: Color(0x33000000),
@@ -117,11 +125,11 @@ Widget _buildUserListItem(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
+                    SizedBox(
                       width: 80,
                       height: 80,
                       child: Padding(
-                        padding: EdgeInsets.all(2),
+                        padding: const EdgeInsets.all(2),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(0),
                           child: Image.network(
@@ -135,16 +143,16 @@ Widget _buildUserListItem(
                     ),
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 8),
+                        padding: const EdgeInsetsDirectional.fromSTEB(16, 4, 16, 8),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               'New Match!',
                               maxLines: 1,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Plus Jakarta Sans',
                                 color: Color(0xFF101213),
                                 fontSize: 16,
@@ -160,7 +168,7 @@ Widget _buildUserListItem(
                                     " " +
                                     city +
                                     '! Go to the chat to start a conversation! ',
-                                maxLines: 4,
+                                maxLines: 6,
                                 style: const TextStyle(
                                   fontFamily: 'Plus Jakarta Sans',
                                   color: Color(0xFF101213),
@@ -171,7 +179,7 @@ Widget _buildUserListItem(
                             ),
                             Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 8, 0, 4),
+                                  const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 4),
                               child: Text(
                                 (calculateTimestamp(idmatch.timestamp)),
                                 style: const TextStyle(
@@ -192,8 +200,8 @@ Widget _buildUserListItem(
             ),
           );
          
-        } else {
-          return Text('342 not.dart');
+        }else{
+          return const Text('');
         }
       });
 }
