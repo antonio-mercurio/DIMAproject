@@ -5,6 +5,7 @@ import 'package:prva/models/preference.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/services/match/match_service.dart';
 import 'package:prva/shared/constant.dart';
+import 'package:prva/shared/empty.dart';
 
 class NotificationPersonLayout extends StatefulWidget {
   final String profile;
@@ -43,7 +44,7 @@ class _NotificationPersonLayoutState extends State<NotificationPersonLayout> {
             ),
 
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 0,
         ),
@@ -55,7 +56,7 @@ Widget _buildNotificationList(
     BuildContext context, String profile, List<MatchPeople>? idmatches) {
     if(idmatches!= null){
         return ListView.builder(
-          padding: EdgeInsets.fromLTRB(
+          padding: const EdgeInsets.fromLTRB(
             0,
             8,
             0,
@@ -68,9 +69,7 @@ Widget _buildNotificationList(
       },
     );
       } else {
-        return Center(
-          child: Text("Non hai ancora notifiche"),
-        );
+        return const EmptyProfile(shapeOfIcon: Icons.sentiment_dissatisfied_rounded, textToShow: 'You don\'t have any notifications!',);
       }
     }
 
@@ -115,12 +114,12 @@ Widget _buildUserListItem(
                 ],
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: Color.fromARGB(255, 62, 62, 62),
+                  color: const Color.fromARGB(255, 62, 62, 62),
                   width: 1,
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.all(12),
+                padding: const EdgeInsets.all(12),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,7 +160,7 @@ Widget _buildUserListItem(
                             ),
                             Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                                  const EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                               child: Text(
                                 'You have matched with ' +
                                     type+

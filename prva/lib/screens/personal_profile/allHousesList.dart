@@ -87,7 +87,7 @@ class _AllHousesListState extends State<AllHousesList> {
     }
 
     if (houses.isEmpty) {
-      return const EmptyProfile();
+      return const EmptyProfile(textToShow: 'You have already seen all profiles!', shapeOfIcon: Icons.check_rounded,);
     } else {
       final myUser = Provider.of<PersonalProfileAdj>(context);
       final retrievedPreferences =
@@ -114,13 +114,13 @@ class _AllHousesListState extends State<AllHousesList> {
                         padding: MaterialStateProperty.all(EdgeInsets.all(
                             MediaQuery.sizeOf(context).height * 0.02)),
                         backgroundColor: MaterialStateProperty.all(
-                            mainColor), // <-- Button color
+                            mainColor), 
                         overlayColor:
                             MaterialStateProperty.resolveWith<Color?>((states) {
                           if (states.contains(MaterialState.pressed)) {
                             return errorColor;
                           }
-                          return null; // <-- Splash color
+                          return null;
                         }),
                       ),
                       onPressed: () async {
@@ -174,13 +174,13 @@ class _AllHousesListState extends State<AllHousesList> {
                         padding: MaterialStateProperty.all(EdgeInsets.all(
                             MediaQuery.sizeOf(context).height * 0.02)),
                         backgroundColor: MaterialStateProperty.all(
-                            mainColor), // <-- Button color
+                            mainColor), 
                         overlayColor:
                             MaterialStateProperty.resolveWith<Color?>((states) {
                           if (states.contains(MaterialState.pressed)) {
                             return errorColor;
                           }
-                          return null; // <-- Splash color
+                          return null; 
                         }),
                       ),
                       onPressed: () {
@@ -218,14 +218,14 @@ class _AllHousesListState extends State<AllHousesList> {
                                           MediaQuery.sizeOf(context).height *
                                               0.02)),
                                   backgroundColor: MaterialStateProperty.all(
-                                      mainColor), // <-- Button color
+                                      mainColor), 
                                   overlayColor:
                                       MaterialStateProperty.resolveWith<Color?>(
                                           (states) {
                                     if (states.contains(MaterialState.pressed)) {
                                       return errorColor;
                                     }
-                                    return null; // <-- Splash color
+                                    return null; 
                                   }),
                                 ),
                                 onPressed: () async {
@@ -267,8 +267,9 @@ class _AllHousesListState extends State<AllHousesList> {
                                   overlayColor:
                                       MaterialStateProperty.resolveWith<Color?>(
                                           (states) {
-                                    if (states.contains(MaterialState.pressed))
+                                    if (states.contains(MaterialState.pressed)) {
                                       return errorColor;
+                                    }
                                     return null;
                                   }),
                                 ),
