@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/user.dart';
-import 'package:prva/schermiProva.dart';
+import 'package:prva/services/image_picker/schermiProva.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForFilters.dart';
 import 'package:prva/services/match/match_service.dart';
-import 'package:prva/shared/loading.dart'; // for date formatting
+import 'package:prva/screens/shared/loading.dart'; // for date formatting
 
 class FormPersonalProfileAdj extends StatefulWidget {
   const FormPersonalProfileAdj({Key? key}) : super(key: key);

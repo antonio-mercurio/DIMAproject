@@ -4,8 +4,8 @@ import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/preference.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/services/match/match_service.dart';
-import 'package:prva/shared/constant.dart';
-import 'package:prva/shared/empty.dart';
+import 'package:prva/screens/shared/constant.dart';
+import 'package:prva/screens/shared/empty.dart';
 
 class NotificationPersonLayout extends StatefulWidget {
   final String profile;

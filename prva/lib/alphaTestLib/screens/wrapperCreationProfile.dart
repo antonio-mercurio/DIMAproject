@@ -5,7 +5,7 @@ import 'package:prva/models/user.dart';
 import 'package:prva/screens/personal_profile/form_personal_profile_adj.dart';
 import 'package:prva/screens/personal_profile/userHomepage.dart';
 import 'package:prva/services/database.dart';
-import 'package:prva/shared/loading.dart';
+import 'package:prva/screens/shared/loading.dart';
 
 class WrapperCreationProfile extends StatelessWidget {
   const WrapperCreationProfile({super.key});

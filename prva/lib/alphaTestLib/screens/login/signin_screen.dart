@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prva/services/auth.dart';
-import 'package:prva/shared/constant.dart';
-import 'package:prva/shared/loading.dart';
+import 'package:prva/screens/shared/constant.dart';
+import 'package:prva/screens/shared/loading.dart';
 
 class ModelSigniIn {
   late bool confirmPasswordVisibility;

@@ -8,7 +8,7 @@ import 'package:google_places_flutter/model/prediction.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/user.dart';
-import 'package:prva/schermiProva.dart';
+import 'package:prva/services/image_picker/schermiProva.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/services/match/match_service.dart';
 

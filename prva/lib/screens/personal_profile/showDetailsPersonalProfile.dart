@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
+
+import '../shared/image.dart';
 
 class ShowDetailedPersonalProfile extends StatefulWidget {
   final PersonalProfileAdj personalProfile;
@@ -58,7 +58,7 @@ class _ShowDetailedPersonalProfileState
           padding: const EdgeInsetsDirectional.fromSTEB(10, 12, 0, 0),
           child: Container(
             width: double.infinity,
-            height: 500,
+            height: MediaQuery.sizeOf(context).height*0.2,
             decoration: BoxDecoration(
               color: Color(0xFFF1F4F8),
             ),
@@ -134,157 +134,8 @@ class _ShowDetailedPersonalProfileState
             )),
         SizedBox(
             height:
-                200), /*
-        
-        ,
-        Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(24, 24, 24, 0),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Number of bathrooms:',
-                style: TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans'),
-              ),
-              Text(
-                houseProfile.numBath.toString(),
-                style: const TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans'),
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(24, 24, 24, 0),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Max number of people in the house:',
-                style: TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans'),
-              ),
-              Text(
-                houseProfile.numPlp.toString(),
-                style: const TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans'),
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(24, 24, 24, 0),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Start of the rent:',
-                style: TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans'),
-              ),
-              Text(
-                '${houseProfile.startDay}/${houseProfile.startMonth}/${houseProfile.startYear}',
-                style: const TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans'),
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(24, 24, 24, 0),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'End of the rent:',
-                style: TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans'),
-              ),
-              Text(
-                '${houseProfile.endDay}/${houseProfile.endMonth}/${houseProfile.endYear}',
-                style: const TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans'),
-              ),
-            ],
-          ),
-        ),
-        const Divider(
-          height: 36,
-          thickness: 1,
-          color: Colors.grey,
-        ),
-        Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(24, 24, 24, 0),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Price:',
-                style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans'),
-              ),
-              Text(
-                houseProfile.price.toString(),
-                style: const TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans'),
-              ),
-            ],
-          ),
-        ),
-      */
+                200),
       ],
-    );
-  }
-}
-
-class ImagesTile extends StatelessWidget {
-  final String image;
-  ImagesTile({required this.image});
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(10, 12, 0, 0),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: Image.network(
-              image,
-              height: 400,
-              width: MediaQuery.sizeOf(context).width * 0.9,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

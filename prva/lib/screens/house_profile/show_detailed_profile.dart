@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/houseProfile.dart';
 
+import '../shared/image.dart';
+
 class DetailedHouseProfile extends StatefulWidget {
   //final HouseProfileAdj houseProfile;
 
@@ -256,32 +258,6 @@ class _DetailedHouseProfileState extends State<DetailedHouseProfile> {
           ),
         ),
       ],
-    );
-  }
-}
-
-class ImagesTile extends StatelessWidget {
-  final String image;
-  ImagesTile({required this.image});
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(10, 12, 0, 0),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: Image.network(
-              image,
-              height: 400,
-              width: MediaQuery.sizeOf(context).width * 0.9,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

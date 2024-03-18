@@ -6,12 +6,12 @@ import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/preference.dart';
 import 'package:prva/screens/house_profile/all_profile_list.dart';
-import 'package:prva/shared/swipe_between_images.dart';
+import 'package:prva/screens/shared/swipe_between_images.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForFilters.dart';
 import 'package:prva/services/match/match_service.dart';
-import 'package:prva/shared/constant.dart';
-import 'package:prva/shared/empty.dart';
+import 'package:prva/screens/shared/constant.dart';
+import 'package:prva/screens/shared/empty.dart';
 
 class AllHousesList extends StatefulWidget {
   final PersonalProfileAdj myProfile;

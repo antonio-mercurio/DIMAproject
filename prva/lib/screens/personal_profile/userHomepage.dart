@@ -17,7 +17,7 @@ import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/services/match/match_service.dart';
 import 'package:prva/screens/personal_profile/show_details_personal_profile.dart';
-import 'package:prva/shared/constant.dart';
+import 'package:prva/screens/shared/constant.dart';
 
 class UserHomepage extends StatefulWidget {
   const UserHomepage({super.key});
@@ -274,7 +274,7 @@ class ProfileLayout extends StatelessWidget {
                                     style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
                                             color: backgroundColor,
-                                            fontSize: 16,
+                                            fontSize: MediaQuery.sizeOf(context).height*0.024,
                                             fontWeight: FontWeight.w500,
                                     ),
                                     ),

@@ -7,7 +7,7 @@ import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/preference.dart';
-import 'package:prva/shared/swipe_between_images.dart';
+import 'package:prva/screens/shared/swipe_between_images.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseFilterPerson.dart';
 import 'package:prva/services/match/match_service.dart';
