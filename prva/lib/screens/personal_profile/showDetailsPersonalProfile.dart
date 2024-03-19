@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:prva/models/personalProfile.dart';
+import 'package:prva/screens/shared/constant.dart';
 
-import '../shared/image.dart';
+import 'package:prva/screens/shared/image.dart';
+
 
 class ShowDetailedPersonalProfile extends StatefulWidget {
   final PersonalProfileAdj personalProfile;
@@ -36,6 +38,11 @@ class _ShowDetailedPersonalProfileState
     }
     flag = false;
   }
+  int _calculationAge(int year, int month, int day) {
+    return (DateTime.now().difference(DateTime.utc(year, month, day)).inDays /
+            365)
+        .round();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +54,9 @@ class _ShowDetailedPersonalProfileState
       children: [
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
-          child: Text(personalProfile.nameA + " " + personalProfile.surnameA,
-              style: const TextStyle(
-                fontSize: 22.0,
+          child: Text("${personalProfile.nameA} ${personalProfile.surnameA}",
+              style: TextStyle(
+                fontSize: size24(context),
                 color: Colors.black,
                 fontFamily: 'Plus Jakarta Sans',
               )),
@@ -58,8 +65,8 @@ class _ShowDetailedPersonalProfileState
           padding: const EdgeInsetsDirectional.fromSTEB(10, 12, 0, 0),
           child: Container(
             width: double.infinity,
-            height: MediaQuery.sizeOf(context).height*0.2,
-            decoration: BoxDecoration(
+            height: MediaQuery.sizeOf(context).height*0.4,
+            decoration: const BoxDecoration(
               color: Color(0xFFF1F4F8),
             ),
             child: ListView.builder(
@@ -77,9 +84,11 @@ class _ShowDetailedPersonalProfileState
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(16, 8, 0, 0),
           child: Text(
-            personalProfile.description,
-            style: const TextStyle(
-              fontSize: 18.0,
+            _calculationAge(personalProfile.year, personalProfile.month,
+                    personalProfile.day)
+                .toString(),
+            style: TextStyle(
+              fontSize: size18(context),
               color: Colors.black,
               fontFamily: 'Plus Jakarta Sans',
             ),
@@ -88,21 +97,13 @@ class _ShowDetailedPersonalProfileState
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(16, 8, 0, 0),
           child: Text(
-            personalProfile.employment,
-            style: const TextStyle(
-                fontSize: 16.0,
-                color: Colors.black,
-                fontFamily: 'Plus Jakarta Sans'),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 0),
-          child: Text(
-            personalProfile.gender,
-            style: const TextStyle(
-                fontSize: 16.0,
-                color: Colors.black,
-                fontFamily: 'Plus Jakarta Sans'),
+            personalProfile.description,
+            maxLines: 100,
+            style: TextStyle(
+              fontSize: size16(context),
+              color: Colors.black,
+              fontFamily: 'Plus Jakarta Sans',
+            ),
           ),
         ),
         const Divider(
@@ -111,28 +112,54 @@ class _ShowDetailedPersonalProfileState
           color: Colors.grey,
         ),
         Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(24, 24, 24, 0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  'Birthday: ',
-                  style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.black,
-                      fontFamily: 'Plus Jakarta Sans'),
-                ),
-                Text(
-                  '${personalProfile.day}/${personalProfile.month}/${personalProfile.year}',
-                  style: const TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.black,
-                      fontFamily: 'Plus Jakarta Sans'),
-                ),
-              ],
-            )),
-        SizedBox(
+          padding: const EdgeInsetsDirectional.fromSTEB(24, 24, 24, 0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+               Text(
+                'Gender:',
+                style: TextStyle(
+                    fontSize: size20(context),
+                    color: Colors.black,
+                    fontFamily: 'Plus Jakarta Sans',
+                    fontWeight: FontWeight.bold),
+              ),
+              Text(
+                personalProfile.gender,
+                style: TextStyle(
+                    fontSize:size20(context),
+                    color: Colors.black,
+                    fontFamily: 'Plus Jakarta Sans'),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(24, 24, 24, 0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+               Text(
+                'Employment:',
+                style: TextStyle(
+                    fontSize: size20(context),
+                    color: Colors.black,
+                    fontFamily: 'Plus Jakarta Sans',
+                    fontWeight: FontWeight.bold ),
+              ),
+              Text(
+                personalProfile.employment,
+                style: TextStyle(
+                    fontSize: size20(context),
+                    color: Colors.black,
+                    fontFamily: 'Plus Jakarta Sans'),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(
             height:
                 200),
       ],

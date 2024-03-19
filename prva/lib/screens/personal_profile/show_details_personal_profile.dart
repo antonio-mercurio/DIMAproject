@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/screens/house_profile/show_detailed_profile.dart';
+import 'package:prva/screens/shared/constant.dart';
 
-import '../shared/image.dart';
+import 'package:prva/screens/shared/image.dart';
 
 class DetailedPersonalProfile extends StatefulWidget {
   const DetailedPersonalProfile({super.key});
@@ -52,7 +53,7 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
           padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
           child: Text('${personalProfile.nameA} ${personalProfile.surnameA}',
               style: TextStyle(
-                fontSize: MediaQuery.sizeOf(context).height*0.032,
+                fontSize: size24(context),
                 color: Colors.black,
                 fontFamily: 'Plus Jakarta Sans',
                 fontWeight: FontWeight.bold,
@@ -63,7 +64,7 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
           child: Container(
             width: double.infinity,
             height: MediaQuery.sizeOf(context).height*0.4,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Color(0xFFF1F4F8),
             ),
             child: ListView.builder(
@@ -85,7 +86,7 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
                     personalProfile.day)
                 .toString(),
             style: TextStyle(
-              fontSize: MediaQuery.sizeOf(context).height*0.026,
+              fontSize: size18(context),
               color: Colors.black,
               fontFamily: 'Plus Jakarta Sans',
             ),
@@ -95,8 +96,9 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
           padding: const EdgeInsetsDirectional.fromSTEB(16, 8, 0, 0),
           child: Text(
             personalProfile.description,
+            maxLines: 100,
             style: TextStyle(
-                fontSize: MediaQuery.sizeOf(context).height*0.024,
+                fontSize:size16(context),
                 color: Colors.black,
                 fontFamily: 'Plus Jakarta Sans'),
           ),
@@ -115,7 +117,7 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
                Text(
                 'Gender:',
                 style: TextStyle(
-                    fontSize: MediaQuery.sizeOf(context).height*0.028,
+                    fontSize: size20(context),
                     color: Colors.black,
                     fontFamily: 'Plus Jakarta Sans',
                     fontWeight: FontWeight.bold),
@@ -123,7 +125,7 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
               Text(
                 personalProfile.gender,
                 style: TextStyle(
-                    fontSize: MediaQuery.sizeOf(context).height*0.028,
+                    fontSize:size20(context),
                     color: Colors.black,
                     fontFamily: 'Plus Jakarta Sans'),
               ),
@@ -139,7 +141,7 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
                Text(
                 'Employment:',
                 style: TextStyle(
-                    fontSize: MediaQuery.sizeOf(context).height*0.028,
+                    fontSize: size20(context),
                     color: Colors.black,
                     fontFamily: 'Plus Jakarta Sans',
                     fontWeight: FontWeight.bold ),
@@ -147,13 +149,16 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
               Text(
                 personalProfile.employment,
                 style: TextStyle(
-                    fontSize: MediaQuery.sizeOf(context).height*0.028,
+                    fontSize: size20(context),
                     color: Colors.black,
                     fontFamily: 'Plus Jakarta Sans'),
               ),
             ],
           ),
         ),
+         const SizedBox(
+            height:
+                200),
       ],
     );
   }
