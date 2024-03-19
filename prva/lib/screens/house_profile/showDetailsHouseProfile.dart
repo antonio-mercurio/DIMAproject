@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:geocoding_resolver/geocoding_resolver.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_places_flutter/google_places_flutter.dart';
-import 'package:google_places_flutter/model/prediction.dart';
-import 'package:geocoding_resolver/geocoding_resolver.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_places_flutter/model/place_details.dart';
-import 'package:provider/provider.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/screens/shared/constant.dart';
 import 'package:prva/screens/shared/image.dart';
+import 'package:prva/services/map/maps.dart';
 
 const LatLng cLoc = LatLng(45.48319179000315, 9.224778407607825);
 
@@ -59,7 +52,7 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
           padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
           child: Text(houseProfile.type,
               style: TextStyle(
-                fontSize: MediaQuery.sizeOf(context).height*0.032,
+                fontSize: size24(context),
                 color: Colors.black,
                 fontFamily: 'Plus Jakarta Sans',
                 fontWeight: FontWeight.bold,
@@ -90,7 +83,7 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
           child: Text(
             houseProfile.city,
             style: TextStyle(
-              fontSize: MediaQuery.sizeOf(context).height*0.026,
+              fontSize: size18(context),
               color: Colors.black,
               fontFamily: 'Plus Jakarta Sans',
             ),
@@ -101,17 +94,18 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
           child: Text(
             houseProfile.address,
             style: TextStyle(
-                fontSize: MediaQuery.sizeOf(context).height*0.024,
+                fontSize: size16(context),
                 color: Colors.black,
                 fontFamily: 'Plus Jakarta Sans'),
           ),
         ),
         Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(16, 8, 0, 0),
+          padding: const EdgeInsetsDirectional.fromSTEB(16, 8, 0, 0),
           child: Text(
             houseProfile.description,
+            maxLines: 100,
             style: TextStyle(
-                fontSize: MediaQuery.sizeOf(context).height*0.024,
+                fontSize: size16(context),
                 color: Colors.black,
                 fontFamily: 'Plus Jakarta Sans'),
           ),
@@ -133,7 +127,7 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => MapSample2(houseLocation)),
+                    builder: (context) => MapSample2(location: houseLocation)),
               );
             },
             style: ElevatedButton.styleFrom(
@@ -152,7 +146,7 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
                                     style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
                                             color: backgroundColor,
-                                            fontSize: MediaQuery.sizeOf(context).height*0.024,
+                                            fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
                                     ),
                                     ),
@@ -172,7 +166,7 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
                Text(
                 'Floor Number:',
                 style: TextStyle(
-                    fontSize: MediaQuery.sizeOf(context).height*0.024,
+                    fontSize: size16(context),
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Plus Jakarta Sans'),
@@ -180,7 +174,7 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
               Text(
                 houseProfile.floorNumber.toString(),
                 style: TextStyle(
-                    fontSize: MediaQuery.sizeOf(context).height*0.024,
+                    fontSize:size16(context),
                     color: Colors.black,
                     fontFamily: 'Plus Jakarta Sans'),
               ),
@@ -196,7 +190,7 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
                Text(
                 'Number of bathrooms:',
                 style: TextStyle(
-                    fontSize: MediaQuery.sizeOf(context).height*0.024,
+                    fontSize: size16(context),
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Plus Jakarta Sans'),
@@ -204,7 +198,7 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
               Text(
                 houseProfile.numBath.toString(),
                 style: TextStyle(
-                    fontSize: MediaQuery.sizeOf(context).height*0.024,
+                    fontSize: size16(context),
                     color: Colors.black,
                     fontFamily: 'Plus Jakarta Sans'),
               ),
@@ -220,7 +214,7 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
                Text(
                 'Max number of people in the house:',
                 style: TextStyle(
-                    fontSize: MediaQuery.sizeOf(context).height*0.024,
+                    fontSize: size16(context),
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Plus Jakarta Sans'),
@@ -228,7 +222,7 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
               Text(
                 houseProfile.numPlp.toString(),
                 style: TextStyle(
-                    fontSize: MediaQuery.sizeOf(context).height*0.024,
+                    fontSize: size16(context),
                     color: Colors.black,
                     fontFamily: 'Plus Jakarta Sans'),
               ),
@@ -244,7 +238,7 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
                Text(
                 'Start of the rent:',
                 style: TextStyle(
-                    fontSize: MediaQuery.sizeOf(context).height*0.024,
+                    fontSize: size16(context),
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                     fontFamily: 'Plus Jakarta Sans'),
@@ -252,7 +246,7 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
               Text(
                 '${houseProfile.startDay}/${houseProfile.startMonth}/${houseProfile.startYear}',
                 style: TextStyle(
-                    fontSize: MediaQuery.sizeOf(context).height*0.024,
+                    fontSize: size16(context),
                     color: Colors.black,
                     fontFamily: 'Plus Jakarta Sans'),
               ),
@@ -268,7 +262,7 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
                Text(
                 'End of the rent:',
                 style: TextStyle(
-                    fontSize: MediaQuery.sizeOf(context).height*0.024,
+                    fontSize: size16(context),
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                     fontFamily: 'Plus Jakarta Sans'),
@@ -276,7 +270,7 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
               Text(
                 '${houseProfile.endDay}/${houseProfile.endMonth}/${houseProfile.endYear}',
                 style: TextStyle(
-                    fontSize: MediaQuery.sizeOf(context).height*0.024,
+                    fontSize: size16(context),
                     color: Colors.black,
                     fontFamily: 'Plus Jakarta Sans'),
               ),
@@ -297,7 +291,7 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
                Text(
                 'Price:',
                 style: TextStyle(
-                    fontSize: MediaQuery.sizeOf(context).height*0.028,
+                    fontSize: size20(context),
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                     fontFamily: 'Plus Jakarta Sans'),
@@ -305,7 +299,7 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
               Text(
                 houseProfile.price.toString(),
                 style: TextStyle(
-                    fontSize: MediaQuery.sizeOf(context).height*0.028,
+                    fontSize: size20(context),
                     color: Colors.black,
                     fontFamily: 'Plus Jakarta Sans'),
               ),
@@ -317,49 +311,4 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
   }
 }
 
-class MapSample2 extends StatefulWidget {
-  LatLng location;
-  MapSample2(this.location);
 
-  @override
-  State<MapSample2> createState() => _MapSample2State(location);
-}
-
-class _MapSample2State extends State<MapSample2> {
-  late GoogleMapController _mapController;
-  Map<String, Marker> _markers = {};
-  LatLng location;
-
-  _MapSample2State(this.location);
-
-  @override
-  Widget build(BuildContext context) {
-    return GoogleMap(
-      mapType: MapType.normal,
-      compassEnabled: true,
-      initialCameraPosition: CameraPosition(
-        target: location,
-        zoom: 20,
-      ),
-      onMapCreated: (controller) {
-        _mapController = controller;
-        addMarker('test', location);
-      },
-      markers: _markers.values.toSet(),
-    );
-  }
-
-  addMarker(String id, LatLng location) {
-    var marker = Marker(
-      markerId: MarkerId(id),
-      position: location,
-      infoWindow: const InfoWindow(
-        title: 'Title of place',
-        snippet: 'description of the location',
-      ),
-    );
-    _markers[id] = marker;
-
-    setState(() {});
-  }
-}
