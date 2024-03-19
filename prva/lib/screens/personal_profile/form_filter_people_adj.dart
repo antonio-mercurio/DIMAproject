@@ -4,9 +4,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:provider/provider.dart';
-import 'package:prva/alphaTestLib/shared/constant.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/user.dart';
+import 'package:prva/screens/shared/constant.dart';
 import 'package:prva/services/databaseForFilters.dart';
 
 class FormFilterPeopleAdj extends StatefulWidget {
@@ -66,7 +66,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                             style: TextStyle(
                               fontFamily: 'Plus Jakarta Sans',
                               color: backgroundColor,
-                              fontSize: 32,
+                              fontSize: size32(context),
                               fontWeight: FontWeight.w600,
                             ),),),
             backgroundColor: backgroundColor,
@@ -109,8 +109,8 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                   Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0, 0, 0, 16),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -123,8 +123,8 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontFamily: 'Plus Jakarta Sans',
-                                              color: Color(0xFF101213),
-                                              fontSize: 16,
+                                              color: const Color(0xFF101213),
+                                              fontSize: size16(context),
                                               fontWeight: FontWeight.w500,
                                             ),
                                           ),
@@ -142,10 +142,10 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                             "AIzaSyD8yblyesPc-09bye4ZF9KlO95G6RhhlmA",
                                         inputDecoration: InputDecoration(
                                           labelText: city,
-                                          labelStyle: const TextStyle(
+                                          labelStyle: TextStyle(
                                             fontFamily: 'Plus Jakarta Sans',
-                                            color: Color(0xFF57636C),
-                                            fontSize: 16,
+                                            color: const Color(0xFF57636C),
+                                            fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
                                           ),
                                           enabledBorder:
@@ -156,9 +156,9 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                             ),
                                           ),
                                           focusedBorder:
-                                              const OutlineInputBorder(
+                                               OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xFF4B39EF),
+                                              color: mainColor,
                                               width: 2,
                                             ),
                                           ),
@@ -246,7 +246,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                         // optional container padding
                                         //containerHorizontalPadding: 10,
                                       )),
-                                  const Row(
+                                   Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Expanded(
@@ -255,8 +255,8 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontFamily: 'Plus Jakarta Sans',
-                                            color: Color(0xFF101213),
-                                            fontSize: 16,
+                                            color: const Color(0xFF101213),
+                                            fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),
@@ -291,11 +291,11 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                               },
                                               title: Text(
                                                 typeOfAppartament[0],
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: Color(0xFF101213),
-                                                  fontSize: 16,
+                                                  color: const Color(0xFF101213),
+                                                  fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                               ),
@@ -340,11 +340,11 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                               },
                                               title: Text(
                                                 typeOfAppartament[1],
-                                                style: const TextStyle(
+                                                style:  TextStyle(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: Color(0xFF101213),
-                                                  fontSize: 16,
+                                                  color: const Color(0xFF101213),
+                                                  fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                               ),
@@ -389,11 +389,11 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                               },
                                               title: Text(
                                                 typeOfAppartament[2],
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: Color(0xFF101213),
-                                                  fontSize: 16,
+                                                  color: const Color(0xFF101213),
+                                                  fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                               ),
@@ -438,11 +438,11 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                               },
                                               title: Text(
                                                 typeOfAppartament[0],
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: Color(0xFF101213),
-                                                  fontSize: 16,
+                                                  color: const Color(0xFF101213),
+                                                  fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                               ),
@@ -491,11 +491,11 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                                 },
                                                 title: Text(
                                                   typeOfAppartament[4],
-                                                  style: const TextStyle(
+                                                  style:  TextStyle(
                                                     fontFamily:
                                                         'Plus Jakarta Sans',
-                                                    color: Color(0xFF101213),
-                                                    fontSize: 16,
+                                                    color: const Color(0xFF101213),
+                                                    fontSize: size16(context),
                                                     fontWeight: FontWeight.w500,
                                                   ),
                                                 ),
@@ -513,7 +513,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                           ),
                                         ),
                                       ]),
-                                  const Row(
+                                   Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -522,8 +522,8 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                           'Your budget is',
                                           style: TextStyle(
                                             fontFamily: 'Plus Jakarta Sans',
-                                            color: Color(0xFF101213),
-                                            fontSize: 16,
+                                            color: const Color(0xFF101213),
+                                            fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),
@@ -578,10 +578,10 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                             child: Text(
                                               sliderValue.round().toString(),
                                               textAlign: TextAlign.center,
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 fontFamily: 'Plus Jakarta Sans',
-                                                color: Color(0xFF57636C),
-                                                fontSize: 14,
+                                                color: const Color(0xFF57636C),
+                                                fontSize: size12(context),
                                                 fontWeight: FontWeight.w500,
                                               ),
                                             ),
@@ -646,7 +646,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                     style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
                                             color: backgroundColor,
-                                            fontSize: 16,
+                                            fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
                                     ),),
                                     ),

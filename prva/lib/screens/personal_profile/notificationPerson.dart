@@ -39,7 +39,7 @@ class _NotificationPersonLayoutState extends State<NotificationPersonLayout> {
             style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
                                             color: backgroundColor,
-                                            fontSize: 32,
+                                            fontSize: size32(context),
                                             fontWeight: FontWeight.w500,
             ),
 
@@ -125,16 +125,16 @@ Widget _buildUserListItem(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: 80,
-                      height: 80,
+                      width: MediaQuery.sizeOf(context).height*0.1,
+                      height: MediaQuery.sizeOf(context).height*0.1,
                       child: Padding(
                         padding: const EdgeInsets.all(2),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(0),
                           child: Image.network(
                             image,
-                            width: 44,
-                            height: 44,
+                            width: MediaQuery.sizeOf(context).height*0.052,
+                            height: MediaQuery.sizeOf(context).height*0.052,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -148,13 +148,13 @@ Widget _buildUserListItem(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                             Text(
                               'New Match!',
                               maxLines: 1,
                               style: TextStyle(
                                 fontFamily: 'Plus Jakarta Sans',
-                                color: Color(0xFF101213),
-                                fontSize: 16,
+                                color: const Color(0xFF101213),
+                                fontSize: size18(context),
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -168,10 +168,10 @@ Widget _buildUserListItem(
                                     city +
                                     '! Go to the chat to start a conversation! ',
                                 maxLines: 6,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontFamily: 'Plus Jakarta Sans',
-                                  color: Color(0xFF101213),
-                                  fontSize: 14,
+                                  color: const Color(0xFF101213),
+                                  fontSize: size16(context),
                                   fontWeight: FontWeight.normal,
                                 ),
                               ),
@@ -181,10 +181,10 @@ Widget _buildUserListItem(
                                   const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 4),
                               child: Text(
                                 (calculateTimestamp(idmatch.timestamp)),
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontFamily: 'Plus Jakarta Sans',
-                                  color: Color(0xFF101213),
-                                  fontSize: 12,
+                                  color: const Color(0xFF101213),
+                                  fontSize: size12(context),
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
