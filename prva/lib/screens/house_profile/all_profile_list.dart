@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/screens/house_profile/homepage_house_profile.dart';
-import 'package:prva/screens/personal_profile/showDetailsPersonalProfile.dart';
+import 'package:prva/screens/personal_profile/show_info_personal_profile.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';

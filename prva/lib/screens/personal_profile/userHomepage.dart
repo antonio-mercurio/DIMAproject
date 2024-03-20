@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/message.dart';
-import 'package:prva/screens/personal_profile/modifyPersonalProfile.dart';
+import 'package:prva/screens/personal_profile/modify_personal_profile.dart';
 import 'package:prva/screens/personal_profile/form_filter_people_adj.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
@@ -253,7 +253,7 @@ class ProfileLayout extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => modificaPersonalProfile(
+                      builder: (context) => ModificaPersonalProfile(
                             personalProfile: personalData,
                           )),
                 );

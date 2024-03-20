@@ -156,9 +156,6 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
             ],
           ),
         ),
-         const SizedBox(
-            height:
-                200),
       ],
     );
   }

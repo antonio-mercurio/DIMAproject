@@ -4,24 +4,23 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/user.dart';
+import 'package:prva/screens/shared/constant.dart';
 import 'package:prva/services/image_picker/schermiProva.dart';
-import 'package:prva/screens/home/home.dart';
 import 'package:prva/services/database.dart';
-import 'package:prva/services/databaseForFilters.dart';
 import 'package:prva/screens/shared/loading.dart'; // for date formatting
 
-class modificaPersonalProfile extends StatefulWidget {
+class ModificaPersonalProfile extends StatefulWidget {
   final PersonalProfileAdj personalProfile;
-  modificaPersonalProfile({super.key, required this.personalProfile});
+  const ModificaPersonalProfile({super.key, required this.personalProfile});
 
   @override
-  State<modificaPersonalProfile> createState() =>
-      _modificaPersonalProfileState(personalProfile: personalProfile);
+  State<ModificaPersonalProfile> createState() =>
+      _ModificaPersonalProfileState(personalProfile: personalProfile);
 }
 
-class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
+class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
   final PersonalProfileAdj personalProfile;
-  _modificaPersonalProfileState({required this.personalProfile});
+  _ModificaPersonalProfileState({required this.personalProfile});
   int getGenderIndex(String genderString) {
     if (genderString == "male") {
       return 0;
@@ -136,19 +135,10 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
       return const Loading();
     } else {
       return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: backgroundColor,
         appBar: AppBar(
-          backgroundColor: Colors.black,
+          backgroundColor: mainColor,
           elevation: 0.0,
-          title: const Text(
-            'Affinder',
-            textAlign: TextAlign.start,
-            style: TextStyle(
-              fontFamily: 'Plus Jakarta Sans',
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
         ),
         body: SafeArea(
           top: true,
@@ -166,17 +156,17 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                           const EdgeInsetsDirectional.fromSTEB(0, 32, 0, 32),
                       child: Container(
                         width: double.infinity,
-                        height: 48,
+                        height: MediaQuery.sizeOf(context).height*0.052,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
                         ),
                         alignment: const AlignmentDirectional(0, 0),
-                        child: const Text(
+                        child: Text(
                           'Update your profile',
                           style: TextStyle(
                             fontFamily: 'Plus Jakarta Sans',
-                            color: Color(0xFF101213),
-                            fontSize: 36,
+                            color: const Color(0xFF101213),
+                            fontSize: size32(context),
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -187,7 +177,7 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                       child: Container(
                         width: double.infinity,
                         constraints: const BoxConstraints(
-                          maxWidth: 570,
+                          maxWidth: 700,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -212,16 +202,16 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                 Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 12, 0, 24),
                                   child: Text(
                                     'Update your personal data',
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
-                                      color: Color(0xFF57636C),
-                                      fontSize: 16,
+                                      color: const Color(0xFF57636C),
+                                      fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -238,10 +228,10 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelText: 'Name',
-                                        labelStyle: const TextStyle(
+                                        labelStyle: TextStyle(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF57636C),
-                                          fontSize: 16,
+                                          color: const Color(0xFF57636C),
+                                          fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
                                         ),
                                         enabledBorder: OutlineInputBorder(
@@ -253,24 +243,24 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                               BorderRadius.circular(40),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFF4B39EF),
+                                          borderSide: BorderSide(
+                                            color: mainColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         errorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
@@ -281,10 +271,10 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        color: Color(0xFF101213),
-                                        fontSize: 16,
+                                        color: const Color(0xFF101213),
+                                        fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
                                       ),
                                       keyboardType: TextInputType.emailAddress,
@@ -299,7 +289,7 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: double.infinity,
                                     child: TextFormField(
                                       initialValue: _surname,
@@ -308,10 +298,10 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelText: 'Surname',
-                                        labelStyle: const TextStyle(
+                                        labelStyle: TextStyle(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF57636C),
-                                          fontSize: 16,
+                                          color: const Color(0xFF57636C),
+                                          fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
                                         ),
                                         hintText: 'Surname',
@@ -324,24 +314,24 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                               BorderRadius.circular(40),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFF4B39EF),
+                                          borderSide: BorderSide(
+                                            color: mainColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         errorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
@@ -352,10 +342,10 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        color: Color(0xFF101213),
-                                        fontSize: 16,
+                                        color: const Color(0xFF101213),
+                                        fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
                                       ),
                                       validator: (val) => val!.isEmpty
@@ -369,7 +359,6 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
-                                  //child: Container(
                                   child: SizedBox(
                                     width: double.infinity,
                                     child: TextFormField(
@@ -390,10 +379,10 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                           },
                                         ),
                                         labelText: 'Birth Date',
-                                        labelStyle: const TextStyle(
+                                        labelStyle: TextStyle(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF57636C),
-                                          fontSize: 16,
+                                          color: const Color(0xFF57636C),
+                                          fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
                                         ),
                                         hintText: 'Bitrth Date',
@@ -406,24 +395,24 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                               BorderRadius.circular(40),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFF4B39EF),
+                                          borderSide: BorderSide(
+                                            color: mainColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         errorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
@@ -446,8 +435,8 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                     ),
                                   ),
                                 ),
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                               Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -457,8 +446,8 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                         'Your gender:',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                          color: Color(0xFF101213),
-                                          fontSize: 16,
+                                          color: const Color(0xFF101213),
+                                          fontSize: size16(context),
                                           fontFamily: 'Plus Jakarta Sans',
                                         ),
                                       ),
@@ -482,19 +471,20 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                                   backgroundColor: Colors.grey,
                                                   label: Text(
                                                       optionsGender[index]),
-                                                  labelStyle: const TextStyle(
-                                                      fontFamily: 'Readex Pro',
-                                                      color: Colors.white),
+                                                  labelStyle: TextStyle(
+                                                      fontFamily: 'Plus Jakarta Sans',
+                                                      color: Colors.white,
+                                                      fontSize: size12(context)),
                                                   selected:
                                                       _valueGender == index,
                                                   selectedColor:
-                                                      const Color(0xFF4B39EF),
+                                                       mainColor,
                                                   showCheckmark: false,
                                                   iconTheme:
-                                                      const IconThemeData(
-                                                    color: Color.fromARGB(
+                                                      IconThemeData(
+                                                    color: const Color.fromARGB(
                                                         255, 62, 60, 60),
-                                                    size: 18,
+                                                    size: size18(context),
                                                   ),
                                                   onSelected: (bool selected) {
                                                     setState(() {
@@ -521,7 +511,7 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                       child: Container(
                         width: double.infinity,
                         constraints: const BoxConstraints(
-                          maxWidth: 570,
+                          maxWidth: 700,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -546,22 +536,22 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                 Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 12, 0, 24),
                                   child: Text(
                                     'Something about you',
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
-                                      color: Color(0xFF57636C),
-                                      fontSize: 16,
+                                      color: const Color(0xFF57636C),
+                                      fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                 ),
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                 Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -571,6 +561,8 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                         'Employment:',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
+                                          color: const Color(0xFF101213),
+                                          fontSize: size16(context),
                                           fontFamily: 'Plus Jakarta Sans',
                                         ),
                                       ),
@@ -595,19 +587,21 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                                   label: Text(
                                                       optionsEmployement[
                                                           index]),
-                                                  labelStyle: const TextStyle(
-                                                      fontFamily: 'Readex Pro',
+                                                  labelStyle: 
+                                                   TextStyle(           
+                                          fontSize: size12(context),
+                                          fontFamily: 'Plus Jakarta Sans',
                                                       color: Colors.white),
                                                   selected: _valueEmployement ==
                                                       index,
                                                   selectedColor:
-                                                      const Color(0xFF4B39EF),
+                                                       mainColor,
                                                   showCheckmark: false,
                                                   iconTheme:
-                                                      const IconThemeData(
-                                                    color: Color.fromARGB(
+                                                      IconThemeData(
+                                                    color: const Color.fromARGB(
                                                         255, 62, 60, 60),
-                                                    size: 18,
+                                                    size: size18(context),
                                                   ),
                                                   onSelected: (bool selected) {
                                                     setState(() {
@@ -627,7 +621,7 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: double.infinity,
                                     child: TextFormField(
                                       initialValue: _description,
@@ -637,10 +631,10 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelText: 'Description',
-                                        labelStyle: const TextStyle(
+                                        labelStyle:  TextStyle(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF57636C),
-                                          fontSize: 16,
+                                          color: const Color(0xFF57636C),
+                                          fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
                                         ),
                                         hintText: 'Description',
@@ -653,24 +647,24 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                               BorderRadius.circular(40),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFF4B39EF),
+                                          borderSide:  BorderSide(
+                                            color: mainColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         errorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
@@ -681,10 +675,10 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        color: Color(0xFF101213),
-                                        fontSize: 16,
+                                        color: const Color(0xFF101213),
+                                        fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
                                       ),
                                       keyboardType: TextInputType.multiline,
@@ -707,7 +701,7 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                       child: Container(
                         width: double.infinity,
                         constraints: const BoxConstraints(
-                          maxWidth: 570,
+                          maxWidth: 700,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -732,22 +726,22 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                 Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 12, 0, 24),
                                   child: Text(
                                     'Almost done!',
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
-                                      color: Color(0xFF57636C),
-                                      fontSize: 16,
+                                      color: const Color(0xFF57636C),
+                                      fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                 ),
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                 Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -755,6 +749,10 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                     children: [
                                       Text(
                                         'Pick some photos for your profile!',
+                                       style: TextStyle( color: const Color(0xFF101213),
+                                          fontSize: size16(context),
+                                          fontFamily: 'Plus Jakarta Sans',
+                                       ),  
                                       ),
                                     ],
                                   ),
@@ -792,8 +790,8 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                                     'assets/userPhoto.jpg',
                                                     width: MediaQuery.sizeOf(
                                                                 context)
-                                                            .width *
-                                                        0.30,
+                                                            .height *
+                                                        0.15,
                                                     height: MediaQuery.sizeOf(
                                                                 context)
                                                             .height *
@@ -804,8 +802,8 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                                     imageURLs[0],
                                                     width: MediaQuery.sizeOf(
                                                                 context)
-                                                            .width *
-                                                        0.30,
+                                                            .height *
+                                                        0.15,
                                                     height: MediaQuery.sizeOf(
                                                                 context)
                                                             .height *
@@ -821,7 +819,7 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                               : IconButton(
                                                   icon: const Icon(Icons.close),
                                                   color:
-                                                      const Color(0xFFFF5963),
+                                                       errorColor,
                                                   onPressed: () async {
                                                     await FirebaseStorage
                                                         .instance
@@ -838,8 +836,8 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                       ]),
                                       SizedBox(
                                           width:
-                                              MediaQuery.sizeOf(context).width *
-                                                  0.05),
+                                              MediaQuery.sizeOf(context).height *
+                                                  0.02),
                                       Column(children: [
                                         InkWell(
                                           splashColor: Colors.transparent,
@@ -866,8 +864,8 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                                     'assets/userPhoto.jpg',
                                                     width: MediaQuery.sizeOf(
                                                                 context)
-                                                            .width *
-                                                        0.30,
+                                                            .height *
+                                                        0.15,
                                                     height: MediaQuery.sizeOf(
                                                                 context)
                                                             .height *
@@ -878,8 +876,8 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                                     imageURLs[1],
                                                     width: MediaQuery.sizeOf(
                                                                 context)
-                                                            .width *
-                                                        0.30,
+                                                            .height *
+                                                        0.15,
                                                     height: MediaQuery.sizeOf(
                                                                 context)
                                                             .height *
@@ -895,7 +893,7 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                               : IconButton(
                                                   icon: const Icon(Icons.close),
                                                   color:
-                                                      const Color(0xFFFF5963),
+                                                       errorColor,
                                                   onPressed: () async {
                                                     await FirebaseStorage
                                                         .instance
@@ -941,8 +939,8 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                                   'assets/userPhoto.jpg',
                                                   width:
                                                       MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          0.30,
+                                                              .height *
+                                                          0.15,
                                                   height:
                                                       MediaQuery.sizeOf(context)
                                                               .height *
@@ -953,8 +951,8 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                                   imageURLs[2],
                                                   width:
                                                       MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          0.30,
+                                                              .height *
+                                                          0.15,
                                                   height:
                                                       MediaQuery.sizeOf(context)
                                                               .height *
@@ -969,7 +967,7 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                             ? null
                                             : IconButton(
                                                 icon: const Icon(Icons.close),
-                                                color: const Color(0xFFFF5963),
+                                                color: errorColor,
                                                 onPressed: () async {
                                                   await FirebaseStorage.instance
                                                       .refFromURL(imageURLs
@@ -985,8 +983,8 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                     ]),
                                     SizedBox(
                                         width:
-                                            MediaQuery.sizeOf(context).width *
-                                                0.05),
+                                            MediaQuery.sizeOf(context).height *
+                                                0.02),
                                     Column(children: [
                                       InkWell(
                                         splashColor: Colors.transparent,
@@ -1010,8 +1008,8 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                                   'assets/userPhoto.jpg',
                                                   width:
                                                       MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          0.30,
+                                                              .height *
+                                                          0.15,
                                                   height:
                                                       MediaQuery.sizeOf(context)
                                                               .height *
@@ -1022,8 +1020,8 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                                   imageURLs[3],
                                                   width:
                                                       MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          0.30,
+                                                              .height *
+                                                          0.15,
                                                   height:
                                                       MediaQuery.sizeOf(context)
                                                               .height *
@@ -1038,7 +1036,7 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                             ? null
                                             : IconButton(
                                                 icon: const Icon(Icons.close),
-                                                color: const Color(0xFFFF5963),
+                                                color: errorColor,
                                                 onPressed: () async {
                                                   await FirebaseStorage.instance
                                                       .refFromURL(imageURLs
@@ -1061,19 +1059,17 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                       ),
                     ),
                     Align(
-                      alignment: const AlignmentDirectional(0, 0),
+                      alignment: Alignment.center,
                       child: Padding(
                           padding:
                               const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
-                          child: Row(children: [
+                          child:
                             ElevatedButton(
                               onPressed: () async {
                                 if (scaffoldKey.currentState!.validate()) {
-                                  if (imageURLs[0] !=
-                                      '' /*&& imageURLs[0]!='' && imageURLs[0]!='' && imageURLs[0]!=''*/) {
+                                  if (imageURLs[0] !='') {
                                     setState(() {});
-
-                                    await DatabaseService(user.uid)
+                                     await DatabaseService(user.uid)
                                         .updatePersonalProfileAdj(
                                             _name ?? '',
                                             _surname ?? '',
@@ -1088,7 +1084,9 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                             imageURLs[0],
                                             imageURLs[0],
                                             imageURLs[0]);
+                                    if(mounted){
                                     Navigator.pop(context);
+                                    }
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
@@ -1102,49 +1100,65 @@ class _modificaPersonalProfileState extends State<modificaPersonalProfile> {
                                 }
                               },
                               style: ElevatedButton.styleFrom(
-                                fixedSize: const Size(230, 52),
-                                backgroundColor: Colors.black,
-                                elevation: 3.0,
-                                side: const BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1,
-                                ),
-                              ),
-                              child: const Text(
+                                      fixedSize: const Size(230, 52),
+                                      backgroundColor: mainColor,
+                                       elevation: 3.0,
+                                       shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                       ),
+                                       side: const BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1,
+                                      ),
+                                    ),
+                              child: Text(
                                 'Update',
                                 style: TextStyle(
                                   fontFamily: 'Plus Jakarta Sans',
                                   color: Colors.white,
-                                  fontSize: 16,
+                                  fontSize: size16(context),
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ),
-                            ElevatedButton(
+                          ),
+                    ),
+                    Align(
+                      alignment: Alignment.center ,
+                      child: Padding(
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
+                        
+                   child: ElevatedButton(
                               onPressed: () async {
                                 await DatabaseService(user.uid).deleteProfile();
+                                if(mounted){
                                 Navigator.pop(context);
+                                }
                               },
                               style: ElevatedButton.styleFrom(
-                                fixedSize: const Size(230, 52),
-                                backgroundColor: Colors.black,
-                                elevation: 3.0,
-                                side: const BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1,
-                                ),
-                              ),
-                              child: const Text(
+                                      fixedSize: const Size(230, 52),
+                                      backgroundColor: mainColor,
+                                       elevation: 3.0,
+                                       shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                       ),
+                                       side: const BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1,
+                                      ),
+                                    ),
+                              child: Text(
                                 'Delete',
                                 style: TextStyle(
                                   fontFamily: 'Plus Jakarta Sans',
                                   color: Colors.white,
-                                  fontSize: 16,
+                                  fontSize: size16(context),
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
-                            )
-                          ])),
+                            ),
+                      ),
                     ),
                   ],
                 ),
