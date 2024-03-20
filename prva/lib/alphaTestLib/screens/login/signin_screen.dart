@@ -44,7 +44,7 @@ class _SigniInPageState extends State<SigniInPage> {
   @override
   Widget build(BuildContext context) {
     return loading
-        ? Loading()
+        ? const Loading()
         : Scaffold(
             backgroundColor: backgroundColor,
             appBar: AppBar(
@@ -57,6 +57,7 @@ class _SigniInPageState extends State<SigniInPage> {
                     fontFamily: 'Plus Jakarta Sans',
                     color: backgroundColor,
                     fontWeight: FontWeight.w600,
+                    fontSize: size32(context),
                   ),
                 ),
                 actions: <Widget>[
@@ -64,12 +65,16 @@ class _SigniInPageState extends State<SigniInPage> {
                       onPressed: () {
                         widget.toggleView();
                       },
-                      icon: Icon(Icons.person, color: backgroundColor),
+                      icon: Icon(Icons.person, color: backgroundColor,
+                      size: MediaQuery.sizeOf(context).width<widthSize 
+                  ? MediaQuery.sizeOf(context).height * 0.03
+                  :  MediaQuery.sizeOf(context).height * 0.032,),
                       label: Text(
                         'Register',
                         style: TextStyle(
                           fontFamily: 'Plus Jakarta Sans',
                           color: backgroundColor,
+                          fontSize: size16(context),
                         ),
                       ))
                 ]),
@@ -103,7 +108,7 @@ class _SigniInPageState extends State<SigniInPage> {
                         child: Container(
                           width: double.infinity,
                           constraints: const BoxConstraints(
-                            maxWidth: 570,
+                            maxWidth: 700,
                           ),
                           decoration: BoxDecoration(
                             color: backgroundColor,
@@ -131,26 +136,26 @@ class _SigniInPageState extends State<SigniInPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      const Text(
+                                       Text(
                                         'Sign in with your account',
                                         textAlign: TextAlign.start,
                                         style: TextStyle(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF101213),
-                                          fontSize: 32,
+                                          color: const Color(0xFF101213),
+                                          fontSize: size32(context),
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
-                                      const Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                       Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0, 12, 0, 24),
                                         child: Text(
                                           'Welcome back! We missed you.',
                                           textAlign: TextAlign.start,
                                           style: TextStyle(
                                             fontFamily: 'Plus Jakarta Sans',
-                                            color: Color(0xFF57636C),
-                                            fontSize: 16,
+                                            color: const Color(0xFF57636C),
+                                            fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),
@@ -163,11 +168,11 @@ class _SigniInPageState extends State<SigniInPage> {
                                           child: TextFormField(
                                               decoration: InputDecoration(
                                                 labelText: 'Email',
-                                                labelStyle: const TextStyle(
+                                                labelStyle: TextStyle(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: Color(0xFF57636C),
-                                                  fontSize: 16,
+                                                  color: const Color(0xFF57636C),
+                                                  fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                                 enabledBorder:
@@ -210,10 +215,10 @@ class _SigniInPageState extends State<SigniInPage> {
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                               ),
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 fontFamily: 'Plus Jakarta Sans',
-                                                color: Color(0xFF101213),
-                                                fontSize: 16,
+                                                color: const Color(0xFF101213),
+                                                fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
                                               ),
                                               keyboardType:
@@ -239,11 +244,11 @@ class _SigniInPageState extends State<SigniInPage> {
                                                   !_model.passwordVisibility,
                                               decoration: InputDecoration(
                                                 labelText: 'Password',
-                                                labelStyle: const TextStyle(
+                                                labelStyle: TextStyle(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: Color(0xFF57636C),
-                                                  fontSize: 16,
+                                                  color: const Color(0xFF57636C),
+                                                  fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                                 enabledBorder:
@@ -300,15 +305,15 @@ class _SigniInPageState extends State<SigniInPage> {
                                                             .visibility_outlined
                                                         : Icons
                                                             .visibility_off_outlined,
-                                                    color: Color(0xFF57636C),
-                                                    size: 24,
+                                                    color: const Color(0xFF57636C),
+                                                    size: size24(context),
                                                   ),
                                                 ),
                                               ),
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 fontFamily: 'Plus Jakarta Sans',
-                                                color: Color(0xFF101213),
-                                                fontSize: 16,
+                                                color: const Color(0xFF101213),
+                                                fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
                                               ),
                                               validator: (val) => val!.length <
@@ -361,7 +366,7 @@ class _SigniInPageState extends State<SigniInPage> {
                                               style: TextStyle(
                                                 fontFamily: 'Plus Jakarta Sans',
                                                 color: backgroundColor,
-                                                fontSize: 16,
+                                                fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
                                               ),
                                             ),

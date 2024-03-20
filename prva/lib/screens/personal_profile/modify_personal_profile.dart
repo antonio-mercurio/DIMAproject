@@ -423,10 +423,10 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        color: Color(0xFF101213),
-                                        fontSize: 16,
+                                        color: const Color(0xFF101213),
+                                        fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
                                       ),
                                       validator: (val) => val!.isEmpty
@@ -472,7 +472,7 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                                                   label: Text(
                                                       optionsGender[index]),
                                                   labelStyle: TextStyle(
-                                                      fontFamily: 'Plus Jakarta Sans',
+                                                       fontFamily: 'Readex Pro',
                                                       color: Colors.white,
                                                       fontSize: size12(context)),
                                                   selected:
@@ -590,7 +590,7 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                                                   labelStyle: 
                                                    TextStyle(           
                                           fontSize: size12(context),
-                                          fontFamily: 'Plus Jakarta Sans',
+                                          fontFamily: 'Readex Pro',
                                                       color: Colors.white),
                                                   selected: _valueEmployement ==
                                                       index,
