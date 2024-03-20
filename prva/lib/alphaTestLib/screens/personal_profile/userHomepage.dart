@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/message.dart';
-import 'package:prva/screens/personal_profile/modifyPersonalProfile.dart';
+import 'package:prva/screens/personal_profile/modify_personal_profile.dart';
 import 'package:prva/screens/personal_profile/form_filter_people_adj.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/user.dart';
-import 'package:prva/screens/personal_profile/notificationPerson.dart';
+import 'package:prva/screens/personal_profile/notification_person.dart';
 import 'package:prva/screens/chat/chat.dart';
 import 'package:badges/badges.dart' as badges;
-import 'package:prva/screens/personal_profile/allHousesList.dart';
+import 'package:prva/screens/personal_profile/all_houses.dart';
+import 'package:prva/screens/shared/constant.dart';
 import 'package:prva/services/chat/chat_service.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
@@ -206,14 +207,14 @@ class ProfileLayout extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => modificaPersonalProfile(
+                      builder: (context) => ModificaPersonalProfile(
                             personalProfile: personalData,
                           )),
                 );
               },
               style: ElevatedButton.styleFrom(
                                       fixedSize: const Size(230, 52),
-                                      backgroundColor:const Color(0xFF4B39EF),
+                                      backgroundColor: mainColor,
                                        elevation: 3.0,
                                        shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(40),
@@ -223,11 +224,11 @@ class ProfileLayout extends StatelessWidget {
                                         width: 1,
                                       ),
                                     ),
-                                    child : const Text('Modify your profile!',
+                                    child : Text('Modify your profile!',
                                     style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
                                             color: Colors.white,
-                                            fontSize: 16,
+                                            fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
                                     ),
                                     ),

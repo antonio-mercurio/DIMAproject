@@ -15,7 +15,7 @@ import 'package:prva/services/chat/chat_service.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/services/match/match_service.dart';
-import 'package:prva/shared/loading.dart';
+import 'package:prva/screens/shared/loading.dart';
 import 'package:prva/screens/house_profile/show_detailed_profile.dart';
 
 //When we have the list of our "house profile", when clicking on one of them show this home page

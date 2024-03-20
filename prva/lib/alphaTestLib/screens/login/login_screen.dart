@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:prva/shared/loading.dart';
+import 'package:prva/screens/shared/constant.dart';
+import 'package:prva/screens/shared/loading.dart';
 import 'package:mockito/mockito.dart';
 
 class MockFirebaseAuth extends Mock implements FirebaseAuth {
@@ -13,7 +14,7 @@ class MockAuthResult extends Mock implements User {}
 
 class LoginPage extends StatefulWidget {
   final Function toggleView;
-  LoginPage({required this.toggleView});
+  const LoginPage({super.key, required this.toggleView});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -56,31 +57,36 @@ class _LoginPageState extends State<LoginPage> {
     return loading
         ? const Loading()
         : Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: backgroundColor,
             appBar: AppBar(
-                backgroundColor: Colors.black,
+                backgroundColor: mainColor,
                 elevation: 0.0,
-                title: const Text(
+                title: Text(
                   'Affinder',
                   textAlign: TextAlign.start,
                   style: TextStyle(
                     fontFamily: 'Plus Jakarta Sans',
-                    color: Colors.white,
+                    color: backgroundColor,
                     fontWeight: FontWeight.w600,
+                    fontSize: size32(context),
                   ),
                 ),
                 actions: <Widget>[
                   TextButton.icon(
-                      key: Key('signInButton'),
+                      key: const Key('signInButton'),
                       onPressed: () {
                         widget.toggleView();
                       },
-                      icon: const Icon(Icons.person, color: Colors.white),
-                      label: const Text(
+                      icon: Icon(Icons.person, color: backgroundColor, 
+                      size: MediaQuery.sizeOf(context).width<widthSize 
+                  ? MediaQuery.sizeOf(context).height * 0.03
+                  :  MediaQuery.sizeOf(context).height * 0.032,),
+                      label: Text(
                         'Sign In',
                         style: TextStyle(
                           fontFamily: 'Plus Jakarta Sans',
-                          color: Colors.white,
+                          color: backgroundColor,
+                          fontSize: size16(context),
                         ),
                       ))
                 ]),
@@ -114,10 +120,10 @@ class _LoginPageState extends State<LoginPage> {
                           child: Container(
                             width: double.infinity,
                             constraints: const BoxConstraints(
-                              maxWidth: 570,
+                              maxWidth: 700,
                             ),
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: backgroundColor,
                               boxShadow: const [
                                 BoxShadow(
                                   blurRadius: 4,
@@ -142,28 +148,28 @@ class _LoginPageState extends State<LoginPage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        const Text(
-                                          key: Key('createAccountText'),
+                                         Text(
+                                          key: const Key('createAccountText'),
                                           'Create an account',
                                           textAlign: TextAlign.start,
                                           style: TextStyle(
                                             fontFamily: 'Plus Jakarta Sans',
-                                            color: Color(0xFF101213),
-                                            fontSize: 32,
+                                            color: const Color(0xFF101213),
+                                            fontSize: size32(context),
                                             fontWeight: FontWeight.w600,
                                           ),
                                         ),
-                                        const Padding(
+                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                             const EdgeInsetsDirectional.fromSTEB(
                                                   0, 12, 0, 24),
                                           child: Text(
                                             'Let\'s get started by filling out the form below.',
                                             textAlign: TextAlign.start,
                                             style: TextStyle(
                                               fontFamily: 'Plus Jakarta Sans',
-                                              color: Color(0xFF57636C),
-                                              fontSize: 16,
+                                              color: const Color(0xFF57636C),
+                                              fontSize: size16(context),
                                               fontWeight: FontWeight.w500,
                                             ),
                                           ),
@@ -171,17 +177,17 @@ class _LoginPageState extends State<LoginPage> {
                                         Padding(
                                           padding: const EdgeInsetsDirectional
                                               .fromSTEB(0, 0, 0, 16),
-                                          child: Container(
+                                          child: SizedBox(
                                             width: double.infinity,
                                             child: TextFormField(
-                                                key: Key('emailField'),
+                                                key: const Key('emailField'),
                                                 decoration: InputDecoration(
                                                   labelText: 'Email',
-                                                  labelStyle: const TextStyle(
+                                                  labelStyle:  TextStyle(
                                                     fontFamily:
                                                         'Plus Jakarta Sans',
-                                                    color: Color(0xFF57636C),
-                                                    fontSize: 16,
+                                                    color: const Color(0xFF57636C),
+                                                    fontSize: size16(context),
                                                     fontWeight: FontWeight.w500,
                                                   ),
                                                   enabledBorder:
@@ -198,8 +204,8 @@ class _LoginPageState extends State<LoginPage> {
                                                   focusedBorder:
                                                       OutlineInputBorder(
                                                     borderSide:
-                                                        const BorderSide(
-                                                      color: Color(0xFF4B39EF),
+                                                       BorderSide(
+                                                      color: mainColor,
                                                       width: 2,
                                                     ),
                                                     borderRadius:
@@ -209,8 +215,8 @@ class _LoginPageState extends State<LoginPage> {
                                                   errorBorder:
                                                       OutlineInputBorder(
                                                     borderSide:
-                                                        const BorderSide(
-                                                      color: Color(0xFFFF5963),
+                                                         BorderSide(
+                                                      color: errorColor,
                                                       width: 2,
                                                     ),
                                                     borderRadius:
@@ -220,8 +226,8 @@ class _LoginPageState extends State<LoginPage> {
                                                   focusedErrorBorder:
                                                       OutlineInputBorder(
                                                     borderSide:
-                                                        const BorderSide(
-                                                      color: Color(0xFFFF5963),
+                                                         BorderSide(
+                                                      color: errorColor,
                                                       width: 2,
                                                     ),
                                                     borderRadius:
@@ -229,15 +235,15 @@ class _LoginPageState extends State<LoginPage> {
                                                             40),
                                                   ),
                                                   filled: true,
-                                                  fillColor: Colors.white,
+                                                  fillColor: backgroundColor,
                                                   contentPadding:
-                                                      EdgeInsets.all(24),
+                                                      const EdgeInsets.all(24),
                                                 ),
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: Color(0xFF101213),
-                                                  fontSize: 16,
+                                                  color: const Color(0xFF101213),
+                                                  fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                                 keyboardType:
@@ -253,22 +259,22 @@ class _LoginPageState extends State<LoginPage> {
                                         Padding(
                                           padding: const EdgeInsetsDirectional
                                               .fromSTEB(0, 0, 0, 16),
-                                          child: Container(
+                                          child: SizedBox(
                                             width: double.infinity,
                                             child: TextFormField(
-                                                key: Key('pwdField'),
-                                                autofillHints: [
+                                                key: const Key('pwdField'),
+                                                autofillHints: const [
                                                   AutofillHints.password
                                                 ],
                                                 obscureText:
                                                     !_model.passwordVisibility,
                                                 decoration: InputDecoration(
                                                   labelText: 'Password',
-                                                  labelStyle: const TextStyle(
+                                                  labelStyle: TextStyle(
                                                     fontFamily:
                                                         'Plus Jakarta Sans',
-                                                    color: Color(0xFF57636C),
-                                                    fontSize: 16,
+                                                    color: const Color(0xFF57636C),
+                                                    fontSize: size16(context),
                                                     fontWeight: FontWeight.w500,
                                                   ),
                                                   enabledBorder:
@@ -285,8 +291,8 @@ class _LoginPageState extends State<LoginPage> {
                                                   focusedBorder:
                                                       OutlineInputBorder(
                                                     borderSide:
-                                                        const BorderSide(
-                                                      color: Color(0xFF4B39EF),
+                                                         BorderSide(
+                                                      color: mainColor,
                                                       width: 2,
                                                     ),
                                                     borderRadius:
@@ -296,8 +302,8 @@ class _LoginPageState extends State<LoginPage> {
                                                   errorBorder:
                                                       OutlineInputBorder(
                                                     borderSide:
-                                                        const BorderSide(
-                                                      color: Color(0xFFFF5963),
+                                                         BorderSide(
+                                                      color: errorColor,
                                                       width: 2,
                                                     ),
                                                     borderRadius:
@@ -307,8 +313,8 @@ class _LoginPageState extends State<LoginPage> {
                                                   focusedErrorBorder:
                                                       OutlineInputBorder(
                                                     borderSide:
-                                                        const BorderSide(
-                                                      color: Color(0xFFFF5963),
+                                                         BorderSide(
+                                                      color: errorColor,
                                                       width: 2,
                                                     ),
                                                     borderRadius:
@@ -316,7 +322,7 @@ class _LoginPageState extends State<LoginPage> {
                                                             40),
                                                   ),
                                                   filled: true,
-                                                  fillColor: Colors.white,
+                                                  fillColor: backgroundColor,
                                                   contentPadding:
                                                       const EdgeInsets.all(24),
                                                   suffixIcon: InkWell(
@@ -334,16 +340,16 @@ class _LoginPageState extends State<LoginPage> {
                                                               .visibility_outlined
                                                           : Icons
                                                               .visibility_off_outlined,
-                                                      color: Color(0xFF57636C),
-                                                      size: 24,
+                                                      color: const Color(0xFF57636C),
+                                                      size: size24(context),
                                                     ),
                                                   ),
                                                 ),
-                                                style: const TextStyle(
+                                                style:  TextStyle(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: Color(0xFF101213),
-                                                  fontSize: 16,
+                                                  color: const Color(0xFF101213),
+                                                  fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                                 validator: (val) => val!
@@ -360,23 +366,23 @@ class _LoginPageState extends State<LoginPage> {
                                         Padding(
                                           padding: const EdgeInsetsDirectional
                                               .fromSTEB(0, 0, 0, 16),
-                                          child: Container(
+                                          child: SizedBox(
                                             width: double.infinity,
                                             child: TextFormField(
-                                                key: Key('confirmPwdField'),
+                                                key: const Key('confirmPwdField'),
                                                 autofocus: true,
-                                                autofillHints: [
+                                                autofillHints: const [
                                                   AutofillHints.password
                                                 ],
                                                 obscureText: !_model
                                                     .confirmPasswordVisibility,
                                                 decoration: InputDecoration(
                                                   labelText: 'Confirm Password',
-                                                  labelStyle: const TextStyle(
+                                                  labelStyle: TextStyle(
                                                     fontFamily:
                                                         'Plus Jakarta Sans',
-                                                    color: Color(0xFF57636C),
-                                                    fontSize: 16,
+                                                    color: const Color(0xFF57636C),
+                                                    fontSize: size16(context),
                                                     fontWeight: FontWeight.w500,
                                                   ),
                                                   enabledBorder:
@@ -393,8 +399,8 @@ class _LoginPageState extends State<LoginPage> {
                                                   focusedBorder:
                                                       OutlineInputBorder(
                                                     borderSide:
-                                                        const BorderSide(
-                                                      color: Color(0xFF4B39EF),
+                                                         BorderSide(
+                                                      color: mainColor,
                                                       width: 2,
                                                     ),
                                                     borderRadius:
@@ -404,8 +410,8 @@ class _LoginPageState extends State<LoginPage> {
                                                   errorBorder:
                                                       OutlineInputBorder(
                                                     borderSide:
-                                                        const BorderSide(
-                                                      color: Color(0xFFFF5963),
+                                                         BorderSide(
+                                                      color: errorColor,
                                                       width: 2,
                                                     ),
                                                     borderRadius:
@@ -415,8 +421,8 @@ class _LoginPageState extends State<LoginPage> {
                                                   focusedErrorBorder:
                                                       OutlineInputBorder(
                                                     borderSide:
-                                                        const BorderSide(
-                                                      color: Color(0xFFFF5963),
+                                                         BorderSide(
+                                                      color: errorColor,
                                                       width: 2,
                                                     ),
                                                     borderRadius:
@@ -424,9 +430,9 @@ class _LoginPageState extends State<LoginPage> {
                                                             40),
                                                   ),
                                                   filled: true,
-                                                  fillColor: Colors.white,
+                                                  fillColor: backgroundColor,
                                                   contentPadding:
-                                                      EdgeInsets.all(24),
+                                                      const EdgeInsets.all(24),
                                                   suffixIcon: InkWell(
                                                     onTap: () => setState(
                                                       () => _model
@@ -442,16 +448,16 @@ class _LoginPageState extends State<LoginPage> {
                                                               .visibility_outlined
                                                           : Icons
                                                               .visibility_off_outlined,
-                                                      color: Color(0xFF57636C),
-                                                      size: 24,
+                                                      color: const Color(0xFF57636C),
+                                                      size: size24(context),
                                                     ),
                                                   ),
                                                 ),
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: Color(0xFF101213),
-                                                  fontSize: 16,
+                                                  color: const Color(0xFF101213),
+                                                  fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                                 validator: (val) => val!
@@ -472,7 +478,7 @@ class _LoginPageState extends State<LoginPage> {
                                             padding: const EdgeInsetsDirectional
                                                 .fromSTEB(0, 0, 0, 16),
                                             child: ElevatedButton(
-                                              key: Key('getStartedButton'),
+                                              key: const Key('getStartedButton'),
                                               onPressed: () async {
                                                 if (password !=
                                                     confirmPassword) {
@@ -510,13 +516,13 @@ class _LoginPageState extends State<LoginPage> {
                                                   width: 1,
                                                 ),
                                               ),
-                                              child: const Text(
+                                              child: Text(
                                                 'Get Started',
                                                 style: TextStyle(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: Colors.white,
-                                                  fontSize: 16,
+                                                  color: backgroundColor,
+                                                  fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                               ),

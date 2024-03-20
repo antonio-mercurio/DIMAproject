@@ -4,6 +4,8 @@ import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/preference.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/services/match/match_service.dart';
+import 'package:prva/screens/shared/constant.dart';
+import 'package:prva/screens/shared/empty.dart';
 
 class NotificationPersonLayout extends StatefulWidget {
   final String profile;
@@ -29,13 +31,20 @@ class _NotificationPersonLayoutState extends State<NotificationPersonLayout> {
       }
     });
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: backgroundColor,
         appBar: AppBar(
-          backgroundColor: Colors.black,
+          backgroundColor: mainColor,
           title: Text(
             'Notifications',
+            style: TextStyle(
+                                      fontFamily: 'Plus Jakarta Sans',
+                                            color: backgroundColor,
+                                            fontSize: size32(context),
+                                            fontWeight: FontWeight.w500,
+            ),
+
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 0,
         ),
@@ -47,7 +56,7 @@ Widget _buildNotificationList(
     BuildContext context, String profile, List<MatchPeople>? idmatches) {
     if(idmatches!= null){
         return ListView.builder(
-          padding: EdgeInsets.fromLTRB(
+          padding: const EdgeInsets.fromLTRB(
             0,
             8,
             0,
@@ -60,9 +69,7 @@ Widget _buildNotificationList(
       },
     );
       } else {
-        return Center(
-          child: Text("Non hai ancora notifiche"),
-        );
+        return const EmptyProfile(shapeOfIcon: Icons.sentiment_dissatisfied_rounded, textToShow: 'You don\'t have any notifications!',);
       }
     }
 
@@ -71,16 +78,16 @@ Widget _buildUserListItem(
   String calculateTimestamp(Timestamp tmp) {
     final difference = Timestamp.now().toDate().difference(tmp.toDate());
     if (difference.inSeconds < 60) {
-      return difference.inSeconds.toString() + ' seconds ago';
+      return '${difference.inSeconds} seconds ago';
     } else if (difference.inMinutes < 60) {
-      return difference.inMinutes.toString() + ' minutes ago';
+      return '${difference.inMinutes} minutes ago';
     } else if (difference.inHours < 24) {
-      return difference.inHours.toString() + ' hours ago';
+      return '${difference.inHours} hours ago';
     } else if (difference.inDays < 31) {
-      return difference.inDays.toString() + ' days ago';
+      return '${difference.inDays} days ago';
     } else {
       final differenceM = (difference.inDays / 31).floor();
-      return differenceM.toString() + ' months ago';
+      return '$differenceM months ago';
     }
   }
 
@@ -93,12 +100,12 @@ Widget _buildUserListItem(
           final type=  snapshot.data?.type ?? "";
           final city=  snapshot.data?.city ?? "";
           return Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 8),
+            padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 8),
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 241, 242, 244),
-                boxShadow: [
+                color: const Color.fromARGB(255, 241, 242, 244),
+                boxShadow: const [
                   BoxShadow(
                     blurRadius: 3,
                     color: Color(0x33000000),
@@ -107,27 +114,27 @@ Widget _buildUserListItem(
                 ],
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: Color.fromARGB(255, 62, 62, 62),
+                  color: const Color.fromARGB(255, 62, 62, 62),
                   width: 1,
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.all(12),
+                padding: const EdgeInsets.all(12),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      width: 80,
-                      height: 80,
+                    SizedBox(
+                      width: MediaQuery.sizeOf(context).height*0.1,
+                      height: MediaQuery.sizeOf(context).height*0.1,
                       child: Padding(
-                        padding: EdgeInsets.all(2),
+                        padding: const EdgeInsets.all(2),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(0),
                           child: Image.network(
                             image,
-                            width: 44,
-                            height: 44,
+                            width: MediaQuery.sizeOf(context).height*0.052,
+                            height: MediaQuery.sizeOf(context).height*0.052,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -135,49 +142,49 @@ Widget _buildUserListItem(
                     ),
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 8),
+                        padding: const EdgeInsetsDirectional.fromSTEB(16, 4, 16, 8),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                             Text(
                               'New Match!',
                               maxLines: 1,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Plus Jakarta Sans',
-                                color: Color(0xFF101213),
-                                fontSize: 16,
+                                color: const Color(0xFF101213),
+                                fontSize: size18(context),
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
                             Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                                  const EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                               child: Text(
                                 'You have matched with ' +
                                     type+
                                     " " +
                                     city +
                                     '! Go to the chat to start a conversation! ',
-                                maxLines: 4,
-                                style: const TextStyle(
+                                maxLines: 6,
+                                style: TextStyle(
                                   fontFamily: 'Plus Jakarta Sans',
-                                  color: Color(0xFF101213),
-                                  fontSize: 14,
+                                  color: const Color(0xFF101213),
+                                  fontSize: size16(context),
                                   fontWeight: FontWeight.normal,
                                 ),
                               ),
                             ),
                             Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 8, 0, 4),
+                                  const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 4),
                               child: Text(
                                 (calculateTimestamp(idmatch.timestamp)),
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontFamily: 'Plus Jakarta Sans',
-                                  color: Color(0xFF101213),
-                                  fontSize: 12,
+                                  color: const Color(0xFF101213),
+                                  fontSize: size12(context),
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -192,8 +199,8 @@ Widget _buildUserListItem(
             ),
           );
          
-        } else {
-          return Text('342 not.dart');
+        }else{
+          return const Text('');
         }
       });
 }

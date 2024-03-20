@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/personalProfile.dart';
-import 'package:prva/screens/house_profile/show_detailed_profile.dart';
+import 'package:prva/screens/shared/constant.dart';
+
+import 'package:prva/screens/shared/image.dart';
 
 class DetailedPersonalProfile extends StatefulWidget {
   const DetailedPersonalProfile({super.key});
@@ -42,7 +44,6 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
     final personalProfile = Provider.of<PersonalProfileAdj>(context);
     getImages(personalProfile.imageURL1, personalProfile.imageURL2,
         personalProfile.imageURL3, personalProfile.imageURL4);
-    print(images.length);
     return Column(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,18 +51,19 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
           child: Text('${personalProfile.nameA} ${personalProfile.surnameA}',
-              style: const TextStyle(
-                fontSize: 22.0,
+              style: TextStyle(
+                fontSize: size24(context),
                 color: Colors.black,
                 fontFamily: 'Plus Jakarta Sans',
+                fontWeight: FontWeight.bold,
               )),
         ),
         Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(10, 12, 0, 0),
+          padding: const EdgeInsetsDirectional.fromSTEB(10, 12, 0, 12),
           child: Container(
             width: double.infinity,
-            height: 500,
-            decoration: BoxDecoration(
+            height: MediaQuery.sizeOf(context).height*0.4,
+            decoration: const BoxDecoration(
               color: Color(0xFFF1F4F8),
             ),
             child: ListView.builder(
@@ -82,8 +84,8 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
             _calculationAge(personalProfile.year, personalProfile.month,
                     personalProfile.day)
                 .toString(),
-            style: const TextStyle(
-              fontSize: 18.0,
+            style: TextStyle(
+              fontSize: size18(context),
               color: Colors.black,
               fontFamily: 'Plus Jakarta Sans',
             ),
@@ -93,8 +95,9 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
           padding: const EdgeInsetsDirectional.fromSTEB(16, 8, 0, 0),
           child: Text(
             personalProfile.description,
-            style: const TextStyle(
-                fontSize: 16.0,
+            maxLines: 100,
+            style: TextStyle(
+                fontSize:size16(context),
                 color: Colors.black,
                 fontFamily: 'Plus Jakarta Sans'),
           ),
@@ -110,17 +113,18 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+               Text(
                 'Gender:',
                 style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: size20(context),
                     color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans'),
+                    fontFamily: 'Plus Jakarta Sans',
+                    fontWeight: FontWeight.bold),
               ),
               Text(
                 personalProfile.gender,
-                style: const TextStyle(
-                    fontSize: 20.0,
+                style: TextStyle(
+                    fontSize:size20(context),
                     color: Colors.black,
                     fontFamily: 'Plus Jakarta Sans'),
               ),
@@ -133,17 +137,18 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+               Text(
                 'Employment:',
                 style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: size20(context),
                     color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans'),
+                    fontFamily: 'Plus Jakarta Sans',
+                    fontWeight: FontWeight.bold ),
               ),
               Text(
                 personalProfile.employment,
-                style: const TextStyle(
-                    fontSize: 20.0,
+                style: TextStyle(
+                    fontSize: size20(context),
                     color: Colors.black,
                     fontFamily: 'Plus Jakarta Sans'),
               ),

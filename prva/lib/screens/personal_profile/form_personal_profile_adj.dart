@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/user.dart';
-import 'package:prva/schermiProva.dart';
+import 'package:prva/screens/shared/constant.dart';
+import 'package:prva/services/image_picker/schermiProva.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForFilters.dart';
 import 'package:prva/services/match/match_service.dart';
-import 'package:prva/shared/loading.dart'; // for date formatting
+import 'package:prva/screens/shared/loading.dart'; // for date formatting
 
 class FormPersonalProfileAdj extends StatefulWidget {
   const FormPersonalProfileAdj({Key? key}) : super(key: key);
@@ -75,15 +76,6 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
         appBar: AppBar(
           backgroundColor: Colors.black,
           elevation: 0.0,
-          title: const Text(
-            'Affinder',
-            textAlign: TextAlign.start,
-            style: TextStyle(
-              fontFamily: 'Plus Jakarta Sans',
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
         ),
         body: SafeArea(
           top: true,
@@ -101,17 +93,17 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                           const EdgeInsetsDirectional.fromSTEB(0, 32, 0, 32),
                       child: Container(
                         width: double.infinity,
-                        height: 48,
+                        height: MediaQuery.sizeOf(context).height*0.052,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
                         ),
                         alignment: const AlignmentDirectional(0, 0),
-                        child: const Text(
+                        child: Text(
                           'Create your profile',
                           style: TextStyle(
                             fontFamily: 'Plus Jakarta Sans',
-                            color: Color(0xFF101213),
-                            fontSize: 36,
+                            color: const Color(0xFF101213),
+                            fontSize: size32(context),
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -122,7 +114,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                       child: Container(
                         width: double.infinity,
                         constraints: const BoxConstraints(
-                          maxWidth: 570,
+                          maxWidth: 700,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -147,16 +139,16 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                 Padding(
+                                  padding:  const EdgeInsetsDirectional.fromSTEB(
                                       0, 12, 0, 24),
                                   child: Text(
                                     'Start with your personal data',
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
-                                      color: Color(0xFF57636C),
-                                      fontSize: 16,
+                                      color: const Color(0xFF57636C),
+                                      fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -164,7 +156,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
-                                  //child: Container(
+                                
                                   child: SizedBox(
                                     width: double.infinity,
                                     child: TextFormField(
@@ -189,24 +181,24 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                               BorderRadius.circular(40),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFF4B39EF),
+                                          borderSide: BorderSide(
+                                            color: mainColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         errorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
@@ -217,10 +209,10 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        color: Color(0xFF101213),
-                                        fontSize: 16,
+                                        color: const Color(0xFF101213),
+                                        fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
                                       ),
                                       keyboardType: TextInputType.emailAddress,
@@ -235,7 +227,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: double.infinity,
                                     child: TextFormField(
                                       autofocus: true,
@@ -243,10 +235,10 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelText: 'Surname',
-                                        labelStyle: const TextStyle(
+                                        labelStyle:  TextStyle(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF57636C),
-                                          fontSize: 16,
+                                          color: const Color(0xFF57636C),
+                                          fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
                                         ),
                                         hintText: 'Surname',
@@ -259,24 +251,24 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                               BorderRadius.circular(40),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFF4B39EF),
+                                          borderSide: BorderSide(
+                                            color: mainColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         errorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
@@ -287,10 +279,10 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        color: Color(0xFF101213),
-                                        fontSize: 16,
+                                        color: const Color(0xFF101213),
+                                        fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
                                       ),
                                       validator: (val) => val!.isEmpty
@@ -304,7 +296,6 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
-                                  //child: Container(
                                   child: SizedBox(
                                     width: double.infinity,
                                     child: TextFormField(
@@ -325,10 +316,10 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                           },
                                         ),
                                         labelText: 'Birth Date',
-                                        labelStyle: const TextStyle(
+                                        labelStyle: TextStyle(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF57636C),
-                                          fontSize: 16,
+                                          color: const Color(0xFF57636C),
+                                          fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
                                         ),
                                         hintText: 'Bitrth Date',
@@ -341,24 +332,24 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                               BorderRadius.circular(40),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFF4B39EF),
+                                          borderSide: BorderSide(
+                                            color: mainColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         errorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
@@ -369,10 +360,10 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        color: Color(0xFF101213),
-                                        fontSize: 16,
+                                        color: const Color(0xFF101213),
+                                        fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
                                       ),
                                       validator: (val) => val!.isEmpty
@@ -381,8 +372,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                     ),
                                   ),
                                 ),
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                 Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -392,8 +383,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                         'Your gender:',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                          color: Color(0xFF101213),
-                                          fontSize: 16,
+                                          color: const Color(0xFF101213),
+                                          fontSize: size16(context),
                                           fontFamily: 'Plus Jakarta Sans',
                                         ),
                                       ),
@@ -417,19 +408,20 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                                   backgroundColor: Colors.grey,
                                                   label: Text(
                                                       optionsGender[index]),
-                                                  labelStyle: const TextStyle(
+                                                  labelStyle: TextStyle(
                                                       fontFamily: 'Readex Pro',
+                                                      fontSize: size12(context),
                                                       color: Colors.white),
                                                   selected:
                                                       _valueGender == index,
                                                   selectedColor:
-                                                      const Color(0xFF4B39EF),
+                                                       mainColor,
                                                   showCheckmark: false,
                                                   iconTheme:
-                                                      const IconThemeData(
-                                                    color: Color.fromARGB(
+                                                       IconThemeData(
+                                                    color:const Color.fromARGB(
                                                         255, 62, 60, 60),
-                                                    size: 18,
+                                                    size: size18(context),
                                                   ),
                                                   onSelected: (bool selected) {
                                                     setState(() {
@@ -456,7 +448,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                       child: Container(
                         width: double.infinity,
                         constraints: const BoxConstraints(
-                          maxWidth: 570,
+                          maxWidth: 700,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -481,22 +473,22 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                 Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 12, 0, 24),
                                   child: Text(
                                     'Something about you',
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
-                                      color: Color(0xFF57636C),
-                                      fontSize: 16,
+                                      color: const Color(0xFF57636C),
+                                      fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                 ),
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -506,6 +498,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                         'Employment:',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
+                                          color: const Color(0xFF101213),
+                                          fontSize: size16(context),
                                           fontFamily: 'Plus Jakarta Sans',
                                         ),
                                       ),
@@ -530,19 +524,20 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                                   label: Text(
                                                       optionsEmployement[
                                                           index]),
-                                                  labelStyle: const TextStyle(
+                                                  labelStyle: TextStyle(
                                                       fontFamily: 'Readex Pro',
+                                                      fontSize: size12(context),
                                                       color: Colors.white),
                                                   selected: _valueEmployement ==
                                                       index,
                                                   selectedColor:
-                                                      const Color(0xFF4B39EF),
+                                                       mainColor,
                                                   showCheckmark: false,
                                                   iconTheme:
-                                                      const IconThemeData(
-                                                    color: Color.fromARGB(
+                                                       IconThemeData(
+                                                    color:const Color.fromARGB(
                                                         255, 62, 60, 60),
-                                                    size: 18,
+                                                    size: size18(context),
                                                   ),
                                                   onSelected: (bool selected) {
                                                     setState(() {
@@ -562,7 +557,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: double.infinity,
                                     child: TextFormField(
                                       maxLines: 4,
@@ -571,10 +566,10 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelText: 'Description',
-                                        labelStyle: const TextStyle(
+                                        labelStyle: TextStyle(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF57636C),
-                                          fontSize: 16,
+                                          color: const Color(0xFF57636C),
+                                          fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
                                         ),
                                         hintText: 'Description',
@@ -587,24 +582,24 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                               BorderRadius.circular(40),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFF4B39EF),
+                                          borderSide: BorderSide(
+                                            color: mainColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         errorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
@@ -615,10 +610,10 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        color: Color(0xFF101213),
-                                        fontSize: 16,
+                                        color: const Color(0xFF101213),
+                                        fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
                                       ),
                                       keyboardType: TextInputType.multiline,
@@ -641,7 +636,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                       child: Container(
                         width: double.infinity,
                         constraints: const BoxConstraints(
-                          maxWidth: 570,
+                          maxWidth: 700,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -666,22 +661,22 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 12, 0, 24),
                                   child: Text(
                                     'Almost done!',
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
-                                      color: Color(0xFF57636C),
-                                      fontSize: 16,
+                                      color: const Color(0xFF57636C),
+                                      fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                 ),
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -689,6 +684,10 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                     children: [
                                       Text(
                                         'Pick some photos for your profile!',
+                                        style: TextStyle( color: const Color(0xFF101213),
+                                          fontSize: size16(context),
+                                          fontFamily: 'Plus Jakarta Sans',
+                                       ),  
                                       ),
                                     ],
                                   ),
@@ -726,8 +725,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                                     'assets/userPhoto.jpg',
                                                     width: MediaQuery.sizeOf(
                                                                 context)
-                                                            .width *
-                                                        0.30,
+                                                            .height *
+                                                        0.15,
                                                     height: MediaQuery.sizeOf(
                                                                 context)
                                                             .height *
@@ -738,8 +737,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                                     imageURLs[0],
                                                     width: MediaQuery.sizeOf(
                                                                 context)
-                                                            .width *
-                                                        0.30,
+                                                            .height *
+                                                        0.15,
                                                     height: MediaQuery.sizeOf(
                                                                 context)
                                                             .height *
@@ -755,7 +754,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                               : IconButton(
                                                   icon: const Icon(Icons.close),
                                                   color:
-                                                      const Color(0xFFFF5963),
+                                                       errorColor,
                                                   onPressed: () async {
                                                     await FirebaseStorage
                                                         .instance
@@ -772,8 +771,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                       ]),
                                       SizedBox(
                                           width:
-                                              MediaQuery.sizeOf(context).width *
-                                                  0.05),
+                                              MediaQuery.sizeOf(context).height *
+                                                  0.02),
                                       Column(children: [
                                         InkWell(
                                           splashColor: Colors.transparent,
@@ -798,10 +797,10 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                                     .isEmpty
                                                 ? Image.asset(
                                                     'assets/userPhoto.jpg',
-                                                    width: MediaQuery.sizeOf(
+                                                   width: MediaQuery.sizeOf(
                                                                 context)
-                                                            .width *
-                                                        0.30,
+                                                            .height *
+                                                        0.15,
                                                     height: MediaQuery.sizeOf(
                                                                 context)
                                                             .height *
@@ -812,8 +811,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                                     imageURLs[1],
                                                     width: MediaQuery.sizeOf(
                                                                 context)
-                                                            .width *
-                                                        0.30,
+                                                            .height *
+                                                        0.15,
                                                     height: MediaQuery.sizeOf(
                                                                 context)
                                                             .height *
@@ -829,7 +828,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                               : IconButton(
                                                   icon: const Icon(Icons.close),
                                                   color:
-                                                      const Color(0xFFFF5963),
+                                                       errorColor,
                                                   onPressed: () async {
                                                     await FirebaseStorage
                                                         .instance
@@ -873,10 +872,10 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                           child: imageURLs.elementAt(2).isEmpty
                                               ? Image.asset(
                                                   'assets/userPhoto.jpg',
-                                                  width:
-                                                      MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          0.30,
+                                                  width: MediaQuery.sizeOf(
+                                                                context)
+                                                            .height *
+                                                        0.15,
                                                   height:
                                                       MediaQuery.sizeOf(context)
                                                               .height *
@@ -885,10 +884,10 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                                 )
                                               : Image.network(
                                                   imageURLs[2],
-                                                  width:
-                                                      MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          0.30,
+                                                  width: MediaQuery.sizeOf(
+                                                                context)
+                                                            .height *
+                                                        0.15,
                                                   height:
                                                       MediaQuery.sizeOf(context)
                                                               .height *
@@ -903,7 +902,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                             ? null
                                             : IconButton(
                                                 icon: const Icon(Icons.close),
-                                                color: const Color(0xFFFF5963),
+                                                color: errorColor,
                                                 onPressed: () async {
                                                   await FirebaseStorage.instance
                                                       .refFromURL(imageURLs
@@ -920,7 +919,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                     SizedBox(
                                         width:
                                             MediaQuery.sizeOf(context).width *
-                                                0.05),
+                                                0.02),
                                     Column(children: [
                                       InkWell(
                                         splashColor: Colors.transparent,
@@ -942,10 +941,10 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                           child: imageURLs.elementAt(3).isEmpty
                                               ? Image.asset(
                                                   'assets/userPhoto.jpg',
-                                                  width:
-                                                      MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          0.30,
+                                                  width: MediaQuery.sizeOf(
+                                                                context)
+                                                            .height *
+                                                        0.15,
                                                   height:
                                                       MediaQuery.sizeOf(context)
                                                               .height *
@@ -954,10 +953,10 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                                 )
                                               : Image.network(
                                                   imageURLs[3],
-                                                  width:
-                                                      MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          0.30,
+                                                  width: MediaQuery.sizeOf(
+                                                                context)
+                                                            .height *
+                                                        0.15,
                                                   height:
                                                       MediaQuery.sizeOf(context)
                                                               .height *
@@ -972,7 +971,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                             ? null
                                             : IconButton(
                                                 icon: const Icon(Icons.close),
-                                                color: const Color(0xFFFF5963),
+                                                color: errorColor,
                                                 onPressed: () async {
                                                   await FirebaseStorage.instance
                                                       .refFromURL(imageURLs
@@ -1003,7 +1002,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                           onPressed: () async {
                             if (scaffoldKey.currentState!.validate()) {
                               if (imageURLs[0] !=
-                                  '' /*&& imageURLs[0]!='' && imageURLs[0]!='' && imageURLs[0]!=''*/) {
+                                  '') {
                                 setState(() {});
                                 await DatabaseServiceFilters(user.uid)
                                     .updateFiltersAdj(
@@ -1028,9 +1027,9 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                         _birthDate!.month,
                                         _birthDate!.year,
                                         imageURLs[0],
-                                        imageURLs[0],
-                                        imageURLs[0],
-                                        imageURLs[0]);
+                                        imageURLs[1],
+                                        imageURLs[2],
+                                        imageURLs[3]);
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
@@ -1052,12 +1051,12 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                               width: 1,
                             ),
                           ),
-                          child: const Text(
+                          child: Text(
                             'Create',
                             style: TextStyle(
                               fontFamily: 'Plus Jakarta Sans',
                               color: Colors.white,
-                              fontSize: 16,
+                              fontSize: size16(context),
                               fontWeight: FontWeight.w500,
                             ),
                           ),

@@ -9,7 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/user.dart';
-import 'package:prva/schermiProva.dart';
+import 'package:prva/services/image_picker/schermiProva.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 
 class provaModificaCasa extends StatefulWidget {

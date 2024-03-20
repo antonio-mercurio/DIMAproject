@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:prva/models/houseProfile.dart';
 
 class SwipeWidget extends StatelessWidget {
-  final HouseProfileAdj houseProfile;
+  final String image;
+  final String firstName;
+  final String lastName;
+  late final double? price;
+  late final int? age; 
 
-  const SwipeWidget({super.key, required this.houseProfile});
+  SwipeWidget({super.key, required this.image, required this.firstName, required this.lastName, this.price, this.age});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +19,7 @@ class SwipeWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: Image.network(houseProfile.imageURL1).image,
+              image: Image.network(image).image,
             ),
           ),
           child: Container(
@@ -37,7 +40,7 @@ class SwipeWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${houseProfile.city} - ${houseProfile.type}',
+                      '$firstName $lastName',
                       style: const TextStyle(
                         fontFamily: 'Outfit',
                         color: Colors.white,
@@ -48,7 +51,7 @@ class SwipeWidget extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                       child: Text(
-                        houseProfile.price.toString(),
+                        price?.toString() ?? age.toString(),
                         style: const TextStyle(
                             fontFamily: 'Readex Pro',
                             fontSize: 22,

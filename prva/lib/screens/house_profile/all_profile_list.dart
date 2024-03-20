@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/screens/house_profile/homepage_house_profile.dart';
-import 'package:prva/screens/personal_profile/showDetailsPersonalProfile.dart';
+import 'package:prva/screens/personal_profile/show_info_personal_profile.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/preference.dart';
+import 'package:prva/screens/shared/swipe_between_images.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseFilterPerson.dart';
 import 'package:prva/services/match/match_service.dart';
-import 'package:prva/screens/house_profile/swipe_betweeen_images_profile.dart';
 
 /* Class used by House Profile to show the Search
 of the people */
@@ -100,7 +100,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
 
       return Column(
         children: <Widget>[
-          SwipePersonalWidget(personalProfile: profiles[0]),
+          SwipeWidget(firstName: profiles[0].nameA, image : profiles[0].imageURL1, lastName: profiles[0].surnameA, age: _calculateAge(profiles[0]), ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[

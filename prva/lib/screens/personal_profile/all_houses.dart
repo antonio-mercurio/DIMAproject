@@ -6,12 +6,12 @@ import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/preference.dart';
 import 'package:prva/screens/house_profile/all_profile_list.dart';
-import 'package:prva/screens/personal_profile/swipe_between_images.dart';
+import 'package:prva/screens/shared/swipe_between_images.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForFilters.dart';
 import 'package:prva/services/match/match_service.dart';
-import 'package:prva/shared/constant.dart';
-import 'package:prva/shared/empty.dart';
+import 'package:prva/screens/shared/constant.dart';
+import 'package:prva/screens/shared/empty.dart';
 
 class AllHousesList extends StatefulWidget {
   final PersonalProfileAdj myProfile;
@@ -87,7 +87,7 @@ class _AllHousesListState extends State<AllHousesList> {
     }
 
     if (houses.isEmpty) {
-      return const EmptyProfile();
+      return const EmptyProfile(textToShow: 'You have already seen all profiles!', shapeOfIcon: Icons.check_rounded,);
     } else {
       final myUser = Provider.of<PersonalProfileAdj>(context);
       final retrievedPreferences =
@@ -103,7 +103,7 @@ class _AllHousesListState extends State<AllHousesList> {
 
       return MediaQuery.of(context).size.width < widthSize
           ? Column(children: <Widget>[
-              SwipeWidget(houseProfile: houses[0]),
+              SwipeWidget(firstName: houses[0].type, image : houses[0].imageURL1, lastName: houses[0].city, price: houses[0].price, ),
               SizedBox(height: MediaQuery.sizeOf(context).height * 0.012),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -114,12 +114,13 @@ class _AllHousesListState extends State<AllHousesList> {
                         padding: MaterialStateProperty.all(EdgeInsets.all(
                             MediaQuery.sizeOf(context).height * 0.02)),
                         backgroundColor: MaterialStateProperty.all(
-                            mainColor), // <-- Button color
+                            mainColor), 
                         overlayColor:
                             MaterialStateProperty.resolveWith<Color?>((states) {
-                          if (states.contains(MaterialState.pressed))
+                          if (states.contains(MaterialState.pressed)) {
                             return errorColor;
-                          return null; // <-- Splash color
+                          }
+                          return null;
                         }),
                       ),
                       onPressed: () async {
@@ -155,8 +156,9 @@ class _AllHousesListState extends State<AllHousesList> {
                         backgroundColor: MaterialStateProperty.all(mainColor),
                         overlayColor:
                             MaterialStateProperty.resolveWith<Color?>((states) {
-                          if (states.contains(MaterialState.pressed))
+                          if (states.contains(MaterialState.pressed)) {
                             return errorColor;
+                          }
                           return null;
                         }),
                       ),
@@ -172,12 +174,13 @@ class _AllHousesListState extends State<AllHousesList> {
                         padding: MaterialStateProperty.all(EdgeInsets.all(
                             MediaQuery.sizeOf(context).height * 0.02)),
                         backgroundColor: MaterialStateProperty.all(
-                            mainColor), // <-- Button color
+                            mainColor), 
                         overlayColor:
                             MaterialStateProperty.resolveWith<Color?>((states) {
-                          if (states.contains(MaterialState.pressed))
+                          if (states.contains(MaterialState.pressed)) {
                             return errorColor;
-                          return null; // <-- Splash color
+                          }
+                          return null; 
                         }),
                       ),
                       onPressed: () {
@@ -192,14 +195,15 @@ class _AllHousesListState extends State<AllHousesList> {
                 ],
               ),
             ])
-          : Row(
+          : SingleChildScrollView(
+          child: Row(
               children: <Widget>[
                 Expanded(
                   child: SizedBox(
                       width: MediaQuery.sizeOf(context).width * 0.49,
-                      height: double.infinity,
+                      height: MediaQuery.sizeOf(context).height*0.9,
                       child: Column(children: <Widget>[
-                        SwipeWidget(houseProfile: houses[0]),
+                       SwipeWidget(firstName: houses[0].type, image : houses[0].imageURL1, lastName: houses[0].city, price: houses[0].price, ),
                         SizedBox(
                             height: MediaQuery.sizeOf(context).height * 0.012),
                         Row(
@@ -214,13 +218,14 @@ class _AllHousesListState extends State<AllHousesList> {
                                           MediaQuery.sizeOf(context).height *
                                               0.02)),
                                   backgroundColor: MaterialStateProperty.all(
-                                      mainColor), // <-- Button color
+                                      mainColor), 
                                   overlayColor:
                                       MaterialStateProperty.resolveWith<Color?>(
                                           (states) {
-                                    if (states.contains(MaterialState.pressed))
+                                    if (states.contains(MaterialState.pressed)) {
                                       return errorColor;
-                                    return null; // <-- Splash color
+                                    }
+                                    return null; 
                                   }),
                                 ),
                                 onPressed: () async {
@@ -262,8 +267,9 @@ class _AllHousesListState extends State<AllHousesList> {
                                   overlayColor:
                                       MaterialStateProperty.resolveWith<Color?>(
                                           (states) {
-                                    if (states.contains(MaterialState.pressed))
+                                    if (states.contains(MaterialState.pressed)) {
                                       return errorColor;
+                                    }
                                     return null;
                                   }),
                                 ),
@@ -279,7 +285,7 @@ class _AllHousesListState extends State<AllHousesList> {
                 Expanded(
                     child: SizedBox(
                         width: MediaQuery.sizeOf(context).width * 0.49,
-                        height: double.infinity,
+                        height: MediaQuery.sizeOf(context).height*0.9,
                         child:
                             Column(mainAxisSize: MainAxisSize.max, children: [
                           Expanded(
@@ -289,8 +295,8 @@ class _AllHousesListState extends State<AllHousesList> {
                           ))
                         ]))),
               ],
-            );
-    }
+          )
+    );}
   }
 }
 

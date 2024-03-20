@@ -2,22 +2,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/message.dart';
-import 'package:prva/screens/personal_profile/modifyPersonalProfile.dart';
+import 'package:prva/screens/personal_profile/modify_personal_profile.dart';
 import 'package:prva/screens/personal_profile/form_filter_people_adj.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/user.dart';
-import 'package:prva/screens/personal_profile/notificationPerson.dart';
+import 'package:prva/screens/personal_profile/notification_person.dart';
 import 'package:prva/screens/chat/chat.dart';
 import 'package:badges/badges.dart' as badges;
-import 'package:prva/screens/personal_profile/allHousesList.dart';
+import 'package:prva/screens/personal_profile/all_houses.dart';
 import 'package:prva/services/chat/chat_service.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/services/match/match_service.dart';
 import 'package:prva/screens/personal_profile/show_details_personal_profile.dart';
-import 'package:prva/shared/constant.dart';
+import 'package:prva/screens/shared/constant.dart';
 
 class UserHomepage extends StatefulWidget {
   const UserHomepage({super.key});
@@ -30,7 +30,7 @@ class _UserHomepageState extends State<UserHomepage> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
     const SearchLayout(),
-    ProfileLayout(),
+    const ProfileLayout(),
     const ChatLayout(),
   ];
   void _onItemTapped(int index) {
@@ -101,7 +101,10 @@ class SearchLayout extends StatefulWidget {
 class _SearchLayoutState extends State<SearchLayout> {
   FiltersHouseAdj? filtri;
   List<String>? alreadySeenProfiles;
-   int? myNotifies;
+  int? myNotifies;
+  final ValueNotifier<int> choice = ValueNotifier<int>(1);
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -118,12 +121,14 @@ class _SearchLayoutState extends State<SearchLayout> {
         value: DatabaseServiceHouseProfile(user.uid).getAllHousesAdj,
         initialData: const [],
         child: Scaffold(
+          key: _scaffoldKey,
           appBar: AppBar(
             backgroundColor: mainColor,
             actions: <Widget>[
               IconButton(
                 icon: Icon(Icons.settings, color: backgroundColor),
                 onPressed: () async {
+                  if(MediaQuery.sizeOf(context).width<widthSize){
                    Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -131,6 +136,14 @@ class _SearchLayoutState extends State<SearchLayout> {
                             const FormFilterPeopleAdj(),
                       ),
                     );
+                  }else{
+                   
+                     setState(() {
+                     choice.value = 1;
+                    });
+                    _scaffoldKey.currentState?.openEndDrawer();
+
+                  }
                 },
               ),
               Align(
@@ -143,6 +156,7 @@ class _SearchLayoutState extends State<SearchLayout> {
                 onTap: () async {
                   await MatchService(uid: user.uid).createNotification(0);
                   if (mounted) {
+                    if(MediaQuery.sizeOf(context).width<widthSize){
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -150,6 +164,12 @@ class _SearchLayoutState extends State<SearchLayout> {
                             NotificationPersonLayout(profile: user.uid),
                       ),
                     );
+                    }else{
+                      setState(() {
+                     choice.value = 2;
+                    });
+                    _scaffoldKey.currentState?.openEndDrawer();
+                    }
                   }
                 },
                 child: IconButton(
@@ -161,6 +181,7 @@ class _SearchLayoutState extends State<SearchLayout> {
                   onPressed: () async {
                     await MatchService(uid: user.uid).createNotification(0);
                     if (mounted) {
+                       if(MediaQuery.sizeOf(context).width<widthSize){
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -168,12 +189,33 @@ class _SearchLayoutState extends State<SearchLayout> {
                               NotificationPersonLayout(profile: user.uid),
                         ),
                       );
+                    }else{
+                       setState(() {
+                     choice.value = 2;
+                    });
+                    _scaffoldKey.currentState?.openEndDrawer();
+                    }
                     }
                   },
                 ),
               )
-          ),],
-          ),
+          ),],),
+           endDrawer: ValueListenableBuilder<int>(
+        valueListenable: choice,
+        builder: (context, value, child) {
+          return value == 1
+              ? Drawer(
+                 
+                  width: MediaQuery.sizeOf(context).width * 0.4,
+                  child: const FormFilterPeopleAdj(),
+                )
+              : Drawer(
+                 
+                  width: MediaQuery.sizeOf(context).width * 0.4,
+                  child: NotificationPersonLayout(profile: user.uid),
+                );
+        },
+      ),
           body: AllHousesList( myProfile: personalProfile,)
         ));
   }
@@ -211,7 +253,7 @@ class ProfileLayout extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => modificaPersonalProfile(
+                      builder: (context) => ModificaPersonalProfile(
                             personalProfile: personalData,
                           )),
                 );
@@ -232,7 +274,7 @@ class ProfileLayout extends StatelessWidget {
                                     style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
                                             color: backgroundColor,
-                                            fontSize: 16,
+                                            fontSize: MediaQuery.sizeOf(context).height*0.024,
                                             fontWeight: FontWeight.w500,
                                     ),
                                     ),

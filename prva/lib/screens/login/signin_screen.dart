@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:prva/screens/shared/constant.dart';
 import 'package:prva/services/auth.dart';
-import 'package:prva/shared/loading.dart';
+import 'package:prva/screens/shared/loading.dart';
 
 class ModelSigniIn {
   late bool confirmPasswordVisibility;
@@ -14,7 +15,7 @@ class ModelSigniIn {
 class SigniInPage extends StatefulWidget {
   final Function toggleView;
 
-  SigniInPage({required this.toggleView});
+  const SigniInPage({super.key, required this.toggleView});
 
   @override
   State<SigniInPage> createState() => _SigniInPageState();
@@ -43,19 +44,20 @@ class _SigniInPageState extends State<SigniInPage> {
   @override
   Widget build(BuildContext context) {
     return loading
-        ? Loading()
+        ? const Loading()
         : Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: backgroundColor,
             appBar: AppBar(
-                backgroundColor: const Color(0xFF4B39EF),
+                backgroundColor: mainColor,
                 elevation: 0.0,
-                title: const Text(
+                title: Text(
                   'Affinder',
                   textAlign: TextAlign.start,
                   style: TextStyle(
                     fontFamily: 'Plus Jakarta Sans',
-                    color: Colors.white,
+                    color: backgroundColor,
                     fontWeight: FontWeight.w600,
+                    fontSize: size32(context),
                   ),
                 ),
                 actions: <Widget>[
@@ -63,12 +65,16 @@ class _SigniInPageState extends State<SigniInPage> {
                       onPressed: () {
                         widget.toggleView();
                       },
-                      icon: const Icon(Icons.person, color: Colors.white),
-                      label: const Text(
+                      icon: Icon(Icons.person, color: backgroundColor,
+                      size: MediaQuery.sizeOf(context).width<widthSize 
+                  ? MediaQuery.sizeOf(context).height * 0.03
+                  :  MediaQuery.sizeOf(context).height * 0.032,),
+                      label: Text(
                         'Register',
                         style: TextStyle(
                           fontFamily: 'Plus Jakarta Sans',
-                          color: Colors.white,
+                          color: backgroundColor,
+                          fontSize: size16(context),
                         ),
                       ))
                 ]),
@@ -102,10 +108,10 @@ class _SigniInPageState extends State<SigniInPage> {
                         child: Container(
                           width: double.infinity,
                           constraints: const BoxConstraints(
-                            maxWidth: 570,
+                            maxWidth: 700,
                           ),
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: backgroundColor,
                             boxShadow: const [
                               BoxShadow(
                                 blurRadius: 4,
@@ -130,26 +136,26 @@ class _SigniInPageState extends State<SigniInPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      const Text(
+                                       Text(
                                         'Sign in with your account',
                                         textAlign: TextAlign.start,
                                         style: TextStyle(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF101213),
-                                          fontSize: 32,
+                                          color: const Color(0xFF101213),
+                                          fontSize: size32(context),
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
-                                      const Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                       Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0, 12, 0, 24),
                                         child: Text(
                                           'Welcome back! We missed you.',
                                           textAlign: TextAlign.start,
                                           style: TextStyle(
                                             fontFamily: 'Plus Jakarta Sans',
-                                            color: Color(0xFF57636C),
-                                            fontSize: 16,
+                                            color: const Color(0xFF57636C),
+                                            fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),
@@ -162,11 +168,11 @@ class _SigniInPageState extends State<SigniInPage> {
                                           child: TextFormField(
                                               decoration: InputDecoration(
                                                 labelText: 'Email',
-                                                labelStyle: const TextStyle(
+                                                labelStyle: TextStyle(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: Color(0xFF57636C),
-                                                  fontSize: 16,
+                                                  color: const Color(0xFF57636C),
+                                                  fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                                 enabledBorder:
@@ -180,16 +186,16 @@ class _SigniInPageState extends State<SigniInPage> {
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFF4B39EF),
+                                                  borderSide: BorderSide(
+                                                    color: mainColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.circular(40),
                                                 ),
                                                 errorBorder: OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFFFF5963),
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
@@ -197,22 +203,22 @@ class _SigniInPageState extends State<SigniInPage> {
                                                 ),
                                                 focusedErrorBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFFFF5963),
+                                                  borderSide:  BorderSide(
+                                                    color:errorColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.circular(40),
                                                 ),
                                                 filled: true,
-                                                fillColor: Colors.white,
+                                                fillColor: backgroundColor,
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                               ),
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 fontFamily: 'Plus Jakarta Sans',
-                                                color: Color(0xFF101213),
-                                                fontSize: 16,
+                                                color: const Color(0xFF101213),
+                                                fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
                                               ),
                                               keyboardType:
@@ -238,11 +244,11 @@ class _SigniInPageState extends State<SigniInPage> {
                                                   !_model.passwordVisibility,
                                               decoration: InputDecoration(
                                                 labelText: 'Password',
-                                                labelStyle: const TextStyle(
+                                                labelStyle: TextStyle(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: Color(0xFF57636C),
-                                                  fontSize: 16,
+                                                  color: const Color(0xFF57636C),
+                                                  fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                                 enabledBorder:
@@ -256,16 +262,16 @@ class _SigniInPageState extends State<SigniInPage> {
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFF4B39EF),
+                                                  borderSide: BorderSide(
+                                                    color: mainColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.circular(40),
                                                 ),
                                                 errorBorder: OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFFFF5963),
+                                                  borderSide:  BorderSide(
+                                                    color:errorColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
@@ -273,15 +279,15 @@ class _SigniInPageState extends State<SigniInPage> {
                                                 ),
                                                 focusedErrorBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFFFF5963),
+                                                  borderSide:  BorderSide(
+                                                    color:errorColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.circular(40),
                                                 ),
                                                 filled: true,
-                                                fillColor: Colors.white,
+                                                fillColor: backgroundColor,
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                                 suffixIcon: InkWell(
@@ -299,15 +305,15 @@ class _SigniInPageState extends State<SigniInPage> {
                                                             .visibility_outlined
                                                         : Icons
                                                             .visibility_off_outlined,
-                                                    color: Color(0xFF57636C),
-                                                    size: 24,
+                                                    color: const Color(0xFF57636C),
+                                                    size: size24(context),
                                                   ),
                                                 ),
                                               ),
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 fontFamily: 'Plus Jakarta Sans',
-                                                color: Color(0xFF101213),
-                                                fontSize: 16,
+                                                color: const Color(0xFF101213),
+                                                fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
                                               ),
                                               validator: (val) => val!.length <
@@ -344,7 +350,7 @@ class _SigniInPageState extends State<SigniInPage> {
                                             },
                                             style: ElevatedButton.styleFrom(
                                               fixedSize: const Size(230, 52),
-                                              backgroundColor: const Color(0xFF4B39EF),
+                                              backgroundColor: mainColor,
                                               elevation: 3.0,
                                               shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(40),
@@ -354,12 +360,12 @@ class _SigniInPageState extends State<SigniInPage> {
                                                 width: 1,
                                               ),
                                             ),
-                                            child: const Text(
+                                            child: Text(
                                               'Log in',
                                               style: TextStyle(
                                                 fontFamily: 'Plus Jakarta Sans',
-                                                color: Colors.white,
-                                                fontSize: 16,
+                                                color: backgroundColor,
+                                                fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
                                               ),
                                             ),

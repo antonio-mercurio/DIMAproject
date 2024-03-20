@@ -49,7 +49,7 @@ Widget _buildNotificationList(
     BuildContext context, HouseProfileAdj house, List<MatchPeople>? idmatches) {
       if(idmatches!= null){
         return ListView.builder(
-          padding: EdgeInsets.fromLTRB(
+          padding: const EdgeInsets.fromLTRB(
             0,
             8,
             0,

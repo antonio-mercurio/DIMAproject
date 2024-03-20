@@ -1,21 +1,7 @@
-import 'dart:io';
-
-import 'dart:math';
-
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class SchermiProva /*extends StatefulWidget {
-  const SchermiProva({super.key});
-
-  @override
-  State<SchermiProva> createState() => _SchermiProvaState();
-}
-
-// https://www.youtube.com/watch?v=u52TWx41oU4
-//for multiple images: https://stackoverflow.com/questions/63513002/how-can-i-upload-multiple-images-to-firebase-in-flutter-and-get-all-their-downlo
-class _SchermiProvaState  extends State<SchermiProva> */
+class SchermiProva 
 {
   String imageUrl = '';
 
