@@ -183,11 +183,19 @@ showMyDialog(BuildContext buildContext) {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
+          shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(10)),
+          
+          insetPadding: const EdgeInsets.symmetric(vertical: 280),
           title: const Center(child: Icon(Icons.notification_important_sharp)),
-          content: const Center(child: Text('You\'ve got a new match!')),
+          content: Center(
+        child: Container(
+          color: Colors.white, // Dialog background
+          width: 120, // Dialog width
+          height: 50,
+          child:  Center(child: Text('You\'ve got a new match!')),),),
           actions: <Widget>[
             TextButton(
-              child: const Center(child: Text('Ok')),
+              child:  const Center(child: Text('Ok')),
               onPressed: () {
                 Navigator.of(context).pop();
               },

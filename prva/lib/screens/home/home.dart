@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prva/screens/house_profile/all_profile.dart';
 import 'package:prva/screens/house_profile/show_all_my_house_profile.dart';
 import 'package:prva/screens/wrapperCreationProfile.dart';
 import 'package:prva/services/auth.dart';
@@ -56,12 +57,14 @@ class _HomepageState extends State<Homepage> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
+                      showMyDialog(context);
+                      /*
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
                                 const WrapperCreationProfile()),
-                      );
+                      );*/
                     },
                     child: Container(
                       decoration: BoxDecoration(

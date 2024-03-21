@@ -9,7 +9,7 @@ import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/screens/chat/chat.dart';
 import 'package:prva/screens/house_profile/filters_people_adj.dart';
-import 'package:prva/screens/house_profile/all_profile_list.dart';
+import 'package:prva/screens/house_profile/all_profile.dart';
 import 'package:prva/screens/house_profile/notification.dart';
 import 'package:prva/services/chat/chat_service.dart';
 import 'package:prva/services/database.dart';
