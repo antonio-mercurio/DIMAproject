@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prva/alphaTestLib/screens/shared/constant.dart';
+import 'package:prva/screens/shared/constant.dart';
 
 class EmptyProfile extends StatelessWidget {
   final IconData shapeOfIcon;
