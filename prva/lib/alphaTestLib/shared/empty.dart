@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prva/screens/shared/constant.dart';
 
 class EmptyProfile extends StatelessWidget {
-  final IconData shapeOfIcon;
-  final String textToShow;
-  const EmptyProfile(
-      {super.key, required this.shapeOfIcon, required this.textToShow});
+  const EmptyProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +70,8 @@ class EmptyProfile extends StatelessWidget {
                                   ),
                                 ),
                                 child: Icon(
-                                  shapeOfIcon,
+                                  key: Key('iconCheck'),
+                                  Icons.check_rounded,
                                   color: backgroundColor,
                                   size: 64,
                                 ),
@@ -85,12 +83,13 @@ class EmptyProfile extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                      Align(
+                      const Align(
                         alignment: AlignmentDirectional(0, 0),
                         child: Text(
-                          textToShow,
+                          key: Key('displayText'),
+                          'You have already seen all profiles!',
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Plus Jakarta Sans',
                             color: Color(0xFF101213),
                             fontSize: 32,
