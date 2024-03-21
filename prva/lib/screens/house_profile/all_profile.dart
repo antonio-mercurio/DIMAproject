@@ -7,6 +7,8 @@ import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/preference.dart';
+import 'package:prva/screens/shared/constant.dart';
+import 'package:prva/screens/shared/dialog.dart';
 import 'package:prva/screens/shared/swipe_between_images.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseFilterPerson.dart';
@@ -175,34 +177,6 @@ class _AllProfilesListState extends State<AllProfilesList> {
         .round()
         .toInt();
   }
-}
-
-showMyDialog(BuildContext buildContext) {
-  return showDialog<void>(
-      context: buildContext,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(10)),
-          
-          insetPadding: const EdgeInsets.symmetric(vertical: 280),
-          title: const Center(child: Icon(Icons.notification_important_sharp)),
-          content: Center(
-        child: Container(
-          color: Colors.white, // Dialog background
-          width: 120, // Dialog width
-          height: 50,
-          child:  Center(child: Text('You\'ve got a new match!')),),),
-          actions: <Widget>[
-            TextButton(
-              child:  const Center(child: Text('Ok')),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      });
 }
 
 class AllPersonalTiles extends StatelessWidget {

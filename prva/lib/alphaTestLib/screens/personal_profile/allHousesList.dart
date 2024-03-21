@@ -135,7 +135,7 @@ class _AllHousesListState extends State<AllHousesList> {
                     print(ok.toString());
                     if (ok) {
                       if (mounted) {
-                        await showMyDialog(context);
+                       // await showMyDialog(context);
                       }
                     }
                   } catch (e) {

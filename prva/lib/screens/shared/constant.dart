@@ -12,7 +12,6 @@ double size20(BuildContext context){  return MediaQuery.sizeOf(context).height*0
 double size24(BuildContext context){
   return MediaQuery.sizeOf(context).height*0.030;
 }
-
 double size32(BuildContext context){
   return MediaQuery.sizeOf(context).height*0.038;
 }

@@ -57,13 +57,12 @@ class _HomepageState extends State<Homepage> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      showMyDialog(context);
-                    /* Navigator.push(
+                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
                                 const WrapperCreationProfile()),
-                      ); */
+                      ); 
                     },
                     child: Container(
                       decoration: BoxDecoration(
