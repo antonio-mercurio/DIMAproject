@@ -114,7 +114,7 @@ class _AllHousesListState extends State<AllHousesList> {
       });
 
       return Column(children: <Widget>[
-       // SwipeWidget(houseProfile: houses[0]),
+        // SwipeWidget(houseProfile: houses[0]),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -135,7 +135,7 @@ class _AllHousesListState extends State<AllHousesList> {
                     print(ok.toString());
                     if (ok) {
                       if (mounted) {
-                       // await showMyDialog(context);
+                        // await showMyDialog(context);
                       }
                     }
                   } catch (e) {
