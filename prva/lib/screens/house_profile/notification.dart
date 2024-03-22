@@ -56,7 +56,7 @@ class _NotificationLayoutState extends State<NotificationLayout> {
 
 Widget _buildNotificationList(
     BuildContext context, HouseProfileAdj house, List<MatchPeople>? idmatches) {
-      if(idmatches!= null){
+      if(idmatches!= null && idmatches.isNotEmpty){
         return ListView.builder(
           padding: const EdgeInsets.fromLTRB(
             0,

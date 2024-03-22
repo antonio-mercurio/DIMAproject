@@ -164,24 +164,15 @@ class SearchLayout extends StatefulWidget {
 }
 
 class _SearchLayoutState extends State<SearchLayout> {
-  int? myNotifies;
+ // int? myNotifies;
   final ValueNotifier<int> choice = ValueNotifier<int>(1);
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     final house = Provider.of<HouseProfileAdj>(context);
-    final retrievedNotifies =
-        DatabaseServiceHouseProfile(house.idHouse).getNotification;
-    retrievedNotifies.listen((content) {
-      myNotifies = content;
-      if (mounted) {
-        setState(() {});
-      }
-    });
     if (house.idHouse == "") {
       return const Loading();
     }
-
     return StreamProvider<List<PersonalProfileAdj>>.value(
         value: DatabaseService(house.idHouse).getAllPersonalProfiles(),
         initialData: const [],
@@ -212,8 +203,8 @@ class _SearchLayoutState extends State<SearchLayout> {
               ),
               Align(
                 child: badges.Badge(
-                showBadge: (myNotifies != null && myNotifies != 0),
-                badgeContent: Text(myNotifies?.toString() ?? ""),
+                showBadge: (house.numberNotifies != 0),
+                badgeContent: Text(house.numberNotifies.toString()),
                 position: badges.BadgePosition.topEnd(top: 10, end: 10),
                 badgeStyle: const BadgeStyle(padding: EdgeInsets.all(4)),
                 onTap: () async {

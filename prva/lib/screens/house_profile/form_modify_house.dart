@@ -42,7 +42,7 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
   String? _type = '';
   bool flagType = true;
   final List<String> typeOfAppartament = [
-    "apartment",
+    "Apartment",
     "Single room",
     "Double room",
     "Studio apartment",
@@ -123,6 +123,10 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
     initEndDate();
     return Scaffold(
         backgroundColor: backgroundColor,
+        appBar: AppBar(
+          backgroundColor: mainColor,
+          elevation: 0.0,
+        ),
         body: SafeArea(
           top: true,
           child: Align(
@@ -1012,8 +1016,8 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                         ),
                                         keyboardType: const TextInputType
                                             .numberWithOptions(decimal: true),
-                                        validator: (val) => val!.isEmpty
-                                            ? 'Please enter a price'
+                                        validator: (val) => (val!.isEmpty || double.parse(val)>4000 || double.parse(val)<0)
+                                            ? 'Please enter a valid price (range: 0-4000)'
                                             : null,
                                         onChanged: (val) => setState(() =>
                                             _price = (double.parse(val)))),
@@ -1392,7 +1396,7 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                       child: Padding(
                           padding:
                               const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
-                          child: Row(children: [
+                          child:
                             ElevatedButton(
                               onPressed: () async {
                               if (scaffoldKey.currentState!.validate()) {
@@ -1469,7 +1473,7 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
                                     ),),
-                                          ),
+                                          ),),),
                             Align(
                       alignment: Alignment.center ,
                       child: Padding(
@@ -1510,10 +1514,7 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                       ),
                     ),
                           ])),
-                    ),
-                  ],
-                ),
-              ),
+            
             ),
           ),
         ));

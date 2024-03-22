@@ -74,7 +74,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
       return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Colors.black,
+          backgroundColor: mainColor,
           elevation: 0.0,
         ),
         body: SafeArea(

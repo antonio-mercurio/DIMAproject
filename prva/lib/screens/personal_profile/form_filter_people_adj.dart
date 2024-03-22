@@ -437,7 +437,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                                         newValue!);
                                               },
                                               title: Text(
-                                                typeOfAppartament[0],
+                                                typeOfAppartament[3],
                                                 style: TextStyle(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
