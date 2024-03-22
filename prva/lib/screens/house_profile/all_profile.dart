@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 import 'package:provider/provider.dart';
-import 'package:prva/screens/house_profile/homepage_house_profile.dart';
 import 'package:prva/screens/personal_profile/show_info_personal_profile.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/preference.dart';
-import 'package:prva/screens/shared/constant.dart';
 import 'package:prva/screens/shared/dialog.dart';
 import 'package:prva/screens/shared/swipe_between_images.dart';
 import 'package:prva/services/database.dart';
