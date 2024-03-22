@@ -5,7 +5,9 @@ import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/preference.dart';
+import 'package:prva/screens/shared/constant.dart';
 import 'package:prva/screens/shared/dialog.dart';
+import 'package:prva/screens/shared/empty.dart';
 import 'package:prva/screens/shared/swipe_between_images.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseFilterPerson.dart';
@@ -16,7 +18,7 @@ of the people */
 class AllProfilesList extends StatefulWidget {
   final HouseProfileAdj house;
 
-  AllProfilesList({required this.house});
+  const AllProfilesList({super.key, required this.house});
 
   @override
   State<AllProfilesList> createState() => _AllProfilesListState(house: house);
@@ -77,12 +79,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
     }
 
     if (profiles.isEmpty) {
-      return const Center(
-        child: Text(
-          'non ci sono profili da visualizzare',
-          style: TextStyle(color: Colors.white),
-        ),
-      );
+      return const EmptyProfile(textToShow: 'You have already seen all profiles!', shapeOfIcon: Icons.check_rounded,);
     } else {
       final myHouse = Provider.of<HouseProfileAdj>(context);
       final retrievedPreferences =
@@ -97,23 +94,34 @@ class _AllProfilesListState extends State<AllProfilesList> {
         notifiesOther = content;
       });
 
-      return Column(
-        children: <Widget>[
+       return MediaQuery.of(context).size.width < widthSize
+          ? Column(
+          children: <Widget>[
           SwipeWidget(firstName: profiles[0].nameA, image : profiles[0].imageURL1, lastName: profiles[0].surnameA, age: _calculateAge(profiles[0]), ),
+          SizedBox(height: MediaQuery.sizeOf(context).height * 0.012),
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              IconButton(
-                  icon: Icon(Icons.favorite_outline,
-                      size: MediaQuery.sizeOf(context).height * 0.04),
-                  color: Colors.white,
+               ElevatedButton(
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(const CircleBorder()),
+                        padding: MaterialStateProperty.all(EdgeInsets.all(
+                            MediaQuery.sizeOf(context).height * 0.02)),
+                        backgroundColor: MaterialStateProperty.all(
+                            mainColor), 
+                        overlayColor:
+                            MaterialStateProperty.resolveWith<Color?>((states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            return errorColor;
+                          }
+                          return null;
+                        }),
+                      ),
                   onPressed: () async {
                     /* Put like */
                     String persID = profiles[0].uidA;
                     await MatchService()
                         .putPrefence(myHouse.idHouse, persID, "like");
-                    print('casa mette mi piace');
-
                     /* check for match */
                     try {
                       // search if the other has seen your profile and put a like
@@ -124,8 +132,6 @@ class _AllProfilesListState extends State<AllProfilesList> {
                           true,
                           myHouse.numberNotifies,
                           notifiesOther);
-                      print('casa controlla match');
-                      print(ok.toString());
                       if (ok) {
                         if (mounted) {
                           await showMyDialog(context);
@@ -134,22 +140,44 @@ class _AllProfilesListState extends State<AllProfilesList> {
                     } catch (e) {
                       print(e);
                     }
-                  }),
+                  },
+                  child: const Icon(Icons.favorite_rounded)),
               SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
-              IconButton(
-                  icon: Icon(Icons.close_outlined,
-                      size: MediaQuery.sizeOf(context).height * 0.04),
-                  color: Colors.white,
+              ElevatedButton(
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(const CircleBorder()),
+                        padding: MaterialStateProperty.all(EdgeInsets.all(
+                            MediaQuery.sizeOf(context).height * 0.02)),
+                        backgroundColor: MaterialStateProperty.all(mainColor),
+                        overlayColor:
+                            MaterialStateProperty.resolveWith<Color?>((states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            return errorColor;
+                          }
+                          return null;
+                        }),
+                      ),
                   onPressed: () async {
                     await MatchService().putPrefence(
                         myHouse.idHouse, profiles[0].uidA, "dislike");
-                  }),
-              const SizedBox(width: 8),
-              SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
-              IconButton(
-                  icon: Icon(Icons.info,
-                      size: MediaQuery.sizeOf(context).height * 0.04),
-                  color: Colors.white,
+                  },
+                  child: const Icon(Icons.close_rounded)),
+               SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
+                ElevatedButton(
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(const CircleBorder()),
+                        padding: MaterialStateProperty.all(EdgeInsets.all(
+                            MediaQuery.sizeOf(context).height * 0.02)),
+                        backgroundColor: MaterialStateProperty.all(
+                            mainColor), 
+                        overlayColor:
+                            MaterialStateProperty.resolveWith<Color?>((states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            return errorColor;
+                          }
+                          return null; 
+                        }),
+                      ),
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -157,13 +185,115 @@ class _AllProfilesListState extends State<AllProfilesList> {
                           builder: (context) =>
                               ViewProfile(personalProfile: profiles[0])),
                     );
-                  }),
+                  },
+                   child: const Icon(Icons.info_rounded)),
             ],
           ),
         ],
-      );
+      )
+       : SingleChildScrollView(
+          child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: SizedBox(
+                      width: MediaQuery.sizeOf(context).width * 0.49,
+                      height: MediaQuery.sizeOf(context).height*0.9,
+                      child: Column(children: <Widget>[
+                       SwipeWidget(firstName: profiles[0].nameA, image : profiles[0].imageURL1, lastName: profiles[0].surnameA, age: _calculateAge(profiles[0]), ),
+                        SizedBox(
+                            height: MediaQuery.sizeOf(context).height * 0.012),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            ElevatedButton(
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all(
+                                      const CircleBorder()),
+                                  padding: MaterialStateProperty.all(
+                                      EdgeInsets.all(
+                                          MediaQuery.sizeOf(context).height *
+                                              0.02)),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      mainColor), 
+                                  overlayColor:
+                                      MaterialStateProperty.resolveWith<Color?>(
+                                          (states) {
+                                    if (states.contains(MaterialState.pressed)) {
+                                      return errorColor;
+                                    }
+                                    return null; 
+                                  }),
+                                ),
+                                onPressed: () async {
+                    /* Put like */
+                    String persID = profiles[0].uidA;
+                    await MatchService()
+                        .putPrefence(myHouse.idHouse, persID, "like");
+                    /* check for match */
+                    try {
+                      // search if the other has seen your profile and put a like
+                      final ok = await MatchService().checkMatch(
+                          myHouse.idHouse,
+                          persID,
+                          preferencesOther,
+                          true,
+                          myHouse.numberNotifies,
+                          notifiesOther);
+                      if (ok) {
+                        if (mounted) {
+                          await showMyDialog(context);
+                        }
+                      }
+                    } catch (e) {
+                      print(e);
+                    }
+                  },
+                                child: const Icon(Icons.favorite_rounded)),
+                            SizedBox(
+                                width: MediaQuery.sizeOf(context).width * 0.15),
+                            ElevatedButton(
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all(
+                                      const CircleBorder()),
+                                  padding: MaterialStateProperty.all(
+                                      EdgeInsets.all(
+                                          MediaQuery.sizeOf(context).height *
+                                              0.02)),
+                                  backgroundColor:
+                                      MaterialStateProperty.all(mainColor),
+                                  overlayColor:
+                                      MaterialStateProperty.resolveWith<Color?>(
+                                          (states) {
+                                    if (states.contains(MaterialState.pressed)) {
+                                      return errorColor;
+                                    }
+                                    return null;
+                                  }),
+                                ),
+                                onPressed: () async {
+                    await MatchService().putPrefence(
+                        myHouse.idHouse, profiles[0].uidA, "dislike");
+                  },
+                                child: const Icon(Icons.close_rounded)),
+                          ],
+                        ),
+                      ])),
+                ),
+                Expanded(
+                    child: SizedBox(
+                        width: MediaQuery.sizeOf(context).width * 0.49,
+                        height: MediaQuery.sizeOf(context).height*0.9,
+                        child:
+                            Column(mainAxisSize: MainAxisSize.max, children: [
+                          Expanded(
+                              child: SingleChildScrollView(
+                            child: ShowDetailedPersonalProfile(personalProfile: profiles[0]),
+                          ))
+                        ]))),
+              ],
+          )
+    );}
     }
-  }
 
   int _calculateAge(PersonalProfileAdj element) {
     int year = element.year;
@@ -173,31 +303,6 @@ class _AllProfilesListState extends State<AllProfilesList> {
             365)
         .round()
         .toInt();
-  }
-}
-
-class AllPersonalTiles extends StatelessWidget {
-  final PersonalProfileAdj profile;
-  //List<PreferenceForMatch>? preferencesOther;
-  AllPersonalTiles({required this.profile});
-
-  @override
-  Widget build(BuildContext context) {
-    final myHouse = Provider.of<HouseProfileAdj>(context);
-
-    return Padding(
-        padding: const EdgeInsets.only(top: 8.0),
-        child: Card(
-            margin: const EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
-            child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-              ListTile(
-                leading: const CircleAvatar(
-                  radius: 25.0,
-                  backgroundColor: Colors.red,
-                ),
-                title: Text("${profile.nameA} ${profile.surnameA}"),
-              ),
-            ])));
   }
 }
 

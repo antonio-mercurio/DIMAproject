@@ -1,14 +1,13 @@
 import 'package:badges/badges.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/message.dart';
-import 'package:prva/screens/house_profile/modifyHouseProfile.dart';
+import 'package:prva/screens/house_profile/form_modify_house.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/screens/chat/chat.dart';
-import 'package:prva/screens/house_profile/filters_people_adj.dart';
+import 'package:prva/screens/house_profile/form_house_filter.dart';
 import 'package:prva/screens/house_profile/all_profile.dart';
 import 'package:prva/screens/house_profile/notification.dart';
 import 'package:prva/services/chat/chat_service.dart';
@@ -56,7 +55,7 @@ class _HouseProfSelState extends State<HouseProfSel> {
         builder: (context) {
           return Container(
             padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-            child: FormFiltersPeopleAdj(
+            child: FormHouseFilter(
               uidHouse: house.idHouse,
             ),
           );
@@ -225,7 +224,7 @@ class _ProfileLayoutState extends State<ProfileLayout> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => provaModificaCasa(house: house),
+                  builder: (context) => ModifyHouseProfile(house: house),
                 ),
               );
               setState(() {});

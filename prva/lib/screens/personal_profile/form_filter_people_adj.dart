@@ -66,7 +66,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                             style: TextStyle(
                               fontFamily: 'Plus Jakarta Sans',
                               color: backgroundColor,
-                              fontSize: size32(context),
+                              fontSize: size24(context),
                               fontWeight: FontWeight.w600,
                             ),),),
             backgroundColor: backgroundColor,

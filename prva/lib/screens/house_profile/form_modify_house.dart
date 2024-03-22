@@ -6,22 +6,21 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 import 'package:prva/models/houseProfile.dart';
-import 'package:prva/models/user.dart';
+import 'package:prva/screens/shared/constant.dart';
 import 'package:prva/services/image_picker/schermiProva.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 
-class provaModificaCasa extends StatefulWidget {
+class ModifyHouseProfile extends StatefulWidget {
   final HouseProfileAdj house;
-  provaModificaCasa({super.key, required this.house});
+  const ModifyHouseProfile({super.key, required this.house});
 
   @override
-  State<provaModificaCasa> createState() =>
-      _provaModificaCasaState(house: house);
+  State<ModifyHouseProfile> createState() =>
+      _ModifyHouseProfileState(house: house);
 }
 
-class _provaModificaCasaState extends State<provaModificaCasa> {
+class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
   final scaffoldKey = GlobalKey<FormState>();
   final HouseProfileAdj house;
 
@@ -29,7 +28,7 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
   bool flagImg2 = true;
   bool flagImg3 = true;
   bool flagImg4 = true;
-  _provaModificaCasaState({required this.house});
+  _ModifyHouseProfileState({required this.house});
   TextEditingController controller = TextEditingController();
   late LatLng? selLocation;
   int? _numberBathroom;
@@ -114,7 +113,6 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<Utente>(context);
     imageURLs[0] = initImg1();
     imageURLs[1] = initImg2();
     imageURLs[2] = initImg3();
@@ -124,7 +122,7 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
     initStartDate();
     initEndDate();
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: backgroundColor,
         body: SafeArea(
           top: true,
           child: Align(
@@ -141,7 +139,7 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                       child: Container(
                         width: double.infinity,
                         constraints: const BoxConstraints(
-                          maxWidth: 570,
+                          maxWidth: 700,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -166,26 +164,26 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
+                                 Text(
                                   'Update your house profile',
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     fontFamily: 'Plus Jakarta Sans',
-                                    color: Color(0xFF101213),
-                                    fontSize: 36,
+                                    color: const Color(0xFF101213),
+                                    fontSize: size32(context),
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                               Padding(
+                                  padding:const EdgeInsetsDirectional.fromSTEB(
                                       0, 12, 0, 24),
                                   child: Text(
                                     'Modify address and type!',
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
-                                      color: Color(0xFF57636C),
-                                      fontSize: 16,
+                                      color: const Color(0xFF57636C),
+                                      fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -193,21 +191,21 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: double.infinity,
                                     child: DropdownButtonFormField(
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF101213),
-                                          fontSize: 16,
+                                          color: const Color(0xFF101213),
+                                          fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
                                         ),
                                         decoration: InputDecoration(
                                           labelText: 'Type',
-                                          labelStyle: const TextStyle(
+                                          labelStyle: TextStyle(
                                             fontFamily: 'Plus Jakarta Sans',
-                                            color: Color(0xFF57636C),
-                                            fontSize: 16,
+                                            color: const Color(0xFF57636C),
+                                            fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
                                           ),
                                           enabledBorder: OutlineInputBorder(
@@ -219,16 +217,16 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                                 BorderRadius.circular(40),
                                           ),
                                           focusedBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0xFF4B39EF),
+                                            borderSide: BorderSide(
+                                              color: mainColor,
                                               width: 2,
                                             ),
                                             borderRadius:
                                                 BorderRadius.circular(40),
                                           ),
                                           errorBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0xFFFF5963),
+                                            borderSide: BorderSide(
+                                              color: errorColor,
                                               width: 2,
                                             ),
                                             borderRadius:
@@ -236,8 +234,8 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                           ),
                                           focusedErrorBorder:
                                               OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0xFFFF5963),
+                                            borderSide: BorderSide(
+                                              color: errorColor,
                                               width: 2,
                                             ),
                                             borderRadius:
@@ -264,7 +262,7 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
-                                  child: Container(
+                                  child: SizedBox(
                                       width: double.infinity,
                                       child: GooglePlaceAutoCompleteTextField(
                                         textEditingController: controller,
@@ -272,10 +270,10 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                             "AIzaSyD8yblyesPc-09bye4ZF9KlO95G6RhhlmA",
                                         inputDecoration: InputDecoration(
                                           labelText: house.address,
-                                          labelStyle: const TextStyle(
+                                          labelStyle: TextStyle(
                                             fontFamily: 'Plus Jakarta Sans',
-                                            color: Color(0xFF57636C),
-                                            fontSize: 16,
+                                            color: const Color(0xFF57636C),
+                                            fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
                                           ),
                                           enabledBorder:
@@ -286,28 +284,28 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                             ),
                                           ),
                                           focusedBorder:
-                                              const OutlineInputBorder(
+                                             OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xFF4B39EF),
+                                              color: mainColor,
                                               width: 2,
                                             ),
                                           ),
-                                          errorBorder: const OutlineInputBorder(
+                                          errorBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xFFFF5963),
+                                              color: errorColor,
                                               width: 2,
                                             ),
                                           ),
                                           focusedErrorBorder:
-                                              const OutlineInputBorder(
+                                               OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xFFFF5963),
+                                              color: errorColor,
                                               width: 2,
                                             ),
                                           ),
                                           filled: true,
                                           fillColor: Colors.white,
-                                          contentPadding: EdgeInsets.all(24),
+                                          contentPadding: const EdgeInsets.all(24),
                                         ),
                                         debounceTime: 800, // default 600 ms,
                                         countries: const [
@@ -390,7 +388,7 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                       child: Container(
                         width: double.infinity,
                         constraints: const BoxConstraints(
-                          maxWidth: 570,
+                          maxWidth: 700,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -415,23 +413,23 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                 Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0, 12, 0, 24),
                                     child: Text(
                                       'Something about the house',
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        color: Color(0xFF57636C),
-                                        fontSize: 16,
+                                        color: const Color(0xFF57636C),
+                                        fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
                                       ),
                                     )),
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: double.infinity,
                                     child: TextFormField(
                                       maxLines: 3,
@@ -440,10 +438,10 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelText: 'Description',
-                                        labelStyle: const TextStyle(
+                                        labelStyle: TextStyle(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF57636C),
-                                          fontSize: 16,
+                                          color: const Color(0xFF57636C),
+                                          fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
                                         ),
                                         enabledBorder: OutlineInputBorder(
@@ -455,24 +453,24 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                               BorderRadius.circular(40),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFF4B39EF),
+                                          borderSide: BorderSide(
+                                            color: mainColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         errorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
@@ -483,10 +481,10 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        color: Color(0xFF101213),
-                                        fontSize: 16,
+                                        color: const Color(0xFF101213),
+                                        fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
                                       ),
                                       validator: (val) => val!.isEmpty
@@ -500,18 +498,19 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    const Text(
+                                   Text(
                                       'Max number of people that\ncan live in the house:',
                                       style: TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        fontSize: 16,
+                                        color: const Color(0xFF101213),
+                                        fontSize: size16(context),
                                       ),
                                     ),
                                     Expanded(
                                       child: Padding(
                                         padding: const EdgeInsetsDirectional
                                             .fromSTEB(16, 0, 0, 16),
-                                        child: Container(
+                                        child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
                                               initialValue:
@@ -530,16 +529,16 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFF4B39EF),
+                                                  borderSide: BorderSide(
+                                                    color: mainColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.circular(40),
                                                 ),
                                                 errorBorder: OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFFFF5963),
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
@@ -547,8 +546,8 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                                 ),
                                                 focusedErrorBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFFFF5963),
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
@@ -559,10 +558,10 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                               ),
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 fontFamily: 'Plus Jakarta Sans',
-                                                color: Color(0xFF101213),
-                                                fontSize: 16,
+                                                color: const Color(0xFF101213),
+                                                fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
                                               ),
                                               keyboardType:
@@ -581,18 +580,19 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    const Text(
+                                     Text(
                                       'Floor number of the house:',
                                       style: TextStyle(
-                                        fontFamily: 'Readex Pro',
-                                        fontSize: 16,
+                                        fontFamily: 'Plus Jakarta Sans',
+                                                color: const Color(0xFF101213),
+                                                fontSize: size16(context),
                                       ),
                                     ),
                                     Expanded(
                                       child: Padding(
                                         padding: const EdgeInsetsDirectional
                                             .fromSTEB(16, 0, 0, 16),
-                                        child: Container(
+                                        child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
                                               initialValue:
@@ -611,16 +611,16 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFF4B39EF),
+                                                  borderSide: BorderSide(
+                                                    color: mainColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.circular(40),
                                                 ),
                                                 errorBorder: OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFFFF5963),
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
@@ -628,8 +628,8 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                                 ),
                                                 focusedErrorBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFFFF5963),
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
@@ -640,10 +640,10 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                               ),
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 fontFamily: 'Plus Jakarta Sans',
-                                                color: Color(0xFF101213),
-                                                fontSize: 16,
+                                                color: const Color(0xFF101213),
+                                                fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
                                               ),
                                               keyboardType:
@@ -662,18 +662,19 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    const Text(
+                                     Text(
                                       'Number of bathrooms:',
                                       style: TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        fontSize: 16,
+                                                color: const Color(0xFF101213),
+                                                fontSize: size16(context),
                                       ),
                                     ),
                                     Expanded(
                                       child: Padding(
                                         padding: const EdgeInsetsDirectional
                                             .fromSTEB(48, 0, 0, 16),
-                                        child: Container(
+                                        child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
                                               initialValue:
@@ -692,16 +693,16 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFF4B39EF),
+                                                  borderSide: BorderSide(
+                                                    color: mainColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.circular(40),
                                                 ),
                                                 errorBorder: OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFFFF5963),
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
@@ -709,8 +710,8 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                                 ),
                                                 focusedErrorBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFFFF5963),
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
@@ -721,10 +722,10 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                               ),
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 fontFamily: 'Plus Jakarta Sans',
-                                                color: Color(0xFF101213),
-                                                fontSize: 16,
+                                                color: const Color(0xFF101213),
+                                                fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
                                               ),
                                               keyboardType:
@@ -751,7 +752,7 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                       child: Container(
                         width: double.infinity,
                         constraints: const BoxConstraints(
-                          maxWidth: 570,
+                          maxWidth: 700,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -776,16 +777,16 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                 Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 12, 0, 24),
                                   child: Text(
                                     'Something about the rent',
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
-                                      color: Color(0xFF57636C),
-                                      fontSize: 16,
+                                      color: const Color(0xFF57636C),
+                                      fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -793,7 +794,7 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: double.infinity,
                                     child: TextFormField(
                                       controller: _dateStartController,
@@ -813,10 +814,10 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                           },
                                         ),
                                         labelText: 'Start date of rent',
-                                        labelStyle: const TextStyle(
+                                        labelStyle: TextStyle(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF57636C),
-                                          fontSize: 16,
+                                          color: const Color(0xFF57636C),
+                                          fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
                                         ),
                                         hintText: 'Start date of rent',
@@ -829,24 +830,24 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                               BorderRadius.circular(40),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFF4B39EF),
+                                          borderSide: BorderSide(
+                                            color: mainColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         errorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
@@ -857,10 +858,10 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: const TextStyle(
+                                      style:  TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        color: Color(0xFF101213),
-                                        fontSize: 16,
+                                                color: const Color(0xFF101213),
+                                                fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
                                       ),
                                       validator: (val) => val!.isEmpty
@@ -872,7 +873,7 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: double.infinity,
                                     child: TextFormField(
                                       controller: _dateEndController,
@@ -892,10 +893,10 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                           },
                                         ),
                                         labelText: 'End date of rent',
-                                        labelStyle: const TextStyle(
+                                        labelStyle: TextStyle(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF57636C),
-                                          fontSize: 16,
+                                          color: const Color(0xFF57636C),
+                                          fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
                                         ),
                                         hintText: 'End date of rent',
@@ -908,24 +909,24 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                               BorderRadius.circular(40),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFF4B39EF),
+                                          borderSide: BorderSide(
+                                            color: mainColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         errorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
@@ -936,10 +937,10 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        color: Color(0xFF101213),
-                                        fontSize: 16,
+                                                color: const Color(0xFF101213),
+                                                fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
                                       ),
                                       validator: (val) => val!.isEmpty
@@ -951,7 +952,7 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: double.infinity,
                                     child: TextFormField(
                                         initialValue: _price.toString(),
@@ -959,10 +960,10 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           labelText: 'Price',
-                                          labelStyle: const TextStyle(
+                                          labelStyle: TextStyle(
                                             fontFamily: 'Plus Jakarta Sans',
-                                            color: Color(0xFF57636C),
-                                            fontSize: 16,
+                                            color: const Color(0xFF57636C),
+                                            fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
                                           ),
                                           enabledBorder: OutlineInputBorder(
@@ -974,16 +975,16 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                                 BorderRadius.circular(40),
                                           ),
                                           focusedBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0xFF4B39EF),
+                                            borderSide: BorderSide(
+                                              color: mainColor,
                                               width: 2,
                                             ),
                                             borderRadius:
                                                 BorderRadius.circular(40),
                                           ),
                                           errorBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0xFFFF5963),
+                                            borderSide: BorderSide(
+                                              color: errorColor,
                                               width: 2,
                                             ),
                                             borderRadius:
@@ -991,8 +992,8 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                           ),
                                           focusedErrorBorder:
                                               OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0xFFFF5963),
+                                            borderSide: BorderSide(
+                                              color: errorColor,
                                               width: 2,
                                             ),
                                             borderRadius:
@@ -1003,10 +1004,10 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                           contentPadding:
                                               const EdgeInsets.all(24),
                                         ),
-                                        style: const TextStyle(
+                                        style:  TextStyle(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF101213),
-                                          fontSize: 16,
+                                                color: const Color(0xFF101213),
+                                                fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
                                         ),
                                         keyboardType: const TextInputType
@@ -1029,7 +1030,7 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                       child: Container(
                         width: double.infinity,
                         constraints: const BoxConstraints(
-                          maxWidth: 570,
+                          maxWidth: 700,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -1054,22 +1055,22 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                               Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 12, 0, 24),
                                   child: Text(
                                     'Almost done!',
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
-                                      color: Color(0xFF57636C),
-                                      fontSize: 16,
+                                      color: const Color(0xFF57636C),
+                                      fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                 ),
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                               Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -1077,6 +1078,11 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                     children: [
                                       Text(
                                         'Pick some photos for your profile!',
+                                         style: TextStyle( color: const Color(0xFF101213),
+                                          fontSize: size16(context),
+                                          fontFamily: 'Plus Jakarta Sans',
+                                       ),
+
                                       ),
                                     ],
                                   ),
@@ -1112,8 +1118,8 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                                     'assets/userPhoto.jpg',
                                                     width: MediaQuery.sizeOf(
                                                                 context)
-                                                            .width *
-                                                        0.30,
+                                                            .height *
+                                                        0.15,
                                                     height: MediaQuery.sizeOf(
                                                                 context)
                                                             .height *
@@ -1123,9 +1129,9 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                                 : Image.network(
                                                     imageURLs[0],
                                                     width: MediaQuery.sizeOf(
-                                                                context)
-                                                            .width *
-                                                        0.30,
+                                                               context)
+                                                            .height *
+                                                        0.15,
                                                     height: MediaQuery.sizeOf(
                                                                 context)
                                                             .height *
@@ -1141,7 +1147,7 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                               : IconButton(
                                                   icon: const Icon(Icons.close),
                                                   color:
-                                                      const Color(0xFFFF5963),
+                                                       errorColor,
                                                   onPressed: () async {
                                                     await FirebaseStorage
                                                         .instance
@@ -1159,8 +1165,8 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                       ]),
                                       SizedBox(
                                           width:
-                                              MediaQuery.sizeOf(context).width *
-                                                  0.05),
+                                              MediaQuery.sizeOf(context).height *
+                                                  0.02),
                                       Column(children: [
                                         InkWell(
                                           splashColor: Colors.transparent,
@@ -1187,8 +1193,8 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                                     'assets/userPhoto.jpg',
                                                     width: MediaQuery.sizeOf(
                                                                 context)
-                                                            .width *
-                                                        0.30,
+                                                            .height *
+                                                        0.15,
                                                     height: MediaQuery.sizeOf(
                                                                 context)
                                                             .height *
@@ -1199,8 +1205,8 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                                     imageURLs[1],
                                                     width: MediaQuery.sizeOf(
                                                                 context)
-                                                            .width *
-                                                        0.30,
+                                                            .height *
+                                                        0.15,
                                                     height: MediaQuery.sizeOf(
                                                                 context)
                                                             .height *
@@ -1216,7 +1222,7 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                               : IconButton(
                                                   icon: const Icon(Icons.close),
                                                   color:
-                                                      const Color(0xFFFF5963),
+                                                       errorColor,
                                                   onPressed: () async {
                                                     await FirebaseStorage
                                                         .instance
@@ -1262,8 +1268,8 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                                   'assets/userPhoto.jpg',
                                                   width:
                                                       MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          0.30,
+                                                            .height *
+                                                        0.15,
                                                   height:
                                                       MediaQuery.sizeOf(context)
                                                               .height *
@@ -1274,8 +1280,8 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                                   imageURLs[2],
                                                   width:
                                                       MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          0.30,
+                                                            .height *
+                                                        0.15,
                                                   height:
                                                       MediaQuery.sizeOf(context)
                                                               .height *
@@ -1290,7 +1296,7 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                             ? null
                                             : IconButton(
                                                 icon: const Icon(Icons.close),
-                                                color: const Color(0xFFFF5963),
+                                                color: errorColor,
                                                 onPressed: () async {
                                                   await FirebaseStorage.instance
                                                       .refFromURL(imageURLs
@@ -1306,8 +1312,8 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                     ]),
                                     SizedBox(
                                         width:
-                                            MediaQuery.sizeOf(context).width *
-                                                0.05),
+                                            MediaQuery.sizeOf(context).height *
+                                                0.02),
                                     Column(children: [
                                       InkWell(
                                         splashColor: Colors.transparent,
@@ -1331,8 +1337,8 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                                   'assets/userPhoto.jpg',
                                                   width:
                                                       MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          0.30,
+                                                            .height *
+                                                        0.15,
                                                   height:
                                                       MediaQuery.sizeOf(context)
                                                               .height *
@@ -1343,8 +1349,8 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                                   imageURLs[3],
                                                   width:
                                                       MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          0.30,
+                                                            .height *
+                                                        0.15,
                                                   height:
                                                       MediaQuery.sizeOf(context)
                                                               .height *
@@ -1359,7 +1365,7 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                             ? null
                                             : IconButton(
                                                 icon: const Icon(Icons.close),
-                                                color: const Color(0xFFFF5963),
+                                                color: errorColor,
                                                 onPressed: () async {
                                                   await FirebaseStorage.instance
                                                       .refFromURL(imageURLs
@@ -1389,7 +1395,9 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                           child: Row(children: [
                             ElevatedButton(
                               onPressed: () async {
-                                if (scaffoldKey.currentState!.validate()) {
+                              if (scaffoldKey.currentState!.validate()) {
+                              if (_startDate!.isBefore(_endDate!)) {
+                                if (imageURLs[0] !='') {
                                   await DatabaseServiceHouseProfile(
                                           house.idHouse)
                                       .updateHouseProfileAdj(
@@ -1422,71 +1430,85 @@ class _provaModificaCasaState extends State<provaModificaCasa> {
                                   }
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text('nope'),
+                                    const SnackBar(
+                                      content: Text(
+                                        'Insert the photos!',
+                                      ),
                                     ),
                                   );
+                                  return;
                                 }
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      'End date is before start date!',
+                                    ),
+                                  ),
+                                );
                                 return;
-                              },
+                              }
+                              }
+                            },
                               style: ElevatedButton.styleFrom(
-                                fixedSize: Size(100, 52),
-                                backgroundColor: Colors.black,
-                                elevation: 3.0,
-                                side: const BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1,
-                                ),
-                              ),
-                              child: const Text(
-                                'Update',
-                                style: TextStyle(
-                                  fontFamily: 'Plus Jakarta Sans',
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: 20),
-                            ElevatedButton(
+                                      fixedSize: const Size(230, 52),
+                                      backgroundColor:mainColor,
+                                       elevation: 3.0,
+                                       shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                       ),
+                                       side: const BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1,
+                                      ),
+                                    ),
+                                    child : Text('Update!',
+                                    style: TextStyle(
+                                      fontFamily: 'Plus Jakarta Sans',
+                                            color: backgroundColor,
+                                            fontSize: size16(context),
+                                            fontWeight: FontWeight.w500,
+                                    ),),
+                                          ),
+                            Align(
+                      alignment: Alignment.center ,
+                      child: Padding(
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
+                        
+                   child: ElevatedButton(
                               onPressed: () async {
-                                if (scaffoldKey.currentState!.validate()) {
-                                  await DatabaseServiceHouseProfile(
+                                await DatabaseServiceHouseProfile(
                                           house.idHouse)
                                       .deleteHouseProfileAdj();
-                                  if (mounted) {
-                                    Navigator.popAndPushNamed(
-                                        context, "/homepageHouse");
-                                  }
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text('nope'),
-                                    ),
-                                  );
+                                if(mounted){
+                                Navigator.pop(context);
                                 }
-                                return;
                               },
                               style: ElevatedButton.styleFrom(
-                                fixedSize: const Size(100, 52),
-                                backgroundColor: Colors.black,
-                                elevation: 3.0,
-                                side: const BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1,
-                                ),
-                              ),
-                              child: const Text(
+                                      fixedSize: const Size(230, 52),
+                                      backgroundColor: mainColor,
+                                       elevation: 3.0,
+                                       shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                       ),
+                                       side: const BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1,
+                                      ),
+                                    ),
+                              child: Text(
                                 'Delete',
                                 style: TextStyle(
                                   fontFamily: 'Plus Jakarta Sans',
                                   color: Colors.white,
-                                  fontSize: 16,
+                                  fontSize: size16(context),
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ),
+                      ),
+                    ),
                           ])),
                     ),
                   ],
