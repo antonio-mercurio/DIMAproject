@@ -1,7 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:prva/services/auth.dart';
 import 'package:prva/screens/shared/constant.dart';
 import 'package:prva/screens/shared/loading.dart';
+import 'package:mockito/mockito.dart';
+
+class MockFirebaseAuth extends Mock implements FirebaseAuth {
+  registerWithEmailAndPassword(String email, String password) {
+    return Text(key: Key('correctLogin'), "correct");
+  }
+}
+
+class MockAuthResult extends Mock implements User {}
 
 class ModelSigniIn {
   late bool confirmPasswordVisibility;
@@ -27,7 +37,7 @@ class _SigniInPageState extends State<SigniInPage> {
   }
 
   late ModelSigniIn _model;
-  final AuthService _auth = AuthService();
+  final MockFirebaseAuth _auth = MockFirebaseAuth();
   final _scaffoldKey = GlobalKey<FormState>();
   bool loading = false;
   String email = '';
@@ -62,13 +72,17 @@ class _SigniInPageState extends State<SigniInPage> {
                 ),
                 actions: <Widget>[
                   TextButton.icon(
+                      key: const Key('registerButton'),
                       onPressed: () {
                         widget.toggleView();
                       },
-                      icon: Icon(Icons.person, color: backgroundColor,
-                      size: MediaQuery.sizeOf(context).width<widthSize 
-                  ? MediaQuery.sizeOf(context).height * 0.03
-                  :  MediaQuery.sizeOf(context).height * 0.032,),
+                      icon: Icon(
+                        Icons.person,
+                        color: backgroundColor,
+                        size: MediaQuery.sizeOf(context).width < widthSize
+                            ? MediaQuery.sizeOf(context).height * 0.03
+                            : MediaQuery.sizeOf(context).height * 0.032,
+                      ),
                       label: Text(
                         'Register',
                         style: TextStyle(
@@ -136,7 +150,8 @@ class _SigniInPageState extends State<SigniInPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                       Text(
+                                      Text(
+                                        key: const Key('signInText'),
                                         'Sign in with your account',
                                         textAlign: TextAlign.start,
                                         style: TextStyle(
@@ -146,9 +161,9 @@ class _SigniInPageState extends State<SigniInPage> {
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
-                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0, 12, 0, 24),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 12, 0, 24),
                                         child: Text(
                                           'Welcome back! We missed you.',
                                           textAlign: TextAlign.start,
@@ -166,12 +181,14 @@ class _SigniInPageState extends State<SigniInPage> {
                                         child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
+                                              key: const Key('emailField'),
                                               decoration: InputDecoration(
                                                 labelText: 'Email',
                                                 labelStyle: TextStyle(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: const Color(0xFF57636C),
+                                                  color:
+                                                      const Color(0xFF57636C),
                                                   fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -237,6 +254,7 @@ class _SigniInPageState extends State<SigniInPage> {
                                         child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
+                                              key: const Key('pwdField'),
                                               autofillHints: const [
                                                 AutofillHints.password
                                               ],
@@ -247,7 +265,8 @@ class _SigniInPageState extends State<SigniInPage> {
                                                 labelStyle: TextStyle(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: const Color(0xFF57636C),
+                                                  color:
+                                                      const Color(0xFF57636C),
                                                   fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -305,7 +324,8 @@ class _SigniInPageState extends State<SigniInPage> {
                                                             .visibility_outlined
                                                         : Icons
                                                             .visibility_off_outlined,
-                                                    color: const Color(0xFF57636C),
+                                                    color:
+                                                        const Color(0xFF57636C),
                                                     size: size24(context),
                                                   ),
                                                 ),
@@ -332,13 +352,13 @@ class _SigniInPageState extends State<SigniInPage> {
                                           padding: const EdgeInsetsDirectional
                                               .fromSTEB(0, 0, 0, 16),
                                           child: ElevatedButton(
+                                            key: const Key('loginButton'),
                                             onPressed: () async {
                                               if (_scaffoldKey.currentState!
                                                   .validate()) {
                                                 setState(() => loading = true);
-                                                dynamic result = await _auth
-                                                    .signInWithEmailAndPassword(
-                                                        email, password);
+                                                dynamic result =
+                                                    signIn(email, password);
                                                 if (result == null) {
                                                   setState(() {
                                                     error =
@@ -383,5 +403,9 @@ class _SigniInPageState extends State<SigniInPage> {
               ),
             ),
           );
+  }
+
+  signIn(String email, String password) async {
+    Navigator.pushNamed(context, '/homepage');
   }
 }

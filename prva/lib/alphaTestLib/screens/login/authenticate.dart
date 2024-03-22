@@ -1,4 +1,7 @@
-import 'package:flutter/material.dart';
+
+//CREDO NON SI DEBBA TESTARE COME WIDGET DATO CHE È SOLO UN WRAPPER
+
+/*import 'package:flutter/material.dart';
 import 'package:prva/screens/login/login_screen.dart';
 import 'package:prva/screens/login/signin_screen.dart';
 
@@ -24,3 +27,4 @@ class _AuthenticateState extends State<Authenticate> {
     }
   }
 }
+*/

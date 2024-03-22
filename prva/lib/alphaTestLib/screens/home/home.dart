@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:prva/screens/house_profile/all_profile.dart';
+import 'package:prva/alphaTestLib/screens/login/signin_screen.dart';
 import 'package:prva/screens/house_profile/show_all_my_house_profile.dart';
 import 'package:prva/screens/wrapperCreationProfile.dart';
-import 'package:prva/services/auth.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -12,7 +11,7 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  final AuthService _auth = AuthService();
+  final MockFirebaseAuth _auth = MockFirebaseAuth();
 
   @override
   Widget build(BuildContext context) {
@@ -57,14 +56,15 @@ class _HomepageState extends State<Homepage> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                     Navigator.push(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
                                 const WrapperCreationProfile()),
-                      ); 
+                      );
                     },
                     child: Container(
+                      key: Key('personalButton'),
                       decoration: BoxDecoration(
                         color: Colors.black,
                         image: DecorationImage(
@@ -92,6 +92,7 @@ class _HomepageState extends State<Homepage> {
                   color: Colors.black,
                 ),
                 child: Padding(
+                  key: Key('houseButton'),
                   padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
                   child: InkWell(
                     splashColor: Colors.transparent,

@@ -4,11 +4,7 @@ import 'package:prva/screens/shared/constant.dart';
 import 'package:prva/screens/shared/loading.dart';
 import 'package:mockito/mockito.dart';
 
-class MockFirebaseAuth extends Mock implements FirebaseAuth {
-  registerWithEmailAndPassword(String email, String password) {
-    return Text(key: Key('correctReg'), "correct");
-  }
-}
+class MockFirebaseAuth extends Mock implements FirebaseAuth {}
 
 class MockAuthResult extends Mock implements User {}
 
@@ -77,10 +73,13 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: () {
                         widget.toggleView();
                       },
-                      icon: Icon(Icons.person, color: backgroundColor, 
-                      size: MediaQuery.sizeOf(context).width<widthSize 
-                  ? MediaQuery.sizeOf(context).height * 0.03
-                  :  MediaQuery.sizeOf(context).height * 0.032,),
+                      icon: Icon(
+                        Icons.person,
+                        color: backgroundColor,
+                        size: MediaQuery.sizeOf(context).width < widthSize
+                            ? MediaQuery.sizeOf(context).height * 0.03
+                            : MediaQuery.sizeOf(context).height * 0.032,
+                      ),
                       label: Text(
                         'Sign In',
                         style: TextStyle(
@@ -148,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                         Text(
+                                        Text(
                                           key: const Key('createAccountText'),
                                           'Create an account',
                                           textAlign: TextAlign.start,
@@ -159,10 +158,9 @@ class _LoginPageState extends State<LoginPage> {
                                             fontWeight: FontWeight.w600,
                                           ),
                                         ),
-                                         Padding(
-                                          padding:
-                                             const EdgeInsetsDirectional.fromSTEB(
-                                                  0, 12, 0, 24),
+                                        Padding(
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 12, 0, 24),
                                           child: Text(
                                             'Let\'s get started by filling out the form below.',
                                             textAlign: TextAlign.start,
@@ -183,10 +181,11 @@ class _LoginPageState extends State<LoginPage> {
                                                 key: const Key('emailField'),
                                                 decoration: InputDecoration(
                                                   labelText: 'Email',
-                                                  labelStyle:  TextStyle(
+                                                  labelStyle: TextStyle(
                                                     fontFamily:
                                                         'Plus Jakarta Sans',
-                                                    color: const Color(0xFF57636C),
+                                                    color:
+                                                        const Color(0xFF57636C),
                                                     fontSize: size16(context),
                                                     fontWeight: FontWeight.w500,
                                                   ),
@@ -203,8 +202,7 @@ class _LoginPageState extends State<LoginPage> {
                                                   ),
                                                   focusedBorder:
                                                       OutlineInputBorder(
-                                                    borderSide:
-                                                       BorderSide(
+                                                    borderSide: BorderSide(
                                                       color: mainColor,
                                                       width: 2,
                                                     ),
@@ -214,8 +212,7 @@ class _LoginPageState extends State<LoginPage> {
                                                   ),
                                                   errorBorder:
                                                       OutlineInputBorder(
-                                                    borderSide:
-                                                         BorderSide(
+                                                    borderSide: BorderSide(
                                                       color: errorColor,
                                                       width: 2,
                                                     ),
@@ -225,8 +222,7 @@ class _LoginPageState extends State<LoginPage> {
                                                   ),
                                                   focusedErrorBorder:
                                                       OutlineInputBorder(
-                                                    borderSide:
-                                                         BorderSide(
+                                                    borderSide: BorderSide(
                                                       color: errorColor,
                                                       width: 2,
                                                     ),
@@ -242,7 +238,8 @@ class _LoginPageState extends State<LoginPage> {
                                                 style: TextStyle(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: const Color(0xFF101213),
+                                                  color:
+                                                      const Color(0xFF101213),
                                                   fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -273,7 +270,8 @@ class _LoginPageState extends State<LoginPage> {
                                                   labelStyle: TextStyle(
                                                     fontFamily:
                                                         'Plus Jakarta Sans',
-                                                    color: const Color(0xFF57636C),
+                                                    color:
+                                                        const Color(0xFF57636C),
                                                     fontSize: size16(context),
                                                     fontWeight: FontWeight.w500,
                                                   ),
@@ -290,8 +288,7 @@ class _LoginPageState extends State<LoginPage> {
                                                   ),
                                                   focusedBorder:
                                                       OutlineInputBorder(
-                                                    borderSide:
-                                                         BorderSide(
+                                                    borderSide: BorderSide(
                                                       color: mainColor,
                                                       width: 2,
                                                     ),
@@ -301,8 +298,7 @@ class _LoginPageState extends State<LoginPage> {
                                                   ),
                                                   errorBorder:
                                                       OutlineInputBorder(
-                                                    borderSide:
-                                                         BorderSide(
+                                                    borderSide: BorderSide(
                                                       color: errorColor,
                                                       width: 2,
                                                     ),
@@ -312,8 +308,7 @@ class _LoginPageState extends State<LoginPage> {
                                                   ),
                                                   focusedErrorBorder:
                                                       OutlineInputBorder(
-                                                    borderSide:
-                                                         BorderSide(
+                                                    borderSide: BorderSide(
                                                       color: errorColor,
                                                       width: 2,
                                                     ),
@@ -340,15 +335,17 @@ class _LoginPageState extends State<LoginPage> {
                                                               .visibility_outlined
                                                           : Icons
                                                               .visibility_off_outlined,
-                                                      color: const Color(0xFF57636C),
+                                                      color: const Color(
+                                                          0xFF57636C),
                                                       size: size24(context),
                                                     ),
                                                   ),
                                                 ),
-                                                style:  TextStyle(
+                                                style: TextStyle(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: const Color(0xFF101213),
+                                                  color:
+                                                      const Color(0xFF101213),
                                                   fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -369,7 +366,8 @@ class _LoginPageState extends State<LoginPage> {
                                           child: SizedBox(
                                             width: double.infinity,
                                             child: TextFormField(
-                                                key: const Key('confirmPwdField'),
+                                                key: const Key(
+                                                    'confirmPwdField'),
                                                 autofocus: true,
                                                 autofillHints: const [
                                                   AutofillHints.password
@@ -381,7 +379,8 @@ class _LoginPageState extends State<LoginPage> {
                                                   labelStyle: TextStyle(
                                                     fontFamily:
                                                         'Plus Jakarta Sans',
-                                                    color: const Color(0xFF57636C),
+                                                    color:
+                                                        const Color(0xFF57636C),
                                                     fontSize: size16(context),
                                                     fontWeight: FontWeight.w500,
                                                   ),
@@ -398,8 +397,7 @@ class _LoginPageState extends State<LoginPage> {
                                                   ),
                                                   focusedBorder:
                                                       OutlineInputBorder(
-                                                    borderSide:
-                                                         BorderSide(
+                                                    borderSide: BorderSide(
                                                       color: mainColor,
                                                       width: 2,
                                                     ),
@@ -409,8 +407,7 @@ class _LoginPageState extends State<LoginPage> {
                                                   ),
                                                   errorBorder:
                                                       OutlineInputBorder(
-                                                    borderSide:
-                                                         BorderSide(
+                                                    borderSide: BorderSide(
                                                       color: errorColor,
                                                       width: 2,
                                                     ),
@@ -420,8 +417,7 @@ class _LoginPageState extends State<LoginPage> {
                                                   ),
                                                   focusedErrorBorder:
                                                       OutlineInputBorder(
-                                                    borderSide:
-                                                         BorderSide(
+                                                    borderSide: BorderSide(
                                                       color: errorColor,
                                                       width: 2,
                                                     ),
@@ -448,7 +444,8 @@ class _LoginPageState extends State<LoginPage> {
                                                               .visibility_outlined
                                                           : Icons
                                                               .visibility_off_outlined,
-                                                      color: const Color(0xFF57636C),
+                                                      color: const Color(
+                                                          0xFF57636C),
                                                       size: size24(context),
                                                     ),
                                                   ),
@@ -456,7 +453,8 @@ class _LoginPageState extends State<LoginPage> {
                                                 style: TextStyle(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: const Color(0xFF101213),
+                                                  color:
+                                                      const Color(0xFF101213),
                                                   fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -478,7 +476,8 @@ class _LoginPageState extends State<LoginPage> {
                                             padding: const EdgeInsetsDirectional
                                                 .fromSTEB(0, 0, 0, 16),
                                             child: ElevatedButton(
-                                              key: const Key('getStartedButton'),
+                                              key:
+                                                  const Key('getStartedButton'),
                                               onPressed: () async {
                                                 if (password !=
                                                     confirmPassword) {
@@ -496,9 +495,8 @@ class _LoginPageState extends State<LoginPage> {
                                                     .validate()) {
                                                   setState(
                                                       () => loading = true);
-                                                  dynamic result = await _auth
-                                                      .registerWithEmailAndPassword(
-                                                          email, password);
+                                                  dynamic result =
+                                                      register(email, password);
                                                   if (result == null) {
                                                     setState(() {
                                                       error = 'invalid email';
@@ -538,5 +536,9 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           );
+  }
+
+  register(String email, String password) async {
+    Navigator.pushNamed(context, '/homepage');
   }
 }

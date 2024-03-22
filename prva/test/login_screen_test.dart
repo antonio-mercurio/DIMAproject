@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:prva/alphaTestLib/screens/home/home.dart';
 import 'package:prva/alphaTestLib/screens/login/login_screen.dart';
 
 bool showSignIn = true;
@@ -16,6 +17,7 @@ MaterialApp app = MaterialApp(
   routes: {
     // When navigating to the "/" route, build the FirstScreen widget.
     '/': (context) => LoginPage(toggleView: toggleView),
+    '/homepage': (context) => Homepage(),
   },
 );
 
@@ -138,12 +140,8 @@ void main() {
     await tester.enterText(confirmPwdFieldFinder, "password");
     await tester.tap(getStartedButtonFinder);
 
-    await tester.pump();
-    expect(
-        find.text(
-          'Passwords don\'t match!',
-        ),
-        findsNothing);
-    //expect(find.byKey(Key('correctReg')), findsOneWidget);
+    await tester.pumpAndSettle();
+    expect(find.byKey(Key('personalButton')), findsOneWidget);
+    expect(find.byKey(Key('houseButton')), findsOneWidget);
   });
 }
