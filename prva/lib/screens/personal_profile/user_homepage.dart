@@ -12,6 +12,7 @@ import 'package:prva/screens/personal_profile/notification_person.dart';
 import 'package:prva/screens/chat/chat.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:prva/screens/personal_profile/all_houses.dart';
+import 'package:prva/screens/shared/empty.dart';
 import 'package:prva/services/chat/chat_service.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
@@ -317,35 +318,37 @@ class _ChatLayoutState extends State<ChatLayout> {
         setState(() {});
       }
     });
-    //print(chats.toString());
     return Scaffold(
           appBar: AppBar(
             backgroundColor: mainColor,),
 
             body:Column(
-        children: [_buildUserList(user, matches), _buildChatList(user, chats)]));
+        children: [
+          _buildUserList(user, matches, chats, context), 
+          _buildChatList(user, chats, context)]));
   }
 }
 
-Widget _buildChatList(Utente user, List<Chat>? chats) {
+Widget _buildChatList(Utente user, List<Chat>? chats, BuildContext context) {
   if (chats != null) {
+    if(chats.isNotEmpty){
     return SingleChildScrollView(
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+            padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
             child: Text(
               'Chats',
               style: TextStyle(
                 fontFamily: 'Plus Jakarta Sans',
-                color: Color(0xFF57636C),
-                fontSize: 14,
+                color: const Color(0xFF57636C),
+                fontSize: size16(context),
                 fontWeight: FontWeight.normal,
               ),
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 44),
+            padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 44),
             child: ListView.builder(
               padding: EdgeInsets.zero,
               primary: false,
@@ -360,36 +363,38 @@ Widget _buildChatList(Utente user, List<Chat>? chats) {
         ],
       ),
     );
-  } else {
-    return Center(
-      child: Text("xs"),
-    );
+  }else{
+     return  const Text("");
+  }
+  }else {
+    return const Text("");
   }
 }
 
-Widget _buildUserList(Utente user, List<String>? matches) {
+Widget _buildUserList(Utente user, List<String>? matches, List<Chat>? chats, BuildContext context) {
   if (matches != null) {
+    if(matches.isNotEmpty){
     return SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(24, 10, 0, 0),
+            padding: const EdgeInsetsDirectional.fromSTEB(24, 10, 0, 0),
             child: Text(
               'Match',
               style: TextStyle(
                 fontFamily: 'Plus Jakarta Sans',
-                color: Color(0xFF57636C),
-                fontSize: 14,
+                color: const Color(0xFF57636C),
+                fontSize: size16(context),
                 fontWeight: FontWeight.normal,
               ),
             ),
           ),
           Container(
             width: double.infinity,
-            height: 170,
-            decoration: BoxDecoration(
+            height: MediaQuery.sizeOf(context).height*0.24,
+            decoration: const BoxDecoration(
               color: Color(0xFFF1F4F8),
             ),
             child: ListView.builder(
@@ -405,10 +410,37 @@ Widget _buildUserList(Utente user, List<String>? matches) {
         ],
       ),
     );
-  } else {
-    return Center(
-      child: Text("Non hai ancora match"),
-    );
+  }else{
+    if(chats!= null){
+      if(chats.isNotEmpty){
+        return const SizedBox();
+      }else{
+        return SizedBox(
+          height: MediaQuery.sizeOf(context).height*0.74,
+          child: const EmptyProfile(shapeOfIcon: Icons.sentiment_dissatisfied_rounded, textToShow: 'You don\'t have any match!',)
+        );
+      }
+    }else{
+     return SizedBox(
+          height: MediaQuery.sizeOf(context).height*0.74,
+          child: const EmptyProfile(shapeOfIcon: Icons.sentiment_dissatisfied_rounded, textToShow: 'You don\'t have any match!',));
+    }
+  }
+  } else{
+    if(chats!= null){
+      if(chats.isNotEmpty){
+        return const SizedBox();
+      }else{
+        return SizedBox(
+          height: MediaQuery.sizeOf(context).height*0.74,
+          child: const EmptyProfile(shapeOfIcon: Icons.sentiment_dissatisfied_rounded, textToShow: 'You don\'t have any match!',)
+        );
+      }
+    }else{
+      return SizedBox(
+          height: MediaQuery.sizeOf(context).height*0.74,
+          child:const EmptyProfile(shapeOfIcon: Icons.sentiment_dissatisfied_rounded, textToShow: 'You don\'t have any match!',));
+    }
   }
 }
 
@@ -434,20 +466,20 @@ Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
                   MaterialPageRoute(
                     builder: (context) => ChatPage(
                       senderUserID: user.uid,
-                      receiverUserEmail: type + " " + city,
+                      nameReciver: "$type $city",
                       receiverUserID: idHouse,
                     ),
                   ),
                 );
               },
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 8),
+                padding: const EdgeInsetsDirectional.fromSTEB(16, 4, 16, 8),
                 child: Container(
                   width: double.infinity,
-                  height: 80,
+                  height: MediaQuery.sizeOf(context).height*0.1,
                   decoration: BoxDecoration(
                     color: backgroundColor,
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         blurRadius: 4,
                         color: Color(0x32000000),
@@ -467,14 +499,14 @@ Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
                     child: image != ""
                         ? Image.network(
                             image,
-                            width: 36,
-                            height: 36,
+                            width: MediaQuery.sizeOf(context).height*0.05,
+                            height: MediaQuery.sizeOf(context).height*0.05,
                             fit: BoxFit.cover,
                           )
                         : Image.asset(
                             'assets/userPhoto.jpg',
-                            width: 36,
-                            height: 36,
+                            width: MediaQuery.sizeOf(context).height*0.05,
+                            height: MediaQuery.sizeOf(context).height*0.05,
                             fit: BoxFit.cover,
                           ),
                   ),
@@ -487,26 +519,27 @@ Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Text(
-                        type + " " + city,
+                        "$type $city",
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           letterSpacing: 0.2,
                           wordSpacing: 1.5,
                           fontFamily: 'Plus Jakarta Sans',
-                          color: Color(0xFF14181B),
+                          color: const Color(0xFF14181B),
                           fontWeight: FontWeight.w900,
+                          fontSize: size18(context)
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: size20(context),
                       child: Text(
                         chat.lastMsg,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 12,
+                        style: TextStyle(
+                          fontSize: size12(context),
                           fontFamily: 'Plus Jakarta Sans',
-                      color: Color(0xFF14181B),
+                      color: const Color(0xFF14181B),
                         ),
                       ),
                     ),
@@ -523,40 +556,32 @@ Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
                       height: 4,
                     ),
                     Text(
-                      chat.timestamp.toDate().hour.toString()
-                      + ":" 
-                      + chat.timestamp.toDate().minute.toString()
-                      + " " 
-                      + chat.timestamp.toDate().day.toString()
-                      + "/"
-                      +chat.timestamp.toDate().month.toString()
-                      + "/"
-                      +chat.timestamp.toDate().year.toString(),
-                      style: const TextStyle(
-                        fontSize: 11,
+                      "${chat.timestamp.toDate().hour}:${chat.timestamp.toDate().minute} ${chat.timestamp.toDate().day}/${chat.timestamp.toDate().month}/${chat.timestamp.toDate().year}",
+                      style: TextStyle(
+                        fontSize: size10(context),
                         letterSpacing: -0.2,
                         fontWeight: FontWeight.w600,
                         fontFamily: 'Plus Jakarta Sans',
-                      color: Color(0xFF14181B),
+                      color: const Color(0xFF14181B),
                       ),
                     ),
                     const SizedBox(
                       height: 8,
                     ),
                    (chat.unreadMsg == 0) 
-                   ? Text('') 
+                   ? const Text('') 
                    : Container(
-                      width: 18,
-                      height: 18,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF4B39EF),
+                      width: size18(context),
+                      height: size18(context),
+                      decoration: BoxDecoration(
+                        color: mainColor,
                         shape: BoxShape.circle,
                       ),
                       child: Center(
                         child: Text(
                           chat.unreadMsg.toString(),
                           style: TextStyle(
-                            fontSize: 10,
+                            fontSize: size10(context),
                             color: backgroundColor,
                           ),
                         ),
@@ -569,9 +594,7 @@ Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
             ])),),),);
                 
         } else {
-          return Center(
-            child: Text('no chat'),
-          );
+          return const SizedBox();
         }
       });
 }
@@ -587,13 +610,13 @@ Widget _buildUserListItem(BuildContext context, String idMatch, Utente user) {
           final idHouse = snapshot.data?.idHouse ?? "";
 
           return Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(16, 12, 12, 12),
+            padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 12, 12),
             child: Container(
-              width: 140,
-              height: 150,
+              width: MediaQuery.sizeOf(context).height*0.16,
+              height: MediaQuery.sizeOf(context).height*0.22,
               decoration: BoxDecoration(
                 color: backgroundColor,
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     blurRadius: 4,
                     color: Color(0x34090F13),
@@ -613,14 +636,14 @@ Widget _buildUserListItem(BuildContext context, String idMatch, Utente user) {
                     MaterialPageRoute(
                       builder: (context) => ChatPage(
                         senderUserID: user.uid,
-                        receiverUserEmail: type + " " + city,
+                        nameReciver: "$type $city",
                         receiverUserID: idHouse,
                       ),
                     ),
                   );
                 },
                 child: Padding(
-                  padding: EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(12),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -629,37 +652,41 @@ Widget _buildUserListItem(BuildContext context, String idMatch, Utente user) {
                         child: image != ""
                             ? Image.network(
                                 image,
-                                width: 60,
-                                height: 20,
+                                width:  MediaQuery.sizeOf(context).height*0.08,
+                                height: MediaQuery.sizeOf(context).height*0.08,
                                 fit: BoxFit.cover,
                               )
                             : Image.asset(
                                 'assets/userPhoto.jpg',
-                                width: 80,
-                                height: 80,
+                                width:  MediaQuery.sizeOf(context).height*0.08,
+                                height: MediaQuery.sizeOf(context).height*0.08,
                                 fit: BoxFit.cover,
                               ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                         child: Text(
                           city,
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
                           style: TextStyle(
                             fontFamily: 'Plus Jakarta Sans',
-                            color: Color(0xFF14181B),
-                            fontSize: 14,
+                            color: const Color(0xFF14181B),
+                            fontSize: size12(context),
                             fontWeight: FontWeight.normal,
                           ),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                         child: Text(
                           type,
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
                           style: TextStyle(
                             fontFamily: 'Plus Jakarta Sans',
-                            color: Color(0xFF14181B),
-                            fontSize: 14,
+                            color: const Color(0xFF14181B),
+                            fontSize: size12(context),
                             fontWeight: FontWeight.normal,
                           ),
                         ),
@@ -671,9 +698,7 @@ Widget _buildUserListItem(BuildContext context, String idMatch, Utente user) {
             ),
           );
         } else {
-          return Center(
-            child: Text('no new matches'),
-          );
+          return const SizedBox();
         }
       });
 }

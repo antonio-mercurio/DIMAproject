@@ -380,7 +380,7 @@ Widget _buildChatListItem(BuildContext context, Chat chat, HouseProfileAdj house
                   MaterialPageRoute(
                     builder: (context) => ChatPage(
                       senderUserID: house.idHouse,
-                      receiverUserEmail: name + " " + surname,
+                      nameReciver: name + " " + surname,
                       receiverUserID: idPerson,
                     ),
                   ),
@@ -559,7 +559,7 @@ Widget _buildUserListItem(BuildContext context, String idMatch, HouseProfileAdj 
                     MaterialPageRoute(
                       builder: (context) => ChatPage(
                         senderUserID: house.idHouse,
-                        receiverUserEmail: name + " " + surname,
+                        nameReciver: name + " " + surname,
                         receiverUserID: idPerson,
                       ),
                     ),

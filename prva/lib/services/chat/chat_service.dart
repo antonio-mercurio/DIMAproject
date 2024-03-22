@@ -66,14 +66,13 @@ class ChatService extends ChangeNotifier {
     //construct chat room id from user ids
     List<String> ids = [userID, otherUserID];
     ids.sort();
-    //String chatRoomID = ids.join("_");
     return _firebaseFirestore
         .collection('match')
         .doc(userID)
         .collection('matched_profiles')
         .doc(otherUserID)
         .collection('messages')
-        .orderBy('timestamp', descending: false)
+        .orderBy('timestamp', descending: true)
         .snapshots();
   }
 

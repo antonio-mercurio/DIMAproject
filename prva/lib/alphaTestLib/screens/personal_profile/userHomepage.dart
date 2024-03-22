@@ -388,7 +388,7 @@ Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
                   MaterialPageRoute(
                     builder: (context) => ChatPage(
                       senderUserID: user.uid,
-                      receiverUserEmail: type + " " + city,
+                      nameReciver: type + " " + city,
                       receiverUserID: idHouse,
                     ),
                   ),
@@ -567,7 +567,7 @@ Widget _buildUserListItem(BuildContext context, String idMatch, Utente user) {
                     MaterialPageRoute(
                       builder: (context) => ChatPage(
                         senderUserID: user.uid,
-                        receiverUserEmail: type + " " + city,
+                        nameReciver: type + " " + city,
                         receiverUserID: idHouse,
                       ),
                     ),
