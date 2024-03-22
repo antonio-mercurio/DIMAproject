@@ -58,6 +58,7 @@ class _ShowDetailedPersonalProfileState
               style: TextStyle(
                 fontSize: size24(context),
                 color: Colors.black,
+                fontWeight: FontWeight.bold,
                 fontFamily: 'Plus Jakarta Sans',
               )),
         ),

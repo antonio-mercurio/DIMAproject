@@ -150,9 +150,9 @@ class _SearchLayoutState extends State<SearchLayout> {
                 child:
                 badges.Badge(
                 showBadge: (myNotifies != null && myNotifies != 0),
-                badgeContent: Text(myNotifies?.toString() ?? ""),
+                badgeContent: Text(myNotifies?.toString() ?? "", style: TextStyle(color: backgroundColor),),
                 position: badges.BadgePosition.topEnd(top: 10, end: 10),
-                badgeStyle: const badges.BadgeStyle(padding: EdgeInsets.all(4)),
+                badgeStyle: badges.BadgeStyle(padding: const EdgeInsets.all(4), badgeColor: errorColor),
                 onTap: () async {
                   await MatchService(uid: user.uid).createNotification(0);
                   if (mounted) {

@@ -204,9 +204,9 @@ class _SearchLayoutState extends State<SearchLayout> {
               Align(
                 child: badges.Badge(
                 showBadge: (house.numberNotifies != 0),
-                badgeContent: Text(house.numberNotifies.toString()),
+                badgeContent: Text(house.numberNotifies.toString(), style: TextStyle(color: backgroundColor),),
                 position: badges.BadgePosition.topEnd(top: 10, end: 10),
-                badgeStyle: const BadgeStyle(padding: EdgeInsets.all(4)),
+                badgeStyle: BadgeStyle(padding: const EdgeInsets.all(4), badgeColor: errorColor),
                 onTap: () async {
                   await DatabaseServiceHouseProfile(house.idHouse)
                       .updateNotificationHouseProfileAdj(0);
