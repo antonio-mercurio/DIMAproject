@@ -201,15 +201,4 @@ class DatabaseServiceHouseProfile {
         .doc(uid)
         .update({'numberNotifies': notifies});
   }
-
-  int _getNotificationFromSnapshot(DocumentSnapshot snapshot) {
-    return snapshot.get('numberNotifies');
-  }
-
-  Stream<int> get getNotification {
-    return houseProfileCollection
-        .doc(uid)
-        .snapshots()
-        .map((_getNotificationFromSnapshot));
-  }
 }

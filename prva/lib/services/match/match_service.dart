@@ -119,23 +119,6 @@ class MatchService extends ChangeNotifier {
         .snapshots();
   }
 
-  MatchPeople _matchFromSnapshot(DocumentSnapshot snapshot) {
-    return MatchPeople(
-      userID: snapshot.get('user1'),
-      otheUserID: snapshot.get('user2'),
-      timestamp: snapshot.get('timestamp'),
-    );
-  }
-
-  Stream<MatchPeople>? get getMatches {
-    return _firebaseFirestore
-        .collection('match')
-        .doc(uid)
-        .collection('matched_profiles')
-        .doc(otheruid)
-        .snapshots()
-        .map(_matchFromSnapshot);
-  }
 
   List<MatchPeople> _matchWithTmpFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map<MatchPeople>((doc) {
@@ -215,32 +198,5 @@ class MatchService extends ChangeNotifier {
         .snapshots()
         .map((_profileMatchedFromSnapshot));
   }
-
-  /*used in the house profile */
-  Stream<QuerySnapshot<Object?>>? getChats(List<String>? matchedProfiles) {
-    Query query = persProfileCollection;
-
-    if (matchedProfiles != null) {
-      if (matchedProfiles.isNotEmpty) {
-        query = query.where(FieldPath.documentId, whereIn: matchedProfiles);
-        return query.snapshots();
-      }
-    } else {
-      //else code block
-    }
-    return null;
-  }
-
-  /*used in the personal Profile */
-  Stream<QuerySnapshot<Object?>>? getChatsPers(List<String>? matchedProfiles) {
-    Query query = houseProfileCollection;
-
-    if (matchedProfiles != null) {
-      if (matchedProfiles.isNotEmpty) {
-        query = query.where(FieldPath.documentId, whereIn: matchedProfiles);
-        return query.snapshots();
-      }
-    }
-    return null;
-  }
+  
 }

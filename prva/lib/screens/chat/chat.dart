@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:prva/screens/shared/constant.dart';
 import 'package:prva/services/chat/chat_service.dart';
-import 'package:prva/screens/shared/loading.dart';
 
 class ChatPage extends StatefulWidget {
   final String  nameReciver;

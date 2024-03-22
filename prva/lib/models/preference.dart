@@ -30,7 +30,6 @@ class PreferenceForMatch {
   PreferenceForMatch({required this.reciverPreferenceId, required this.choice});
 }
 
-
 class MatchPeople{
   final String userID;
   final String otheUserID;
