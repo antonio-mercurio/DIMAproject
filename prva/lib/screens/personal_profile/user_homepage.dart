@@ -527,7 +527,7 @@ Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
                           fontFamily: 'Plus Jakarta Sans',
                           color: const Color(0xFF14181B),
                           fontWeight: FontWeight.w900,
-                          fontSize: size18(context)
+                          fontSize: size16(context)
                         ),
                       ),
                     ),
