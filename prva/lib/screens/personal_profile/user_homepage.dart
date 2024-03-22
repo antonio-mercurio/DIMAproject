@@ -345,6 +345,7 @@ Widget _buildChatList(Utente user, List<Chat>? chats, BuildContext context) {
                 fontSize: size16(context),
                 fontWeight: FontWeight.normal,
               ),
+              textAlign: TextAlign.start,
             ),
           ),
           Padding(
