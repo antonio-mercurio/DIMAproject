@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/houseProfile.dart';
-import 'package:prva/screens/house_profile/house_tile.dart';
+import 'package:prva/screens/house_profile/show_all_my_house_profile.dart';
 
 class HousesList extends StatefulWidget {
   const HousesList({super.key});
