@@ -1,16 +1,16 @@
 import 'package:badges/badges.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/message.dart';
-import 'package:prva/screens/house_profile/modifyHouseProfile.dart';
+import 'package:prva/screens/house_profile/form_modify_house.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/screens/chat/chat.dart';
-import 'package:prva/screens/house_profile/filters_people_adj.dart';
+import 'package:prva/screens/house_profile/form_house_filter.dart';
 import 'package:prva/screens/house_profile/all_profile.dart';
 import 'package:prva/screens/house_profile/notification.dart';
+import 'package:prva/screens/shared/constant.dart';
 import 'package:prva/services/chat/chat_service.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
@@ -25,7 +25,7 @@ import 'package:prva/screens/house_profile/show_detailed_profile.dart';
 class HouseProfSel extends StatefulWidget {
   final HouseProfileAdj house;
 
-  HouseProfSel({required this.house});
+  const HouseProfSel({super.key, required this.house});
 
   @override
   State<HouseProfSel> createState() => _HouseProfSelState(house: house);
@@ -36,12 +36,11 @@ class _HouseProfSelState extends State<HouseProfSel> {
   _HouseProfSelState({required this.house});
 
   int _selectedIndex = 0;
-  int? myNotifies;
 
-  static List<Widget> _widgetOptions = <Widget>[
-    SearchLayout(),
-    ProfileLayout(),
-    ChatLayout(),
+  static final List<Widget> _widgetOptions = <Widget>[
+    const SearchLayout(),
+    const ProfileLayout(),
+    const ChatLayout(),
   ];
 
   void _onItemTapped(int index) {
@@ -50,29 +49,8 @@ class _HouseProfSelState extends State<HouseProfSel> {
     });
   }
 
-  void _showFiltersPanel() {
-    showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return Container(
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-            child: FormFiltersPeopleAdj(
-              uidHouse: house.idHouse,
-            ),
-          );
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
-    final retrievedNotifies =
-        DatabaseServiceHouseProfile(house.idHouse).getNotification;
-    retrievedNotifies.listen((content) {
-      myNotifies = content;
-      if (mounted) {
-        setState(() {});
-      }
-    });
     return StreamProvider<HouseProfileAdj>.value(
         value: DatabaseServiceHouseProfile(house.idHouse).getMyHouseAdj,
         initialData: HouseProfileAdj(
@@ -100,8 +78,8 @@ class _HouseProfSelState extends State<HouseProfSel> {
             endYear: 0,
             numberNotifies: 0),
         child: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
+          backgroundColor: backgroundColor,
+          /* appBar: AppBar(
             backgroundColor: Colors.black,
             title: Text('House profile page'),
             actions: <Widget>[
@@ -149,9 +127,14 @@ class _HouseProfSelState extends State<HouseProfSel> {
                 ),
               )
             ],
-          ),
+          ), */
           body: _widgetOptions.elementAt(_selectedIndex),
           bottomNavigationBar: BottomNavigationBar(
+             backgroundColor: mainColor,
+            selectedItemColor: backgroundColor,
+            iconSize: MediaQuery.of(context).size.width<widthSize 
+            ? MediaQuery.sizeOf(context).height * 0.03
+            :  MediaQuery.sizeOf(context).height * 0.032,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.search),
@@ -181,18 +164,120 @@ class SearchLayout extends StatefulWidget {
 }
 
 class _SearchLayoutState extends State<SearchLayout> {
+ // int? myNotifies;
+  final ValueNotifier<int> choice = ValueNotifier<int>(1);
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     final house = Provider.of<HouseProfileAdj>(context);
     if (house.idHouse == "") {
-      return Loading();
+      return const Loading();
     }
-
     return StreamProvider<List<PersonalProfileAdj>>.value(
         value: DatabaseService(house.idHouse).getAllPersonalProfiles(),
-        initialData: [],
+        initialData: const [],
         child: Scaffold(
-            backgroundColor: Colors.black,
+          key: _scaffoldKey,
+            appBar: AppBar(
+            backgroundColor: mainColor,
+            actions: <Widget>[
+              IconButton(
+                icon:  Icon(Icons.settings, color: backgroundColor),
+                onPressed: () async {
+                  if(MediaQuery.sizeOf(context).width<widthSize){
+                   Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                          FormHouseFilter(uidHouse: house.idHouse),
+                      ),
+                    );}else{
+                   
+                     setState(() {
+                     choice.value = 1;
+                    });
+                    _scaffoldKey.currentState?.openEndDrawer();
+
+                  }
+                },
+              ),
+              Align(
+                child: badges.Badge(
+                showBadge: (house.numberNotifies != 0),
+                badgeContent: Text(house.numberNotifies.toString(), style: TextStyle(color: backgroundColor),),
+                position: badges.BadgePosition.topEnd(top: 10, end: 10),
+                badgeStyle: BadgeStyle(padding: const EdgeInsets.all(4), badgeColor: errorColor),
+                onTap: () async {
+                  await DatabaseServiceHouseProfile(house.idHouse)
+                      .updateNotificationHouseProfileAdj(0);
+                  if (mounted) {
+                     if(MediaQuery.sizeOf(context).width<widthSize){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NotificationLayout(house: house),
+                      ),
+                    );
+                  }else{
+                      setState(() {
+                     choice.value = 2;
+                    });
+                    _scaffoldKey.currentState?.openEndDrawer();
+                    }
+                  setState(() {});
+                  }
+                },
+                child: IconButton(
+                  icon: Icon(Icons.notifications,
+                   size: MediaQuery.sizeOf(context).width<widthSize 
+                  ? MediaQuery.sizeOf(context).height * 0.03
+                  :  MediaQuery.sizeOf(context).height * 0.032,),
+                  color: backgroundColor,
+                  onPressed: () async {
+                    await DatabaseServiceHouseProfile(house.idHouse)
+                        .updateNotificationHouseProfileAdj(0);
+                    if (mounted) {
+                      if(MediaQuery.sizeOf(context).width<widthSize){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              NotificationLayout(house: house),
+                        ),
+                      );
+                    }else{
+                      setState(() {
+                     choice.value = 2;
+                    });
+                    _scaffoldKey.currentState?.openEndDrawer();
+                    }
+                    setState(() {
+                      
+                    });
+                    }
+                  },
+                ),),
+              ),
+            ],
+          ),
+
+          endDrawer: ValueListenableBuilder<int>(
+        valueListenable: choice,
+        builder: (context, value, child) {
+          return value == 1
+              ? Drawer(
+                 
+                  width: MediaQuery.sizeOf(context).width * 0.4,
+                  child: FormHouseFilter(uidHouse: house.idHouse)
+                )
+              : Drawer(
+                 
+                  width: MediaQuery.sizeOf(context).width * 0.4,
+                  child: NotificationLayout(house: house,),
+                );
+        },
+      ),
+
             body: AllProfilesList(
               house: house,
             )));
@@ -210,30 +295,62 @@ class _ProfileLayoutState extends State<ProfileLayout> {
   @override
   Widget build(BuildContext context) {
     final house = Provider.of<HouseProfileAdj>(context);
-    return Column(mainAxisSize: MainAxisSize.max, children: [
+    return Scaffold(
+          appBar: AppBar(
+            backgroundColor: mainColor,),
+
+            body:
+     Column(mainAxisSize: MainAxisSize.max, children: [
       Expanded(
           child: SingleChildScrollView(
               child: Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          DetailedHouseProfile(/*houseProfile: house*/),
-          Center(
-              child: ElevatedButton(
-            child: Text('Modifica'),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => provaModificaCasa(house: house),
-                ),
-              );
-              setState(() {});
-            },
-          ))
+          const DetailedHouseProfile(),
+          const SizedBox(
+            height: 20,
+          ),
+          Align(
+                                alignment: const AlignmentDirectional(0, 0),
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 0, 16),
+                                      child:  ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ModifyHouseProfile(house: house)
+                )
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                                      fixedSize: const Size(230, 52),
+                                      backgroundColor:mainColor,
+                                       elevation: 3.0,
+                                       shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                       ),
+                                       side: const BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1,
+                                      ),
+                                    ),
+                                    child : Text('Modify your profile!',
+                                    style: TextStyle(
+                                      fontFamily: 'Plus Jakarta Sans',
+                                            color: backgroundColor,
+                                            fontSize: MediaQuery.sizeOf(context).height*0.024,
+                                            fontWeight: FontWeight.w500,
+                                    ),
+                                    ),
+                                    ),
+                                ),
+          )
         ],
       )))
-    ]);
+    ]),);
   }
 }
 
@@ -268,8 +385,12 @@ class _ChatLayoutState extends State<ChatLayout> {
       }
     });
     //print(chats.toString());
-    return Column(
-        children: [_buildUserList(house, matches), _buildChatList(house, chats)]);
+    return Scaffold(
+          appBar: AppBar(
+            backgroundColor: mainColor,),
+
+            body:Column(
+        children: [_buildUserList(house, matches), _buildChatList(house, chats)]));
   }
 }
 

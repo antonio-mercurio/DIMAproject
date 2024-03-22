@@ -8,9 +8,9 @@ import 'package:google_places_flutter/model/prediction.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/user.dart';
+import 'package:prva/screens/shared/constant.dart';
 import 'package:prva/services/image_picker/schermiProva.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
-import 'package:prva/services/match/match_service.dart';
 
 class FormHouseAdj extends StatefulWidget {
   const FormHouseAdj({super.key});
@@ -107,6 +107,10 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
     final user = Provider.of<Utente>(context);
     return Scaffold(
         backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: mainColor,
+          elevation: 0.0,
+        ),
         body: SafeArea(
           top: true,
           child: Align(
@@ -123,7 +127,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                       child: Container(
                         width: double.infinity,
                         constraints: const BoxConstraints(
-                          maxWidth: 570,
+                          maxWidth: 700,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -148,26 +152,26 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
+                                 Text(
                                   'Create your house profile',
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     fontFamily: 'Plus Jakarta Sans',
-                                    color: Color(0xFF101213),
-                                    fontSize: 36,
+                                    color: const Color(0xFF101213),
+                                    fontSize: size32(context),
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                               Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 12, 0, 24),
                                   child: Text(
                                     'Start with address and type!',
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
-                                      color: Color(0xFF57636C),
-                                      fontSize: 16,
+                                      color: const Color(0xFF57636C),
+                                      fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -175,21 +179,21 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: double.infinity,
                                     child: DropdownButtonFormField(
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF101213),
-                                          fontSize: 16,
+                                          color: const Color(0xFF101213),
+                                          fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
                                         ),
                                         decoration: InputDecoration(
                                           labelText: 'Type',
-                                          labelStyle: const TextStyle(
+                                          labelStyle: TextStyle(
                                             fontFamily: 'Plus Jakarta Sans',
-                                            color: Color(0xFF57636C),
-                                            fontSize: 16,
+                                            color: const Color(0xFF57636C),
+                                            fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
                                           ),
                                           enabledBorder: OutlineInputBorder(
@@ -201,16 +205,16 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                 BorderRadius.circular(40),
                                           ),
                                           focusedBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0xFF4B39EF),
+                                            borderSide: BorderSide(
+                                              color: mainColor,
                                               width: 2,
                                             ),
                                             borderRadius:
                                                 BorderRadius.circular(40),
                                           ),
                                           errorBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0xFFFF5963),
+                                            borderSide: BorderSide(
+                                              color: errorColor,
                                               width: 2,
                                             ),
                                             borderRadius:
@@ -218,8 +222,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                           ),
                                           focusedErrorBorder:
                                               OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0xFFFF5963),
+                                            borderSide: BorderSide(
+                                              color: errorColor,
                                               width: 2,
                                             ),
                                             borderRadius:
@@ -244,21 +248,21 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
-                                  child: Container(
+                                  child: SizedBox(
                                       width: double.infinity,
                                       child: GooglePlaceAutoCompleteTextField(
                                         textEditingController: controller,
                                         googleAPIKey:
                                             "AIzaSyD8yblyesPc-09bye4ZF9KlO95G6RhhlmA",
-                                        inputDecoration: const InputDecoration(
+                                        inputDecoration: InputDecoration(
                                           labelText: 'Address',
                                           labelStyle: TextStyle(
                                             fontFamily: 'Plus Jakarta Sans',
-                                            color: Color(0xFF57636C),
-                                            fontSize: 16,
+                                            color: const Color(0xFF57636C),
+                                            fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
                                           ),
-                                          enabledBorder: OutlineInputBorder(
+                                          enabledBorder: const OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color: Color(0xFFE0E3E7),
                                               width: 2,
@@ -266,26 +270,26 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                           ),
                                           focusedBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xFF4B39EF),
+                                              color: mainColor,
                                               width: 2,
                                             ),
                                           ),
                                           errorBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xFFFF5963),
+                                              color: errorColor,
                                               width: 2,
                                             ),
                                           ),
                                           focusedErrorBorder:
                                               OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xFFFF5963),
+                                              color: errorColor,
                                               width: 2,
                                             ),
                                           ),
                                           filled: true,
                                           fillColor: Colors.white,
-                                          contentPadding: EdgeInsets.all(24),
+                                          contentPadding: const EdgeInsets.all(24),
                                         ),
                                         debounceTime: 800, // default 600 ms,
                                         countries: const [
@@ -368,7 +372,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                       child: Container(
                         width: double.infinity,
                         constraints: const BoxConstraints(
-                          maxWidth: 570,
+                          maxWidth: 700,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -393,23 +397,23 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                 Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0, 12, 0, 24),
                                     child: Text(
                                       'Something about the house',
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        color: Color(0xFF57636C),
-                                        fontSize: 16,
+                                        color: const Color(0xFF57636C),
+                                        fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
                                       ),
                                     )),
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: double.infinity,
                                     child: TextFormField(
                                       maxLines: 3,
@@ -420,10 +424,10 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelText: 'Description',
-                                        labelStyle: const TextStyle(
+                                        labelStyle: TextStyle(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF57636C),
-                                          fontSize: 16,
+                                          color: const Color(0xFF57636C),
+                                          fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
                                         ),
                                         enabledBorder: OutlineInputBorder(
@@ -435,24 +439,24 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                               BorderRadius.circular(40),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFF4B39EF),
+                                          borderSide: BorderSide(
+                                            color: mainColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         errorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
@@ -463,10 +467,10 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        color: Color(0xFF101213),
-                                        fontSize: 16,
+                                        color: const Color(0xFF101213),
+                                        fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
                                       ),
                                       validator: (val) => val!.isEmpty
@@ -480,18 +484,19 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    const Text(
+                                   Text(
                                       'Max number of people that\ncan live in the house:',
                                       style: TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        fontSize: 16,
+                                        fontSize: size16(context),
+                                        fontWeight: FontWeight.w500,
                                       ),
                                     ),
                                     Expanded(
                                       child: Padding(
                                         padding: const EdgeInsetsDirectional
                                             .fromSTEB(16, 0, 0, 16),
-                                        child: Container(
+                                        child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
                                               autofocus: true,
@@ -508,16 +513,16 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFF4B39EF),
+                                                  borderSide: BorderSide(
+                                                    color: mainColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.circular(40),
                                                 ),
                                                 errorBorder: OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFFFF5963),
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
@@ -525,8 +530,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                 ),
                                                 focusedErrorBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFFFF5963),
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
@@ -537,10 +542,10 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                               ),
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 fontFamily: 'Plus Jakarta Sans',
-                                                color: Color(0xFF101213),
-                                                fontSize: 16,
+                                                color: const Color(0xFF101213),
+                                                fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
                                               ),
                                               keyboardType:
@@ -559,18 +564,19 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    const Text(
+                                     Text(
                                       'Floor number of the house:',
                                       style: TextStyle(
-                                        fontFamily: 'Readex Pro',
-                                        fontSize: 16,
+                                        color: const Color(0xFF101213),
+                                                fontSize: size16(context),
+                                                fontWeight: FontWeight.w500,
                                       ),
                                     ),
                                     Expanded(
                                       child: Padding(
                                         padding: const EdgeInsetsDirectional
                                             .fromSTEB(16, 0, 0, 16),
-                                        child: Container(
+                                        child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
                                               autofocus: true,
@@ -587,16 +593,16 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFF4B39EF),
+                                                  borderSide: BorderSide(
+                                                    color: mainColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.circular(40),
                                                 ),
                                                 errorBorder: OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFFFF5963),
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
@@ -604,8 +610,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                 ),
                                                 focusedErrorBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFFFF5963),
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
@@ -616,10 +622,10 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                               ),
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 fontFamily: 'Plus Jakarta Sans',
-                                                color: Color(0xFF101213),
-                                                fontSize: 16,
+                                                color: const Color(0xFF101213),
+                                                fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
                                               ),
                                               keyboardType:
@@ -638,18 +644,19 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    const Text(
+                                     Text(
                                       'Number of bathrooms:',
                                       style: TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        fontSize: 16,
+                                        fontSize: size16(context),
+                                        fontWeight: FontWeight.w500,
                                       ),
                                     ),
                                     Expanded(
                                       child: Padding(
                                         padding: const EdgeInsetsDirectional
                                             .fromSTEB(48, 0, 0, 16),
-                                        child: Container(
+                                        child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
                                               autofocus: true,
@@ -666,16 +673,16 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFF4B39EF),
+                                                  borderSide: BorderSide(
+                                                    color: mainColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.circular(40),
                                                 ),
                                                 errorBorder: OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFFFF5963),
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
@@ -683,8 +690,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                 ),
                                                 focusedErrorBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFFFF5963),
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
@@ -695,10 +702,10 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                               ),
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 fontFamily: 'Plus Jakarta Sans',
-                                                color: Color(0xFF101213),
-                                                fontSize: 16,
+                                                color: const Color(0xFF101213),
+                                                fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
                                               ),
                                               keyboardType:
@@ -725,7 +732,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                       child: Container(
                         width: double.infinity,
                         constraints: const BoxConstraints(
-                          maxWidth: 570,
+                          maxWidth: 700,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -750,16 +757,16 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                 Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 12, 0, 24),
                                   child: Text(
                                     'Something about the rent',
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
-                                      color: Color(0xFF57636C),
-                                      fontSize: 16,
+                                      color: const Color(0xFF57636C),
+                                      fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -767,7 +774,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: double.infinity,
                                     child: TextFormField(
                                       controller: _dateStartController,
@@ -787,10 +794,10 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                           },
                                         ),
                                         labelText: 'Start date of rent',
-                                        labelStyle: const TextStyle(
+                                        labelStyle: TextStyle(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF57636C),
-                                          fontSize: 16,
+                                          color: const Color(0xFF57636C),
+                                          fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
                                         ),
                                         hintText: 'Start date of rent',
@@ -803,24 +810,24 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                               BorderRadius.circular(40),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFF4B39EF),
+                                          borderSide: BorderSide(
+                                            color: mainColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         errorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
@@ -831,10 +838,10 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        color: Color(0xFF101213),
-                                        fontSize: 16,
+                                        color: const Color(0xFF101213),
+                                        fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
                                       ),
                                       validator: (val) => val!.isEmpty
@@ -846,7 +853,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: double.infinity,
                                     child: TextFormField(
                                       controller: _dateEndController,
@@ -866,10 +873,10 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                           },
                                         ),
                                         labelText: 'End date of rent',
-                                        labelStyle: const TextStyle(
+                                        labelStyle: TextStyle(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF57636C),
-                                          fontSize: 16,
+                                          color: const Color(0xFF57636C),
+                                          fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
                                         ),
                                         hintText: 'End date of rent',
@@ -882,24 +889,24 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                               BorderRadius.circular(40),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFF4B39EF),
+                                          borderSide: BorderSide(
+                                            color: mainColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         errorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
                                         focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFFFF5963),
+                                          borderSide: BorderSide(
+                                            color: errorColor,
                                             width: 2,
                                           ),
                                           borderRadius:
@@ -910,10 +917,10 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        color: Color(0xFF101213),
-                                        fontSize: 16,
+                                        color: const Color(0xFF101213),
+                                        fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
                                       ),
                                       validator: (val) => val!.isEmpty
@@ -925,17 +932,17 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: double.infinity,
                                     child: TextFormField(
                                         autofocus: true,
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           labelText: 'Price',
-                                          labelStyle: const TextStyle(
+                                          labelStyle: TextStyle(
                                             fontFamily: 'Plus Jakarta Sans',
-                                            color: Color(0xFF57636C),
-                                            fontSize: 16,
+                                            color: const Color(0xFF57636C),
+                                            fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
                                           ),
                                           enabledBorder: OutlineInputBorder(
@@ -947,16 +954,16 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                 BorderRadius.circular(40),
                                           ),
                                           focusedBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0xFF4B39EF),
+                                            borderSide: BorderSide(
+                                              color: mainColor,
                                               width: 2,
                                             ),
                                             borderRadius:
                                                 BorderRadius.circular(40),
                                           ),
                                           errorBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0xFFFF5963),
+                                            borderSide: BorderSide(
+                                              color: errorColor,
                                               width: 2,
                                             ),
                                             borderRadius:
@@ -964,8 +971,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                           ),
                                           focusedErrorBorder:
                                               OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0xFFFF5963),
+                                            borderSide: BorderSide(
+                                              color: errorColor,
                                               width: 2,
                                             ),
                                             borderRadius:
@@ -976,16 +983,16 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                           contentPadding:
                                               const EdgeInsets.all(24),
                                         ),
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF101213),
-                                          fontSize: 16,
+                                          color: const Color(0xFF101213),
+                                          fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
                                         ),
                                         keyboardType: const TextInputType
                                             .numberWithOptions(decimal: true),
-                                        validator: (val) => val!.isEmpty
-                                            ? 'Please enter a price'
+                                        validator: (val) => (val!.isEmpty || double.parse(val)>4000 || double.parse(val)<0)
+                                            ? 'Please enter a valid price (range: 0-4000)'
                                             : null,
                                         onChanged: (val) => setState(() =>
                                             _price = (double.parse(val)))),
@@ -1002,7 +1009,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                       child: Container(
                         width: double.infinity,
                         constraints: const BoxConstraints(
-                          maxWidth: 570,
+                          maxWidth: 700,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -1027,22 +1034,22 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                 Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 12, 0, 24),
                                   child: Text(
                                     'Almost done!',
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
-                                      color: Color(0xFF57636C),
-                                      fontSize: 16,
+                                      color: const Color(0xFF57636C),
+                                      fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                 ),
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                               Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -1050,7 +1057,10 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                     children: [
                                       Text(
                                         'Pick some photos for your profile!',
-                                      ),
+                                        style: TextStyle( color: const Color(0xFF101213),
+                                          fontSize: size16(context),
+                                          fontFamily: 'Plus Jakarta Sans',
+                                       ), ),
                                     ],
                                   ),
                                 ),
@@ -1087,8 +1097,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                     'assets/userPhoto.jpg',
                                                     width: MediaQuery.sizeOf(
                                                                 context)
-                                                            .width *
-                                                        0.30,
+                                                            .height *
+                                                        0.15,
                                                     height: MediaQuery.sizeOf(
                                                                 context)
                                                             .height *
@@ -1099,8 +1109,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                     imageURLs[0],
                                                     width: MediaQuery.sizeOf(
                                                                 context)
-                                                            .width *
-                                                        0.30,
+                                                            .height *
+                                                        0.15,
                                                     height: MediaQuery.sizeOf(
                                                                 context)
                                                             .height *
@@ -1116,7 +1126,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                               : IconButton(
                                                   icon: const Icon(Icons.close),
                                                   color:
-                                                      const Color(0xFFFF5963),
+                                                       errorColor,
                                                   onPressed: () async {
                                                     await FirebaseStorage
                                                         .instance
@@ -1133,8 +1143,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                       ]),
                                       SizedBox(
                                           width:
-                                              MediaQuery.sizeOf(context).width *
-                                                  0.05),
+                                              MediaQuery.sizeOf(context).height*
+                                                  0.02),
                                       Column(children: [
                                         InkWell(
                                           splashColor: Colors.transparent,
@@ -1161,8 +1171,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                     'assets/userPhoto.jpg',
                                                     width: MediaQuery.sizeOf(
                                                                 context)
-                                                            .width *
-                                                        0.30,
+                                                            .height *
+                                                        0.15,
                                                     height: MediaQuery.sizeOf(
                                                                 context)
                                                             .height *
@@ -1173,8 +1183,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                     imageURLs[1],
                                                     width: MediaQuery.sizeOf(
                                                                 context)
-                                                            .width *
-                                                        0.30,
+                                                            .height *
+                                                        0.15,
                                                     height: MediaQuery.sizeOf(
                                                                 context)
                                                             .height *
@@ -1190,7 +1200,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                               : IconButton(
                                                   icon: const Icon(Icons.close),
                                                   color:
-                                                      const Color(0xFFFF5963),
+                                                       errorColor,
                                                   onPressed: () async {
                                                     await FirebaseStorage
                                                         .instance
@@ -1236,8 +1246,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                   'assets/userPhoto.jpg',
                                                   width:
                                                       MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          0.30,
+                                                            .height *
+                                                        0.15,
                                                   height:
                                                       MediaQuery.sizeOf(context)
                                                               .height *
@@ -1248,8 +1258,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                   imageURLs[2],
                                                   width:
                                                       MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          0.30,
+                                                            .height *
+                                                        0.15,
                                                   height:
                                                       MediaQuery.sizeOf(context)
                                                               .height *
@@ -1264,7 +1274,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                             ? null
                                             : IconButton(
                                                 icon: const Icon(Icons.close),
-                                                color: const Color(0xFFFF5963),
+                                                color: errorColor,
                                                 onPressed: () async {
                                                   await FirebaseStorage.instance
                                                       .refFromURL(imageURLs
@@ -1280,8 +1290,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                     ]),
                                     SizedBox(
                                         width:
-                                            MediaQuery.sizeOf(context).width *
-                                                0.05),
+                                            MediaQuery.sizeOf(context).height *
+                                                0.02),
                                     Column(children: [
                                       InkWell(
                                         splashColor: Colors.transparent,
@@ -1305,8 +1315,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                   'assets/userPhoto.jpg',
                                                   width:
                                                       MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          0.30,
+                                                            .height *
+                                                        0.15,
                                                   height:
                                                       MediaQuery.sizeOf(context)
                                                               .height *
@@ -1317,8 +1327,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                   imageURLs[3],
                                                   width:
                                                       MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          0.30,
+                                                            .height *
+                                                        0.15,
                                                   height:
                                                       MediaQuery.sizeOf(context)
                                                               .height *
@@ -1333,7 +1343,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                             ? null
                                             : IconButton(
                                                 icon: const Icon(Icons.close),
-                                                color: const Color(0xFFFF5963),
+                                                color: errorColor,
                                                 onPressed: () async {
                                                   await FirebaseStorage.instance
                                                       .refFromURL(imageURLs
@@ -1364,8 +1374,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                           onPressed: () async {
                             if (scaffoldKey.currentState!.validate()) {
                               if (_startDate!.isBefore(_endDate!)) {
-                                if (imageURLs[0] !=
-                                    '' /*&& imageURLs[0]!='' && imageURLs[0]!='' && imageURLs[0]!=''*/) {
+                                if (imageURLs[0] !='') {
                                   setState(() {});
 
                                   await DatabaseServiceHouseProfile(user.uid)
@@ -1416,25 +1425,26 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                               }
                             }
                           },
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: const Size(230, 52),
-                            backgroundColor: Colors.black,
-                            elevation: 3.0,
-                            side: const BorderSide(
-                              color: Colors.transparent,
-                              width: 1,
-                            ),
-                          ),
-                          child: const Text(
-                            'Create',
-                            style: TextStyle(
-                              fontFamily: 'Plus Jakarta Sans',
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
+                         style: ElevatedButton.styleFrom(
+                                      fixedSize: const Size(230, 52),
+                                      backgroundColor:mainColor,
+                                       elevation: 3.0,
+                                       shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                       ),
+                                       side: const BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1,
+                                      ),
+                                    ),
+                                    child : Text('Create!',
+                                    style: TextStyle(
+                                      fontFamily: 'Plus Jakarta Sans',
+                                            color: backgroundColor,
+                                            fontSize: size16(context),
+                                            fontWeight: FontWeight.w500,
+                                    ),),
+                                          ),
                       ),
                     ),
                   ],
