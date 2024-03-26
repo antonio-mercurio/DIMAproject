@@ -633,8 +633,8 @@ Widget _buildChatListItem(BuildContext context, Chat chat, HouseProfileAdj house
                    : Container(
                       width: size18(context),
                       height: size18(context),
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF4B39EF),
+                      decoration: BoxDecoration(
+                        color: errorColor,
                         shape: BoxShape.circle,
                       ),
                       child: Center(

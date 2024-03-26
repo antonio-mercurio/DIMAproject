@@ -617,7 +617,7 @@ Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
                       width: size18(context),
                       height: size18(context),
                       decoration: BoxDecoration(
-                        color: mainColor,
+                        color: errorColor,
                         shape: BoxShape.circle,
                       ),
                       child: Center(
