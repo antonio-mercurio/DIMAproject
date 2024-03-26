@@ -63,9 +63,6 @@ class ChatService extends ChangeNotifier {
 
   //get messages from the database
   Stream<QuerySnapshot> getMessages(String userID, String otherUserID) {
-    //construct chat room id from user ids
-    List<String> ids = [userID, otherUserID];
-    ids.sort();
     return _firebaseFirestore
         .collection('match')
         .doc(userID)
@@ -82,7 +79,7 @@ class ChatService extends ChangeNotifier {
         .doc(uid)
         .collection('matched_profiles')
         .where('startedChat', isEqualTo: true)
-        .orderBy('timestamp', descending: true)
+        .orderBy('timeLastMsg', descending: true)
         .snapshots()
         .map((_chatsFromSnap));
   }

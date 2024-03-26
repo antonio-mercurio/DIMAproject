@@ -315,6 +315,8 @@ class ChatLayout extends StatefulWidget {
 }
 
 class _ChatLayoutState extends State<ChatLayout> {
+  final ValueNotifier<String> nameReciverTablet = ValueNotifier<String>('');
+  final ValueNotifier<String> idReciverTablet = ValueNotifier<String>('');
   List<String>? matches;
   List<Chat>? chats;
   @override
@@ -341,10 +343,39 @@ class _ChatLayoutState extends State<ChatLayout> {
           appBar: AppBar(
             backgroundColor: mainColor,),
 
-            body:Column(
-        children: [_buildUserList(house, matches, chats, context), _buildChatList(house, chats, context)]));
+            body:MediaQuery.of(context).size.width < widthSize
+            ? SingleChildScrollView(
+              child: Column(
+              children: [_buildUserList(house, matches, chats, context), _buildChatList(house, chats, context)]),)
+              : Row(
+              children: <Widget>[
+                Expanded(
+                  child: SizedBox(
+                      width: MediaQuery.sizeOf(context).width * 0.49,
+                      height: MediaQuery.sizeOf(context).height*0.9,
+                      child:SingleChildScrollView(
+                        child: Column(
+                        children: [_buildUserList(house, matches, chats, context), _buildChatList(house, chats, context)])
+                  )),
+                ),
+                 Expanded(
+                    child: SizedBox(
+                        width: MediaQuery.sizeOf(context).width * 0.49,
+                        height: MediaQuery.sizeOf(context).height*0.9,
+                        child: (nameReciverTablet.value!= '' && idReciverTablet.value!= '')
+                        ? ChatPage(
+                      senderUserID: house.idHouse,
+                      nameReciver: nameReciverTablet.value,
+                      receiverUserID: idReciverTablet.value,
+                    )
+                    : const EmptyProfile(shapeOfIcon: Icons.ads_click, textToShow: 'Open a chat!'),
+                    ),
+                 )
+              ]
+
+              )
+    );
   }
-}
 
 Widget _buildChatList(HouseProfileAdj house, List<Chat>? chats, BuildContext context) {
   if (chats != null) {
@@ -388,6 +419,7 @@ Widget _buildChatList(HouseProfileAdj house, List<Chat>? chats, BuildContext con
     return  const Text("");
   }
 }
+
 
 Widget _buildUserList(HouseProfileAdj house, List<String>? matches, List<Chat>? chats, BuildContext context) {
   if (matches != null) {
@@ -479,16 +511,26 @@ Widget _buildChatListItem(BuildContext context, Chat chat, HouseProfileAdj house
               onTap: () async {
                     await MatchService(uid: house.idHouse, otheruid: idPerson)
                         .resetNotification();
+                        if(mounted){
+                          if(MediaQuery.sizeOf(context).width<widthSize ){
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => ChatPage(
                       senderUserID: house.idHouse,
-                      nameReciver: name + " " + surname,
+                      nameReciver: "$name $surname",
                       receiverUserID: idPerson,
                     ),
                   ),
                 );
+                          }else{        
+                            setState(() {
+                            nameReciverTablet.value = "$name $surname";
+                            idReciverTablet.value = idPerson;
+                            });
+                          }
+                        }
+              
               },
               child: Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(16, 4, 16, 8),
@@ -649,16 +691,24 @@ Widget _buildUserListItem(BuildContext context, String idMatch, HouseProfileAdj 
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ChatPage(
-                        senderUserID: house.idHouse,
-                        nameReciver: "$name $surname",
-                        receiverUserID: idPerson,
-                      ),
+                 if(MediaQuery.sizeOf(context).width<widthSize ){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChatPage(
+                      senderUserID: house.idHouse,
+                      nameReciver: "$name $surname",
+                      receiverUserID: idPerson,
                     ),
-                  );
+                  ),
+                );
+                          }else{
+                            
+                            setState(() {
+                              nameReciverTablet.value = "$name $surname";
+                            idReciverTablet.value = idPerson;
+                            });
+                          }
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(12),
@@ -718,3 +768,6 @@ Widget _buildUserListItem(BuildContext context, String idMatch, HouseProfileAdj 
         }
       });
 }
+
+}
+

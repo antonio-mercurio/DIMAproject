@@ -36,6 +36,7 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mainColor,
+        automaticallyImplyLeading: MediaQuery.of(context).size.width < widthSize,
         title: Text(widget.nameReciver,
          style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
