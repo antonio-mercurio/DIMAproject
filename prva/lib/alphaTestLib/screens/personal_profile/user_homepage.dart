@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/message.dart';
 import 'package:prva/screens/personal_profile/modify_personal_profile.dart';
@@ -13,12 +12,13 @@ import 'package:prva/screens/personal_profile/notification_person.dart';
 import 'package:prva/screens/chat/chat.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:prva/screens/personal_profile/all_houses.dart';
-import 'package:prva/screens/shared/constant.dart';
+import 'package:prva/screens/shared/empty.dart';
 import 'package:prva/services/chat/chat_service.dart';
 import 'package:prva/services/database.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/services/match/match_service.dart';
 import 'package:prva/screens/personal_profile/show_details_personal_profile.dart';
+import 'package:prva/screens/shared/constant.dart';
 
 class UserHomepage extends StatefulWidget {
   const UserHomepage({super.key});
@@ -31,7 +31,7 @@ class _UserHomepageState extends State<UserHomepage> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
     const SearchLayout(),
-    ProfileLayout(),
+    const ProfileLayout(),
     const ChatLayout(),
   ];
   void _onItemTapped(int index) {
@@ -63,12 +63,14 @@ class _UserHomepageState extends State<UserHomepage> {
             imageURL3: '',
             imageURL4: ''),
         child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: backgroundColor,
           body: _widgetOptions.elementAt(_selectedIndex),
           bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: const Color(0xFF4B39EF),
-            selectedItemColor: Colors.white,
-            iconSize: MediaQuery.sizeOf(context).height * 0.03,
+            backgroundColor: mainColor,
+            selectedItemColor: backgroundColor,
+            iconSize: MediaQuery.of(context).size.width<widthSize 
+            ? MediaQuery.sizeOf(context).height * 0.03
+            :  MediaQuery.sizeOf(context).height * 0.032,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.search),
@@ -100,7 +102,10 @@ class SearchLayout extends StatefulWidget {
 class _SearchLayoutState extends State<SearchLayout> {
   FiltersHouseAdj? filtri;
   List<String>? alreadySeenProfiles;
-   int? myNotifies;
+  int? myNotifies;
+  final ValueNotifier<int> choice = ValueNotifier<int>(1);
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -117,12 +122,14 @@ class _SearchLayoutState extends State<SearchLayout> {
         value: DatabaseServiceHouseProfile(user.uid).getAllHousesAdj,
         initialData: const [],
         child: Scaffold(
+          key: _scaffoldKey,
           appBar: AppBar(
-            backgroundColor: const Color(0xFF4B39EF),
+            backgroundColor: mainColor,
             actions: <Widget>[
               IconButton(
-                icon: const Icon(Icons.settings, color: Colors.white),
+                icon: Icon(Icons.settings, color: backgroundColor),
                 onPressed: () async {
+                  if(MediaQuery.sizeOf(context).width<widthSize){
                    Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -130,16 +137,27 @@ class _SearchLayoutState extends State<SearchLayout> {
                             const FormFilterPeopleAdj(),
                       ),
                     );
+                  }else{
+                   
+                     setState(() {
+                     choice.value = 1;
+                    });
+                    _scaffoldKey.currentState?.openEndDrawer();
+
+                  }
                 },
               ),
-              badges.Badge(
+              Align(
+                child:
+                badges.Badge(
                 showBadge: (myNotifies != null && myNotifies != 0),
-                badgeContent: Text(myNotifies?.toString() ?? ""),
+                badgeContent: Text(myNotifies?.toString() ?? "", style: TextStyle(color: backgroundColor),),
                 position: badges.BadgePosition.topEnd(top: 10, end: 10),
-                badgeStyle: const badges.BadgeStyle(padding: EdgeInsets.all(4)),
+                badgeStyle: badges.BadgeStyle(padding: const EdgeInsets.all(4), badgeColor: errorColor),
                 onTap: () async {
                   await MatchService(uid: user.uid).createNotification(0);
                   if (mounted) {
+                    if(MediaQuery.sizeOf(context).width<widthSize){
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -147,14 +165,24 @@ class _SearchLayoutState extends State<SearchLayout> {
                             NotificationPersonLayout(profile: user.uid),
                       ),
                     );
+                    }else{
+                      setState(() {
+                     choice.value = 2;
+                    });
+                    _scaffoldKey.currentState?.openEndDrawer();
+                    }
                   }
                 },
                 child: IconButton(
-                  icon: const Icon(Icons.notifications),
-                  color: Colors.white,
+                  icon: Icon(Icons.notifications, 
+                  size: MediaQuery.sizeOf(context).width<widthSize 
+                  ? MediaQuery.sizeOf(context).height * 0.03
+                  :  MediaQuery.sizeOf(context).height * 0.032,),
+                 color: backgroundColor,
                   onPressed: () async {
                     await MatchService(uid: user.uid).createNotification(0);
                     if (mounted) {
+                       if(MediaQuery.sizeOf(context).width<widthSize){
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -162,15 +190,34 @@ class _SearchLayoutState extends State<SearchLayout> {
                               NotificationPersonLayout(profile: user.uid),
                         ),
                       );
+                    }else{
+                       setState(() {
+                     choice.value = 2;
+                    });
+                    _scaffoldKey.currentState?.openEndDrawer();
+                    }
                     }
                   },
                 ),
               )
-            ],
-          ),
-          body: AllHousesList(
-            myProfile: personalProfile,
-          ),
+          ),],),
+           endDrawer: ValueListenableBuilder<int>(
+        valueListenable: choice,
+        builder: (context, value, child) {
+          return value == 1
+              ? Drawer(
+                 
+                  width: MediaQuery.sizeOf(context).width * 0.4,
+                  child: const FormFilterPeopleAdj(),
+                )
+              : Drawer(
+                 
+                  width: MediaQuery.sizeOf(context).width * 0.4,
+                  child: NotificationPersonLayout(profile: user.uid),
+                );
+        },
+      ),
+          body: AllHousesList( myProfile: personalProfile,)
         ));
   }
 }
@@ -184,7 +231,7 @@ class ProfileLayout extends StatelessWidget {
 
     return Scaffold(
           appBar: AppBar(
-            backgroundColor: const Color(0xFF4B39EF),),
+            backgroundColor: mainColor,),
 
             body: Column(mainAxisSize: MainAxisSize.max, children: [
       Expanded(
@@ -214,7 +261,7 @@ class ProfileLayout extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                                       fixedSize: const Size(230, 52),
-                                      backgroundColor: mainColor,
+                                      backgroundColor:mainColor,
                                        elevation: 3.0,
                                        shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(40),
@@ -227,8 +274,8 @@ class ProfileLayout extends StatelessWidget {
                                     child : Text('Modify your profile!',
                                     style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
-                                            color: Colors.white,
-                                            fontSize: size16(context),
+                                            color: backgroundColor,
+                                            fontSize: MediaQuery.sizeOf(context).height*0.024,
                                             fontWeight: FontWeight.w500,
                                     ),
                                     ),
@@ -249,6 +296,8 @@ class ChatLayout extends StatefulWidget {
 }
 
 class _ChatLayoutState extends State<ChatLayout> {
+  final ValueNotifier<String> nameReciverTablet = ValueNotifier<String>('');
+  final ValueNotifier<String> idReciverTablet = ValueNotifier<String>('');
   List<String>? matches;
   List<Chat>? chats;
   @override
@@ -271,35 +320,68 @@ class _ChatLayoutState extends State<ChatLayout> {
         setState(() {});
       }
     });
-    //print(chats.toString());
     return Scaffold(
           appBar: AppBar(
-            backgroundColor: const Color(0xFF4B39EF),),
+            backgroundColor: mainColor,),
 
-            body:Column(
-        children: [_buildUserList(user, matches), _buildChatList(user, chats)]));
+         body:MediaQuery.of(context).size.width < widthSize
+          ? SingleChildScrollView(
+            child: Column(
+         children: [
+          _buildUserList(user, matches, chats, context), 
+          _buildChatList(user, chats, context)]
+          ),
+          )
+          : Row(
+              children: <Widget>[
+                Expanded(
+                  child: SizedBox(
+                      width: MediaQuery.sizeOf(context).width * 0.49,
+                      height: MediaQuery.sizeOf(context).height*0.9,
+                      child: SingleChildScrollView(
+                        child: Column(
+                        children: [_buildUserList(user, matches, chats, context), _buildChatList(user, chats, context)])
+                  ),),
+                ),
+                 Expanded(
+                    child: SizedBox(
+                        width: MediaQuery.sizeOf(context).width * 0.49,
+                        height: MediaQuery.sizeOf(context).height*0.9,
+                        child: (nameReciverTablet.value!= '' && idReciverTablet.value!= '')
+                        ? ChatPage(
+                      senderUserID: user.uid,
+                      nameReciver: nameReciverTablet.value,
+                      receiverUserID: idReciverTablet.value,
+                    )
+                    : const EmptyProfile(shapeOfIcon: Icons.ads_click, textToShow: 'Open a chat!'),
+                    ),
+                 )
+              ]
+
+              ));
   }
-}
 
-Widget _buildChatList(Utente user, List<Chat>? chats) {
+Widget _buildChatList(Utente user, List<Chat>? chats, BuildContext context) {
   if (chats != null) {
+    if(chats.isNotEmpty){
     return SingleChildScrollView(
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+            padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
             child: Text(
               'Chats',
               style: TextStyle(
                 fontFamily: 'Plus Jakarta Sans',
-                color: Color(0xFF57636C),
-                fontSize: 14,
+                color: const Color(0xFF57636C),
+                fontSize: size16(context),
                 fontWeight: FontWeight.normal,
               ),
+              textAlign: TextAlign.start,
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 44),
+            padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 44),
             child: ListView.builder(
               padding: EdgeInsets.zero,
               primary: false,
@@ -314,36 +396,38 @@ Widget _buildChatList(Utente user, List<Chat>? chats) {
         ],
       ),
     );
-  } else {
-    return Center(
-      child: Text("xs"),
-    );
+  }else{
+     return  const Text("");
+  }
+  }else {
+    return const Text("");
   }
 }
 
-Widget _buildUserList(Utente user, List<String>? matches) {
+Widget _buildUserList(Utente user, List<String>? matches, List<Chat>? chats, BuildContext context) {
   if (matches != null) {
+    if(matches.isNotEmpty){
     return SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(24, 10, 0, 0),
+            padding: const EdgeInsetsDirectional.fromSTEB(24, 10, 0, 0),
             child: Text(
               'Match',
               style: TextStyle(
                 fontFamily: 'Plus Jakarta Sans',
-                color: Color(0xFF57636C),
-                fontSize: 14,
+                color: const Color(0xFF57636C),
+                fontSize: size16(context),
                 fontWeight: FontWeight.normal,
               ),
             ),
           ),
           Container(
             width: double.infinity,
-            height: 170,
-            decoration: BoxDecoration(
+            height: MediaQuery.sizeOf(context).height*0.24,
+            decoration: const BoxDecoration(
               color: Color(0xFFF1F4F8),
             ),
             child: ListView.builder(
@@ -359,10 +443,37 @@ Widget _buildUserList(Utente user, List<String>? matches) {
         ],
       ),
     );
-  } else {
-    return Center(
-      child: Text("Non hai ancora match"),
-    );
+  }else{
+    if(chats!= null){
+      if(chats.isNotEmpty){
+        return const SizedBox();
+      }else{
+        return SizedBox(
+          height: MediaQuery.sizeOf(context).height*0.74,
+          child: const EmptyProfile(shapeOfIcon: Icons.sentiment_dissatisfied_rounded, textToShow: 'You don\'t have any match!',)
+        );
+      }
+    }else{
+     return SizedBox(
+          height: MediaQuery.sizeOf(context).height*0.74,
+          child: const EmptyProfile(shapeOfIcon: Icons.sentiment_dissatisfied_rounded, textToShow: 'You don\'t have any match!',));
+    }
+  }
+  } else{
+    if(chats!= null){
+      if(chats.isNotEmpty){
+        return const SizedBox();
+      }else{
+        return SizedBox(
+          height: MediaQuery.sizeOf(context).height*0.74,
+          child: const EmptyProfile(shapeOfIcon: Icons.sentiment_dissatisfied_rounded, textToShow: 'You don\'t have any match!',)
+        );
+      }
+    }else{
+      return SizedBox(
+          height: MediaQuery.sizeOf(context).height*0.74,
+          child:const EmptyProfile(shapeOfIcon: Icons.sentiment_dissatisfied_rounded, textToShow: 'You don\'t have any match!',));
+    }
   }
 }
 
@@ -383,25 +494,35 @@ Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
               onTap: () async {
                     await MatchService(uid: user.uid, otheruid: idHouse)
                         .resetNotification();
-                Navigator.push(
+                        if(mounted){
+                          if(MediaQuery.sizeOf(context).width<widthSize ){
+                  Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => ChatPage(
                       senderUserID: user.uid,
-                      nameReciver: type + " " + city,
+                      nameReciver: "$type $city",
                       receiverUserID: idHouse,
                     ),
                   ),
                 );
+                          }else{
+
+                            setState(() {
+                            nameReciverTablet.value = "$type $city";
+                            idReciverTablet.value = idHouse;
+                            });
+                          }
+              }
               },
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 8),
+                padding: const EdgeInsetsDirectional.fromSTEB(16, 4, 16, 8),
                 child: Container(
                   width: double.infinity,
-                  height: 80,
+                  height: MediaQuery.sizeOf(context).height*0.1,
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
+                    color: backgroundColor,
+                    boxShadow: const [
                       BoxShadow(
                         blurRadius: 4,
                         color: Color(0x32000000),
@@ -421,14 +542,14 @@ Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
                     child: image != ""
                         ? Image.network(
                             image,
-                            width: 36,
-                            height: 36,
+                            width: MediaQuery.sizeOf(context).height*0.05,
+                            height: MediaQuery.sizeOf(context).height*0.05,
                             fit: BoxFit.cover,
                           )
                         : Image.asset(
                             'assets/userPhoto.jpg',
-                            width: 36,
-                            height: 36,
+                            width: MediaQuery.sizeOf(context).height*0.05,
+                            height: MediaQuery.sizeOf(context).height*0.05,
                             fit: BoxFit.cover,
                           ),
                   ),
@@ -441,26 +562,27 @@ Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Text(
-                        type + " " + city,
+                        "$type $city",
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           letterSpacing: 0.2,
                           wordSpacing: 1.5,
                           fontFamily: 'Plus Jakarta Sans',
-                          color: Color(0xFF14181B),
+                          color: const Color(0xFF14181B),
                           fontWeight: FontWeight.w900,
+                          fontSize: size16(context)
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: size20(context),
                       child: Text(
                         chat.lastMsg,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 12,
+                        style: TextStyle(
+                          fontSize: size12(context),
                           fontFamily: 'Plus Jakarta Sans',
-                      color: Color(0xFF14181B),
+                      color: const Color(0xFF14181B),
                         ),
                       ),
                     ),
@@ -477,41 +599,33 @@ Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
                       height: 4,
                     ),
                     Text(
-                      chat.timestamp.toDate().hour.toString()
-                      + ":" 
-                      + chat.timestamp.toDate().minute.toString()
-                      + " " 
-                      + chat.timestamp.toDate().day.toString()
-                      + "/"
-                      +chat.timestamp.toDate().month.toString()
-                      + "/"
-                      +chat.timestamp.toDate().year.toString(),
-                      style: const TextStyle(
-                        fontSize: 11,
+                      "${chat.timestamp.toDate().hour}:${chat.timestamp.toDate().minute} ${chat.timestamp.toDate().day}/${chat.timestamp.toDate().month}/${chat.timestamp.toDate().year}",
+                      style: TextStyle(
+                        fontSize: size10(context),
                         letterSpacing: -0.2,
                         fontWeight: FontWeight.w600,
                         fontFamily: 'Plus Jakarta Sans',
-                      color: Color(0xFF14181B),
+                      color: const Color(0xFF14181B),
                       ),
                     ),
                     const SizedBox(
                       height: 8,
                     ),
                    (chat.unreadMsg == 0) 
-                   ? Text('') 
+                   ? const Text('') 
                    : Container(
-                      width: 18,
-                      height: 18,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF4B39EF),
+                      width: size18(context),
+                      height: size18(context),
+                      decoration: BoxDecoration(
+                        color: errorColor,
                         shape: BoxShape.circle,
                       ),
                       child: Center(
                         child: Text(
                           chat.unreadMsg.toString(),
                           style: TextStyle(
-                            fontSize: 10,
-                            color: Colors.white,
+                            fontSize: size10(context),
+                            color: backgroundColor,
                           ),
                         ),
                       ),
@@ -523,9 +637,7 @@ Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
             ])),),),);
                 
         } else {
-          return Center(
-            child: Text('no chat'),
-          );
+          return const SizedBox();
         }
       });
 }
@@ -541,13 +653,13 @@ Widget _buildUserListItem(BuildContext context, String idMatch, Utente user) {
           final idHouse = snapshot.data?.idHouse ?? "";
 
           return Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(16, 12, 12, 12),
+            padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 12, 12),
             child: Container(
-              width: 140,
-              height: 150,
+              width: MediaQuery.sizeOf(context).height*0.16,
+              height: MediaQuery.sizeOf(context).height*0.22,
               decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
+                color: backgroundColor,
+                boxShadow: const [
                   BoxShadow(
                     blurRadius: 4,
                     color: Color(0x34090F13),
@@ -562,19 +674,26 @@ Widget _buildUserListItem(BuildContext context, String idMatch, Utente user) {
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () {
+                    if(MediaQuery.sizeOf(context).width<widthSize ){
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => ChatPage(
                         senderUserID: user.uid,
-                        nameReciver: type + " " + city,
+                        nameReciver: "$type $city",
                         receiverUserID: idHouse,
                       ),
                     ),
                   );
+                    }else{
+                       setState(() {
+                            nameReciverTablet.value = "$type $city";
+                            idReciverTablet.value = idHouse;
+                            });
+                    }
                 },
                 child: Padding(
-                  padding: EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(12),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -583,37 +702,41 @@ Widget _buildUserListItem(BuildContext context, String idMatch, Utente user) {
                         child: image != ""
                             ? Image.network(
                                 image,
-                                width: 60,
-                                height: 20,
+                                width:  MediaQuery.sizeOf(context).height*0.08,
+                                height: MediaQuery.sizeOf(context).height*0.08,
                                 fit: BoxFit.cover,
                               )
                             : Image.asset(
                                 'assets/userPhoto.jpg',
-                                width: 80,
-                                height: 80,
+                                width:  MediaQuery.sizeOf(context).height*0.08,
+                                height: MediaQuery.sizeOf(context).height*0.08,
                                 fit: BoxFit.cover,
                               ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                         child: Text(
                           city,
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
                           style: TextStyle(
                             fontFamily: 'Plus Jakarta Sans',
-                            color: Color(0xFF14181B),
-                            fontSize: 14,
+                            color: const Color(0xFF14181B),
+                            fontSize: size12(context),
                             fontWeight: FontWeight.normal,
                           ),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                         child: Text(
                           type,
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
                           style: TextStyle(
                             fontFamily: 'Plus Jakarta Sans',
-                            color: Color(0xFF14181B),
-                            fontSize: 14,
+                            color: const Color(0xFF14181B),
+                            fontSize: size12(context),
                             fontWeight: FontWeight.normal,
                           ),
                         ),
@@ -625,10 +748,10 @@ Widget _buildUserListItem(BuildContext context, String idMatch, Utente user) {
             ),
           );
         } else {
-          return Center(
-            child: Text('no new matches'),
-          );
+          return const SizedBox();
         }
       });
 }
+}
+
 

@@ -1,8 +1,6 @@
 import 'package:badges/badges.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:prva/alphaTestLib/services/databaseForHouseProfile.dart';
 import 'package:prva/models/message.dart';
 import 'package:prva/screens/house_profile/form_modify_house.dart';
 import 'package:badges/badges.dart' as badges;
@@ -12,8 +10,11 @@ import 'package:prva/screens/chat/chat.dart';
 import 'package:prva/screens/house_profile/form_house_filter.dart';
 import 'package:prva/screens/house_profile/all_profile.dart';
 import 'package:prva/screens/house_profile/notification.dart';
+import 'package:prva/screens/shared/constant.dart';
+import 'package:prva/screens/shared/empty.dart';
 import 'package:prva/services/chat/chat_service.dart';
 import 'package:prva/services/database.dart';
+import 'package:prva/services/databaseForHouseProfile.dart';
 import 'package:prva/services/match/match_service.dart';
 import 'package:prva/screens/shared/loading.dart';
 import 'package:prva/screens/house_profile/show_detailed_profile.dart';
@@ -25,7 +26,7 @@ import 'package:prva/screens/house_profile/show_detailed_profile.dart';
 class HouseProfSel extends StatefulWidget {
   final HouseProfileAdj house;
 
-  HouseProfSel({required this.house});
+  const HouseProfSel({super.key, required this.house});
 
   @override
   State<HouseProfSel> createState() => _HouseProfSelState(house: house);
@@ -36,12 +37,11 @@ class _HouseProfSelState extends State<HouseProfSel> {
   _HouseProfSelState({required this.house});
 
   int _selectedIndex = 0;
-  int? myNotifies;
 
-  static List<Widget> _widgetOptions = <Widget>[
-    SearchLayout(),
-    ProfileLayout(),
-    ChatLayout(),
+  static final List<Widget> _widgetOptions = <Widget>[
+    const SearchLayout(),
+    const ProfileLayout(),
+    const ChatLayout(),
   ];
 
   void _onItemTapped(int index) {
@@ -50,29 +50,8 @@ class _HouseProfSelState extends State<HouseProfSel> {
     });
   }
 
-  void _showFiltersPanel() {
-    showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return Container(
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-            child: FormHouseFilter(
-              uidHouse: house.idHouse,
-            ),
-          );
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
-    final retrievedNotifies =
-        DatabaseServiceHouseProfile(house.idHouse).getNotification;
-    retrievedNotifies.listen((content) {
-      myNotifies = content;
-      if (mounted) {
-        setState(() {});
-      }
-    });
     return StreamProvider<HouseProfileAdj>.value(
         value: DatabaseServiceHouseProfile(house.idHouse).getMyHouseAdj,
         initialData: HouseProfileAdj(
@@ -100,58 +79,15 @@ class _HouseProfSelState extends State<HouseProfSel> {
             endYear: 0,
             numberNotifies: 0),
         child: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            backgroundColor: Colors.black,
-            title: Text('House profile page'),
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.settings),
-                onPressed: () async {
-                  _showFiltersPanel();
-                },
-              ),
-              badges.Badge(
-                showBadge: (myNotifies != null && myNotifies != 0),
-                badgeContent: Text(myNotifies?.toString() ?? ""),
-                position: badges.BadgePosition.topEnd(top: 10, end: 10),
-                badgeStyle: BadgeStyle(padding: EdgeInsets.all(4)),
-                onTap: () async {
-                  await DatabaseServiceHouseProfile(house.idHouse)
-                      .updateNotificationHouseProfileAdj(0);
-                  if (mounted) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NotificationLayout(house: house),
-                      ),
-                    );
-                    setState(() {});
-                  }
-                },
-                child: IconButton(
-                  icon: Icon(Icons.notifications),
-                  color: Colors.white,
-                  onPressed: () async {
-                    await DatabaseServiceHouseProfile(house.idHouse)
-                        .updateNotificationHouseProfileAdj(0);
-                    if (mounted) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              NotificationLayout(house: house),
-                        ),
-                      );
-                      setState(() {});
-                    }
-                  },
-                ),
-              )
-            ],
-          ),
+          backgroundColor: backgroundColor,
+          
           body: _widgetOptions.elementAt(_selectedIndex),
           bottomNavigationBar: BottomNavigationBar(
+             backgroundColor: mainColor,
+            selectedItemColor: backgroundColor,
+            iconSize: MediaQuery.of(context).size.width<widthSize 
+            ? MediaQuery.sizeOf(context).height * 0.03
+            :  MediaQuery.sizeOf(context).height * 0.032,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.search),
@@ -181,18 +117,120 @@ class SearchLayout extends StatefulWidget {
 }
 
 class _SearchLayoutState extends State<SearchLayout> {
+ // int? myNotifies;
+  final ValueNotifier<int> choice = ValueNotifier<int>(1);
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     final house = Provider.of<HouseProfileAdj>(context);
     if (house.idHouse == "") {
-      return Loading();
+      return const Loading();
     }
-
     return StreamProvider<List<PersonalProfileAdj>>.value(
         value: DatabaseService(house.idHouse).getAllPersonalProfiles(),
-        initialData: [],
+        initialData: const [],
         child: Scaffold(
-            backgroundColor: Colors.black,
+          key: _scaffoldKey,
+            appBar: AppBar(
+            backgroundColor: mainColor,
+            actions: <Widget>[
+              IconButton(
+                icon:  Icon(Icons.settings, color: backgroundColor),
+                onPressed: () async {
+                  if(MediaQuery.sizeOf(context).width<widthSize){
+                   Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                          FormHouseFilter(uidHouse: house.idHouse),
+                      ),
+                    );}else{
+                   
+                     setState(() {
+                     choice.value = 1;
+                    });
+                    _scaffoldKey.currentState?.openEndDrawer();
+
+                  }
+                },
+              ),
+              Align(
+                child: badges.Badge(
+                showBadge: (house.numberNotifies != 0),
+                badgeContent: Text(house.numberNotifies.toString(), style: TextStyle(color: backgroundColor),),
+                position: badges.BadgePosition.topEnd(top: 10, end: 10),
+                badgeStyle: BadgeStyle(padding: const EdgeInsets.all(4), badgeColor: errorColor),
+                onTap: () async {
+                  await DatabaseServiceHouseProfile(house.idHouse)
+                      .updateNotificationHouseProfileAdj(0);
+                  if (mounted) {
+                     if(MediaQuery.sizeOf(context).width<widthSize){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NotificationLayout(house: house),
+                      ),
+                    );
+                  }else{
+                      setState(() {
+                     choice.value = 2;
+                    });
+                    _scaffoldKey.currentState?.openEndDrawer();
+                    }
+                  setState(() {});
+                  }
+                },
+                child: IconButton(
+                  icon: Icon(Icons.notifications,
+                   size: MediaQuery.sizeOf(context).width<widthSize 
+                  ? MediaQuery.sizeOf(context).height * 0.03
+                  :  MediaQuery.sizeOf(context).height * 0.032,),
+                  color: backgroundColor,
+                  onPressed: () async {
+                    await DatabaseServiceHouseProfile(house.idHouse)
+                        .updateNotificationHouseProfileAdj(0);
+                    if (mounted) {
+                      if(MediaQuery.sizeOf(context).width<widthSize){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              NotificationLayout(house: house),
+                        ),
+                      );
+                    }else{
+                      setState(() {
+                     choice.value = 2;
+                    });
+                    _scaffoldKey.currentState?.openEndDrawer();
+                    }
+                    setState(() {
+                      
+                    });
+                    }
+                  },
+                ),),
+              ),
+            ],
+          ),
+
+          endDrawer: ValueListenableBuilder<int>(
+        valueListenable: choice,
+        builder: (context, value, child) {
+          return value == 1
+              ? Drawer(
+                 
+                  width: MediaQuery.sizeOf(context).width * 0.4,
+                  child: FormHouseFilter(uidHouse: house.idHouse)
+                )
+              : Drawer(
+                 
+                  width: MediaQuery.sizeOf(context).width * 0.4,
+                  child: NotificationLayout(house: house,),
+                );
+        },
+      ),
+
             body: AllProfilesList(
               house: house,
             )));
@@ -210,30 +248,62 @@ class _ProfileLayoutState extends State<ProfileLayout> {
   @override
   Widget build(BuildContext context) {
     final house = Provider.of<HouseProfileAdj>(context);
-    return Column(mainAxisSize: MainAxisSize.max, children: [
+    return Scaffold(
+          appBar: AppBar(
+            backgroundColor: mainColor,),
+
+            body:
+     Column(mainAxisSize: MainAxisSize.max, children: [
       Expanded(
           child: SingleChildScrollView(
               child: Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          DetailedHouseProfile(/*houseProfile: house*/),
-          Center(
-              child: ElevatedButton(
-            child: Text('Modifica'),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ModifyHouseProfile(house: house),
-                ),
-              );
-              setState(() {});
-            },
-          ))
+          const DetailedHouseProfile(),
+          const SizedBox(
+            height: 20,
+          ),
+          Align(
+                                alignment: const AlignmentDirectional(0, 0),
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 0, 16),
+                                      child:  ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ModifyHouseProfile(house: house)
+                )
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                                      fixedSize: const Size(230, 52),
+                                      backgroundColor:mainColor,
+                                       elevation: 3.0,
+                                       shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                       ),
+                                       side: const BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1,
+                                      ),
+                                    ),
+                                    child : Text('Modify your profile!',
+                                    style: TextStyle(
+                                      fontFamily: 'Plus Jakarta Sans',
+                                            color: backgroundColor,
+                                            fontSize: MediaQuery.sizeOf(context).height*0.024,
+                                            fontWeight: FontWeight.w500,
+                                    ),
+                                    ),
+                                    ),
+                                ),
+          )
         ],
       )))
-    ]);
+    ]),);
   }
 }
 
@@ -245,6 +315,8 @@ class ChatLayout extends StatefulWidget {
 }
 
 class _ChatLayoutState extends State<ChatLayout> {
+  final ValueNotifier<String> nameReciverTablet = ValueNotifier<String>('');
+  final ValueNotifier<String> idReciverTablet = ValueNotifier<String>('');
   List<String>? matches;
   List<Chat>? chats;
   @override
@@ -267,31 +339,65 @@ class _ChatLayoutState extends State<ChatLayout> {
         setState(() {});
       }
     });
-    //print(chats.toString());
-    return Column(
-        children: [_buildUserList(house, matches), _buildChatList(house, chats)]);
-  }
-}
+    return Scaffold(
+          appBar: AppBar(
+            backgroundColor: mainColor,),
 
-Widget _buildChatList(HouseProfileAdj house, List<Chat>? chats) {
+            body:MediaQuery.of(context).size.width < widthSize
+            ? SingleChildScrollView(
+              child: Column(
+              children: [_buildUserList(house, matches, chats, context), _buildChatList(house, chats, context)]),)
+              : Row(
+              children: <Widget>[
+                Expanded(
+                  child: SizedBox(
+                      width: MediaQuery.sizeOf(context).width * 0.49,
+                      height: MediaQuery.sizeOf(context).height*0.9,
+                      child:SingleChildScrollView(
+                        child: Column(
+                        children: [_buildUserList(house, matches, chats, context), _buildChatList(house, chats, context)])
+                  )),
+                ),
+                 Expanded(
+                    child: SizedBox(
+                        width: MediaQuery.sizeOf(context).width * 0.49,
+                        height: MediaQuery.sizeOf(context).height*0.9,
+                        child: (nameReciverTablet.value!= '' && idReciverTablet.value!= '')
+                        ? ChatPage(
+                      senderUserID: house.idHouse,
+                      nameReciver: nameReciverTablet.value,
+                      receiverUserID: idReciverTablet.value,
+                    )
+                    : const EmptyProfile(shapeOfIcon: Icons.ads_click, textToShow: 'Open a chat!'),
+                    ),
+                 )
+              ]
+
+              )
+    );
+  }
+
+Widget _buildChatList(HouseProfileAdj house, List<Chat>? chats, BuildContext context) {
   if (chats != null) {
+    if(chats.isNotEmpty){
     return SingleChildScrollView(
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+            padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
             child: Text(
               'Chats',
               style: TextStyle(
                 fontFamily: 'Plus Jakarta Sans',
-                color: Color(0xFF57636C),
-                fontSize: 14,
+                color: const Color(0xFF57636C),
+                fontSize: size16(context),
                 fontWeight: FontWeight.normal,
               ),
+              textAlign: TextAlign.start,
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 44),
+            padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 44),
             child: ListView.builder(
               padding: EdgeInsets.zero,
               primary: false,
@@ -306,37 +412,40 @@ Widget _buildChatList(HouseProfileAdj house, List<Chat>? chats) {
         ],
       ),
     );
+    }else{
+          return  const Text("");
+    }
   } else {
-    return Center(
-      child: Text("xs"),
-    );
+    return  const Text("");
   }
 }
 
-Widget _buildUserList(HouseProfileAdj house, List<String>? matches) {
+
+Widget _buildUserList(HouseProfileAdj house, List<String>? matches, List<Chat>? chats, BuildContext context) {
   if (matches != null) {
+     if(matches.isNotEmpty){
     return SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(24, 10, 0, 0),
+            padding: const EdgeInsetsDirectional.fromSTEB(24, 10, 0, 0),
             child: Text(
               'Match',
               style: TextStyle(
                 fontFamily: 'Plus Jakarta Sans',
-                color: Color(0xFF57636C),
-                fontSize: 14,
+                color: const Color(0xFF57636C),
+                fontSize: size16(context),
                 fontWeight: FontWeight.normal,
               ),
             ),
           ),
           Container(
             width: double.infinity,
-            height: 170,
-            decoration: BoxDecoration(
-              color: Color(0xFFF1F4F8),
+            height: MediaQuery.sizeOf(context).height*0.24,
+            decoration: const BoxDecoration(
+              color: Color.fromARGB(255, 63, 64, 64),
             ),
             child: ListView.builder(
                 padding: EdgeInsets.zero,
@@ -351,10 +460,37 @@ Widget _buildUserList(HouseProfileAdj house, List<String>? matches) {
         ],
       ),
     );
-  } else {
-    return Center(
-      child: Text("Non hai ancora match"),
-    );
+     }else{
+    if(chats!= null){
+      if(chats.isNotEmpty){
+        return const SizedBox();
+      }else{
+        return SizedBox(
+          height: MediaQuery.sizeOf(context).height*0.74,
+          child: const EmptyProfile(shapeOfIcon: Icons.sentiment_dissatisfied_rounded, textToShow: 'You don\'t have any match!',)
+        );
+      }
+    }else{
+     return SizedBox(
+          height: MediaQuery.sizeOf(context).height*0.74,
+          child: const EmptyProfile(shapeOfIcon: Icons.sentiment_dissatisfied_rounded, textToShow: 'You don\'t have any match!',));
+    }
+  }
+  } else{
+    if(chats!= null){
+      if(chats.isNotEmpty){
+        return const SizedBox();
+      }else{
+        return SizedBox(
+          height: MediaQuery.sizeOf(context).height*0.74,
+          child: const EmptyProfile(shapeOfIcon: Icons.sentiment_dissatisfied_rounded, textToShow: 'You don\'t have any match!',)
+        );
+      }
+    }else{
+      return SizedBox(
+          height: MediaQuery.sizeOf(context).height*0.74,
+          child:const EmptyProfile(shapeOfIcon: Icons.sentiment_dissatisfied_rounded, textToShow: 'You don\'t have any match!',));
+    }
   }
 }
 
@@ -375,25 +511,35 @@ Widget _buildChatListItem(BuildContext context, Chat chat, HouseProfileAdj house
               onTap: () async {
                     await MatchService(uid: house.idHouse, otheruid: idPerson)
                         .resetNotification();
+                        if(mounted){
+                          if(MediaQuery.sizeOf(context).width<widthSize ){
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => ChatPage(
                       senderUserID: house.idHouse,
-                      nameReciver: name + " " + surname,
+                      nameReciver: "$name $surname",
                       receiverUserID: idPerson,
                     ),
                   ),
                 );
+                          }else{        
+                            setState(() {
+                            nameReciverTablet.value = "$name $surname";
+                            idReciverTablet.value = idPerson;
+                            });
+                          }
+                        }
+              
               },
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 8),
+                padding: const EdgeInsetsDirectional.fromSTEB(16, 4, 16, 8),
                 child: Container(
                   width: double.infinity,
-                  height: 80,
+                  height: MediaQuery.sizeOf(context).height*0.1,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         blurRadius: 4,
                         color: Color(0x32000000),
@@ -413,14 +559,14 @@ Widget _buildChatListItem(BuildContext context, Chat chat, HouseProfileAdj house
                     child: image != ""
                         ? Image.network(
                             image,
-                            width: 36,
-                            height: 36,
+                            width: MediaQuery.sizeOf(context).height*0.05,
+                            height: MediaQuery.sizeOf(context).height*0.05,
                             fit: BoxFit.cover,
                           )
                         : Image.asset(
                             'assets/userPhoto.jpg',
-                            width: 36,
-                            height: 36,
+                            width: MediaQuery.sizeOf(context).height*0.05,
+                            height: MediaQuery.sizeOf(context).height*0.05,
                             fit: BoxFit.cover,
                           ),
                   ),
@@ -433,26 +579,27 @@ Widget _buildChatListItem(BuildContext context, Chat chat, HouseProfileAdj house
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Text(
-                        name + " " + surname,
+                        "$name $surname",
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           letterSpacing: 0.2,
                           wordSpacing: 1.5,
                           fontFamily: 'Plus Jakarta Sans',
-                          color: Color(0xFF14181B),
+                          color: const Color(0xFF14181B),
                           fontWeight: FontWeight.w900,
+                          fontSize: size16(context)
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: size20(context),
                       child: Text(
                         chat.lastMsg,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 12,
+                        style: TextStyle(
+                          fontSize: size12(context),
                           fontFamily: 'Plus Jakarta Sans',
-                      color: Color(0xFF14181B),
+                      color: const Color(0xFF14181B),
                         ),
                       ),
                     ),
@@ -469,40 +616,32 @@ Widget _buildChatListItem(BuildContext context, Chat chat, HouseProfileAdj house
                       height: 4,
                     ),
                     Text(
-                      chat.timestamp.toDate().hour.toString()
-                      + ":" 
-                      + chat.timestamp.toDate().minute.toString()
-                      + " " 
-                      + chat.timestamp.toDate().day.toString()
-                      + "/"
-                      +chat.timestamp.toDate().month.toString()
-                      + "/"
-                      +chat.timestamp.toDate().year.toString(),
-                      style: const TextStyle(
-                        fontSize: 11,
+                      "${chat.timestamp.toDate().hour}:${chat.timestamp.toDate().minute} ${chat.timestamp.toDate().day}/${chat.timestamp.toDate().month}/${chat.timestamp.toDate().year}",
+                      style: TextStyle(
+                        fontSize: size10(context),
                         letterSpacing: -0.2,
                         fontWeight: FontWeight.w600,
                         fontFamily: 'Plus Jakarta Sans',
-                      color: Color(0xFF14181B),
+                      color: const Color(0xFF14181B),
                       ),
                     ),
                     const SizedBox(
                       height: 8,
                     ),
                    (chat.unreadMsg == 0) 
-                   ? Text('') 
+                   ? const Text('') 
                    : Container(
-                      width: 18,
-                      height: 18,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF4B39EF),
+                      width: size18(context),
+                      height: size18(context),
+                      decoration: BoxDecoration(
+                        color: errorColor,
                         shape: BoxShape.circle,
                       ),
                       child: Center(
                         child: Text(
                           chat.unreadMsg.toString(),
                           style: TextStyle(
-                            fontSize: 10,
+                            fontSize: size10(context),
                             color: Colors.white,
                           ),
                         ),
@@ -515,9 +654,7 @@ Widget _buildChatListItem(BuildContext context, Chat chat, HouseProfileAdj house
             ])),),),);
                 
         } else {
-          return Center(
-            child: Text('no chat'),
-          );
+          return const SizedBox();
         }
       });
 }
@@ -533,13 +670,13 @@ Widget _buildUserListItem(BuildContext context, String idMatch, HouseProfileAdj 
           final idPerson = snapshot.data?.uidA ?? "";
 
           return Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(16, 12, 12, 12),
+            padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 12, 12),
             child: Container(
-              width: 140,
-              height: 150,
+              width: MediaQuery.sizeOf(context).height*0.16,
+              height: MediaQuery.sizeOf(context).height*0.22,
               decoration: BoxDecoration(
                 color: Colors.white,
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     blurRadius: 4,
                     color: Color(0x34090F13),
@@ -554,19 +691,27 @@ Widget _buildUserListItem(BuildContext context, String idMatch, HouseProfileAdj 
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ChatPage(
-                        senderUserID: house.idHouse,
-                        nameReciver: name + " " + surname,
-                        receiverUserID: idPerson,
-                      ),
+                 if(MediaQuery.sizeOf(context).width<widthSize ){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChatPage(
+                      senderUserID: house.idHouse,
+                      nameReciver: "$name $surname",
+                      receiverUserID: idPerson,
                     ),
-                  );
+                  ),
+                );
+                          }else{
+                            
+                            setState(() {
+                              nameReciverTablet.value = "$name $surname";
+                            idReciverTablet.value = idPerson;
+                            });
+                          }
                 },
                 child: Padding(
-                  padding: EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(12),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -575,37 +720,39 @@ Widget _buildUserListItem(BuildContext context, String idMatch, HouseProfileAdj 
                         child: image != ""
                             ? Image.network(
                                 image,
-                                width: 60,
-                                height: 20,
+                                width:  MediaQuery.sizeOf(context).height*0.08,
+                                height: MediaQuery.sizeOf(context).height*0.08,
                                 fit: BoxFit.cover,
                               )
                             : Image.asset(
                                 'assets/userPhoto.jpg',
-                                width: 80,
-                                height: 80,
+                                width:  MediaQuery.sizeOf(context).height*0.08,
+                                height: MediaQuery.sizeOf(context).height*0.08,
                                 fit: BoxFit.cover,
                               ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                         child: Text(
                           name,
+                          maxLines: 2,
                           style: TextStyle(
                             fontFamily: 'Plus Jakarta Sans',
-                            color: Color(0xFF14181B),
-                            fontSize: 14,
+                            color: const Color(0xFF14181B),
+                            fontSize: size12(context),
                             fontWeight: FontWeight.normal,
                           ),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                         child: Text(
                           surname,
+                          maxLines: 2,
                           style: TextStyle(
                             fontFamily: 'Plus Jakarta Sans',
-                            color: Color(0xFF14181B),
-                            fontSize: 14,
+                            color: const Color(0xFF14181B),
+                            fontSize: size12(context),
                             fontWeight: FontWeight.normal,
                           ),
                         ),
@@ -617,9 +764,10 @@ Widget _buildUserListItem(BuildContext context, String idMatch, HouseProfileAdj 
             ),
           );
         } else {
-          return Center(
-            child: Text('no new matches'),
-          );
+          return const SizedBox();
         }
       });
 }
+
+}
+

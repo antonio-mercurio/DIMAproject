@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:prva/models/filters.dart';
-import 'package:prva/models/houseProfile.dart';
+import 'package:prva/screens/shared/constant.dart';
 import 'package:prva/services/databaseFilterPerson.dart';
 
-class FormFiltersPeopleAdj extends StatefulWidget {
+class FormHouseFilter extends StatefulWidget {
   final String uidHouse;
-  const FormFiltersPeopleAdj({required this.uidHouse});
+  const FormHouseFilter({super.key, required this.uidHouse});
 
   @override
-  State<FormFiltersPeopleAdj> createState() =>
-      _FormFiltersPeopleAdjState(uidHouse: uidHouse);
+  State<FormHouseFilter> createState() =>
+      _FormHouseFilterState(uidHouse: uidHouse);
 }
 
-class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
+class _FormHouseFilterState extends State<FormHouseFilter> {
   final String uidHouse;
 
   FiltersPersonAdj? filtri;
@@ -66,7 +65,7 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
     }
   }
 
-  _FormFiltersPeopleAdjState({required this.uidHouse});
+  _FormHouseFilterState({required this.uidHouse});
   bool flagV = true;
   bool flagL = true;
   bool flagE = true;
@@ -82,7 +81,17 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
           _valueEmployement = computeEmployment(oldFilters);
 
           return Scaffold(
-              backgroundColor: Colors.white,
+              appBar: AppBar(
+            backgroundColor: mainColor,
+            title: Text(
+                            'Set your preferences',
+                            style: TextStyle(
+                              fontFamily: 'Plus Jakarta Sans',
+                              color: backgroundColor,
+                              fontSize: size24(context),
+                              fontWeight: FontWeight.w600,
+                            ),),),
+              backgroundColor: backgroundColor,
               body: SafeArea(
                 top: true,
                 child: Align(
@@ -94,27 +103,6 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0, 0, 0, 0),
-                            child: Container(
-                              width: double.infinity,
-                              height: 34,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              alignment: const AlignmentDirectional(0, 0),
-                              child: const Text(
-                                'Set your preferences',
-                                style: TextStyle(
-                                  fontFamily: 'Plus Jakarta Sans',
-                                  color: Color(0xFF101213),
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
                             padding: const EdgeInsets.all(24),
                             child: Container(
                               width: double.infinity,
@@ -122,7 +110,7 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                                 maxWidth: 570,
                               ),
                               decoration: BoxDecoration(
-                                color: Colors.white,
+                                color: backgroundColor,
                                 boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 4,
@@ -145,8 +133,8 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      const Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                     Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 0, 16),
                                         child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -155,8 +143,8 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                                             children: [
                                               Text('Choose an age range!',
                                                   style: TextStyle(
-                                                    color: Color(0xFF101213),
-                                                    fontSize: 16,
+                                                    color: const Color(0xFF101213),
+                                                    fontSize: size16(context),
                                                     fontFamily:
                                                         'Plus Jakarta Sans',
                                                   )),
@@ -175,7 +163,7 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                                                         .fromSTEB(0, 0, 0, 16),
                                                 child: RangeSlider(
                                                   activeColor:
-                                                      const Color(0xFF4B39EF),
+                                                      mainColor,
                                                   min:
                                                       1.0, // il valore minimo che si può selezionare
                                                   max:
@@ -231,9 +219,9 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                                                 child: Text(
                                                     '${_startValue.round()}-${_endValue.round()}',
                                                     textAlign: TextAlign.center,
-                                                    style: const TextStyle(
-                                                      color: Color(0xFF101213),
-                                                      fontSize: 12,
+                                                    style:  TextStyle(
+                                                      color: const Color(0xFF101213),
+                                                      fontSize: size12(context),
                                                       fontFamily:
                                                           'Plus Jakarta Sans',
                                                     )),
@@ -242,18 +230,18 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                                           ),
                                         ],
                                       ),
-                                      const Row(
+                                       Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Expanded(
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(0, 0, 0, 16),
                                               child: Text('I prefer ...',
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
-                                                    color: Color(0xFF101213),
-                                                    fontSize: 16,
+                                                    color: const Color(0xFF101213),
+                                                    fontSize: size16(context),
                                                     fontFamily:
                                                         'Plus Jakarta Sans',
                                                   )),
@@ -283,24 +271,24 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                                                             optionsGender[
                                                                 index]),
                                                         labelStyle:
-                                                            const TextStyle(
+                                                             TextStyle(
                                                                 fontFamily:
                                                                     'Readex Pro',
                                                                 color: Colors
-                                                                    .white),
+                                                                    .white,
+                                                                    fontSize: size12(context)),
                                                         selected:
                                                             _valueGender ==
                                                                 index,
                                                         selectedColor:
-                                                            const Color(
-                                                                0xFF4B39EF),
+                                                            mainColor,
                                                         showCheckmark: false,
                                                         iconTheme:
-                                                            const IconThemeData(
-                                                          color: Color.fromARGB(
-                                                              255, 62, 60, 60),
-                                                          size: 18,
-                                                        ),
+                                                            IconThemeData(
+                                                    color:const Color.fromARGB(
+                                                        255, 62, 60, 60),
+                                                    size: size18(context),
+                                                  ),
                                                         onSelected:
                                                             (bool selected) {
                                                           setState(() {
@@ -337,24 +325,26 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                                                             optionsEmployement[
                                                                 index]),
                                                         labelStyle:
-                                                            const TextStyle(
+                                                             TextStyle(
                                                                 fontFamily:
                                                                     'Readex Pro',
                                                                 color: Colors
-                                                                    .white),
+                                                                    .white,
+                                                                    fontSize: size12(context)),
                                                         selected:
                                                             _valueEmployement ==
                                                                 index,
                                                         selectedColor:
-                                                            const Color(
-                                                                0xFF4B39EF),
+                                                            mainColor,
                                                         showCheckmark: false,
                                                         backgroundColor:
                                                             Colors.grey,
                                                         iconTheme:
-                                                            const IconThemeData(
-                                                          size: 18,
-                                                        ),
+                                                            IconThemeData(
+                                                    color:const Color.fromARGB(
+                                                        255, 62, 60, 60),
+                                                    size: size18(context),
+                                                  ),
                                                         onSelected:
                                                             (bool selected) {
                                                           setState(() {
@@ -382,38 +372,35 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
                                               await DatabaseServiceFiltersPerson(
                                                       uid: uidHouse)
                                                   .updateFiltersPersonAj(
-                                                      _startValue.round() ??
-                                                          filtri!.minAge,
-                                                      _endValue.round() ??
-                                                          filtri!.maxAge,
+                                                      _startValue.round(),
+                                                      _endValue.round(),
                                                       getGenderString(
-                                                              _valueGender!) ??
-                                                          filtri!.gender,
+                                                              _valueGender!),
                                                       getEmploymentString(
-                                                              _valueEmployement!) ??
-                                                          filtri!.employment);
+                                                              _valueEmployement!));
                                               if (mounted) {
                                                 Navigator.pop(context);
                                               }
                                             },
                                             style: ElevatedButton.styleFrom(
-                                              fixedSize: const Size(230, 52),
-                                              backgroundColor: Colors.black,
-                                              elevation: 3.0,
-                                              side: const BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1,
-                                              ),
-                                            ),
-                                            child: const Text(
-                                              'Set filters',
-                                              style: TextStyle(
-                                                fontFamily: 'Plus Jakarta Sans',
-                                                color: Colors.white,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
+                                      fixedSize: const Size(230, 52),
+                                      backgroundColor:mainColor,
+                                       elevation: 3.0,
+                                       shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                       ),
+                                       side: const BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1,
+                                      ),
+                                    ),
+                                    child : Text('Set your filters!',
+                                    style: TextStyle(
+                                      fontFamily: 'Plus Jakarta Sans',
+                                            color: backgroundColor,
+                                            fontSize: size16(context),
+                                            fontWeight: FontWeight.w500,
+                                    ),),
                                           ),
                                         ),
                                       ),
@@ -453,7 +440,7 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
 
   int? computeEmployment(FiltersPersonAdj? oldFilters) {
     if (oldFilters != null && flagE) {
-      _valueEmployement = getEmploymentIndex(oldFilters!.employment!);
+      _valueEmployement = getEmploymentIndex(oldFilters.employment!);
       flagE = false;
     }
     return _valueEmployement;
@@ -461,7 +448,7 @@ class _FormFiltersPeopleAdjState extends State<FormFiltersPeopleAdj> {
 
   int? computeGender(FiltersPersonAdj? oldFilters) {
     if (oldFilters != null && flagG) {
-      _valueGender = getGenderIndex(oldFilters!.gender!);
+      _valueGender = getGenderIndex(oldFilters.gender!);
       flagG = false;
     }
     return _valueGender;
