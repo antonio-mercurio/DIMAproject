@@ -58,15 +58,6 @@ class _LoginPageState extends State<LoginPage> {
             appBar: AppBar(
                 backgroundColor: mainColor,
                 elevation: 0.0,
-                title: Text('Affinder',
-                 textAlign: TextAlign.start,
-                                style: TextStyle(
-                                      fontFamily: 'Plus Jakarta Sans',
-                                      color: backgroundColor,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: size32(context),
-                                    ),
-                                    ),
                 actions: <Widget>[
                   TextButton.icon(
                       onPressed: () {
@@ -81,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                       style: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
                                       color: backgroundColor,
-                                      fontSize: size16(context),
+                                      fontSize: size14(context),
                                     ),))
                 ]),
         body: SafeArea(
@@ -103,9 +94,9 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       alignment: const AlignmentDirectional(0, 0),
                       child: Image.asset(
-                'assets/imgprova.jpg',
-                height: 400,
-                width: 400,
+                'assets/logo_affinder_tagliato.jpg',
+                height: MediaQuery.sizeOf(context).height * 0.4,
+                width: MediaQuery.sizeOf(context).height * 0.4,
               )
                     ),
                   ),

@@ -97,11 +97,11 @@ class _SigniInPageState extends State<SigniInPage> {
                               borderRadius: BorderRadius.circular(16),
                             ),
                             alignment: const AlignmentDirectional(0, 0),
-                            child: Image.asset(
-                              'assets/imgprova.jpg',
-                              height: 400,
-                              width: 400,
-                            )),
+                            child:  Image.asset(
+                'assets/logo_affinder_tagliato.jpg',
+                height: MediaQuery.sizeOf(context).height * 0.4,
+                width: MediaQuery.sizeOf(context).height * 0.4,
+              )),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(12),

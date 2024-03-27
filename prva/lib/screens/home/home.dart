@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:prva/screens/house_profile/show_all_my_house_profile.dart';
+import 'package:prva/screens/shared/constant.dart';
 import 'package:prva/screens/wrapperCreationProfile.dart';
 import 'package:prva/services/auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -19,79 +21,81 @@ class _HomepageState extends State<Homepage> {
       onTap: () => {},
       child: Scaffold(
         key: const ValueKey("logout"),
-        backgroundColor: Colors.black,
+        backgroundColor: backgroundColor,
         appBar: AppBar(
           actions: <Widget>[
             TextButton.icon(
-              icon: Icon(Icons.person),
-              label: Text('logout'),
+              icon: Icon(Icons.person,
+              color: backgroundColor,
+              size: MediaQuery.sizeOf(context).width<widthSize 
+                  ? MediaQuery.sizeOf(context).height * 0.03
+                  :  MediaQuery.sizeOf(context).height * 0.032,),
+              label: Text('Logout',
+              style: TextStyle(
+              color: backgroundColor,
+              fontSize: size14(context),)),
               onPressed: () async {
                 await _auth.signOut();
               },
             ),
           ],
-          title: Center(
-              child: Text('Affinder', style: TextStyle(color: Colors.white))),
-          backgroundColor: Colors.black,
-          automaticallyImplyLeading: true,
-          centerTitle: true,
-          elevation: 4,
-        ),
+          title: Text('AFFINDER', style: GoogleFonts.rubik(
+                 color: Colors.white,
+                 fontSize: size32(context),
+                 fontWeight: FontWeight.w600,
+                 wordSpacing: 2.0),
+                 textAlign: TextAlign.center,
+                 ),
+                 backgroundColor: mainColor,),
         body: SafeArea(
           top: true,
-          child: Column(
+          child: MediaQuery.of(context).size.width < widthSize
+          ? Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                height: 300,
+                height: MediaQuery.sizeOf(context).height * 0.4,
                 decoration: BoxDecoration(
-                  color: Colors.black,
+                  color: backgroundColor,
                 ),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {            
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const WrapperCreationProfile()),
-                      );
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: Image.asset('assets/casa.jpg').image,
-                        ),
-                      ),
-                      child: Align(
-                        alignment: AlignmentDirectional(1, 0),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
-                          child: Text(
-                            'Cerchi casa?',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                child:  _choice('assets/cerca_casa.jpg', 'Find an accomodation!', true) 
               ),
               Container(
-                height: 300,
+                height: MediaQuery.sizeOf(context).height * 0.4,
                 decoration: BoxDecoration(
-                  color: Colors.black,
+                  color: backgroundColor,
                 ),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
+                child: _choice('assets/cerca_persone.jpg', 'Offer an accomodation!', false)
+              ),
+            ],
+          )
+          :  Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[    
+                 SizedBox(
+                      width: MediaQuery.sizeOf(context).width * 0.49,
+                      height: MediaQuery.sizeOf(context).height*0.90,
+                      child:  _choice('assets/cerca_casa.jpg', 'Find an accomodation!', true) 
+                  ),  
+                  SizedBox(
+                      width: MediaQuery.sizeOf(context).width * 0.49,
+                      height: MediaQuery.sizeOf(context).height*0.90,
+                      child:  _choice('assets/cerca_persone.jpg', 'Offer an accomodation!', false)
+                  ),
+                
+              ]
+
+        ),
+      ),
+      ),
+    );
+  }
+
+  Widget _choice(String picture, String phrase, bool firstChoice){
+    return Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
                   child: InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
@@ -101,35 +105,39 @@ class _HomepageState extends State<Homepage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ShowHomeProfile()),
+                            builder: (context) => 
+                            firstChoice? const WrapperCreationProfile()
+                            :  const ShowHomeProfile()),
                       );
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.black,
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: Image.asset('assets/casa.jpg').image,
+                          image: Image.asset( picture,
+                height: MediaQuery.sizeOf(context).height * 0.4,
+                width: MediaQuery.sizeOf(context).height * 0.4,
+                        ).image,
                         ),
                       ),
                       child: Align(
-                        alignment: AlignmentDirectional(1, 0),
+                        alignment:  MediaQuery.of(context).size.width < widthSize
+                        ? const AlignmentDirectional(0, 1)
+                        : const AlignmentDirectional(0, 0.7),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
                           child: Text(
-                            'Offri casa?',
-                            style: TextStyle(color: Colors.white),
+                            phrase,
+                            style: GoogleFonts.rubik(
+                              color: errorColor,
+                              fontSize: size20(context),
+                              fontWeight: FontWeight.bold,
+                              ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+                );
   }
 }

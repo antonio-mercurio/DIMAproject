@@ -53,6 +53,7 @@ dependencies:
   badges: ^3.1.2
   http: ^0.13.6
   coverage: ^1.7.2
+  google_fonts: ^4.0.4
 
  
  
