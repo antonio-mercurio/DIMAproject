@@ -315,7 +315,7 @@ class ViewProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(backgroundColor: Colors.black),
+        appBar: AppBar(backgroundColor: mainColor),
         body: Column(mainAxisSize: MainAxisSize.max, children: [
           Expanded(
               child: SingleChildScrollView(

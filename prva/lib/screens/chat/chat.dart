@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prva/screens/shared/constant.dart';
 import 'package:prva/services/chat/chat_service.dart';
 
@@ -38,8 +39,7 @@ class _ChatPageState extends State<ChatPage> {
         backgroundColor: mainColor,
         automaticallyImplyLeading: MediaQuery.of(context).size.width < widthSize,
         title: Text(widget.nameReciver,
-         style: TextStyle(
-                                      fontFamily: 'Plus Jakarta Sans',
+         style: GoogleFonts.plusJakartaSans(
                                             color: backgroundColor,
                                             fontSize: size24(context),
                                             fontWeight: FontWeight.w500,

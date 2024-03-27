@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prva/screens/shared/constant.dart';
 
 class EmptyProfile extends StatelessWidget {
@@ -90,9 +91,8 @@ class EmptyProfile extends StatelessWidget {
                         child: Text(
                           textToShow,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontFamily: 'Plus Jakarta Sans',
-                            color: Color(0xFF101213),
+                          style: GoogleFonts.plusJakartaSans(
+                            color: const Color(0xFF101213),
                             fontSize: 32,
                             fontWeight: FontWeight.w600,
                           ),

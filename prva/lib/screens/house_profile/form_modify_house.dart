@@ -2,6 +2,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:geocoding_resolver/geocoding_resolver.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
@@ -171,8 +172,8 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                  Text(
                                   'Update your house profile',
                                   textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    fontFamily: 'Plus Jakarta Sans',
+                                  style: GoogleFonts.plusJakartaSans(
+                                   
                                     color: const Color(0xFF101213),
                                     fontSize: size32(context),
                                     fontWeight: FontWeight.w600,
@@ -184,8 +185,8 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                   child: Text(
                                     'Modify address and type!',
                                     textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontFamily: 'Plus Jakarta Sans',
+                                    style: GoogleFonts.plusJakartaSans(
+                                     
                                       color: const Color(0xFF57636C),
                                       fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
@@ -198,16 +199,16 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                   child: SizedBox(
                                     width: double.infinity,
                                     child: DropdownButtonFormField(
-                                        style: TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
+                                        style: GoogleFonts.plusJakartaSans(
+                                         
                                           color: const Color(0xFF101213),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
                                         ),
                                         decoration: InputDecoration(
                                           labelText: 'Type',
-                                          labelStyle: TextStyle(
-                                            fontFamily: 'Plus Jakarta Sans',
+                                          labelStyle: GoogleFonts.plusJakartaSans(
+                                           
                                             color: const Color(0xFF57636C),
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
@@ -274,8 +275,8 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                             "AIzaSyD8yblyesPc-09bye4ZF9KlO95G6RhhlmA",
                                         inputDecoration: InputDecoration(
                                           labelText: house.address,
-                                          labelStyle: TextStyle(
-                                            fontFamily: 'Plus Jakarta Sans',
+                                          labelStyle: GoogleFonts.plusJakartaSans(
+                                            
                                             color: const Color(0xFF57636C),
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
@@ -423,8 +424,8 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                     child: Text(
                                       'Something about the house',
                                       textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
+                                      style: GoogleFonts.plusJakartaSans(
+                                       
                                         color: const Color(0xFF57636C),
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -442,8 +443,8 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelText: 'Description',
-                                        labelStyle: TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
+                                        labelStyle: GoogleFonts.plusJakartaSans(
+                                          
                                           color: const Color(0xFF57636C),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
@@ -485,8 +486,8 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
+                                      style: GoogleFonts.plusJakartaSans(
+                                       
                                         color: const Color(0xFF101213),
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -504,8 +505,8 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                   children: [
                                    Text(
                                       'Max number of people that\ncan live in the house:',
-                                      style: TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
+                                      style: GoogleFonts.plusJakartaSans(
+                                       
                                         color: const Color(0xFF101213),
                                         fontSize: size16(context),
                                       ),
@@ -562,8 +563,8 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                               ),
-                                              style: TextStyle(
-                                                fontFamily: 'Plus Jakarta Sans',
+                                              style: GoogleFonts.plusJakartaSans(
+                                                
                                                 color: const Color(0xFF101213),
                                                 fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
@@ -586,8 +587,8 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                   children: [
                                      Text(
                                       'Floor number of the house:',
-                                      style: TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
+                                      style: GoogleFonts.plusJakartaSans(
+                                        
                                                 color: const Color(0xFF101213),
                                                 fontSize: size16(context),
                                       ),
@@ -644,8 +645,8 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                               ),
-                                              style: TextStyle(
-                                                fontFamily: 'Plus Jakarta Sans',
+                                              style: GoogleFonts.plusJakartaSans(
+                                                
                                                 color: const Color(0xFF101213),
                                                 fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
@@ -668,8 +669,7 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                   children: [
                                      Text(
                                       'Number of bathrooms:',
-                                      style: TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
+                                      style: GoogleFonts.plusJakartaSans(
                                                 color: const Color(0xFF101213),
                                                 fontSize: size16(context),
                                       ),
@@ -726,8 +726,8 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                               ),
-                                              style: TextStyle(
-                                                fontFamily: 'Plus Jakarta Sans',
+                                              style: GoogleFonts.plusJakartaSans(
+                                                
                                                 color: const Color(0xFF101213),
                                                 fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
@@ -787,8 +787,8 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                   child: Text(
                                     'Something about the rent',
                                     textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontFamily: 'Plus Jakarta Sans',
+                                    style: GoogleFonts.plusJakartaSans(
+                                     
                                       color: const Color(0xFF57636C),
                                       fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
@@ -818,8 +818,8 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                           },
                                         ),
                                         labelText: 'Start date of rent',
-                                        labelStyle: TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
+                                        labelStyle: GoogleFonts.plusJakartaSans(
+                                         
                                           color: const Color(0xFF57636C),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
@@ -862,8 +862,8 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style:  TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
+                                      style:  GoogleFonts.plusJakartaSans(
+                                        
                                                 color: const Color(0xFF101213),
                                                 fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -897,8 +897,8 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                           },
                                         ),
                                         labelText: 'End date of rent',
-                                        labelStyle: TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
+                                        labelStyle: GoogleFonts.plusJakartaSans(
+                                          
                                           color: const Color(0xFF57636C),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
@@ -941,8 +941,8 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
+                                      style: GoogleFonts.plusJakartaSans(
+                                        
                                                 color: const Color(0xFF101213),
                                                 fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -964,8 +964,8 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           labelText: 'Price',
-                                          labelStyle: TextStyle(
-                                            fontFamily: 'Plus Jakarta Sans',
+                                          labelStyle: GoogleFonts.plusJakartaSans(
+                                           
                                             color: const Color(0xFF57636C),
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
@@ -1008,8 +1008,8 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                           contentPadding:
                                               const EdgeInsets.all(24),
                                         ),
-                                        style:  TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
+                                        style:  GoogleFonts.plusJakartaSans(
+                                         
                                                 color: const Color(0xFF101213),
                                                 fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
@@ -1065,8 +1065,8 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                   child: Text(
                                     'Almost done!',
                                     textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontFamily: 'Plus Jakarta Sans',
+                                    style: GoogleFonts.plusJakartaSans(
+                                      
                                       color: const Color(0xFF57636C),
                                       fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
@@ -1082,9 +1082,9 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                     children: [
                                       Text(
                                         'Pick some photos for your profile!',
-                                         style: TextStyle( color: const Color(0xFF101213),
+                                         style: GoogleFonts.plusJakartaSans( color: const Color(0xFF101213),
                                           fontSize: size16(context),
-                                          fontFamily: 'Plus Jakarta Sans',
+                                         
                                        ),
 
                                       ),
@@ -1467,8 +1467,8 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                       ),
                                     ),
                                     child : Text('Update!',
-                                    style: TextStyle(
-                                      fontFamily: 'Plus Jakarta Sans',
+                                    style: GoogleFonts.plusJakartaSans(
+                                      
                                             color: backgroundColor,
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
@@ -1503,8 +1503,8 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                     ),
                               child: Text(
                                 'Delete',
-                                style: TextStyle(
-                                  fontFamily: 'Plus Jakarta Sans',
+                                style: GoogleFonts.plusJakartaSans(
+                                 
                                   color: Colors.white,
                                   fontSize: size16(context),
                                   fontWeight: FontWeight.w500,

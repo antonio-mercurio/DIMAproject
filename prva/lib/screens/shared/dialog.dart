@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prva/screens/shared/constant.dart';
 
 showMyDialog(BuildContext buildContext) {
@@ -22,9 +23,8 @@ showMyDialog(BuildContext buildContext) {
         ),
         padding: const EdgeInsets.fromLTRB(20, 80, 20, 20),
         child: Text('You\'ve got a new match!',
-          style: TextStyle(fontSize: size24(context),
-          fontFamily: 'Plus Jakarta Sans',
-                                  color: const Color(0xFF101213),
+          style: GoogleFonts.plusJakartaSans(fontSize: size24(context),
+         color: const Color(0xFF101213),
           ),
           textAlign: TextAlign.center
         ),),
@@ -53,8 +53,8 @@ showMyDialog(BuildContext buildContext) {
                                     ),
                               child: Text(
                                 'Cool!',
-                                style: TextStyle(
-                                  fontFamily: 'Plus Jakarta Sans',
+                                style: GoogleFonts.plusJakartaSans(
+                                 
                                   color: Colors.white,
                                   fontSize: size16(context),
                                   fontWeight: FontWeight.w500,

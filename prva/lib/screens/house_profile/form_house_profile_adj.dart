@@ -2,6 +2,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:geocoding_resolver/geocoding_resolver.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
@@ -155,8 +156,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                  Text(
                                   'Create your house profile',
                                   textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    fontFamily: 'Plus Jakarta Sans',
+                                  style: GoogleFonts.plusJakartaSans(
+                                    
                                     color: const Color(0xFF101213),
                                     fontSize: size32(context),
                                     fontWeight: FontWeight.w600,
@@ -168,8 +169,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                   child: Text(
                                     'Start with address and type!',
                                     textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontFamily: 'Plus Jakarta Sans',
+                                    style: GoogleFonts.plusJakartaSans(
+                                      
                                       color: const Color(0xFF57636C),
                                       fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
@@ -182,16 +183,16 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                   child: SizedBox(
                                     width: double.infinity,
                                     child: DropdownButtonFormField(
-                                        style: TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
+                                        style: GoogleFonts.plusJakartaSans(
+                                         
                                           color: const Color(0xFF101213),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
                                         ),
                                         decoration: InputDecoration(
                                           labelText: 'Type',
-                                          labelStyle: TextStyle(
-                                            fontFamily: 'Plus Jakarta Sans',
+                                          labelStyle: GoogleFonts.plusJakartaSans(
+                                            
                                             color: const Color(0xFF57636C),
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
@@ -256,8 +257,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                             "AIzaSyD8yblyesPc-09bye4ZF9KlO95G6RhhlmA",
                                         inputDecoration: InputDecoration(
                                           labelText: 'Address',
-                                          labelStyle: TextStyle(
-                                            fontFamily: 'Plus Jakarta Sans',
+                                          labelStyle: GoogleFonts.plusJakartaSans(
+                                            
                                             color: const Color(0xFF57636C),
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
@@ -403,8 +404,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                     child: Text(
                                       'Something about the house',
                                       textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
+                                      style: GoogleFonts.plusJakartaSans(
+                                       
                                         color: const Color(0xFF57636C),
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -424,8 +425,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelText: 'Description',
-                                        labelStyle: TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
+                                        labelStyle: GoogleFonts.plusJakartaSans(
+                                         
                                           color: const Color(0xFF57636C),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
@@ -467,8 +468,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
+                                      style: GoogleFonts.plusJakartaSans(
+                                       
                                         color: const Color(0xFF101213),
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -486,8 +487,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                   children: [
                                    Text(
                                       'Max number of people that\ncan live in the house:',
-                                      style: TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
+                                      style: GoogleFonts.plusJakartaSans(
+                                        
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -542,8 +543,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                               ),
-                                              style: TextStyle(
-                                                fontFamily: 'Plus Jakarta Sans',
+                                              style: GoogleFonts.plusJakartaSans(
+                                               
                                                 color: const Color(0xFF101213),
                                                 fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
@@ -566,7 +567,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                   children: [
                                      Text(
                                       'Floor number of the house:',
-                                      style: TextStyle(
+                                      style: GoogleFonts.plusJakartaSans(
                                         color: const Color(0xFF101213),
                                                 fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
@@ -622,8 +623,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                               ),
-                                              style: TextStyle(
-                                                fontFamily: 'Plus Jakarta Sans',
+                                              style: GoogleFonts.plusJakartaSans(
+                                               
                                                 color: const Color(0xFF101213),
                                                 fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
@@ -646,8 +647,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                   children: [
                                      Text(
                                       'Number of bathrooms:',
-                                      style: TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
+                                      style: GoogleFonts.plusJakartaSans(
+                                       
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -702,8 +703,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                               ),
-                                              style: TextStyle(
-                                                fontFamily: 'Plus Jakarta Sans',
+                                              style: GoogleFonts.plusJakartaSans(
+                                               
                                                 color: const Color(0xFF101213),
                                                 fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
@@ -763,8 +764,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                   child: Text(
                                     'Something about the rent',
                                     textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontFamily: 'Plus Jakarta Sans',
+                                    style: GoogleFonts.plusJakartaSans(
+                                      
                                       color: const Color(0xFF57636C),
                                       fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
@@ -794,8 +795,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                           },
                                         ),
                                         labelText: 'Start date of rent',
-                                        labelStyle: TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
+                                        labelStyle: GoogleFonts.plusJakartaSans(
+                                         
                                           color: const Color(0xFF57636C),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
@@ -838,8 +839,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
+                                      style: GoogleFonts.plusJakartaSans(
+                                       
                                         color: const Color(0xFF101213),
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -873,8 +874,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                           },
                                         ),
                                         labelText: 'End date of rent',
-                                        labelStyle: TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
+                                        labelStyle: GoogleFonts.plusJakartaSans(
+                                         
                                           color: const Color(0xFF57636C),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
@@ -917,8 +918,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
+                                      style: GoogleFonts.plusJakartaSans(
+                                        
                                         color: const Color(0xFF101213),
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -939,8 +940,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           labelText: 'Price',
-                                          labelStyle: TextStyle(
-                                            fontFamily: 'Plus Jakarta Sans',
+                                          labelStyle: GoogleFonts.plusJakartaSans(
+                                           
                                             color: const Color(0xFF57636C),
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
@@ -983,8 +984,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                           contentPadding:
                                               const EdgeInsets.all(24),
                                         ),
-                                        style: TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
+                                        style: GoogleFonts.plusJakartaSans(
+                                          
                                           color: const Color(0xFF101213),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
@@ -1040,8 +1041,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                   child: Text(
                                     'Almost done!',
                                     textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontFamily: 'Plus Jakarta Sans',
+                                    style: GoogleFonts.plusJakartaSans(
+                                     
                                       color: const Color(0xFF57636C),
                                       fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
@@ -1057,9 +1058,9 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                     children: [
                                       Text(
                                         'Pick some photos for your profile!',
-                                        style: TextStyle( color: const Color(0xFF101213),
+                                        style: GoogleFonts.plusJakartaSans( color: const Color(0xFF101213),
                                           fontSize: size16(context),
-                                          fontFamily: 'Plus Jakarta Sans',
+                                         
                                        ), ),
                                     ],
                                   ),
@@ -1438,8 +1439,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                       ),
                                     ),
                                     child : Text('Create!',
-                                    style: TextStyle(
-                                      fontFamily: 'Plus Jakarta Sans',
+                                    style: GoogleFonts.plusJakartaSans(
+                                     
                                             color: backgroundColor,
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,

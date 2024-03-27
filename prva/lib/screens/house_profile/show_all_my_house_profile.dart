@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prva/screens/house_profile/form_house_profile_adj.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/user.dart';
@@ -110,16 +111,14 @@ class HouseTile extends StatelessWidget {
                 radius: MediaQuery.sizeOf(context).height*0.05,
                 foregroundImage: Image.network(house.imageURL1).image,
               ),
-              title: Text(house.type, style: TextStyle(
+              title: Text(house.type, style: GoogleFonts.plusJakartaSans(
                 color: const Color(0xFF101213),
                                           fontSize: size18(context),
-                                          fontFamily: 'Plus Jakarta Sans',
                                           fontWeight: FontWeight.bold
               ),),
-              subtitle: Text(house.city, style: TextStyle(
+              subtitle: Text(house.city, style: GoogleFonts.plusJakartaSans(
                 color: const Color(0xFF101213),
                                           fontSize: size16(context),
-                                          fontFamily: 'Plus Jakarta Sans',
               ),),
               onTap: () {
                 Navigator.push(

@@ -1,5 +1,6 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/personalProfile.dart';
@@ -163,8 +164,7 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                         alignment: const AlignmentDirectional(0, 0),
                         child: Text(
                           'Update your profile',
-                          style: TextStyle(
-                            fontFamily: 'Plus Jakarta Sans',
+                          style: GoogleFonts.plusJakartaSans(
                             color: const Color(0xFF101213),
                             fontSize: size32(context),
                             fontWeight: FontWeight.w600,
@@ -208,8 +208,8 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                                   child: Text(
                                     'Update your personal data',
                                     textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontFamily: 'Plus Jakarta Sans',
+                                    style: GoogleFonts.plusJakartaSans(
+                                      
                                       color: const Color(0xFF57636C),
                                       fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
@@ -228,8 +228,8 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelText: 'Name',
-                                        labelStyle: TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
+                                        labelStyle: GoogleFonts.plusJakartaSans(
+                                         
                                           color: const Color(0xFF57636C),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
@@ -271,8 +271,8 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
+                                      style: GoogleFonts.plusJakartaSans(
+                                       
                                         color: const Color(0xFF101213),
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -298,8 +298,8 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelText: 'Surname',
-                                        labelStyle: TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
+                                        labelStyle: GoogleFonts.plusJakartaSans(
+                                         
                                           color: const Color(0xFF57636C),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
@@ -342,8 +342,8 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
+                                      style: GoogleFonts.plusJakartaSans(
+                                      
                                         color: const Color(0xFF101213),
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -379,8 +379,8 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                                           },
                                         ),
                                         labelText: 'Birth Date',
-                                        labelStyle: TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
+                                        labelStyle: GoogleFonts.plusJakartaSans(
+                                        
                                           color: const Color(0xFF57636C),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
@@ -423,8 +423,8 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
+                                      style: GoogleFonts.plusJakartaSans(
+                                        
                                         color: const Color(0xFF101213),
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -445,10 +445,10 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                                       Text(
                                         'Your gender:',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: GoogleFonts.plusJakartaSans(
                                           color: const Color(0xFF101213),
                                           fontSize: size16(context),
-                                          fontFamily: 'Plus Jakarta Sans',
+                                         
                                         ),
                                       ),
                                     ],
@@ -471,8 +471,8 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                                                   backgroundColor: Colors.grey,
                                                   label: Text(
                                                       optionsGender[index]),
-                                                  labelStyle: TextStyle(
-                                                       fontFamily: 'Readex Pro',
+                                                  labelStyle: GoogleFonts.readexPro(
+                                                       
                                                       color: Colors.white,
                                                       fontSize: size12(context)),
                                                   selected:
@@ -542,8 +542,8 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                                   child: Text(
                                     'Something about you',
                                     textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontFamily: 'Plus Jakarta Sans',
+                                    style: GoogleFonts.readexPro(
+                                     
                                       color: const Color(0xFF57636C),
                                       fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
@@ -560,10 +560,10 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                                       Text(
                                         'Employment:',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: GoogleFonts.plusJakartaSans(
                                           color: const Color(0xFF101213),
                                           fontSize: size16(context),
-                                          fontFamily: 'Plus Jakarta Sans',
+                                          
                                         ),
                                       ),
                                     ],
@@ -588,9 +588,9 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                                                       optionsEmployement[
                                                           index]),
                                                   labelStyle: 
-                                                   TextStyle(           
+                                                   GoogleFonts.readexPro(           
                                           fontSize: size12(context),
-                                          fontFamily: 'Readex Pro',
+                                          
                                                       color: Colors.white),
                                                   selected: _valueEmployement ==
                                                       index,
@@ -631,8 +631,8 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelText: 'Description',
-                                        labelStyle:  TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
+                                        labelStyle:  GoogleFonts.plusJakartaSans(
+                                         
                                           color: const Color(0xFF57636C),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
@@ -675,8 +675,8 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
+                                      style: GoogleFonts.plusJakartaSans(
+                                      
                                         color: const Color(0xFF101213),
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -732,8 +732,8 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                                   child: Text(
                                     'Almost done!',
                                     textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontFamily: 'Plus Jakarta Sans',
+                                    style: GoogleFonts.plusJakartaSans(
+                                     
                                       color: const Color(0xFF57636C),
                                       fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
@@ -749,9 +749,9 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                                     children: [
                                       Text(
                                         'Pick some photos for your profile!',
-                                       style: TextStyle( color: const Color(0xFF101213),
+                                       style: GoogleFonts.plusJakartaSans( color: const Color(0xFF101213),
                                           fontSize: size16(context),
-                                          fontFamily: 'Plus Jakarta Sans',
+                                         
                                        ),  
                                       ),
                                     ],
@@ -1113,8 +1113,8 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                                     ),
                               child: Text(
                                 'Update',
-                                style: TextStyle(
-                                  fontFamily: 'Plus Jakarta Sans',
+                                style: GoogleFonts.plusJakartaSans(
+                                  
                                   color: Colors.white,
                                   fontSize: size16(context),
                                   fontWeight: FontWeight.w500,
@@ -1150,8 +1150,8 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                                     ),
                               child: Text(
                                 'Delete',
-                                style: TextStyle(
-                                  fontFamily: 'Plus Jakarta Sans',
+                                style: GoogleFonts.plusJakartaSans(
+                                  
                                   color: Colors.white,
                                   fontSize: size16(context),
                                   fontWeight: FontWeight.w500,

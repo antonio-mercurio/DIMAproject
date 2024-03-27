@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/screens/shared/constant.dart';
@@ -51,10 +52,9 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
           child: Text(houseProfile.type,
-              style: TextStyle(
+              style: GoogleFonts.plusJakartaSans(
                 fontSize: size24(context),
                 color: Colors.black,
-                fontFamily: 'Plus Jakarta Sans',
                 fontWeight: FontWeight.bold,
               )),
         ),
@@ -82,10 +82,9 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
           padding: const EdgeInsetsDirectional.fromSTEB(16, 8, 0, 0),
           child: Text(
             houseProfile.city,
-            style: TextStyle(
+            style: GoogleFonts.plusJakartaSans(
               fontSize: size18(context),
               color: Colors.black,
-              fontFamily: 'Plus Jakarta Sans',
             ),
           ),
         ),
@@ -93,10 +92,9 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
           padding: const EdgeInsetsDirectional.fromSTEB(16, 8, 0, 0),
           child: Text(
             houseProfile.address,
-            style: TextStyle(
+            style: GoogleFonts.plusJakartaSans(
                 fontSize: size16(context),
-                color: Colors.black,
-                fontFamily: 'Plus Jakarta Sans'),
+                color: Colors.black,),
           ),
         ),
         Padding(
@@ -104,10 +102,9 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
           child: Text(
             houseProfile.description,
             maxLines: 100,
-            style: TextStyle(
+            style: GoogleFonts.plusJakartaSans(
                 fontSize: size16(context),
-                color: Colors.black,
-                fontFamily: 'Plus Jakarta Sans'),
+                color: Colors.black,),
           ),
         ),
         const Divider(
@@ -143,8 +140,7 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
                                       ),
                                     ),
                                     child : Text('Go to the map!',
-                                    style: TextStyle(
-                                      fontFamily: 'Plus Jakarta Sans',
+                                    style: GoogleFonts.plusJakartaSans(
                                             color: backgroundColor,
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
@@ -165,18 +161,18 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
             children: [
                Text(
                 'Floor Number:',
-                style: TextStyle(
+                style: GoogleFonts.plusJakartaSans(
                     fontSize: size16(context),
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
-                    fontFamily: 'Plus Jakarta Sans'),
+                    ),
               ),
               Text(
                 houseProfile.floorNumber.toString(),
-                style: TextStyle(
+                style: GoogleFonts.plusJakartaSans(
                     fontSize:size16(context),
                     color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans'),
+                    ),
               ),
             ],
           ),
@@ -189,18 +185,18 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
             children: [
                Text(
                 'Number of bathrooms:',
-                style: TextStyle(
+                style: GoogleFonts.plusJakartaSans(
                     fontSize: size16(context),
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
-                    fontFamily: 'Plus Jakarta Sans'),
+                    ),
               ),
               Text(
                 houseProfile.numBath.toString(),
-                style: TextStyle(
+                style: GoogleFonts.plusJakartaSans(
                     fontSize: size16(context),
                     color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans'),
+                    ),
               ),
             ],
           ),
@@ -213,18 +209,18 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
             children: [
                Text(
                 'Max number of people in the house:',
-                style: TextStyle(
+                style: GoogleFonts.plusJakartaSans(
                     fontSize: size16(context),
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
-                    fontFamily: 'Plus Jakarta Sans'),
+                    ),
               ),
               Text(
                 houseProfile.numPlp.toString(),
-                style: TextStyle(
+                style: GoogleFonts.plusJakartaSans(
                     fontSize: size16(context),
                     color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans'),
+                   ),
               ),
             ],
           ),
@@ -237,18 +233,18 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
             children: [
                Text(
                 'Start of the rent:',
-                style: TextStyle(
+                style: GoogleFonts.plusJakartaSans(
                     fontSize: size16(context),
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans'),
+                   ),
               ),
               Text(
                 '${houseProfile.startDay}/${houseProfile.startMonth}/${houseProfile.startYear}',
-                style: TextStyle(
+                style: GoogleFonts.plusJakartaSans(
                     fontSize: size16(context),
                     color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans'),
+                   ),
               ),
             ],
           ),
@@ -261,18 +257,18 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
             children: [
                Text(
                 'End of the rent:',
-                style: TextStyle(
+                style: GoogleFonts.plusJakartaSans(
                     fontSize: size16(context),
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans'),
+                    ),
               ),
               Text(
                 '${houseProfile.endDay}/${houseProfile.endMonth}/${houseProfile.endYear}',
-                style: TextStyle(
+                style: GoogleFonts.plusJakartaSans(
                     fontSize: size16(context),
                     color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans'),
+                    ),
               ),
             ],
           ),
@@ -290,18 +286,18 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
             children: [
                Text(
                 'Price:',
-                style: TextStyle(
+                style: GoogleFonts.plusJakartaSans(
                     fontSize: size20(context),
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans'),
+                    ),
               ),
               Text(
                 houseProfile.price.toString(),
-                style: TextStyle(
+                style: GoogleFonts.plusJakartaSans(
                     fontSize: size20(context),
                     color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans'),
+                    ),
               ),
             ],
           ),

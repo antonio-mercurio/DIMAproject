@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/preference.dart';
 import 'package:prva/services/databaseForHouseProfile.dart';
@@ -36,8 +37,8 @@ class _NotificationPersonLayoutState extends State<NotificationPersonLayout> {
           backgroundColor: mainColor,
           title: Text(
             'Notifications',
-            style: TextStyle(
-                                      fontFamily: 'Plus Jakarta Sans',
+            style: GoogleFonts.plusJakartaSans(
+                                     
                                             color: backgroundColor,
                                             fontSize: size32(context),
                                             fontWeight: FontWeight.w500,
@@ -151,8 +152,8 @@ Widget _buildUserListItem(
                              Text(
                               'New Match!',
                               maxLines: 1,
-                              style: TextStyle(
-                                fontFamily: 'Plus Jakarta Sans',
+                              style: GoogleFonts.plusJakartaSans(
+                                
                                 color: const Color(0xFF101213),
                                 fontSize: size18(context),
                                 fontWeight: FontWeight.w500,
@@ -168,8 +169,8 @@ Widget _buildUserListItem(
                                     city +
                                     '! Go to the chat to start a conversation! ',
                                 maxLines: 6,
-                                style: TextStyle(
-                                  fontFamily: 'Plus Jakarta Sans',
+                                style: GoogleFonts.plusJakartaSans(
+                                 
                                   color: const Color(0xFF101213),
                                   fontSize: size16(context),
                                   fontWeight: FontWeight.normal,
@@ -181,8 +182,8 @@ Widget _buildUserListItem(
                                   const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 4),
                               child: Text(
                                 (calculateTimestamp(idmatch.timestamp)),
-                                style: TextStyle(
-                                  fontFamily: 'Plus Jakarta Sans',
+                                style: GoogleFonts.plusJakartaSans(
+                                  
                                   color: const Color(0xFF101213),
                                   fontSize: size12(context),
                                   fontWeight: FontWeight.w500,

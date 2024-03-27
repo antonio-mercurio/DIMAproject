@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/message.dart';
 import 'package:prva/screens/personal_profile/modify_personal_profile.dart';
@@ -151,7 +152,7 @@ class _SearchLayoutState extends State<SearchLayout> {
                 child:
                 badges.Badge(
                 showBadge: (myNotifies != null && myNotifies != 0),
-                badgeContent: Text(myNotifies?.toString() ?? "", style: TextStyle(color: backgroundColor),),
+                badgeContent: Text(myNotifies?.toString() ?? "", style: GoogleFonts.plusJakartaSans(color: backgroundColor),),
                 position: badges.BadgePosition.topEnd(top: 10, end: 10),
                 badgeStyle: badges.BadgeStyle(padding: const EdgeInsets.all(4), badgeColor: errorColor),
                 onTap: () async {
@@ -272,8 +273,7 @@ class ProfileLayout extends StatelessWidget {
                                       ),
                                     ),
                                     child : Text('Modify your profile!',
-                                    style: TextStyle(
-                                      fontFamily: 'Plus Jakarta Sans',
+                                    style: GoogleFonts.plusJakartaSans(
                                             color: backgroundColor,
                                             fontSize: MediaQuery.sizeOf(context).height*0.024,
                                             fontWeight: FontWeight.w500,
@@ -371,8 +371,7 @@ Widget _buildChatList(Utente user, List<Chat>? chats, BuildContext context) {
             padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
             child: Text(
               'Chats',
-              style: TextStyle(
-                fontFamily: 'Plus Jakarta Sans',
+              style: GoogleFonts.plusJakartaSans(
                 color: const Color(0xFF57636C),
                 fontSize: size16(context),
                 fontWeight: FontWeight.normal,
@@ -416,8 +415,7 @@ Widget _buildUserList(Utente user, List<String>? matches, List<Chat>? chats, Bui
             padding: const EdgeInsetsDirectional.fromSTEB(24, 10, 0, 0),
             child: Text(
               'Match',
-              style: TextStyle(
-                fontFamily: 'Plus Jakarta Sans',
+              style: GoogleFonts.plusJakartaSans(
                 color: const Color(0xFF57636C),
                 fontSize: size16(context),
                 fontWeight: FontWeight.normal,
@@ -564,10 +562,10 @@ Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
                       child: Text(
                         "$type $city",
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: GoogleFonts.plusJakartaSans(
                           letterSpacing: 0.2,
                           wordSpacing: 1.5,
-                          fontFamily: 'Plus Jakarta Sans',
+                          
                           color: const Color(0xFF14181B),
                           fontWeight: FontWeight.w900,
                           fontSize: size16(context)
@@ -579,9 +577,8 @@ Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
                       child: Text(
                         chat.lastMsg,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: GoogleFonts.plusJakartaSans(
                           fontSize: size12(context),
-                          fontFamily: 'Plus Jakarta Sans',
                       color: const Color(0xFF14181B),
                         ),
                       ),
@@ -600,11 +597,11 @@ Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
                     ),
                     Text(
                       "${chat.timestamp.toDate().hour}:${chat.timestamp.toDate().minute} ${chat.timestamp.toDate().day}/${chat.timestamp.toDate().month}/${chat.timestamp.toDate().year}",
-                      style: TextStyle(
+                      style: GoogleFonts.plusJakartaSans(
                         fontSize: size10(context),
                         letterSpacing: -0.2,
                         fontWeight: FontWeight.w600,
-                        fontFamily: 'Plus Jakarta Sans',
+                        
                       color: const Color(0xFF14181B),
                       ),
                     ),
@@ -623,7 +620,7 @@ Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
                       child: Center(
                         child: Text(
                           chat.unreadMsg.toString(),
-                          style: TextStyle(
+                          style: GoogleFonts.plusJakartaSans(
                             fontSize: size10(context),
                             color: backgroundColor,
                           ),
@@ -719,8 +716,8 @@ Widget _buildUserListItem(BuildContext context, String idMatch, Utente user) {
                           city,
                           textAlign: TextAlign.center,
                           maxLines: 2,
-                          style: TextStyle(
-                            fontFamily: 'Plus Jakarta Sans',
+                          style: GoogleFonts.plusJakartaSans(
+                            
                             color: const Color(0xFF14181B),
                             fontSize: size12(context),
                             fontWeight: FontWeight.normal,
@@ -733,8 +730,8 @@ Widget _buildUserListItem(BuildContext context, String idMatch, Utente user) {
                           type,
                           textAlign: TextAlign.center,
                           maxLines: 2,
-                          style: TextStyle(
-                            fontFamily: 'Plus Jakarta Sans',
+                          style: GoogleFonts.plusJakartaSans(
+                            
                             color: const Color(0xFF14181B),
                             fontSize: size12(context),
                             fontWeight: FontWeight.normal,

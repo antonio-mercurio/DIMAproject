@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/screens/shared/constant.dart';
@@ -51,10 +52,10 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
           child: Text('${personalProfile.nameA} ${personalProfile.surnameA}',
-              style: TextStyle(
+              style: GoogleFonts.plusJakartaSans(
                 fontSize: size24(context),
                 color: Colors.black,
-                fontFamily: 'Plus Jakarta Sans',
+                
                 fontWeight: FontWeight.bold,
               )),
         ),
@@ -84,10 +85,10 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
             _calculationAge(personalProfile.year, personalProfile.month,
                     personalProfile.day)
                 .toString(),
-            style: TextStyle(
+            style: GoogleFonts.plusJakartaSans(
               fontSize: size18(context),
               color: Colors.black,
-              fontFamily: 'Plus Jakarta Sans',
+             
             ),
           ),
         ),
@@ -96,10 +97,10 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
           child: Text(
             personalProfile.description,
             maxLines: 100,
-            style: TextStyle(
+            style: GoogleFonts.plusJakartaSans(
                 fontSize:size16(context),
                 color: Colors.black,
-                fontFamily: 'Plus Jakarta Sans'),
+                ),
           ),
         ),
         const Divider(
@@ -115,18 +116,18 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
             children: [
                Text(
                 'Gender:',
-                style: TextStyle(
+                style: GoogleFonts.plusJakartaSans(
                     fontSize: size20(context),
                     color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans',
+                   
                     fontWeight: FontWeight.bold),
               ),
               Text(
                 personalProfile.gender,
-                style: TextStyle(
+                style: GoogleFonts.plusJakartaSans(
                     fontSize:size20(context),
                     color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans'),
+                   ),
               ),
             ],
           ),
@@ -139,18 +140,18 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
             children: [
                Text(
                 'Employment:',
-                style: TextStyle(
+                style: GoogleFonts.plusJakartaSans(
                     fontSize: size20(context),
                     color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans',
+                    
                     fontWeight: FontWeight.bold ),
               ),
               Text(
                 personalProfile.employment,
-                style: TextStyle(
+                style: GoogleFonts.plusJakartaSans(
                     fontSize: size20(context),
                     color: Colors.black,
-                    fontFamily: 'Plus Jakarta Sans'),
+                    ),
               ),
             ],
           ),

@@ -1,5 +1,6 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:prva/models/user.dart';
@@ -100,8 +101,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                         alignment: const AlignmentDirectional(0, 0),
                         child: Text(
                           'Create your profile',
-                          style: TextStyle(
-                            fontFamily: 'Plus Jakarta Sans',
+                          style: GoogleFonts.plusJakartaSans(
                             color: const Color(0xFF101213),
                             fontSize: size32(context),
                             fontWeight: FontWeight.w600,
@@ -145,8 +145,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                   child: Text(
                                     'Start with your personal data',
                                     textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontFamily: 'Plus Jakarta Sans',
+                                    style: GoogleFonts.plusJakartaSans(
+                                     
                                       color: const Color(0xFF57636C),
                                       fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
@@ -165,9 +165,9 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelText: 'Name',
-                                        labelStyle: const TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF57636C),
+                                        labelStyle: GoogleFonts.plusJakartaSans(
+                                          
+                                          color: const Color(0xFF57636C),
                                           fontSize: 16,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -209,8 +209,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
+                                      style: GoogleFonts.plusJakartaSans(
+                                        
                                         color: const Color(0xFF101213),
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -235,8 +235,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelText: 'Surname',
-                                        labelStyle:  TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
+                                        labelStyle:  GoogleFonts.plusJakartaSans(
+                                          
                                           color: const Color(0xFF57636C),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
@@ -279,8 +279,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
+                                      style: GoogleFonts.plusJakartaSans(
+                                        
                                         color: const Color(0xFF101213),
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -316,8 +316,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                           },
                                         ),
                                         labelText: 'Birth Date',
-                                        labelStyle: TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
+                                        labelStyle: GoogleFonts.plusJakartaSans(
+                                          
                                           color: const Color(0xFF57636C),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
@@ -360,8 +360,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
+                                      style: GoogleFonts.plusJakartaSans(
+                                      
                                         color: const Color(0xFF101213),
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -382,10 +382,10 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                       Text(
                                         'Your gender:',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: GoogleFonts.plusJakartaSans(
                                           color: const Color(0xFF101213),
                                           fontSize: size16(context),
-                                          fontFamily: 'Plus Jakarta Sans',
+                                         
                                         ),
                                       ),
                                     ],
@@ -408,8 +408,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                                   backgroundColor: Colors.grey,
                                                   label: Text(
                                                       optionsGender[index]),
-                                                  labelStyle: TextStyle(
-                                                      fontFamily: 'Readex Pro',
+                                                  labelStyle: GoogleFonts.readexPro(
+                                                      
                                                       fontSize: size12(context),
                                                       color: Colors.white),
                                                   selected:
@@ -479,8 +479,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                   child: Text(
                                     'Something about you',
                                     textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontFamily: 'Plus Jakarta Sans',
+                                    style: GoogleFonts.plusJakartaSans(
+                                     
                                       color: const Color(0xFF57636C),
                                       fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
@@ -497,10 +497,10 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                       Text(
                                         'Employment:',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: GoogleFonts.plusJakartaSans(
                                           color: const Color(0xFF101213),
                                           fontSize: size16(context),
-                                          fontFamily: 'Plus Jakarta Sans',
+                                          
                                         ),
                                       ),
                                     ],
@@ -524,8 +524,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                                   label: Text(
                                                       optionsEmployement[
                                                           index]),
-                                                  labelStyle: TextStyle(
-                                                      fontFamily: 'Readex Pro',
+                                                  labelStyle: GoogleFonts.readexPro(
+                                                      
                                                       fontSize: size12(context),
                                                       color: Colors.white),
                                                   selected: _valueEmployement ==
@@ -566,8 +566,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelText: 'Description',
-                                        labelStyle: TextStyle(
-                                          fontFamily: 'Plus Jakarta Sans',
+                                        labelStyle: GoogleFonts.plusJakartaSans(
+                                         
                                           color: const Color(0xFF57636C),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
@@ -610,8 +610,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                         contentPadding:
                                             const EdgeInsets.all(24),
                                       ),
-                                      style: TextStyle(
-                                        fontFamily: 'Plus Jakarta Sans',
+                                      style: GoogleFonts.plusJakartaSans(
+                                        
                                         color: const Color(0xFF101213),
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -667,8 +667,8 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                   child: Text(
                                     'Almost done!',
                                     textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontFamily: 'Plus Jakarta Sans',
+                                    style: GoogleFonts.plusJakartaSans(
+                                      
                                       color: const Color(0xFF57636C),
                                       fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
@@ -684,9 +684,9 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                     children: [
                                       Text(
                                         'Pick some photos for your profile!',
-                                        style: TextStyle( color: const Color(0xFF101213),
+                                        style: GoogleFonts.plusJakartaSans( color: const Color(0xFF101213),
                                           fontSize: size16(context),
-                                          fontFamily: 'Plus Jakarta Sans',
+                                         
                                        ),  
                                       ),
                                     ],
@@ -1055,8 +1055,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                       ),
                                     ),
                                     child : Text('Create!',
-                                    style: TextStyle(
-                                      fontFamily: 'Plus Jakarta Sans',
+                                    style: GoogleFonts.plusJakartaSans(
                                             color: backgroundColor,
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,

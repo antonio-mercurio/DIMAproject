@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/screens/shared/constant.dart';
 import 'package:prva/services/databaseFilterPerson.dart';
@@ -85,8 +86,8 @@ class _FormHouseFilterState extends State<FormHouseFilter> {
             backgroundColor: mainColor,
             title: Text(
                             'Set your preferences',
-                            style: TextStyle(
-                              fontFamily: 'Plus Jakarta Sans',
+                            style: GoogleFonts.plusJakartaSans(
+                            
                               color: backgroundColor,
                               fontSize: size24(context),
                               fontWeight: FontWeight.w600,
@@ -142,11 +143,10 @@ class _FormHouseFilterState extends State<FormHouseFilter> {
                                                 MainAxisAlignment.center,
                                             children: [
                                               Text('Choose an age range!',
-                                                  style: TextStyle(
+                                                  style: GoogleFonts.plusJakartaSans(
                                                     color: const Color(0xFF101213),
                                                     fontSize: size16(context),
-                                                    fontFamily:
-                                                        'Plus Jakarta Sans',
+                                                    
                                                   )),
                                             ]),
                                       ),
@@ -219,11 +219,10 @@ class _FormHouseFilterState extends State<FormHouseFilter> {
                                                 child: Text(
                                                     '${_startValue.round()}-${_endValue.round()}',
                                                     textAlign: TextAlign.center,
-                                                    style:  TextStyle(
+                                                    style:  GoogleFonts.plusJakartaSans(
                                                       color: const Color(0xFF101213),
                                                       fontSize: size12(context),
-                                                      fontFamily:
-                                                          'Plus Jakarta Sans',
+                                                      
                                                     )),
                                               ),
                                             ),
@@ -239,11 +238,10 @@ class _FormHouseFilterState extends State<FormHouseFilter> {
                                                   .fromSTEB(0, 0, 0, 16),
                                               child: Text('I prefer ...',
                                                   textAlign: TextAlign.center,
-                                                  style: TextStyle(
+                                                  style: GoogleFonts.plusJakartaSans(
                                                     color: const Color(0xFF101213),
                                                     fontSize: size16(context),
-                                                    fontFamily:
-                                                        'Plus Jakarta Sans',
+                                                    
                                                   )),
                                             ),
                                           ),
@@ -271,9 +269,8 @@ class _FormHouseFilterState extends State<FormHouseFilter> {
                                                             optionsGender[
                                                                 index]),
                                                         labelStyle:
-                                                             TextStyle(
-                                                                fontFamily:
-                                                                    'Readex Pro',
+                                                             GoogleFonts.readexPro(
+                                                                
                                                                 color: Colors
                                                                     .white,
                                                                     fontSize: size12(context)),
@@ -325,9 +322,8 @@ class _FormHouseFilterState extends State<FormHouseFilter> {
                                                             optionsEmployement[
                                                                 index]),
                                                         labelStyle:
-                                                             TextStyle(
-                                                                fontFamily:
-                                                                    'Readex Pro',
+                                                             GoogleFonts.readexPro(
+                                                               
                                                                 color: Colors
                                                                     .white,
                                                                     fontSize: size12(context)),
@@ -395,8 +391,8 @@ class _FormHouseFilterState extends State<FormHouseFilter> {
                                       ),
                                     ),
                                     child : Text('Set your filters!',
-                                    style: TextStyle(
-                                      fontFamily: 'Plus Jakarta Sans',
+                                    style: GoogleFonts.plusJakartaSans(
+                                     
                                             color: backgroundColor,
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,

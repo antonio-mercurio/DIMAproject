@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding_resolver/geocoding_resolver.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
@@ -63,8 +64,8 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
             backgroundColor: mainColor,
             title: Text(
                             'Set your preferences',
-                            style: TextStyle(
-                              fontFamily: 'Plus Jakarta Sans',
+                            style: GoogleFonts.plusJakartaSans(
+                              
                               color: backgroundColor,
                               fontSize: size24(context),
                               fontWeight: FontWeight.w600,
@@ -121,8 +122,8 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                           child: Text(
                                             'Pick the city',
                                             textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontFamily: 'Plus Jakarta Sans',
+                                            style: GoogleFonts.plusJakartaSans(
+                                              
                                               color: const Color(0xFF101213),
                                               fontSize: size16(context),
                                               fontWeight: FontWeight.w500,
@@ -142,8 +143,8 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                             "AIzaSyD8yblyesPc-09bye4ZF9KlO95G6RhhlmA",
                                         inputDecoration: InputDecoration(
                                           labelText: city,
-                                          labelStyle: TextStyle(
-                                            fontFamily: 'Plus Jakarta Sans',
+                                          labelStyle: GoogleFonts.plusJakartaSans(
+                                           
                                             color: const Color(0xFF57636C),
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
@@ -253,8 +254,8 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                         child: Text(
                                           'Choose the type',
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontFamily: 'Plus Jakarta Sans',
+                                          style: GoogleFonts.plusJakartaSans(
+                                            
                                             color: const Color(0xFF101213),
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
@@ -291,9 +292,8 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                               },
                                               title: Text(
                                                 typeOfAppartament[0],
-                                                style: TextStyle(
-                                                  fontFamily:
-                                                      'Plus Jakarta Sans',
+                                                style: GoogleFonts.plusJakartaSans(
+                                                 
                                                   color: const Color(0xFF101213),
                                                   fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
@@ -340,9 +340,8 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                               },
                                               title: Text(
                                                 typeOfAppartament[1],
-                                                style:  TextStyle(
-                                                  fontFamily:
-                                                      'Plus Jakarta Sans',
+                                                style:  GoogleFonts.plusJakartaSans(
+                                                 
                                                   color: const Color(0xFF101213),
                                                   fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
@@ -389,9 +388,8 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                               },
                                               title: Text(
                                                 typeOfAppartament[2],
-                                                style: TextStyle(
-                                                  fontFamily:
-                                                      'Plus Jakarta Sans',
+                                                style: GoogleFonts.plusJakartaSans(
+                                                 
                                                   color: const Color(0xFF101213),
                                                   fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
@@ -438,9 +436,8 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                               },
                                               title: Text(
                                                 typeOfAppartament[3],
-                                                style: TextStyle(
-                                                  fontFamily:
-                                                      'Plus Jakarta Sans',
+                                                style: GoogleFonts.plusJakartaSans(
+                                                  
                                                   color: const Color(0xFF101213),
                                                   fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
@@ -491,9 +488,8 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                                 },
                                                 title: Text(
                                                   typeOfAppartament[4],
-                                                  style:  TextStyle(
-                                                    fontFamily:
-                                                        'Plus Jakarta Sans',
+                                                  style:  GoogleFonts.plusJakartaSans(
+                                                 
                                                     color: const Color(0xFF101213),
                                                     fontSize: size16(context),
                                                     fontWeight: FontWeight.w500,
@@ -520,8 +516,8 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                       children: [
                                         Text(
                                           'Your budget is',
-                                          style: TextStyle(
-                                            fontFamily: 'Plus Jakarta Sans',
+                                          style: GoogleFonts.plusJakartaSans(
+                                            
                                             color: const Color(0xFF101213),
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
@@ -578,8 +574,8 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                             child: Text(
                                               sliderValue.round().toString(),
                                               textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontFamily: 'Plus Jakarta Sans',
+                                              style: GoogleFonts.plusJakartaSans(
+                                               
                                                 color: const Color(0xFF57636C),
                                                 fontSize: size12(context),
                                                 fontWeight: FontWeight.w500,
@@ -643,8 +639,8 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                       ),
                                     ),
                                     child : Text('Set your filters!',
-                                    style: TextStyle(
-                                      fontFamily: 'Plus Jakarta Sans',
+                                    style: GoogleFonts.plusJakartaSans(
+                                     
                                             color: backgroundColor,
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
