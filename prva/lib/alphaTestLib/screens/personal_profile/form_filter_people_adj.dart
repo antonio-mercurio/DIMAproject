@@ -283,6 +283,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                         unselectedWidgetColor: Colors.black,
                                       ),
                                       child: CheckboxListTile(
+                                        key: Key('type0'),
                                         value: checkboxListTileValue1,
                                         onChanged: (newValue) async {
                                           setState(() =>
@@ -290,7 +291,6 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                                   newValue!);
                                         },
                                         title: Text(
-                                          key: Key('type0'),
                                           typeOfAppartament[0],
                                           style: const TextStyle(
                                             fontFamily: 'Plus Jakarta Sans',
@@ -324,6 +324,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                         unselectedWidgetColor: Colors.black,
                                       ),
                                       child: CheckboxListTile(
+                                        key: Key('type1'),
                                         value: checkboxListTileValue2,
                                         onChanged: (newValue) async {
                                           setState(() =>
@@ -331,7 +332,6 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                                   newValue!);
                                         },
                                         title: Text(
-                                          key: Key('type1'),
                                           typeOfAppartament[1],
                                           style: const TextStyle(
                                             fontFamily: 'Plus Jakarta Sans',
@@ -365,6 +365,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                         unselectedWidgetColor: Colors.black,
                                       ),
                                       child: CheckboxListTile(
+                                        key: Key('type2'),
                                         value: checkboxListTileValue3,
                                         onChanged: (newValue) async {
                                           setState(() =>
@@ -372,7 +373,6 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                                   newValue!);
                                         },
                                         title: Text(
-                                          key: Key('type2'),
                                           typeOfAppartament[2],
                                           style: const TextStyle(
                                             fontFamily: 'Plus Jakarta Sans',
@@ -406,6 +406,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                         unselectedWidgetColor: Colors.black,
                                       ),
                                       child: CheckboxListTile(
+                                        key: Key('type3'),
                                         value: checkboxListTileValue4,
                                         onChanged: (newValue) async {
                                           setState(() =>
@@ -413,7 +414,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                                   newValue!);
                                         },
                                         title: Text(
-                                          typeOfAppartament[0],
+                                          typeOfAppartament[3],
                                           style: const TextStyle(
                                             fontFamily: 'Plus Jakarta Sans',
                                             color: Color(0xFF101213),
@@ -453,6 +454,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                           unselectedWidgetColor: Colors.black,
                                         ),
                                         child: CheckboxListTile(
+                                          key: Key('type4'),
                                           value: checkboxListTileValue5,
                                           onChanged: (newValue) async {
                                             setState(() =>
@@ -508,6 +510,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                             ShowValueIndicator.always,
                                       ),
                                       child: Slider(
+                                        key: Key('budgetSlider'),
                                         activeColor: const Color(0xFF4B39EF),
                                         inactiveColor: const Color.fromARGB(
                                             255, 199, 197, 197),
@@ -560,6 +563,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0, 0, 0, 16),
                                 child: ElevatedButton(
+                                  key: Key('setFiltersButton'),
                                   onPressed: () {
                                     if (scaffoldKey.currentState!.validate()) {
                                       if (checkboxListTileValue1 ||
@@ -575,20 +579,21 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                             checkboxListTileValue4,
                                             checkboxListTileValue5,
                                             sliderValue);
-                                      }
-                                    } else {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          content: Text(
-                                            'Plese, enter at least one type!',
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            key: Key('errorMessage'),
+                                            content: Text(
+                                              'Please, enter at least one type!',
+                                            ),
                                           ),
-                                        ),
-                                      );
-                                      return;
-                                    }
-                                    if (mounted) {
-                                      Navigator.pop(context);
+                                        );
+                                        return;
+                                      }
+                                      if (mounted) {
+                                        Navigator.pop(context);
+                                      }
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(

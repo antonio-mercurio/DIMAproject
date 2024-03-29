@@ -61,15 +61,16 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
 
           return Scaffold(
             appBar: AppBar(
-            backgroundColor: mainColor,
-            title: Text(
-                            'Set your preferences',
-                            style: GoogleFonts.plusJakartaSans(
-                              
-                              color: backgroundColor,
-                              fontSize: size24(context),
-                              fontWeight: FontWeight.w600,
-                            ),),),
+              backgroundColor: mainColor,
+              title: Text(
+                'Set your preferences',
+                style: GoogleFonts.plusJakartaSans(
+                  color: backgroundColor,
+                  fontSize: size24(context),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
             backgroundColor: backgroundColor,
             body: SafeArea(
               top: true,
@@ -80,7 +81,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                     Padding(
+                      Padding(
                         padding: const EdgeInsets.all(12),
                         child: Container(
                           width: double.infinity,
@@ -110,9 +111,10 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 16),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 16),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -123,7 +125,6 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                             'Pick the city',
                                             textAlign: TextAlign.center,
                                             style: GoogleFonts.plusJakartaSans(
-                                              
                                               color: const Color(0xFF101213),
                                               fontSize: size16(context),
                                               fontWeight: FontWeight.w500,
@@ -143,8 +144,8 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                             "AIzaSyD8yblyesPc-09bye4ZF9KlO95G6RhhlmA",
                                         inputDecoration: InputDecoration(
                                           labelText: city,
-                                          labelStyle: GoogleFonts.plusJakartaSans(
-                                           
+                                          labelStyle:
+                                              GoogleFonts.plusJakartaSans(
                                             color: const Color(0xFF57636C),
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
@@ -156,21 +157,20 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                               width: 2,
                                             ),
                                           ),
-                                          focusedBorder:
-                                               OutlineInputBorder(
+                                          focusedBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color: mainColor,
                                               width: 2,
                                             ),
                                           ),
-                                          errorBorder:  OutlineInputBorder(
+                                          errorBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color: errorColor,
                                               width: 2,
                                             ),
                                           ),
                                           focusedErrorBorder:
-                                               OutlineInputBorder(
+                                              OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color: errorColor,
                                               width: 2,
@@ -247,7 +247,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                         // optional container padding
                                         //containerHorizontalPadding: 10,
                                       )),
-                                   Row(
+                                  Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Expanded(
@@ -255,7 +255,6 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                           'Choose the type',
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.plusJakartaSans(
-                                            
                                             color: const Color(0xFF101213),
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
@@ -292,9 +291,10 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                               },
                                               title: Text(
                                                 typeOfAppartament[0],
-                                                style: GoogleFonts.plusJakartaSans(
-                                                 
-                                                  color: const Color(0xFF101213),
+                                                style:
+                                                    GoogleFonts.plusJakartaSans(
+                                                  color:
+                                                      const Color(0xFF101213),
                                                   fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -302,8 +302,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                               tileColor: backgroundColor,
                                               activeColor:
                                                   const Color(0xFFE0E3E7),
-                                              checkColor:
-                                                  mainColor,
+                                              checkColor: mainColor,
                                               dense: false,
                                               controlAffinity:
                                                   ListTileControlAffinity
@@ -340,9 +339,10 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                               },
                                               title: Text(
                                                 typeOfAppartament[1],
-                                                style:  GoogleFonts.plusJakartaSans(
-                                                 
-                                                  color: const Color(0xFF101213),
+                                                style:
+                                                    GoogleFonts.plusJakartaSans(
+                                                  color:
+                                                      const Color(0xFF101213),
                                                   fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -350,8 +350,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                               tileColor: backgroundColor,
                                               activeColor:
                                                   const Color(0xFFE0E3E7),
-                                              checkColor:
-                                                  mainColor,
+                                              checkColor: mainColor,
                                               dense: false,
                                               controlAffinity:
                                                   ListTileControlAffinity
@@ -388,9 +387,10 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                               },
                                               title: Text(
                                                 typeOfAppartament[2],
-                                                style: GoogleFonts.plusJakartaSans(
-                                                 
-                                                  color: const Color(0xFF101213),
+                                                style:
+                                                    GoogleFonts.plusJakartaSans(
+                                                  color:
+                                                      const Color(0xFF101213),
                                                   fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -398,8 +398,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                               tileColor: backgroundColor,
                                               activeColor:
                                                   const Color(0xFFE0E3E7),
-                                              checkColor:
-                                                  mainColor,
+                                              checkColor: mainColor,
                                               dense: false,
                                               controlAffinity:
                                                   ListTileControlAffinity
@@ -413,7 +412,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                         Expanded(
+                                        Expanded(
                                           child: Theme(
                                             data: ThemeData(
                                               checkboxTheme:
@@ -436,9 +435,10 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                               },
                                               title: Text(
                                                 typeOfAppartament[3],
-                                                style: GoogleFonts.plusJakartaSans(
-                                                  
-                                                  color: const Color(0xFF101213),
+                                                style:
+                                                    GoogleFonts.plusJakartaSans(
+                                                  color:
+                                                      const Color(0xFF101213),
                                                   fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -446,8 +446,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                               tileColor: backgroundColor,
                                               activeColor:
                                                   const Color(0xFFE0E3E7),
-                                              checkColor:
-                                                  mainColor,
+                                              checkColor: mainColor,
                                               dense: false,
                                               controlAffinity:
                                                   ListTileControlAffinity
@@ -455,7 +454,6 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                             ),
                                           ),
                                         ),
-                                      
                                       ]),
                                   Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -488,9 +486,10 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                                 },
                                                 title: Text(
                                                   typeOfAppartament[4],
-                                                  style:  GoogleFonts.plusJakartaSans(
-                                                 
-                                                    color: const Color(0xFF101213),
+                                                  style: GoogleFonts
+                                                      .plusJakartaSans(
+                                                    color:
+                                                        const Color(0xFF101213),
                                                     fontSize: size16(context),
                                                     fontWeight: FontWeight.w500,
                                                   ),
@@ -498,8 +497,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                                 tileColor: backgroundColor,
                                                 activeColor:
                                                     const Color(0xFFE0E3E7),
-                                                checkColor:
-                                                    mainColor,
+                                                checkColor: mainColor,
                                                 dense: false,
                                                 controlAffinity:
                                                     ListTileControlAffinity
@@ -509,7 +507,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                           ),
                                         ),
                                       ]),
-                                   Row(
+                                  Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -517,7 +515,6 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                         Text(
                                           'Your budget is',
                                           style: GoogleFonts.plusJakartaSans(
-                                            
                                             color: const Color(0xFF101213),
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
@@ -538,8 +535,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                                   ShowValueIndicator.always,
                                             ),
                                             child: Slider(
-                                              activeColor:
-                                                  mainColor,
+                                              activeColor: mainColor,
                                               inactiveColor:
                                                   const Color.fromARGB(
                                                       255, 199, 197, 197),
@@ -574,8 +570,8 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                             child: Text(
                                               sliderValue.round().toString(),
                                               textAlign: TextAlign.center,
-                                              style: GoogleFonts.plusJakartaSans(
-                                               
+                                              style:
+                                                  GoogleFonts.plusJakartaSans(
                                                 color: const Color(0xFF57636C),
                                                 fontSize: size12(context),
                                                 fontWeight: FontWeight.w500,
@@ -587,11 +583,12 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                     ],
                                   ),
                                   Align(
-                                alignment: const AlignmentDirectional(0, 0),
-                                child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 0, 16),
-                                      child:  ElevatedButton(
+                                    alignment: const AlignmentDirectional(0, 0),
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 0, 0, 16),
+                                      child: ElevatedButton(
                                         onPressed: () async {
                                           if (scaffoldKey.currentState!
                                               .validate()) {
@@ -610,43 +607,45 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                                       checkboxListTileValue4,
                                                       checkboxListTileValue5,
                                                       sliderValue);
-                                            }
-                                          } else {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              const SnackBar(
-                                                content: Text(
-                                                  'Plese, enter at least one type!',
+                                            } else {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                const SnackBar(
+                                                  content: Text(
+                                                    'Please, enter at least one type!',
+                                                  ),
                                                 ),
-                                              ),
-                                            );
-                                            return;
-                                          }
-                                          if (mounted) {
-                                            Navigator.pop(context);
+                                              );
+                                              return;
+                                            }
+                                            if (mounted) {
+                                              Navigator.pop(context);
+                                            }
                                           }
                                         },
                                         style: ElevatedButton.styleFrom(
-                                      fixedSize: const Size(230, 52),
-                                      backgroundColor:mainColor,
-                                       elevation: 3.0,
-                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(40),
-                                       ),
-                                       side: const BorderSide(
-                                        color: Colors.transparent,
-                                        width: 1,
-                                      ),
-                                    ),
-                                    child : Text('Set your filters!',
-                                    style: GoogleFonts.plusJakartaSans(
-                                     
+                                          fixedSize: const Size(230, 52),
+                                          backgroundColor: mainColor,
+                                          elevation: 3.0,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(40),
+                                          ),
+                                          side: const BorderSide(
+                                            color: Colors.transparent,
+                                            width: 1,
+                                          ),
+                                        ),
+                                        child: Text(
+                                          'Set your filters!',
+                                          style: GoogleFonts.plusJakartaSans(
                                             color: backgroundColor,
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
-                                    ),),
-                                    ),
+                                          ),
+                                        ),
                                       ),
+                                    ),
                                   ),
                                 ],
                               ),
