@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SwipeWidget extends StatelessWidget {
-  final String image;
+  final String image = "casa.jpg";
   final String firstName;
   final String lastName;
   late final double? price;
@@ -9,7 +10,6 @@ class SwipeWidget extends StatelessWidget {
 
   SwipeWidget(
       {super.key,
-      required this.image,
       required this.firstName,
       required this.lastName,
       this.price,
@@ -43,8 +43,7 @@ class SwipeWidget extends StatelessWidget {
                   children: [
                     Text(
                       '$firstName $lastName',
-                      style: const TextStyle(
-                        fontFamily: 'Outfit',
+                      style: GoogleFonts.plusJakartaSans(
                         color: Colors.white,
                         fontSize: 25,
                         fontWeight: FontWeight.w500,
@@ -54,10 +53,8 @@ class SwipeWidget extends StatelessWidget {
                       padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                       child: Text(
                         price?.toString() ?? age.toString(),
-                        style: const TextStyle(
-                            fontFamily: 'Readex Pro',
-                            fontSize: 22,
-                            color: Colors.white),
+                        style: GoogleFonts.plusJakartaSans(
+                            fontSize: 22, color: Colors.white),
                       ),
                     ),
                   ]),

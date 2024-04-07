@@ -16,7 +16,7 @@ class SwipeWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: Image.network(houseProfile.imageURL1).image,
+              image: Image.asset("casa.jpg").image,
             ),
           ),
           child: Container(

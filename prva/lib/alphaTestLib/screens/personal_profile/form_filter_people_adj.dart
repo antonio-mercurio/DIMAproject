@@ -520,10 +520,10 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                         value: sliderValue,
                                         label: sliderValue.toString(),
                                         onChanged: (newValue) {
-                                          newValue = double.parse(
+                                          /*newValue = double.parse(
                                               newValue.toStringAsFixed(4));
                                           setState(
-                                              () => sliderValue = newValue);
+                                              () => sliderValue = newValue);*/
                                         },
                                       ),
                                     ),
@@ -571,14 +571,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                           checkboxListTileValue3 ||
                                           checkboxListTileValue4 ||
                                           checkboxListTileValue5) {
-                                        updateFilters(
-                                            city ?? "",
-                                            checkboxListTileValue1,
-                                            checkboxListTileValue2,
-                                            checkboxListTileValue3,
-                                            checkboxListTileValue4,
-                                            checkboxListTileValue5,
-                                            sliderValue);
+                                        updateFilters();
                                       } else {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
@@ -590,10 +583,10 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                           ),
                                         );
                                         return;
-                                      }
+                                      } /*
                                       if (mounted) {
                                         Navigator.pop(context);
-                                      }
+                                      }*/
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(
@@ -691,19 +684,21 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
   }
 
   void updateFilters(
+      /*
       String city,
       bool checkboxListTileValue1,
       bool checkboxListTileValue2,
       bool checkboxListTileValue3,
       bool checkboxListTileValue4,
       bool checkboxListTileValue5,
-      double sliderValue) {
-    oldFilters.city = city;
+      double sliderValue*/
+      ) {
+    /*oldFilters.city = city;
     oldFilters.apartment = checkboxListTileValue1;
     oldFilters.singleRoom = checkboxListTileValue2;
     oldFilters.doubleRoom = checkboxListTileValue3;
     oldFilters.studioApartment = checkboxListTileValue4;
     oldFilters.twoRoomsApartment = checkboxListTileValue5;
-    oldFilters.budget = sliderValue;
+    oldFilters.budget = sliderValue;*/
   }
 }

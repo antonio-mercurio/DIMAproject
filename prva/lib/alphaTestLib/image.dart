@@ -14,7 +14,7 @@ class ImagesTile extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
             child: Icon(Icons.abc),
-          )
+          ),
         ],
       ),
     );

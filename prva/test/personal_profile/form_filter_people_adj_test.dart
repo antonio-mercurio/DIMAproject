@@ -101,9 +101,6 @@ void main() {
     await tester.pump();
 
     expect(find.text('Please, enter at least one type!'), findsOneWidget);
-    /*expect(type0Finder, findsOneWidget);
-    expect(
-        type0Finder)*/
   });
 
   testWidgets("Update filters", (tester) async {

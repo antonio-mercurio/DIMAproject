@@ -1,62 +1,143 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:prva/screens/house_profile/info_house_profile.dart';
+import 'package:prva/alphaTestLib/info_house_profile.dart';
+import 'package:prva/alphaTestLib/screens/shared/swipe_between_images.dart';
 import 'package:prva/models/filters.dart';
 import 'package:prva/models/houseProfile.dart';
 import 'package:prva/models/personalProfile.dart';
 import 'package:prva/models/preference.dart';
 import 'package:prva/screens/shared/dialog.dart';
-import 'package:prva/screens/shared/swipe_between_images.dart';
-import 'package:prva/services/database.dart';
-import 'package:prva/services/databaseForFilters.dart';
-import 'package:prva/services/match/match_service.dart';
 import 'package:prva/screens/shared/constant.dart';
 import 'package:prva/screens/shared/empty.dart';
 
 class AllHousesList extends StatefulWidget {
+  final bool tablet;
   final PersonalProfileAdj myProfile;
-  const AllHousesList({super.key, required this.myProfile});
+  const AllHousesList(
+      {super.key, required this.myProfile, required this.tablet});
 
   @override
   State<AllHousesList> createState() =>
-      _AllHousesListState(myProfile: myProfile);
+      _AllHousesListState(myProfile: myProfile, tablet: tablet);
 }
 
 class _AllHousesListState extends State<AllHousesList> {
-  List<String>? alreadySeenHouses;
+  final bool tablet;
+  List<String> alreadySeenHouses = [];
   List<HouseProfileAdj>? houses;
-  List<PreferenceForMatch>? preferencesOther;
   final PersonalProfileAdj myProfile;
-  FiltersHouseAdj? filtri;
+  FiltersHouseAdj filtri = FiltersHouseAdj(
+      userID: "userID",
+      city: "any",
+      apartment: true,
+      studioApartment: true,
+      singleRoom: true,
+      doubleRoom: true,
+      twoRoomsApartment: true,
+      budget: 4000.0);
   int? myNotifies;
-  _AllHousesListState({required this.myProfile});
+  _AllHousesListState({required this.myProfile, required this.tablet});
+  HouseProfileAdj test1 = HouseProfileAdj(
+      owner: "owner1",
+      idHouse: "idHouse1",
+      type: "Single Room",
+      address: "via test",
+      city: "Milan",
+      description: "description",
+      price: 500.0,
+      floorNumber: 3,
+      numBath: 2,
+      numPlp: 2,
+      startYear: 2023,
+      endYear: 2025,
+      startMonth: 01,
+      endMonth: 01,
+      startDay: 01,
+      endDay: 1,
+      latitude: 43.0,
+      longitude: 22.0,
+      imageURL1: "",
+      imageURL2: "'",
+      imageURL3: "",
+      imageURL4: "",
+      numberNotifies: 1);
+  HouseProfileAdj test2 = HouseProfileAdj(
+      owner: "owner2",
+      idHouse: "idHouse2",
+      type: "Double Room",
+      address: "via test2",
+      city: "Rome",
+      description: "description",
+      price: 500.0,
+      floorNumber: 3,
+      numBath: 2,
+      numPlp: 2,
+      startYear: 2023,
+      endYear: 2025,
+      startMonth: 01,
+      endMonth: 01,
+      startDay: 01,
+      endDay: 1,
+      latitude: 43.0,
+      longitude: 22.0,
+      imageURL1: "",
+      imageURL2: "'",
+      imageURL3: "",
+      imageURL4: "",
+      numberNotifies: 0);
+  List<HouseProfileAdj> allHouses = [
+    HouseProfileAdj(
+        owner: "owner1",
+        idHouse: "idHouse1",
+        type: "Single Room",
+        address: "via test",
+        city: "Milan",
+        description: "description",
+        price: 500.0,
+        floorNumber: 3,
+        numBath: 2,
+        numPlp: 2,
+        startYear: 2023,
+        endYear: 2025,
+        startMonth: 01,
+        endMonth: 01,
+        startDay: 01,
+        endDay: 1,
+        latitude: 43.0,
+        longitude: 22.0,
+        imageURL1: "",
+        imageURL2: "'",
+        imageURL3: "",
+        imageURL4: "",
+        numberNotifies: 1),
+    HouseProfileAdj(
+        owner: "owner2",
+        idHouse: "idHouse2",
+        type: "Double Room",
+        address: "via test2",
+        city: "Rome",
+        description: "description",
+        price: 500.0,
+        floorNumber: 3,
+        numBath: 2,
+        numPlp: 2,
+        startYear: 2023,
+        endYear: 2025,
+        startMonth: 01,
+        endMonth: 01,
+        startDay: 01,
+        endDay: 1,
+        latitude: 43.0,
+        longitude: 22.0,
+        imageURL1: "",
+        imageURL2: "'",
+        imageURL3: "",
+        imageURL4: "",
+        numberNotifies: 0)
+  ];
 
   @override
   Widget build(BuildContext context) {
-    final allHouses = Provider.of<List<HouseProfileAdj>>(context);
-    final houses = List.from(allHouses);
-
-    try {
-      final retrievedFilters =
-          DatabaseServiceFilters(myProfile.uidA).getFiltersAdj;
-      retrievedFilters.listen((content) {
-        filtri = content;
-      });
-    } catch (e) {
-      print('exception thrown by filters');
-    }
-    try {
-      final retrievedAlreadySeenHouses =
-          DatabaseService(myProfile.uidA).getAlreadySeenProfile;
-      retrievedAlreadySeenHouses.listen((content) {
-        alreadySeenHouses = content;
-        if (mounted) {
-          setState(() {});
-        }
-      });
-    } catch (e) {
-      print('exception thrown by already seen houses');
-    }
+    List<HouseProfileAdj> houses = List.from(allHouses);
 
     if (alreadySeenHouses != null) {
       houses.removeWhere(
@@ -87,68 +168,43 @@ class _AllHousesListState extends State<AllHousesList> {
     }
 
     if (houses.isEmpty) {
-      return const EmptyProfile(textToShow: 'You have already seen all profiles!', shapeOfIcon: Icons.check_rounded,);
+      return const EmptyProfile(
+        textToShow: 'You have already seen all profiles!',
+        shapeOfIcon: Icons.check_rounded,
+      );
     } else {
-      final myUser = Provider.of<PersonalProfileAdj>(context);
-      final retrievedPreferences =
-          MatchService(uid: houses[0].idHouse).getPreferencesForMatch;
-      retrievedPreferences.listen((content) {
-        preferencesOther = content;
-      });
+      final myUser = PersonalProfileAdj(
+          day: 01,
+          month: 01,
+          year: 2000,
+          uidA: "testUser",
+          nameA: "name",
+          surnameA: "surname",
+          description: "description",
+          gender: "male",
+          employment: "student",
+          imageURL1: "",
+          imageURL2: "",
+          imageURL3: "",
+          imageURL4: "");
 
-      final retrievedNotifies = MatchService(uid: myUser.uidA).getNotification;
-      retrievedNotifies.listen((content) {
-        myNotifies = content;
-      });
+      myNotifies = 1;
 
-      return MediaQuery.of(context).size.width < widthSize
+      return !tablet
           ? Column(children: <Widget>[
-              SwipeWidget(firstName: houses[0].type, image : houses[0].imageURL1, lastName: houses[0].city, price: houses[0].price, ),
+              SwipeWidget(
+                key: Key("swiper"),
+                firstName: houses[0].type,
+                image: houses[0].imageURL1,
+                lastName: houses[0].city,
+                price: houses[0].price,
+              ),
               SizedBox(height: MediaQuery.sizeOf(context).height * 0.012),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   ElevatedButton(
-                      style: ButtonStyle(
-                        shape: MaterialStateProperty.all(const CircleBorder()),
-                        padding: MaterialStateProperty.all(EdgeInsets.all(
-                            MediaQuery.sizeOf(context).height * 0.02)),
-                        backgroundColor: MaterialStateProperty.all(
-                            mainColor), 
-                        overlayColor:
-                            MaterialStateProperty.resolveWith<Color?>((states) {
-                          if (states.contains(MaterialState.pressed)) {
-                            return errorColor;
-                          }
-                          return null;
-                        }),
-                      ),
-                      onPressed: () async {
-                        /* Put like */
-                        String hID = houses[0].idHouse;
-                        int hNotifies = houses[0].numberNotifies;
-                        await MatchService()
-                            .putPrefence(myUser.uidA, hID, "like");
-                        try {
-                          final ok = await MatchService().checkMatch(
-                              myUser.uidA,
-                              hID,
-                              preferencesOther,
-                              false,
-                              hNotifies,
-                              myNotifies);
-                          if (ok) {
-                            if (mounted) {
-                              await showMyDialog(context);
-                            }
-                          }
-                        } catch (e) {
-                          //catch code block
-                        }
-                      },
-                      child: const Icon(Icons.favorite_rounded)),
-                  SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
-                  ElevatedButton(
+                      key: Key("likeButton"),
                       style: ButtonStyle(
                         shape: MaterialStateProperty.all(const CircleBorder()),
                         padding: MaterialStateProperty.all(EdgeInsets.all(
@@ -163,98 +219,84 @@ class _AllHousesListState extends State<AllHousesList> {
                         }),
                       ),
                       onPressed: () async {
-                        await MatchService().putPrefence(
-                            myUser.uidA, houses[0].idHouse, "dislike");
+                        /* Put like */
+                        String hID = houses[0].idHouse;
+                        int hNotifies = houses[0].numberNotifies;
+                        putPrefence(myUser.uidA, hID, "like");
+                        var ok = checkMatch(myUser.uidA, hID, null, false,
+                            hNotifies, myNotifies);
+                        if (ok) {
+                          if (mounted) {
+                            await showMyDialog(context);
+                          }
+                        }
                       },
-                      child: const Icon(Icons.close_rounded)),
+                      child: const Icon(Icons.favorite_rounded)),
                   SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
                   ElevatedButton(
+                      key: Key("dislikeButton"),
                       style: ButtonStyle(
                         shape: MaterialStateProperty.all(const CircleBorder()),
                         padding: MaterialStateProperty.all(EdgeInsets.all(
                             MediaQuery.sizeOf(context).height * 0.02)),
-                        backgroundColor: MaterialStateProperty.all(
-                            mainColor), 
+                        backgroundColor: MaterialStateProperty.all(mainColor),
                         overlayColor:
                             MaterialStateProperty.resolveWith<Color?>((states) {
                           if (states.contains(MaterialState.pressed)) {
                             return errorColor;
                           }
-                          return null; 
+                          return null;
+                        }),
+                      ),
+                      onPressed: () async {
+                        putPrefence(myUser.uidA, houses[0].idHouse, "dislike");
+                      },
+                      child: const Icon(Icons.close_rounded)),
+                  SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
+                  ElevatedButton(
+                      key: Key('infoButton'),
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(const CircleBorder()),
+                        padding: MaterialStateProperty.all(EdgeInsets.all(
+                            MediaQuery.sizeOf(context).height * 0.02)),
+                        backgroundColor: MaterialStateProperty.all(mainColor),
+                        overlayColor:
+                            MaterialStateProperty.resolveWith<Color?>((states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            return errorColor;
+                          }
+                          return null;
                         }),
                       ),
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ViewProfile(houseProfile: houses[0])),
-                        );
+                        Navigator.pushNamed(context, '/viewprofile');
                       },
                       child: const Icon(Icons.info_rounded))
                 ],
               ),
             ])
           : SingleChildScrollView(
-          child: Row(
+              child: Row(
               children: <Widget>[
                 Expanded(
                   child: SizedBox(
                       width: MediaQuery.sizeOf(context).width * 0.49,
-                      height: MediaQuery.sizeOf(context).height*0.9,
+                      height: MediaQuery.sizeOf(context).height * 0.9,
                       child: Column(children: <Widget>[
-                       SwipeWidget(firstName: houses[0].type, image : houses[0].imageURL1, lastName: houses[0].city, price: houses[0].price, ),
+                        SwipeWidget(
+                          key: Key("swiper"),
+                          firstName: houses[0].type,
+                          image: houses[0].imageURL1,
+                          lastName: houses[0].city,
+                          price: houses[0].price,
+                        ),
                         SizedBox(
                             height: MediaQuery.sizeOf(context).height * 0.012),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             ElevatedButton(
-                                style: ButtonStyle(
-                                  shape: MaterialStateProperty.all(
-                                      const CircleBorder()),
-                                  padding: MaterialStateProperty.all(
-                                      EdgeInsets.all(
-                                          MediaQuery.sizeOf(context).height *
-                                              0.02)),
-                                  backgroundColor: MaterialStateProperty.all(
-                                      mainColor), 
-                                  overlayColor:
-                                      MaterialStateProperty.resolveWith<Color?>(
-                                          (states) {
-                                    if (states.contains(MaterialState.pressed)) {
-                                      return errorColor;
-                                    }
-                                    return null; 
-                                  }),
-                                ),
-                                onPressed: () async {
-                                  /* Put like */
-                                  String hID = houses[0].idHouse;
-                                  int hNotifies = houses[0].numberNotifies;
-                                  await MatchService()
-                                      .putPrefence(myUser.uidA, hID, "like");
-                                  try {
-                                    final ok = await MatchService().checkMatch(
-                                        myUser.uidA,
-                                        hID,
-                                        preferencesOther,
-                                        false,
-                                        hNotifies,
-                                        myNotifies);
-                                    if (ok) {
-                                      if (mounted) {
-                                        await showMyDialog(context);
-                                      }
-                                    }
-                                  } catch (e) {
-                                    //catch code block
-                                  }
-                                },
-                                child: const Icon(Icons.favorite_rounded)),
-                            SizedBox(
-                                width: MediaQuery.sizeOf(context).width * 0.15),
-                            ElevatedButton(
+                                key: Key('likeButton'),
                                 style: ButtonStyle(
                                   shape: MaterialStateProperty.all(
                                       const CircleBorder()),
@@ -267,15 +309,53 @@ class _AllHousesListState extends State<AllHousesList> {
                                   overlayColor:
                                       MaterialStateProperty.resolveWith<Color?>(
                                           (states) {
-                                    if (states.contains(MaterialState.pressed)) {
+                                    if (states
+                                        .contains(MaterialState.pressed)) {
                                       return errorColor;
                                     }
                                     return null;
                                   }),
                                 ),
                                 onPressed: () async {
-                                  await MatchService().putPrefence(myUser.uidA,
-                                      houses[0].idHouse, "dislike");
+                                  /* Put like */
+                                  String hID = houses[0].idHouse;
+                                  int hNotifies = houses[0].numberNotifies;
+                                  putPrefence(myUser.uidA, hID, "like");
+                                  var ok = checkMatch(myUser.uidA, hID, null,
+                                      false, hNotifies, myNotifies);
+                                  if (ok) {
+                                    if (mounted) {
+                                      await showMyDialog(context);
+                                    }
+                                  }
+                                },
+                                child: const Icon(Icons.favorite_rounded)),
+                            SizedBox(
+                                width: MediaQuery.sizeOf(context).width * 0.15),
+                            ElevatedButton(
+                                key: Key('dislikeButton'),
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all(
+                                      const CircleBorder()),
+                                  padding: MaterialStateProperty.all(
+                                      EdgeInsets.all(
+                                          MediaQuery.sizeOf(context).height *
+                                              0.02)),
+                                  backgroundColor:
+                                      MaterialStateProperty.all(mainColor),
+                                  overlayColor:
+                                      MaterialStateProperty.resolveWith<Color?>(
+                                          (states) {
+                                    if (states
+                                        .contains(MaterialState.pressed)) {
+                                      return errorColor;
+                                    }
+                                    return null;
+                                  }),
+                                ),
+                                onPressed: () async {
+                                  putPrefence(myUser.uidA, houses[0].idHouse,
+                                      "dislike");
                                 },
                                 child: const Icon(Icons.close_rounded)),
                           ],
@@ -284,8 +364,9 @@ class _AllHousesListState extends State<AllHousesList> {
                 ),
                 Expanded(
                     child: SizedBox(
+                        key: Key('detailedProfile'),
                         width: MediaQuery.sizeOf(context).width * 0.49,
-                        height: MediaQuery.sizeOf(context).height*0.9,
+                        height: MediaQuery.sizeOf(context).height * 0.9,
                         child:
                             Column(mainAxisSize: MainAxisSize.max, children: [
                           Expanded(
@@ -295,8 +376,24 @@ class _AllHousesListState extends State<AllHousesList> {
                           ))
                         ]))),
               ],
-          )
-    );}
+            ));
+    }
+  }
+
+  void putPrefence(String uidA, String hID, String s) {
+    alreadySeenHouses?.add(hID);
+    allHouses?.remove(hID);
+    houses?.remove(hID);
+  }
+
+  checkMatch(
+      String uidA,
+      String hID,
+      List<PreferenceForMatch>? preferencesOther,
+      bool bool,
+      int hNotifies,
+      int? myNotifies) {
+    return true;
   }
 }
 
@@ -308,6 +405,7 @@ class ViewProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: Key("viewProfile"),
         backgroundColor: Colors.white,
         appBar: AppBar(backgroundColor: mainColor),
         body: Column(mainAxisSize: MainAxisSize.max, children: [
@@ -325,13 +423,14 @@ class AllHousesTiles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
+        key: Key('listTile'),
         padding: const EdgeInsets.only(top: 8.0),
         child: Card(
             margin: const EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
             child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
               ListTile(
                 leading: CircleAvatar(
-                  foregroundImage: Image.network(house.imageURL1).image,
+                  backgroundColor: Colors.black,
                   radius: 25.0,
                 ),
                 title: Text(house.type),
