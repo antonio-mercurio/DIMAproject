@@ -1,15 +1,8 @@
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
-import 'package:prva/models/user.dart';
-import 'package:prva/screens/shared/constant.dart';
-import 'package:prva/services/image_picker/schermiProva.dart';
-import 'package:prva/services/database.dart';
-import 'package:prva/services/databaseForFilters.dart';
-import 'package:prva/services/match/match_service.dart';
-import 'package:prva/screens/shared/loading.dart'; // for date formatting
+import 'package:prva/alphaTestLib/models/user.dart';
+import 'package:prva/alphaTestLib/screens/shared/constant.dart';
 
 class FormPersonalProfileAdj extends StatefulWidget {
   FormPersonalProfileAdj({this.bDay});

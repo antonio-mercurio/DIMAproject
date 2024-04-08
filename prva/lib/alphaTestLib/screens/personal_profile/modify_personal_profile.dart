@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prva/alphaTestLib/models/personalProfile.dart';
-import 'package:prva/models/user.dart';
-import 'package:prva/screens/shared/constant.dart';
-import 'package:prva/screens/shared/loading.dart'; // for date formatting
+import 'package:prva/alphaTestLib/models/user.dart';
+import 'package:prva/alphaTestLib/screens/shared/constant.dart';
+import 'package:prva/alphaTestLib/screens/shared/loading.dart'; // for date formatting
 
 class ModificaPersonalProfile extends StatefulWidget {
   final PersonalProfileAdj personalProfile;

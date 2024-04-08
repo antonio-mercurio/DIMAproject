@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:prva/alphaTestLib/screens/shared/image.dart';
-import 'package:prva/alphaTestLib/models/houseProfile.dart';
-import 'package:prva/alphaTestLib/screens/shared/constant.dart';
+import 'package:prva/models/houseProfile.dart';
+import 'package:prva/screens/shared/constant.dart';
+import 'package:prva/screens/shared/image.dart';
 import 'package:prva/services/map/maps.dart';
 
 const LatLng cLoc = LatLng(45.48319179000315, 9.224778407607825);
@@ -62,7 +62,7 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
           padding: const EdgeInsetsDirectional.fromSTEB(10, 12, 0, 0),
           child: Container(
             width: double.infinity,
-            height: MediaQuery.sizeOf(context).height * 0.4,
+            height: MediaQuery.sizeOf(context).height*0.4,
             decoration: const BoxDecoration(
               color: Color(0xFFF1F4F8),
             ),
@@ -93,9 +93,8 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
           child: Text(
             houseProfile.address,
             style: GoogleFonts.plusJakartaSans(
-              fontSize: size16(context),
-              color: Colors.black,
-            ),
+                fontSize: size16(context),
+                color: Colors.black,),
           ),
         ),
         Padding(
@@ -104,9 +103,8 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
             houseProfile.description,
             maxLines: 100,
             style: GoogleFonts.plusJakartaSans(
-              fontSize: size16(context),
-              color: Colors.black,
-            ),
+                fontSize: size16(context),
+                color: Colors.black,),
           ),
         ),
         const Divider(
@@ -114,44 +112,42 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
           thickness: 1,
           color: Colors.grey,
         ),
-        Align(
-          alignment: const AlignmentDirectional(0, 0),
-          child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 16),
-            child: ElevatedButton(
-              onPressed: () {
-                LatLng houseLocation =
-                    LatLng(houseProfile.latitude, houseProfile.longitude);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          MapSample2(location: houseLocation)),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size(230, 52),
-                backgroundColor: mainColor,
-                elevation: 3.0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40),
-                ),
-                side: const BorderSide(
-                  color: Colors.transparent,
-                  width: 1,
-                ),
-              ),
-              child: Text(
-                'Go to the map!',
-                style: GoogleFonts.plusJakartaSans(
-                  color: backgroundColor,
-                  fontSize: size16(context),
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ),
-        ),
+       Align(
+                                alignment: const AlignmentDirectional(0, 0),
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0, 16, 0, 16),
+                                      child:ElevatedButton(
+            onPressed: () {
+              LatLng houseLocation =
+                  LatLng(houseProfile.latitude, houseProfile.longitude);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MapSample2(location: houseLocation)),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+                                      fixedSize: const Size(230, 52),
+                                      backgroundColor:mainColor,
+                                       elevation: 3.0,
+                                       shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                       ),
+                                       side: const BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1,
+                                      ),
+                                    ),
+                                    child : Text('Go to the map!',
+                                    style: GoogleFonts.plusJakartaSans(
+                                            color: backgroundColor,
+                                            fontSize: size16(context),
+                                            fontWeight: FontWeight.w500,
+                                    ),
+                                    ),
+                                    ),
+                                ),),
         const Divider(
           height: 36,
           thickness: 1,
@@ -163,20 +159,20 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+               Text(
                 'Floor Number:',
                 style: GoogleFonts.plusJakartaSans(
-                  fontSize: size16(context),
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
+                    fontSize: size16(context),
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    ),
               ),
               Text(
                 houseProfile.floorNumber.toString(),
                 style: GoogleFonts.plusJakartaSans(
-                  fontSize: size16(context),
-                  color: Colors.black,
-                ),
+                    fontSize:size16(context),
+                    color: Colors.black,
+                    ),
               ),
             ],
           ),
@@ -187,20 +183,20 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+               Text(
                 'Number of bathrooms:',
                 style: GoogleFonts.plusJakartaSans(
-                  fontSize: size16(context),
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
+                    fontSize: size16(context),
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    ),
               ),
               Text(
                 houseProfile.numBath.toString(),
                 style: GoogleFonts.plusJakartaSans(
-                  fontSize: size16(context),
-                  color: Colors.black,
-                ),
+                    fontSize: size16(context),
+                    color: Colors.black,
+                    ),
               ),
             ],
           ),
@@ -211,20 +207,20 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+               Text(
                 'Max number of people in the house:',
                 style: GoogleFonts.plusJakartaSans(
-                  fontSize: size16(context),
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
+                    fontSize: size16(context),
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    ),
               ),
               Text(
                 houseProfile.numPlp.toString(),
                 style: GoogleFonts.plusJakartaSans(
-                  fontSize: size16(context),
-                  color: Colors.black,
-                ),
+                    fontSize: size16(context),
+                    color: Colors.black,
+                   ),
               ),
             ],
           ),
@@ -235,20 +231,20 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+               Text(
                 'Start of the rent:',
                 style: GoogleFonts.plusJakartaSans(
-                  fontSize: size16(context),
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
+                    fontSize: size16(context),
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                   ),
               ),
               Text(
                 '${houseProfile.startDay}/${houseProfile.startMonth}/${houseProfile.startYear}',
                 style: GoogleFonts.plusJakartaSans(
-                  fontSize: size16(context),
-                  color: Colors.black,
-                ),
+                    fontSize: size16(context),
+                    color: Colors.black,
+                   ),
               ),
             ],
           ),
@@ -259,20 +255,20 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+               Text(
                 'End of the rent:',
                 style: GoogleFonts.plusJakartaSans(
-                  fontSize: size16(context),
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
+                    fontSize: size16(context),
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    ),
               ),
               Text(
                 '${houseProfile.endDay}/${houseProfile.endMonth}/${houseProfile.endYear}',
                 style: GoogleFonts.plusJakartaSans(
-                  fontSize: size16(context),
-                  color: Colors.black,
-                ),
+                    fontSize: size16(context),
+                    color: Colors.black,
+                    ),
               ),
             ],
           ),
@@ -288,20 +284,20 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+               Text(
                 'Price:',
                 style: GoogleFonts.plusJakartaSans(
-                  fontSize: size20(context),
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
+                    fontSize: size20(context),
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    ),
               ),
               Text(
                 houseProfile.price.toString(),
                 style: GoogleFonts.plusJakartaSans(
-                  fontSize: size20(context),
-                  color: Colors.black,
-                ),
+                    fontSize: size20(context),
+                    color: Colors.black,
+                    ),
               ),
             ],
           ),
@@ -310,3 +306,5 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
     );
   }
 }
+
+

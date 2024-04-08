@@ -1,4 +1,4 @@
-import 'dart:async';
+/*import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:geocoding_resolver/geocoding_resolver.dart';
@@ -142,3 +142,4 @@ class _MapSample2State extends State<MapSample2> {
     setState(() {});
   }
 }
+*/

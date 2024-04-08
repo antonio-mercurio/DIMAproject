@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:prva/alphaTestLib/info_house_profile.dart';
 import 'package:prva/alphaTestLib/screens/shared/swipe_between_images.dart';
-import 'package:prva/models/filters.dart';
-import 'package:prva/models/houseProfile.dart';
-import 'package:prva/models/personalProfile.dart';
-import 'package:prva/models/preference.dart';
-import 'package:prva/screens/shared/dialog.dart';
-import 'package:prva/screens/shared/constant.dart';
-import 'package:prva/screens/shared/empty.dart';
+import 'package:prva/alphaTestLib/models/filters.dart';
+import 'package:prva/alphaTestLib/models/houseProfile.dart';
+import 'package:prva/alphaTestLib/models/personalProfile.dart';
+import 'package:prva/alphaTestLib/models/preference.dart';
+import 'package:prva/alphaTestLib/screens/shared/dialog.dart';
+import 'package:prva/alphaTestLib/screens/shared/constant.dart';
+import 'package:prva/alphaTestLib/screens/shared/empty.dart';
 
 class AllHousesList extends StatefulWidget {
   final bool tablet;

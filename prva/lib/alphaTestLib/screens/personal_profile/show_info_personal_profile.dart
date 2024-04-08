@@ -2,19 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prva/alphaTestLib/models/personalProfile.dart';
 import 'package:prva/alphaTestLib/screens/shared/constant.dart';
+
 import 'package:prva/alphaTestLib/screens/shared/image.dart';
 
-class DetailedPersonalProfile extends StatefulWidget {
-  const DetailedPersonalProfile({super.key});
+class ShowDetailedPersonalProfile extends StatefulWidget {
+  final PersonalProfileAdj personalProfile;
+
+  const ShowDetailedPersonalProfile({super.key, required this.personalProfile});
 
   @override
-  State<DetailedPersonalProfile> createState() =>
-      _DetailedPersonalProfileState();
+  State<ShowDetailedPersonalProfile> createState() =>
+      _ShowDetailedPersonalProfileState(personalProfile: personalProfile);
 }
 
-class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
+class _ShowDetailedPersonalProfileState
+    extends State<ShowDetailedPersonalProfile> {
+  final PersonalProfileAdj personalProfile;
   List<String> images = [];
   bool flag = true;
+
+  _ShowDetailedPersonalProfileState({required this.personalProfile});
 
   void getImages(String im1, String im2, String im3, String im4) {
     if (im1 != "" && flag) {
@@ -35,27 +42,12 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
   int _calculationAge(int year, int month, int day) {
     return /*(DateTime.now().difference(DateTime.utc(year, month, day)).inDays /
             365)
-        .round();
-  */
-        24;
+        .round()*/
+        20;
   }
 
   @override
   Widget build(BuildContext context) {
-    final personalProfile = PersonalProfileAdj(
-        day: 01,
-        month: 01,
-        year: 1970,
-        uidA: "userTest",
-        nameA: "Testname",
-        surnameA: "Testsurname",
-        description: "descTest",
-        gender: "male",
-        employment: "student",
-        imageURL1: "t",
-        imageURL2: "e",
-        imageURL3: "s",
-        imageURL4: "t");
     getImages(personalProfile.imageURL1, personalProfile.imageURL2,
         personalProfile.imageURL3, personalProfile.imageURL4);
     return Column(
@@ -66,7 +58,7 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
           padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
           child: Text(
               key: Key('name&surname'),
-              '${personalProfile.nameA} ${personalProfile.surnameA}',
+              "${personalProfile.nameA} ${personalProfile.surnameA}",
               style: GoogleFonts.plusJakartaSans(
                 fontSize: size24(context),
                 color: Colors.black,
@@ -74,7 +66,7 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
               )),
         ),
         Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(10, 12, 0, 12),
+          padding: const EdgeInsetsDirectional.fromSTEB(10, 12, 0, 0),
           child: Container(
             width: double.infinity,
             height: MediaQuery.sizeOf(context).height * 0.4,
@@ -172,6 +164,7 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
             ],
           ),
         ),
+        const SizedBox(height: 200),
       ],
     );
   }

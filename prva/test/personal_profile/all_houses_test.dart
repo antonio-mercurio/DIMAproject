@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:prva/alphaTestLib/screens/personal_profile/all_houses.dart';
-import 'package:prva/models/houseProfile.dart';
-import 'package:prva/models/personalProfile.dart';
+import 'package:prva/alphaTestLib/models/houseProfile.dart';
+import 'package:prva/alphaTestLib/models/personalProfile.dart';
 
 HouseProfileAdj testHouse = HouseProfileAdj(
     owner: "owner1",

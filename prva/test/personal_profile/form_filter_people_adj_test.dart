@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:prva/alphaTestLib/screens/personal_profile/form_filter_people_adj.dart';
-import 'package:prva/models/personalProfile.dart';
+import 'package:prva/alphaTestLib/models/personalProfile.dart';
 
 MaterialApp app = MaterialApp(
   title: 'test',

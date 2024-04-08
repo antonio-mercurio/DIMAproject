@@ -16,17 +16,17 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => {},
+      //onTap: () => {},
       child: Scaffold(
-        key: const ValueKey("logout"),
         backgroundColor: Colors.black,
         appBar: AppBar(
           actions: <Widget>[
             TextButton.icon(
+              key: Key("logout"),
               icon: Icon(Icons.person),
               label: Text('logout'),
               onPressed: () async {
-                await _auth.signOut();
+                //await _auth.signOut();
               },
             ),
           ],
@@ -56,12 +56,12 @@ class _HomepageState extends State<Homepage> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      Navigator.push(
+                      /*Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
                                 const WrapperCreationProfile()),
-                      );
+                      );*/
                     },
                     child: Container(
                       key: Key('personalButton'),
@@ -100,11 +100,12 @@ class _HomepageState extends State<Homepage> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
+                      /*
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => ShowHomeProfile()),
-                      );
+                      );*/
                     },
                     child: Container(
                       decoration: BoxDecoration(

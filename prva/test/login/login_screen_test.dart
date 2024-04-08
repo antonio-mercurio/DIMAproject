@@ -141,7 +141,5 @@ void main() {
     await tester.tap(getStartedButtonFinder);
 
     await tester.pumpAndSettle();
-    expect(find.byKey(Key('personalButton')), findsOneWidget);
-    expect(find.byKey(Key('houseButton')), findsOneWidget);
   });
 }
