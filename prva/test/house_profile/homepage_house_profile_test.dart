@@ -307,7 +307,8 @@ void main() {
     await tester.tap(find.byKey(profile));
     await tester.pumpAndSettle();
     expect(find.byKey(body), findsNothing);
-    expect(find.byKey(Key('modifyButton')), findsOneWidget);
+    await tester.dragUntilVisible(find.byKey(Key('modifyButton')),
+        find.byKey(Key('scrollable')), Offset(-250, 0));
     await tester.tap(find.byKey(Key('modifyButton')));
     await tester.pumpAndSettle();
   });

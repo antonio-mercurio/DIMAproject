@@ -245,52 +245,55 @@ class _ProfileLayoutState extends State<ProfileLayout> {
       body: Column(mainAxisSize: MainAxisSize.max, children: [
         Expanded(
             child: SingleChildScrollView(
+                key: Key('scrollable'),
                 child: Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const DetailedHouseProfile(key: Key('detailedProfile')),
-            const SizedBox(
-              height: 20,
-            ),
-            Align(
-              alignment: const AlignmentDirectional(0, 0),
-              child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
-                child: ElevatedButton(
-                  key: Key('modifyButton'),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                ModifyHouseProfile(house: house)));
-                  },
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(230, 52),
-                    backgroundColor: mainColor,
-                    elevation: 3.0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40),
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const DetailedHouseProfile(key: Key('detailedProfile')),
+                    const SizedBox(
+                      height: 20,
                     ),
-                    side: const BorderSide(
-                      color: Colors.transparent,
-                      width: 1,
-                    ),
-                  ),
-                  child: Text(
-                    'Modify your profile!',
-                    style: GoogleFonts.plusJakartaSans(
-                      color: backgroundColor,
-                      fontSize: MediaQuery.sizeOf(context).height * 0.024,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ),
-            )
-          ],
-        )))
+                    Align(
+                      alignment: const AlignmentDirectional(0, 0),
+                      child: Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
+                        child: ElevatedButton(
+                          key: Key('modifyButton'),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ModifyHouseProfile(house: house)));
+                          },
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: const Size(230, 52),
+                            backgroundColor: mainColor,
+                            elevation: 3.0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            side: const BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
+                            ),
+                          ),
+                          child: Text(
+                            'Modify your profile!',
+                            style: GoogleFonts.plusJakartaSans(
+                              color: backgroundColor,
+                              fontSize:
+                                  MediaQuery.sizeOf(context).height * 0.024,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                )))
       ]),
     );
   }
