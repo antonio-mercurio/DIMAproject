@@ -36,7 +36,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
       gender: 'not relevant',
       employment: 'not relevant');
   _AllProfilesListState({required this.house, required this.tablet});
-  List<PreferenceForMatch>? preferencesOther;
+  //List<PreferenceForMatch>? preferencesOther;
   List<PersonalProfileAdj> allProfiles = [
     PersonalProfileAdj(
         day: 3,
@@ -168,7 +168,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
                           var ok = checkMatch(
                               myHouse.idHouse,
                               persID,
-                              preferencesOther,
+                              /*preferencesOther,*/
                               true,
                               myHouse.numberNotifies,
                               notifiesOther);
@@ -284,7 +284,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
                                   var ok = checkMatch(
                                       myHouse.idHouse,
                                       persID,
-                                      preferencesOther,
+                                      /*preferencesOther,*/
                                       true,
                                       myHouse.numberNotifies,
                                       notifiesOther);
@@ -364,7 +364,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
   checkMatch(
       String uidA,
       String hID,
-      List<PreferenceForMatch>? preferencesOther,
+//      List<PreferenceForMatch>? preferencesOther,
       bool bool,
       int hNotifies,
       int? myNotifies) {

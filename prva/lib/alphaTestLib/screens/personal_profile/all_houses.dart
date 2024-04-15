@@ -224,8 +224,8 @@ class _AllHousesListState extends State<AllHousesList> {
                         String hID = houses[0].idHouse;
                         int hNotifies = houses[0].numberNotifies;
                         putPrefence(myUser.uidA, hID, "like");
-                        var ok = checkMatch(myUser.uidA, hID, null, false,
-                            hNotifies, myNotifies);
+                        var ok = checkMatch(
+                            myUser.uidA, hID, false, hNotifies, myNotifies);
                         if (ok) {
                           if (mounted) {
                             await showMyDialog(context);
@@ -322,8 +322,8 @@ class _AllHousesListState extends State<AllHousesList> {
                                   String hID = houses[0].idHouse;
                                   int hNotifies = houses[0].numberNotifies;
                                   putPrefence(myUser.uidA, hID, "like");
-                                  var ok = checkMatch(myUser.uidA, hID, null,
-                                      false, hNotifies, myNotifies);
+                                  var ok = checkMatch(myUser.uidA, hID, false,
+                                      hNotifies, myNotifies);
                                   if (ok) {
                                     if (mounted) {
                                       await showMyDialog(context);
@@ -390,7 +390,7 @@ class _AllHousesListState extends State<AllHousesList> {
   checkMatch(
       String uidA,
       String hID,
-      List<PreferenceForMatch>? preferencesOther,
+      //List<PreferenceForMatch>? preferencesOther,
       bool bool,
       int hNotifies,
       int? myNotifies) {

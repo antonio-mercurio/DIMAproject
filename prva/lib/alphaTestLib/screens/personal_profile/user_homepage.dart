@@ -14,7 +14,6 @@ import 'package:prva/alphaTestLib/screens/personal_profile/show_details_personal
 import 'package:prva/alphaTestLib/screens/shared/constant.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:prva/alphaTestLib/screens/shared/empty.dart';
-import 'package:prva/services/chat/chat_service.dart';
 
 class UserHomepage extends StatefulWidget {
   final bool tablet;

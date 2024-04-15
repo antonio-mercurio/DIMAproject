@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -313,5 +313,16 @@ class _DetailedHouseProfileState extends State<DetailedHouseProfile> {
         ),
       ],
     );
+  }
+}*/
+
+import 'package:flutter/material.dart';
+
+class DetailedHouseProfile extends StatelessWidget {
+  final key;
+  const DetailedHouseProfile({required this.key});
+  @override
+  Widget build(BuildContext context) {
+    return Placeholder();
   }
 }

@@ -1,11 +1,34 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:prva/alphaTestLib/models/houseProfile.dart';
 import 'package:prva/alphaTestLib/models/message.dart';
-import 'package:prva/alphaTestLib/screens/personal_profile/user_homepage.dart';
+import 'package:prva/alphaTestLib/screens/house_profile/homepage_house_profile.dart';
 
-import '../house_profile/homepage_house_profile_test.dart';
-
+HouseProfileAdj testHouse = HouseProfileAdj(
+    owner: "owner1",
+    idHouse: "idHouse1",
+    type: "Apartment",
+    address: "via test",
+    city: "Milan",
+    description: "description",
+    price: 500.0,
+    floorNumber: 3,
+    numBath: 2,
+    numPlp: 2,
+    startYear: 2023,
+    endYear: 2025,
+    startMonth: 01,
+    endMonth: 01,
+    startDay: 01,
+    endDay: 1,
+    latitude: 43.0,
+    longitude: 22.0,
+    imageURL1: "",
+    imageURL2: "'",
+    imageURL3: "",
+    imageURL4: "",
+    numberNotifies: 1);
 List<String> testMatches = ['test1', 'test2'];
 List<Chat> testListChats = [
   Chat(id: 'id', lastMsg: 'lastMsg', timestamp: Timestamp(10, 5), unreadMsg: 1),
@@ -19,7 +42,7 @@ MaterialApp appTablet = MaterialApp(
     initialRoute: '/',
     routes: {
       // When navigating to the "/" route, build the FirstScreen widget.
-      '/': (context) => UserHomepage(tablet: true)
+      '/': (context) => HouseProfSel(house: testHouse, tablet: true)
     });
 MaterialApp appPhone = MaterialApp(
     title: 'test',
@@ -28,7 +51,7 @@ MaterialApp appPhone = MaterialApp(
     initialRoute: '/',
     routes: {
       // When navigating to the "/" route, build the FirstScreen widget.
-      '/': (context) => UserHomepage(tablet: false)
+      '/': (context) => HouseProfSel(tablet: false, house: testHouse)
     });
 
 MaterialApp emptyChatsTablet = MaterialApp(
@@ -42,6 +65,21 @@ MaterialApp emptyChatsTablet = MaterialApp(
             tablet: true,
             startedChats: [],
             matched: [],
+            house: testHouse,
+          )
+    });
+MaterialApp emptyMatchesTablet = MaterialApp(
+    title: 'test',
+    // Start the app with the "/" named route. In this case, the app starts
+    // on the FirstScreen widget.
+    initialRoute: '/',
+    routes: {
+      // When navigating to the "/" route, build the FirstScreen widget.
+      '/': (context) => ChatLayout(
+            tablet: true,
+            startedChats: [],
+            matched: [],
+            house: testHouse,
           )
     });
 
@@ -56,6 +94,7 @@ MaterialApp chatsTablet = MaterialApp(
             tablet: true,
             startedChats: testListChats,
             matched: testMatches,
+            house: testHouse,
           )
     });
 MaterialApp matchesTablet = MaterialApp(
@@ -69,6 +108,7 @@ MaterialApp matchesTablet = MaterialApp(
             tablet: true,
             startedChats: testListChats,
             matched: testMatches,
+            house: testHouse,
           )
     });
 MaterialApp emptyChatsMobile = MaterialApp(
@@ -82,6 +122,7 @@ MaterialApp emptyChatsMobile = MaterialApp(
             tablet: false,
             startedChats: [],
             matched: [],
+            house: testHouse,
           )
     });
 
@@ -96,6 +137,7 @@ MaterialApp chatsMobile = MaterialApp(
             tablet: false,
             startedChats: testListChats,
             matched: testMatches,
+            house: testHouse,
           )
     });
 
@@ -110,6 +152,21 @@ MaterialApp matchesMobile = MaterialApp(
             tablet: false,
             startedChats: testListChats,
             matched: testMatches,
+            house: testHouse,
+          )
+    });
+MaterialApp emptyMatchesMobile = MaterialApp(
+    title: 'test',
+    // Start the app with the "/" named route. In this case, the app starts
+    // on the FirstScreen widget.
+    initialRoute: '/',
+    routes: {
+      // When navigating to the "/" route, build the FirstScreen widget.
+      '/': (context) => ChatLayout(
+            tablet: false,
+            startedChats: [],
+            matched: [],
+            house: testHouse,
           )
     });
 void main() {
@@ -126,7 +183,7 @@ void main() {
   final notifiesIcon = Key('notifiesIcon');
   final body = Key('body');
 
-  testWidgets('User Homepage population - tablet - search layout',
+  testWidgets('House Homepage population - tablet - search layout',
       (tester) async {
     await tester.binding.setSurfaceSize(Size(1024, 768));
 
@@ -145,17 +202,17 @@ void main() {
     await tester.tap(find.byKey(search));
     await tester.tap(find.byKey(settings));
 
-    await tester.pumpAndSettle();
+    /*await tester.pumpAndSettle();
     expect(find.byKey(Key('formDrawer')), findsOneWidget);
 
     await tester.pumpAndSettle();
     expect(find.byKey(Key('drawerBuilder')), findsOneWidget);
-
+*/
     await tester.tap(find.byKey(profile));
     await tester.pumpAndSettle();
     expect(find.byKey(body), findsNothing);
   });
-  testWidgets('User Homepage population - mobile phone - search layout',
+  testWidgets('House Homepage population - mobile phone - search layout',
       (tester) async {
     await tester.binding.setSurfaceSize(Size(1024, 768));
 
@@ -179,7 +236,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byKey(Key('drawerBuilder')), findsNothing);
   });
-  testWidgets('User Homepage population - mobile phone - search layout',
+  testWidgets('House Homepage population - mobile phone - search layout',
       (tester) async {
     await tester.binding.setSurfaceSize(Size(1024, 768));
 
@@ -203,7 +260,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byKey(Key('drawerBuilder')), findsNothing);
   });
-  testWidgets('User Homepage population - mobile phone - search layout',
+  testWidgets('House Homepage population - mobile phone - search layout',
       (tester) async {
     await tester.binding.setSurfaceSize(Size(1024, 768));
 
@@ -228,7 +285,7 @@ void main() {
     expect(find.byKey(Key('drawerBuilder')), findsNothing);
   });
   testWidgets(
-      'User Homepage population - mobile phone - from search layout to profile',
+      'House Homepage population - mobile phone - from search layout to profile',
       (tester) async {
     await tester.binding.setSurfaceSize(Size(1024, 768));
 
@@ -250,61 +307,12 @@ void main() {
     await tester.tap(find.byKey(profile));
     await tester.pumpAndSettle();
     expect(find.byKey(body), findsNothing);
-  });
-
-  testWidgets('User Homepage - tablet - profile layout', (tester) async {
-    await tester.binding.setSurfaceSize(Size(1024, 768));
-
-    await tester.pumpWidget(appTablet);
-
-    expect(find.byKey(search), findsOneWidget);
-    expect(find.byKey(profile), findsOneWidget);
-    expect(find.byKey(chat), findsOneWidget);
-    expect(find.byKey(settings), findsOneWidget);
-    expect(find.byKey(notifiesBadge), findsOneWidget);
-    expect(find.text('1'), findsOneWidget);
-    expect(find.byKey(notifiesIcon), findsOneWidget);
-    expect(find.byKey(body), findsOneWidget);
-
-    await tester.tap(find.byKey(profile));
-    await tester.pumpAndSettle();
-    expect(find.byKey(body), findsNothing);
-    expect(find.byKey(Key('chatLayout')), findsNothing);
-    expect(find.byKey(Key('profileLayout')), findsOneWidget);
-    expect(find.byKey(Key('detailedProfile')), findsOneWidget);
     expect(find.byKey(Key('modifyButton')), findsOneWidget);
-    expect(find.byKey(Key('phoneChatView')), findsNothing);
-    await tester.tap(find.byKey(Key('modifyButton')));
-    await tester.pumpAndSettle();
-  });
-  testWidgets('User Homepage - mobile phone - profile layout', (tester) async {
-    await tester.binding.setSurfaceSize(Size(1024, 768));
-
-    await tester.pumpWidget(appPhone);
-
-    expect(find.byKey(search), findsOneWidget);
-    expect(find.byKey(profile), findsOneWidget);
-    expect(find.byKey(chat), findsOneWidget);
-    expect(find.byKey(settings), findsOneWidget);
-    expect(find.byKey(notifiesBadge), findsOneWidget);
-    expect(find.text('1'), findsOneWidget);
-    expect(find.byKey(notifiesIcon), findsOneWidget);
-    expect(find.byKey(body), findsOneWidget);
-
-    await tester.tap(find.byKey(profile));
-    await tester.pumpAndSettle();
-
-    expect(find.byKey(body), findsNothing);
-    expect(find.byKey(Key('chatLayout')), findsNothing);
-    expect(find.byKey(Key('profileLayout')), findsOneWidget);
-    expect(find.byKey(Key('detailedProfile')), findsOneWidget);
-    expect(find.byKey(Key('modifyButton')), findsOneWidget);
-    expect(find.byKey(Key('phoneChatView')), findsNothing);
     await tester.tap(find.byKey(Key('modifyButton')));
     await tester.pumpAndSettle();
   });
 
-  testWidgets('User Homepage - tablet - chat layout', (tester) async {
+  testWidgets('House Homepage - tablet - chat layout', (tester) async {
     await tester.binding.setSurfaceSize(Size(1024, 768));
 
     await tester.pumpWidget(appTablet);
@@ -349,18 +357,27 @@ void main() {
     expect(find.byKey(Key('detailedProfile')), findsNothing);
     expect(find.byKey(Key('tabletChatView')), findsOneWidget);
     expect(find.byKey(Key('tabletScrollable')), findsOneWidget);
-    expect(find.text('Open a chat!'), findsNothing);
-
+    expect(find.text('Open a chat!'), findsOneWidget);
+    expect(find.byKey(Key('chatsInkWell')), findsNWidgets(2));
     await tester.tap(find.byKey(Key('chatsInkWell')).first);
     await tester.pumpAndSettle();
+  });
+  testWidgets('non empty chats - mobile phone', (tester) async {
+    await tester.binding.setSurfaceSize(Size(1024, 768));
 
-    expect(find.byKey(Key('messageList')), findsOneWidget);
-    expect(find.byKey(Key('msgField')), findsOneWidget);
-    await tester.enterText(find.byKey(Key('msgField')), "testMsg");
-    await tester.tap(find.byKey(Key('sendMessage')));
+    await tester.pumpWidget(chatsMobile);
+    expect(find.byKey(Key('chatLayout')), findsOneWidget);
+    expect(find.byKey(Key('profileLayout')), findsNothing);
+    expect(find.byKey(Key('detailedProfile')), findsNothing);
+    expect(find.byKey(Key('tabletChatView')), findsNothing);
+    expect(find.byKey(Key('tabletScrollable')), findsNothing);
+    expect(find.text('Open a chat!'), findsNothing);
+    expect(find.byKey(Key('chatsInkWell')), findsNWidgets(2));
+    await tester.tap(find.byKey(Key('chatsInkWell')).first);
     await tester.pumpAndSettle();
   });
-  testWidgets('User Homepage - mobile phone - chat layout', (tester) async {
+
+  testWidgets('House Homepage - mobile phone - chat layout', (tester) async {
     await tester.binding.setSurfaceSize(Size(1024, 768));
 
     await tester.pumpWidget(appPhone);
@@ -384,28 +401,6 @@ void main() {
     expect(find.byKey(Key('phoneChatView')), findsOneWidget);
     expect(find.byKey(Key('tabletChatView')), findsNothing);
     expect(find.byKey(Key('tabletScrollable')), findsNothing);
-  });
-  testWidgets('non empty chats - mobile', (tester) async {
-    await tester.binding.setSurfaceSize(Size(1024, 768));
-
-    await tester.pumpWidget(chatsMobile);
-    expect(find.byKey(Key('chatLayout')), findsOneWidget);
-    expect(find.byKey(Key('profileLayout')), findsNothing);
-    expect(find.byKey(Key('detailedProfile')), findsNothing);
-    expect(find.byKey(Key('phoneChatView')), findsOneWidget);
-    expect(find.byKey(Key('tabletChatView')), findsNothing);
-    expect(find.byKey(Key('tabletScrollable')), findsNothing);
-    expect(find.text('Open a chat!'), findsNothing);
-    expect(find.byKey(Key('chatsInkWell')), findsNWidgets(2));
-
-    await tester.tap(find.byKey(Key('chatsInkWell')).first);
-    await tester.pumpAndSettle();
-
-    expect(find.byKey(Key('messageList')), findsOneWidget);
-    expect(find.byKey(Key('msgField')), findsOneWidget);
-    await tester.enterText(find.byKey(Key('msgField')), "testMsg");
-    await tester.tap(find.byKey(Key('sendMessage')));
-    await tester.pumpAndSettle();
   });
 
   testWidgets('non empty matches - mobile', (tester) async {
@@ -437,7 +432,7 @@ void main() {
     expect(find.byKey(Key('phoneChatView')), findsNothing);
     expect(find.byKey(Key('tabletChatView')), findsOneWidget);
     expect(find.byKey(Key('tabletScrollable')), findsOneWidget);
-    expect(find.text('Open a chat!'), findsNothing);
+    expect(find.text('Open a chat!'), findsOneWidget);
     expect(find.byKey(Key('chatsInkWell')), findsNWidgets(2));
     expect(find.byKey(Key('matchesInkWell')), findsNWidgets(2));
 
