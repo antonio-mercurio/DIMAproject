@@ -43,7 +43,7 @@ class _UserHomepageState extends State<UserHomepage> {
   late final List<Widget> _widgetOptions = <Widget>[
     SearchLayout(tablet: tablet),
     ProfileLayout(tablet: tablet),
-    ChatLayout(tablet: tablet, startedChats: startedChats),
+    ChatLayout(tablet: tablet, startedChats: startedChats, matched: []),
   ];
 
   _UserHomepageState({required this.tablet});
@@ -136,12 +136,12 @@ class _SearchLayoutState extends State<SearchLayout> {
               icon: Icon(Icons.settings, color: backgroundColor),
               onPressed: () async {
                 if (!tablet) {
-                  /*Navigator.push(
+                  Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const FormFilterPeopleAdj(),
                     ),
-                  );*/
+                  );
                 } else {
                   setState(() {
                     choice.value = 1;
@@ -175,13 +175,12 @@ class _SearchLayoutState extends State<SearchLayout> {
                   //await MatchService(uid: user.uid).createNotification(0);
                   if (mounted) {
                     if (!tablet) {
-                      /*Navigator.push(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              NotificationPersonLayout(profile: user.uid),
+                          builder: (context) => NotificationPersonLayout(),
                         ),
-                      );*/
+                      );
                     } else {
                       setState(() {
                         choice.value = 2;
@@ -260,14 +259,13 @@ class ProfileLayout extends StatelessWidget {
                   child: ElevatedButton(
                     key: Key('modifyButton'),
                     onPressed: () {
-                      /*
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => ModificaPersonalProfile(
                                   personalProfile: personalData,
                                 )),
-                      );*/
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       fixedSize: const Size(230, 52),
@@ -301,24 +299,32 @@ class ProfileLayout extends StatelessWidget {
 class ChatLayout extends StatefulWidget {
   final bool tablet;
   final List<Chat> startedChats;
-
-  ChatLayout({super.key, required this.tablet, required this.startedChats});
+  final List<String> matched;
+  ChatLayout(
+      {super.key,
+      required this.tablet,
+      required this.startedChats,
+      required this.matched});
 
   @override
-  State<ChatLayout> createState() =>
-      _ChatLayoutState(tablet: tablet, startedChats: startedChats);
+  State<ChatLayout> createState() => _ChatLayoutState(
+      tablet: tablet, startedChats: startedChats, matches: matched);
 }
 
 class _ChatLayoutState extends State<ChatLayout> {
   final bool tablet;
   final List<Chat> startedChats;
+  final List<String> matches;
 
   final ValueNotifier<String> nameReciverTablet = ValueNotifier<String>('');
   final ValueNotifier<String> idReciverTablet = ValueNotifier<String>('');
-  List<String>? matches;
+  //List<String>? matches;
   late List<Chat>? chats = startedChats;
 
-  _ChatLayoutState({required this.tablet, required this.startedChats});
+  _ChatLayoutState(
+      {required this.tablet,
+      required this.startedChats,
+      required this.matches});
   @override
   Widget build(BuildContext context) {
     final user = Utente(uid: 'testUser');
@@ -341,8 +347,8 @@ class _ChatLayoutState extends State<ChatLayout> {
         body: !tablet
             ? SingleChildScrollView(
                 child: Column(key: Key('phoneChatView'), children: [
-                  _buildUserList(user, matches, chats, context),
-                  _buildChatList(user, chats, context)
+                  _buildUserList(user, matches, chats, context, tablet),
+                  _buildChatList(user, chats, context, tablet)
                 ]),
               )
             : Row(key: Key('tabletChatView'), children: <Widget>[
@@ -353,8 +359,8 @@ class _ChatLayoutState extends State<ChatLayout> {
                     child: SingleChildScrollView(
                         key: Key('tabletScrollable'),
                         child: Column(children: [
-                          _buildUserList(user, matches, chats, context),
-                          _buildChatList(user, chats, context)
+                          _buildUserList(user, matches, chats, context, tablet),
+                          _buildChatList(user, chats, context, tablet)
                         ])),
                   ),
                 ),
@@ -376,7 +382,8 @@ class _ChatLayoutState extends State<ChatLayout> {
               ]));
   }
 
-  Widget _buildChatList(Utente user, List<Chat>? chats, BuildContext context) {
+  Widget _buildChatList(
+      Utente user, List<Chat>? chats, BuildContext context, bool tablet) {
     if (chats != null) {
       if (chats.isNotEmpty) {
         return SingleChildScrollView(
@@ -403,7 +410,8 @@ class _ChatLayoutState extends State<ChatLayout> {
                   scrollDirection: Axis.vertical,
                   itemCount: chats.length,
                   itemBuilder: (context, index) {
-                    return _buildChatListItem(context, chats[index], user);
+                    return _buildChatListItem(
+                        context, chats[index], user, tablet);
                   },
                 ),
               ),
@@ -419,10 +427,12 @@ class _ChatLayoutState extends State<ChatLayout> {
   }
 
   Widget _buildUserList(Utente user, List<String>? matches, List<Chat>? chats,
-      BuildContext context) {
-    if (matches != null) {
-      if (matches.isNotEmpty) {
+      BuildContext context, bool tablet) {
+    /*if (matches != null)*/
+    {
+      if (matches!.isNotEmpty) {
         return SingleChildScrollView(
+          key: Key('horScrollable'),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -445,40 +455,44 @@ class _ChatLayoutState extends State<ChatLayout> {
                   color: Color(0xFFF1F4F8),
                 ),
                 child: ListView.builder(
+                    key: Key('matchBuilder'),
                     padding: EdgeInsets.zero,
                     primary: false,
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     itemCount: matches.length,
                     itemBuilder: (context, index) {
-                      return _buildUserListItem(context, matches[index], user);
+                      return _buildUserListItem(
+                          context, matches[index], user, tablet);
                     }),
               ),
             ],
           ),
         );
       } else {
-        if (chats != null) {
-          if (chats.isNotEmpty) {
-            return const SizedBox();
+        /*if (chats != null)*/ {
+          if (chats!.isNotEmpty) {
+            return const SizedBox(key: Key('chatsUnderMatches'));
           } else {
             return SizedBox(
+                key: Key('emptyMatchBanner'),
                 height: MediaQuery.sizeOf(context).height * 0.74,
                 child: const EmptyProfile(
                   shapeOfIcon: Icons.sentiment_dissatisfied_rounded,
                   textToShow: 'You don\'t have any match!',
                 ));
           }
-        } else {
+        } /*else {
           return SizedBox(
+              key: Key('emptyMatchBanner'),
               height: MediaQuery.sizeOf(context).height * 0.74,
               child: const EmptyProfile(
                 shapeOfIcon: Icons.sentiment_dissatisfied_rounded,
                 textToShow: 'You don\'t have any match!',
               ));
-        }
+        }*/
       }
-    } else {
+    } /*else {
       if (chats != null) {
         if (chats.isNotEmpty) {
           return const SizedBox();
@@ -497,160 +511,153 @@ class _ChatLayoutState extends State<ChatLayout> {
               shapeOfIcon: Icons.sentiment_dissatisfied_rounded,
               textToShow: 'You don\'t have any match!',
             ));
-      }
-    }
-  }
-
-  Widget _buildChatListItem(BuildContext context, Chat chat, Utente user) {
-    final image = Icon(Icons.abc);
-    final type = "Apartment";
-    final city = "Milan";
-    final idHouse = "houseTest";
-    return InkWell(
-      splashColor: Colors.transparent,
-      focusColor: Colors.transparent,
-      hoverColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      onTap: () async {
-        /*
-                await MatchService(uid: user.uid, otheruid: idHouse)
-                    .resetNotification();
-                if (mounted) {
-                  if (MediaQuery.sizeOf(context).width < widthSize) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChatPage(
-                          senderUserID: user.uid,
-                          nameReciver: "$type $city",
-                          receiverUserID: idHouse,
-                        ),
-                      ),
-                    );
-                  } else {
-                    setState(() {
-                      nameReciverTablet.value = "$type $city";
-                      idReciverTablet.value = idHouse;
-                    });
-                  }
-                }*/
-      },
-      child: Padding(
-        padding: const EdgeInsetsDirectional.fromSTEB(16, 4, 16, 8),
-        child: Container(
-          width: double.infinity,
-          height: MediaQuery.sizeOf(context).height * 0.1,
-          decoration: BoxDecoration(
-            color: backgroundColor,
-            boxShadow: const [
-              BoxShadow(
-                blurRadius: 4,
-                color: Color(0x32000000),
-                offset: Offset(0, 2),
-              )
-            ],
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Row(children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(26),
-                    child: image != ""
-                        ? Icon(Icons.abc)
-                        : Image.asset(
-                            'assets/userPhoto.jpg',
-                            width: MediaQuery.sizeOf(context).height * 0.05,
-                            height: MediaQuery.sizeOf(context).height * 0.05,
-                            fit: BoxFit.cover,
-                          ),
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Text(
-                          "$type $city",
-                          overflow: TextOverflow.ellipsis,
-                          style: GoogleFonts.plusJakartaSans(
-                              letterSpacing: 0.2,
-                              wordSpacing: 1.5,
-                              color: const Color(0xFF14181B),
-                              fontWeight: FontWeight.w900,
-                              fontSize: size16(context)),
-                        ),
-                      ),
-                      SizedBox(
-                        height: size20(context),
-                        child: Text(
-                          chat.lastMsg,
-                          overflow: TextOverflow.ellipsis,
-                          style: GoogleFonts.plusJakartaSans(
-                            fontSize: size12(context),
-                            color: const Color(0xFF14181B),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 20.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Text(
-                        "${chat.timestamp.toDate().hour}:${chat.timestamp.toDate().minute} ${chat.timestamp.toDate().day}/${chat.timestamp.toDate().month}/${chat.timestamp.toDate().year}",
-                        style: GoogleFonts.plusJakartaSans(
-                          fontSize: size10(context),
-                          letterSpacing: -0.2,
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xFF14181B),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      (chat.unreadMsg == 0)
-                          ? const Text('')
-                          : Container(
-                              width: size18(context),
-                              height: size18(context),
-                              decoration: BoxDecoration(
-                                color: errorColor,
-                                shape: BoxShape.circle,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  chat.unreadMsg.toString(),
-                                  style: GoogleFonts.plusJakartaSans(
-                                    fontSize: size10(context),
-                                    color: backgroundColor,
-                                  ),
-                                ),
-                              ),
-                            )
-                    ],
-                  ),
-                ),
-              ])),
-        ),
-      ),
-    );
+      }*/
   }
 }
 
-Widget _buildUserListItem(BuildContext context, String idMatch, Utente user) {
+Widget _buildChatListItem(
+    BuildContext context, Chat chat, Utente user, bool tablet) {
+  final image = Icon(Icons.abc);
+  final type = "Apartment";
+  final city = "Milan";
+  final idHouse = "houseTest";
+  return InkWell(
+    key: Key('chatsInkWell'),
+    splashColor: Colors.transparent,
+    focusColor: Colors.transparent,
+    hoverColor: Colors.transparent,
+    highlightColor: Colors.transparent,
+    onTap: () async {
+      /*if (mounted)*/ {
+        if (!tablet) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChatPage(
+                senderUserID: user.uid,
+                nameReciver: "$type $city",
+                receiverUserID: idHouse,
+              ),
+            ),
+          );
+        } else {
+          /*setState*/ (() {
+            var nameReciverTablet;
+            nameReciverTablet.value = "$type $city";
+            var idReciverTablet;
+            idReciverTablet.value = idHouse;
+          });
+        }
+      }
+    },
+    child: Padding(
+      padding: const EdgeInsetsDirectional.fromSTEB(16, 4, 16, 8),
+      child: Container(
+        width: double.infinity,
+        height: MediaQuery.sizeOf(context).height * 0.1,
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          boxShadow: const [
+            BoxShadow(
+              blurRadius: 4,
+              color: Color(0x32000000),
+              offset: Offset(0, 2),
+            )
+          ],
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Row(children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(26),
+                    child: Icon(Icons.abc)),
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text(
+                        "$type $city",
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.plusJakartaSans(
+                            letterSpacing: 0.2,
+                            wordSpacing: 1.5,
+                            color: const Color(0xFF14181B),
+                            fontWeight: FontWeight.w900,
+                            fontSize: size16(context)),
+                      ),
+                    ),
+                    SizedBox(
+                      height: size20(context),
+                      child: Text(
+                        chat.lastMsg,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.plusJakartaSans(
+                          fontSize: size12(context),
+                          color: const Color(0xFF14181B),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    Text(
+                      "${chat.timestamp.toDate().hour}:${chat.timestamp.toDate().minute} ${chat.timestamp.toDate().day}/${chat.timestamp.toDate().month}/${chat.timestamp.toDate().year}",
+                      style: GoogleFonts.plusJakartaSans(
+                        fontSize: size10(context),
+                        letterSpacing: -0.2,
+                        fontWeight: FontWeight.w600,
+                        color: const Color(0xFF14181B),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    (chat.unreadMsg == 0)
+                        ? const Text('')
+                        : Container(
+                            width: size18(context),
+                            height: size18(context),
+                            decoration: BoxDecoration(
+                              color: errorColor,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: Text(
+                                chat.unreadMsg.toString(),
+                                style: GoogleFonts.plusJakartaSans(
+                                  fontSize: size10(context),
+                                  color: backgroundColor,
+                                ),
+                              ),
+                            ),
+                          )
+                  ],
+                ),
+              ),
+            ])),
+      ),
+    ),
+  );
+}
+
+Widget _buildUserListItem(
+    BuildContext context, String idMatch, Utente user, bool tablet) {
   final image = Icon(Icons.abc);
   final type = "Apartment";
   final city = "Rome";
@@ -673,29 +680,31 @@ Widget _buildUserListItem(BuildContext context, String idMatch, Utente user) {
         borderRadius: BorderRadius.circular(8),
       ),
       child: InkWell(
+        key: Key('matchesInkWell'),
         splashColor: Colors.transparent,
         focusColor: Colors.transparent,
         hoverColor: Colors.transparent,
         highlightColor: Colors.transparent,
         onTap: () {
-          /*
-                    if (MediaQuery.sizeOf(context).width < widthSize) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ChatPage(
-                            senderUserID: user.uid,
-                            nameReciver: "$type $city",
-                            receiverUserID: idHouse,
-                          ),
-                        ),
-                      );
-                    } else {
-                      setState(() {
-                        nameReciverTablet.value = "$type $city";
-                        idReciverTablet.value = idHouse;
-                      });
-                    }*/
+          if (!tablet) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChatPage(
+                  senderUserID: user.uid,
+                  nameReciver: "$type $city",
+                  receiverUserID: idHouse,
+                ),
+              ),
+            );
+          } else {
+            /*setState*/ (() {
+              var nameReciverTablet;
+              nameReciverTablet.value = "$type $city";
+              var idReciverTablet;
+              idReciverTablet.value = idHouse;
+            });
+          }
         },
         child: Padding(
           padding: const EdgeInsets.all(12),
@@ -703,16 +712,7 @@ Widget _buildUserListItem(BuildContext context, String idMatch, Utente user) {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ClipRRect(
-                child: image != ""
-                    ? image
-                    : Image.asset(
-                        'assets/userPhoto.jpg',
-                        width: MediaQuery.sizeOf(context).height * 0.08,
-                        height: MediaQuery.sizeOf(context).height * 0.08,
-                        fit: BoxFit.cover,
-                      ),
-              ),
+              ClipRRect(child: image),
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                 child: Text(

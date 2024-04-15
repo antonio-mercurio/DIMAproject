@@ -59,6 +59,9 @@ void main() {
     expect(registerButtonFinder, findsOneWidget);
     expect(loginButtonFinder, findsOneWidget);
     expect(signInTextFinder, findsOneWidget);
+
+    await tester.tap(find.byKey(Key('hidePwd')));
+    await tester.tap(registerButtonFinder);
   });
 
   testWidgets("Login Empty Input", (tester) async {

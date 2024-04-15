@@ -277,9 +277,7 @@ class _FormPersonalProfileAdjState extends State<FormPersonalProfileAdj> {
                                       initialValue: birthDate == null
                                           ? null
                                           : birthDate.toString(),
-                                      controller: birthDate.toString() == null
-                                          ? _dateController
-                                          : null,
+                                      controller: null,
                                       readOnly: true,
                                       autofocus: true,
                                       autofillHints: const [

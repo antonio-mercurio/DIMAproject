@@ -50,12 +50,9 @@ class _ChatPageState extends State<ChatPage> {
 
   //build message list
   Widget _buildMessageList() {
-    return SizedBox();
-  }
-
-  //build message item
-  Widget _buildMessageItem() {
-    return SizedBox();
+    return SizedBox(
+      key: Key('messageList'),
+    );
   }
 
   //build message input
@@ -66,6 +63,7 @@ class _ChatPageState extends State<ChatPage> {
           child: Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
             child: TextField(
+              key: Key('msgField'),
               controller: _messageController,
               obscureText: false,
               decoration: InputDecoration(
@@ -108,6 +106,7 @@ class _ChatPageState extends State<ChatPage> {
           ),
           margin: const EdgeInsets.only(right: 20),
           child: IconButton(
+            key: Key('sendMessage'),
             onPressed: sendMessage,
             icon: Icon(
               Icons.arrow_upward,

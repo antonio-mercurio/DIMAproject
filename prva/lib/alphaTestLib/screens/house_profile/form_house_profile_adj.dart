@@ -8,19 +8,21 @@ import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:prva/models/user.dart';
-import 'package:prva/screens/shared/constant.dart';
-import 'package:prva/services/image_picker/schermiProva.dart';
-import 'package:prva/services/databaseForHouseProfile.dart';
+import 'package:prva/alphaTestLib/models/user.dart';
+import 'package:prva/alphaTestLib/screens/shared/constant.dart';
 
 class FormHouseAdj extends StatefulWidget {
-  const FormHouseAdj({super.key});
+  DateTime? startDate;
+  DateTime? endDate;
+  FormHouseAdj({this.startDate, this.endDate});
 
   @override
-  State<FormHouseAdj> createState() => _FormHouseAdjState();
+  State<FormHouseAdj> createState() =>
+      _FormHouseAdjState(startDate: startDate, endDate: endDate);
 }
 
 class _FormHouseAdjState extends State<FormHouseAdj> {
+  _FormHouseAdjState({this.startDate, this.endDate});
   final scaffoldKey = GlobalKey<FormState>();
 
   TextEditingController controller = TextEditingController();
@@ -29,11 +31,11 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
   int? _numberBathroom;
   int? _floorNumber;
   int? _numberPeople;
-  String? _address;
-  String? _city;
+  String? _address = "testVia";
+  String? _city = "testCity";
   double? _price;
   String? _description;
-  String? _type;
+  String? _type = 'Apartment';
   final List<String> typeOfAppartament = [
     "Apartment",
     "Single room",
@@ -41,8 +43,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
     "Studio apartment",
     "Two-room apartment",
   ];
-  DateTime? _startDate;
-  DateTime? _endDate;
+  DateTime? startDate;
+  DateTime? endDate;
   List<String> imageURLs = ['', '', '', ''];
 
   // controller for the textfield
@@ -50,62 +52,28 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
   final TextEditingController _dateEndController = TextEditingController();
 
   void _selectStartDate(BuildContext context) async {
-    // get the initial date
-    DateTime initialDate = _startDate ?? DateTime.now();
+    startDate = DateTime(2024, 1, 1);
 
-    // show the date picker and wait for the result
-    DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: initialDate,
-      firstDate: DateTime(1900),
-      lastDate: DateTime(DateTime.now().year + 10),
-    );
+    // format the date as dd/mm/yyyy
+    String formattedDate = DateFormat('dd/MM/yyyy').format(startDate!);
 
-    // if the user picked a date, update the state
-    if (pickedDate != null && pickedDate != _startDate) {
-      setState(() {
-        // set the selected date
-        _startDate = pickedDate;
-
-        // format the date as dd/mm/yyyy
-        String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
-
-        // update the textfield controller
-        _dateStartController.text = formattedDate;
-      });
-    }
+    // update the textfield controller
+    _dateStartController.text = formattedDate;
   }
 
   void _selectEndDate(BuildContext context) async {
-    // get the initial date
-    DateTime initialDate = _endDate ?? DateTime.now();
+    endDate = DateTime(2025, 1, 1);
 
-    // show the date picker and wait for the result
-    DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: initialDate,
-      firstDate: DateTime(1900),
-      lastDate: DateTime(DateTime.now().year + 10),
-    );
+    // format the date as dd/mm/yyyy
+    String formattedDate = DateFormat('dd/MM/yyyy').format(endDate!);
 
-    // if the user picked a date, update the state
-    if (pickedDate != null && pickedDate != _endDate) {
-      setState(() {
-        // set the selected date
-        _endDate = pickedDate;
-
-        // format the date as dd/mm/yyyy
-        String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
-
-        // update the textfield controller
-        _dateEndController.text = formattedDate;
-      });
-    }
+    // update the textfield controller
+    _dateEndController.text = formattedDate;
   }
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<Utente>(context);
+    final user = "testUser";
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -117,6 +85,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
           child: Align(
             alignment: const AlignmentDirectional(0, -1),
             child: SingleChildScrollView(
+              key: Key('scrollable'),
               child: Form(
                 key: scaffoldKey,
                 child: Column(
@@ -153,24 +122,22 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                 Text(
+                                Text(
                                   'Create your house profile',
                                   textAlign: TextAlign.start,
                                   style: GoogleFonts.plusJakartaSans(
-                                    
                                     color: const Color(0xFF101213),
                                     fontSize: size32(context),
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                               Padding(
+                                Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 12, 0, 24),
                                   child: Text(
                                     'Start with address and type!',
                                     textAlign: TextAlign.start,
                                     style: GoogleFonts.plusJakartaSans(
-                                      
                                       color: const Color(0xFF57636C),
                                       fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
@@ -183,16 +150,16 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                   child: SizedBox(
                                     width: double.infinity,
                                     child: DropdownButtonFormField(
+                                        key: Key('type'),
                                         style: GoogleFonts.plusJakartaSans(
-                                         
                                           color: const Color(0xFF101213),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
                                         ),
                                         decoration: InputDecoration(
                                           labelText: 'Type',
-                                          labelStyle: GoogleFonts.plusJakartaSans(
-                                            
+                                          labelStyle:
+                                              GoogleFonts.plusJakartaSans(
                                             color: const Color(0xFF57636C),
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
@@ -238,6 +205,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         value: _type ?? "Apartment",
                                         items: typeOfAppartament.map((type) {
                                           return DropdownMenuItem(
+                                            key: Key('item-$type'),
                                             value: type,
                                             child: Text('$type '),
                                           );
@@ -250,6 +218,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
                                   child: SizedBox(
+                                      key: Key('googleMapsInput'),
                                       width: double.infinity,
                                       child: GooglePlaceAutoCompleteTextField(
                                         textEditingController: controller,
@@ -257,13 +226,14 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                             "AIzaSyD8yblyesPc-09bye4ZF9KlO95G6RhhlmA",
                                         inputDecoration: InputDecoration(
                                           labelText: 'Address',
-                                          labelStyle: GoogleFonts.plusJakartaSans(
-                                            
+                                          labelStyle:
+                                              GoogleFonts.plusJakartaSans(
                                             color: const Color(0xFF57636C),
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
                                           ),
-                                          enabledBorder: const OutlineInputBorder(
+                                          enabledBorder:
+                                              const OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color: Color(0xFFE0E3E7),
                                               width: 2,
@@ -290,7 +260,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                           ),
                                           filled: true,
                                           fillColor: Colors.white,
-                                          contentPadding: const EdgeInsets.all(24),
+                                          contentPadding:
+                                              const EdgeInsets.all(24),
                                         ),
                                         debounceTime: 800, // default 600 ms,
                                         countries: const [
@@ -298,8 +269,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                           "fr"
                                         ], // optional by default null is set
                                         isLatLngRequired:
-                                            true, // if you required coordinates from place detail
-                                        getPlaceDetailWithLatLng:
+                                            false, // if you required coordinates from place detail
+                                        /*getPlaceDetailWithLatLng:
                                             (Prediction prediction) async {
                                           // this method will return latlng with place detail
 
@@ -359,7 +330,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         // want to show close icon
                                         isCrossBtnShown: true,
                                         // optional container padding
-                                        //containerHorizontalPadding: 10,
+                                        //containerHorizontalPadding: 10,*/
                                       )),
                                 ),
                               ],
@@ -398,14 +369,14 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                 Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0, 12, 0, 24),
+                                Padding(
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 12, 0, 24),
                                     child: Text(
                                       'Something about the house',
                                       textAlign: TextAlign.start,
                                       style: GoogleFonts.plusJakartaSans(
-                                       
                                         color: const Color(0xFF57636C),
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -417,6 +388,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                   child: SizedBox(
                                     width: double.infinity,
                                     child: TextFormField(
+                                      key: Key('description'),
                                       maxLines: 3,
                                       autofocus: true,
                                       autofillHints: const [
@@ -426,7 +398,6 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                       decoration: InputDecoration(
                                         labelText: 'Description',
                                         labelStyle: GoogleFonts.plusJakartaSans(
-                                         
                                           color: const Color(0xFF57636C),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
@@ -469,7 +440,6 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                             const EdgeInsets.all(24),
                                       ),
                                       style: GoogleFonts.plusJakartaSans(
-                                       
                                         color: const Color(0xFF101213),
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -485,10 +455,9 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                   Text(
+                                    Text(
                                       'Max number of people that\ncan live in the house:',
                                       style: GoogleFonts.plusJakartaSans(
-                                        
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -500,6 +469,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
+                                              key: Key('numPeople'),
                                               autofocus: true,
                                               obscureText: false,
                                               decoration: InputDecoration(
@@ -543,8 +513,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                               ),
-                                              style: GoogleFonts.plusJakartaSans(
-                                               
+                                              style:
+                                                  GoogleFonts.plusJakartaSans(
                                                 color: const Color(0xFF101213),
                                                 fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
@@ -565,12 +535,12 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                     Text(
+                                    Text(
                                       'Floor number of the house:',
                                       style: GoogleFonts.plusJakartaSans(
                                         color: const Color(0xFF101213),
-                                                fontSize: size16(context),
-                                                fontWeight: FontWeight.w500,
+                                        fontSize: size16(context),
+                                        fontWeight: FontWeight.w500,
                                       ),
                                     ),
                                     Expanded(
@@ -580,6 +550,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
+                                              key: Key('floorField'),
                                               autofocus: true,
                                               obscureText: false,
                                               decoration: InputDecoration(
@@ -623,8 +594,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                               ),
-                                              style: GoogleFonts.plusJakartaSans(
-                                               
+                                              style:
+                                                  GoogleFonts.plusJakartaSans(
                                                 color: const Color(0xFF101213),
                                                 fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
@@ -645,10 +616,9 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                     Text(
+                                    Text(
                                       'Number of bathrooms:',
                                       style: GoogleFonts.plusJakartaSans(
-                                       
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -660,6 +630,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
+                                              key: Key('numBaths'),
                                               autofocus: true,
                                               obscureText: false,
                                               decoration: InputDecoration(
@@ -703,8 +674,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                               ),
-                                              style: GoogleFonts.plusJakartaSans(
-                                               
+                                              style:
+                                                  GoogleFonts.plusJakartaSans(
                                                 color: const Color(0xFF101213),
                                                 fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
@@ -758,14 +729,13 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                 Padding(
+                                Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 12, 0, 24),
                                   child: Text(
                                     'Something about the rent',
                                     textAlign: TextAlign.start,
                                     style: GoogleFonts.plusJakartaSans(
-                                      
                                       color: const Color(0xFF57636C),
                                       fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
@@ -778,7 +748,12 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                   child: SizedBox(
                                     width: double.infinity,
                                     child: TextFormField(
-                                      controller: _dateStartController,
+                                      initialValue: startDate == null
+                                          ? null
+                                          : startDate.toString(),
+                                      controller: startDate != null
+                                          ? null
+                                          : _dateStartController,
                                       readOnly: true,
                                       autofocus: true,
                                       autofillHints: const [
@@ -787,6 +762,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         suffixIcon: IconButton(
+                                          key: Key('startdate'),
                                           icon:
                                               const Icon(Icons.calendar_today),
                                           onPressed: () {
@@ -796,7 +772,6 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         ),
                                         labelText: 'Start date of rent',
                                         labelStyle: GoogleFonts.plusJakartaSans(
-                                         
                                           color: const Color(0xFF57636C),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
@@ -840,7 +815,6 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                             const EdgeInsets.all(24),
                                       ),
                                       style: GoogleFonts.plusJakartaSans(
-                                       
                                         color: const Color(0xFF101213),
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -857,7 +831,12 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                   child: SizedBox(
                                     width: double.infinity,
                                     child: TextFormField(
-                                      controller: _dateEndController,
+                                      initialValue: endDate == null
+                                          ? null
+                                          : endDate.toString(),
+                                      controller: endDate != null
+                                          ? null
+                                          : _dateEndController,
                                       readOnly: true,
                                       autofocus: true,
                                       autofillHints: const [
@@ -866,6 +845,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         suffixIcon: IconButton(
+                                          key: Key('enddate'),
                                           icon:
                                               const Icon(Icons.calendar_today),
                                           onPressed: () {
@@ -875,7 +855,6 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         ),
                                         labelText: 'End date of rent',
                                         labelStyle: GoogleFonts.plusJakartaSans(
-                                         
                                           color: const Color(0xFF57636C),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
@@ -919,7 +898,6 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                             const EdgeInsets.all(24),
                                       ),
                                       style: GoogleFonts.plusJakartaSans(
-                                        
                                         color: const Color(0xFF101213),
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -936,12 +914,13 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                   child: SizedBox(
                                     width: double.infinity,
                                     child: TextFormField(
+                                        key: Key('price'),
                                         autofocus: true,
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           labelText: 'Price',
-                                          labelStyle: GoogleFonts.plusJakartaSans(
-                                           
+                                          labelStyle:
+                                              GoogleFonts.plusJakartaSans(
                                             color: const Color(0xFF57636C),
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
@@ -985,14 +964,15 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                               const EdgeInsets.all(24),
                                         ),
                                         style: GoogleFonts.plusJakartaSans(
-                                          
                                           color: const Color(0xFF101213),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
                                         ),
                                         keyboardType: const TextInputType
                                             .numberWithOptions(decimal: true),
-                                        validator: (val) => (val!.isEmpty || double.parse(val)>4000 || double.parse(val)<0)
+                                        validator: (val) => (val!.isEmpty ||
+                                                double.parse(val) > 4000 ||
+                                                double.parse(val) < 0)
                                             ? 'Please enter a valid price (range: 0-4000)'
                                             : null,
                                         onChanged: (val) => setState(() =>
@@ -1035,21 +1015,20 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                 Padding(
+                                Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 12, 0, 24),
                                   child: Text(
                                     'Almost done!',
                                     textAlign: TextAlign.start,
                                     style: GoogleFonts.plusJakartaSans(
-                                     
                                       color: const Color(0xFF57636C),
                                       fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                 ),
-                               Padding(
+                                Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
                                   child: Row(
@@ -1058,10 +1037,11 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                     children: [
                                       Text(
                                         'Pick some photos for your profile!',
-                                        style: GoogleFonts.plusJakartaSans( color: const Color(0xFF101213),
+                                        style: GoogleFonts.plusJakartaSans(
+                                          color: const Color(0xFF101213),
                                           fontSize: size16(context),
-                                         
-                                       ), ),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -1074,15 +1054,14 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                     children: [
                                       Column(children: [
                                         InkWell(
+                                          key: Key('img1'),
                                           splashColor: Colors.transparent,
                                           focusColor: Colors.transparent,
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
                                             if (imageURLs[0].isEmpty) {
-                                              imageURLs[0] =
-                                                  await SchermiProva()
-                                                      .uploadFile();
+                                              imageURLs[0] = uploadFile();
                                               if (mounted) {
                                                 setState(() {});
                                               }
@@ -1106,18 +1085,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                         0.20,
                                                     fit: BoxFit.cover,
                                                   )
-                                                : Image.network(
-                                                    imageURLs[0],
-                                                    width: MediaQuery.sizeOf(
-                                                                context)
-                                                            .height *
-                                                        0.15,
-                                                    height: MediaQuery.sizeOf(
-                                                                context)
-                                                            .height *
-                                                        0.20,
-                                                    fit: BoxFit.cover,
-                                                  ),
+                                                : Icon(Icons.abc),
                                           ),
                                         ),
                                         Align(
@@ -1125,15 +1093,10 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                           child: imageURLs.elementAt(0).isEmpty
                                               ? null
                                               : IconButton(
+                                                  key: Key('deleteImg1'),
                                                   icon: const Icon(Icons.close),
-                                                  color:
-                                                       errorColor,
+                                                  color: errorColor,
                                                   onPressed: () async {
-                                                    await FirebaseStorage
-                                                        .instance
-                                                        .refFromURL(imageURLs
-                                                            .elementAt(0))
-                                                        .delete();
                                                     imageURLs[0] = "";
                                                     if (mounted) {
                                                       setState(() {});
@@ -1143,20 +1106,19 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         ),
                                       ]),
                                       SizedBox(
-                                          width:
-                                              MediaQuery.sizeOf(context).height*
-                                                  0.02),
+                                          width: MediaQuery.sizeOf(context)
+                                                  .height *
+                                              0.02),
                                       Column(children: [
                                         InkWell(
+                                          key: Key('img2'),
                                           splashColor: Colors.transparent,
                                           focusColor: Colors.transparent,
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
                                             if (imageURLs[1].isEmpty) {
-                                              imageURLs[1] =
-                                                  await SchermiProva()
-                                                      .uploadFile();
+                                              imageURLs[1] = uploadFile();
                                               if (mounted) {
                                                 setState(() {});
                                               }
@@ -1180,18 +1142,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                         0.20,
                                                     fit: BoxFit.cover,
                                                   )
-                                                : Image.network(
-                                                    imageURLs[1],
-                                                    width: MediaQuery.sizeOf(
-                                                                context)
-                                                            .height *
-                                                        0.15,
-                                                    height: MediaQuery.sizeOf(
-                                                                context)
-                                                            .height *
-                                                        0.20,
-                                                    fit: BoxFit.cover,
-                                                  ),
+                                                : Icon(Icons.abc),
                                           ),
                                         ),
                                         Align(
@@ -1199,15 +1150,10 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                           child: imageURLs.elementAt(1).isEmpty
                                               ? null
                                               : IconButton(
+                                                  key: Key('deleteImg2'),
                                                   icon: const Icon(Icons.close),
-                                                  color:
-                                                       errorColor,
+                                                  color: errorColor,
                                                   onPressed: () async {
-                                                    await FirebaseStorage
-                                                        .instance
-                                                        .refFromURL(imageURLs
-                                                            .elementAt(1))
-                                                        .delete();
                                                     imageURLs[1] = "";
                                                     if (mounted) {
                                                       setState(() {});
@@ -1225,14 +1171,14 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                   children: [
                                     Column(children: [
                                       InkWell(
+                                        key: Key('img3'),
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,
                                         hoverColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
                                           if (imageURLs[2].isEmpty) {
-                                            imageURLs[2] = await SchermiProva()
-                                                .uploadFile();
+                                            imageURLs[2] = uploadFile();
 
                                             if (mounted) {
                                               setState(() {});
@@ -1247,26 +1193,15 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                   'assets/userPhoto.jpg',
                                                   width:
                                                       MediaQuery.sizeOf(context)
-                                                            .height *
-                                                        0.15,
+                                                              .height *
+                                                          0.15,
                                                   height:
                                                       MediaQuery.sizeOf(context)
                                                               .height *
                                                           0.20,
                                                   fit: BoxFit.cover,
                                                 )
-                                              : Image.network(
-                                                  imageURLs[2],
-                                                  width:
-                                                      MediaQuery.sizeOf(context)
-                                                            .height *
-                                                        0.15,
-                                                  height:
-                                                      MediaQuery.sizeOf(context)
-                                                              .height *
-                                                          0.20,
-                                                  fit: BoxFit.cover,
-                                                ),
+                                              : Icon(Icons.abc),
                                         ),
                                       ),
                                       Align(
@@ -1274,13 +1209,10 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         child: imageURLs.elementAt(2).isEmpty
                                             ? null
                                             : IconButton(
+                                                key: Key('deleteImg3'),
                                                 icon: const Icon(Icons.close),
                                                 color: errorColor,
                                                 onPressed: () async {
-                                                  await FirebaseStorage.instance
-                                                      .refFromURL(imageURLs
-                                                          .elementAt(2))
-                                                      .delete();
                                                   imageURLs[2] = "";
                                                   if (mounted) {
                                                     setState(() {});
@@ -1295,14 +1227,14 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                 0.02),
                                     Column(children: [
                                       InkWell(
+                                        key: Key('img4'),
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,
                                         hoverColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
                                           if (imageURLs[3].isEmpty) {
-                                            imageURLs[3] = await SchermiProva()
-                                                .uploadFile();
+                                            imageURLs[3] = uploadFile();
                                             if (mounted) {
                                               setState(() {});
                                             }
@@ -1316,26 +1248,15 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                   'assets/userPhoto.jpg',
                                                   width:
                                                       MediaQuery.sizeOf(context)
-                                                            .height *
-                                                        0.15,
+                                                              .height *
+                                                          0.15,
                                                   height:
                                                       MediaQuery.sizeOf(context)
                                                               .height *
                                                           0.20,
                                                   fit: BoxFit.cover,
                                                 )
-                                              : Image.network(
-                                                  imageURLs[3],
-                                                  width:
-                                                      MediaQuery.sizeOf(context)
-                                                            .height *
-                                                        0.15,
-                                                  height:
-                                                      MediaQuery.sizeOf(context)
-                                                              .height *
-                                                          0.20,
-                                                  fit: BoxFit.cover,
-                                                ),
+                                              : Icon(Icons.abc),
                                         ),
                                       ),
                                       Align(
@@ -1343,13 +1264,10 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         child: imageURLs.elementAt(3).isEmpty
                                             ? null
                                             : IconButton(
+                                                key: Key('deleteImg4'),
                                                 icon: const Icon(Icons.close),
                                                 color: errorColor,
                                                 onPressed: () async {
-                                                  await FirebaseStorage.instance
-                                                      .refFromURL(imageURLs
-                                                          .elementAt(3))
-                                                      .delete();
                                                   imageURLs[3] = "";
                                                   if (mounted) {
                                                     setState(() {});
@@ -1372,12 +1290,13 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
                         child: ElevatedButton(
+                          key: Key('createButton'),
                           onPressed: () async {
                             if (scaffoldKey.currentState!.validate()) {
-                              if (_startDate!.isBefore(_endDate!)) {
-                                if (imageURLs[0] !='') {
+                              if (startDate!.isBefore(endDate!)) {
+                                if (imageURLs[0] != '') {
                                   setState(() {});
-
+/*
                                   await DatabaseServiceHouseProfile(user.uid)
                                       .createUserDataHouseProfileAdj(
                                           _type ?? 'Apartment',
@@ -1401,6 +1320,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                           imageURLs[2],
                                           imageURLs[3],
                                           0);
+  */
                                   if (mounted) {
                                     Navigator.pop(context);
                                   }
@@ -1426,26 +1346,27 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                               }
                             }
                           },
-                         style: ElevatedButton.styleFrom(
-                                      fixedSize: const Size(230, 52),
-                                      backgroundColor:mainColor,
-                                       elevation: 3.0,
-                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(40),
-                                       ),
-                                       side: const BorderSide(
-                                        color: Colors.transparent,
-                                        width: 1,
-                                      ),
-                                    ),
-                                    child : Text('Create!',
-                                    style: GoogleFonts.plusJakartaSans(
-                                     
-                                            color: backgroundColor,
-                                            fontSize: size16(context),
-                                            fontWeight: FontWeight.w500,
-                                    ),),
-                                          ),
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: const Size(230, 52),
+                            backgroundColor: mainColor,
+                            elevation: 3.0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            side: const BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
+                            ),
+                          ),
+                          child: Text(
+                            'Create!',
+                            style: GoogleFonts.plusJakartaSans(
+                              color: backgroundColor,
+                              fontSize: size16(context),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -1454,5 +1375,9 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
             ),
           ),
         ));
+  }
+
+  String uploadFile() {
+    return "imagePickerTest";
   }
 }

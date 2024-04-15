@@ -70,6 +70,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
       body: SafeArea(
         top: true,
         child: SingleChildScrollView(
+          key: Key('scrollable'),
           child: Form(
             key: scaffoldKey,
             child: Column(
@@ -201,7 +202,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                   ], // optional by default null is set
                                   isLatLngRequired:
                                       true, // if you required coordinates from place detail
-                                  getPlaceDetailWithLatLng:
+                                  /*getPlaceDetailWithLatLng:
                                       (Prediction prediction) async {
                                     // this method will return latlng with place detail
 
@@ -249,6 +250,7 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                   isCrossBtnShown: true,
                                   // optional container padding
                                   //containerHorizontalPadding: 10,
+                                */
                                 )),
                             const Row(
                               mainAxisSize: MainAxisSize.max,
@@ -582,10 +584,10 @@ class _FormFilterPeopleAdjState extends State<FormFilterPeopleAdj> {
                                           ),
                                         );
                                         return;
-                                      } /*
+                                      }
                                       if (mounted) {
                                         Navigator.pop(context);
-                                      }*/
+                                      }
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(

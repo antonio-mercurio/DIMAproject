@@ -49,6 +49,8 @@ void main() {
     final pwdFieldFinder = find.byKey(pwdField);
     final confirmPwdFieldFinder = find.byKey(confirmPwdField);
     final createAccountTextFinder = find.byKey(createAccountButton);
+    final hidePwdFinder = find.byKey(Key('hidePwd'));
+    final hideConfirmPwdFinder = find.byKey(Key('hideConfirmPwd'));
 
     expect(emailFieldFinder, findsOneWidget);
     expect(signInButtonFinder, findsOneWidget);
@@ -56,6 +58,10 @@ void main() {
     expect(pwdFieldFinder, findsOneWidget);
     expect(confirmPwdFieldFinder, findsOneWidget);
     expect(createAccountTextFinder, findsOneWidget);
+    await tester.tap(hidePwdFinder);
+
+    await tester.tap(hideConfirmPwdFinder);
+    await tester.tap(signInButtonFinder);
   });
 
   testWidgets("Register Empty Input", (tester) async {

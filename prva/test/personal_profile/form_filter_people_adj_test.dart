@@ -139,5 +139,12 @@ void main() {
     expect(checkbox2.value, true);
     expect(checkbox3.value, false);
     expect(checkbox4.value, false);
+    final listFinder = find.byKey(Key('scrollable'));
+
+    final setFilters = find.byKey(Key('setFiltersButton'));
+    await tester.dragUntilVisible(
+        setFilters, listFinder, const Offset(-250, 0));
+    await tester.tap(setFilters);
+    await tester.pumpAndSettle();
   });
 }

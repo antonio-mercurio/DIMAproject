@@ -155,7 +155,9 @@ void main() {
     final detailedProfileFinder = find.byKey(detailedProfile);
 
     await tester.tap(likeFinder);
-    await tester.pump();
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(Key('okButton')));
   });
   testWidgets("Tablet - put dislike preference", (tester) async {
     await tester.binding.setSurfaceSize(Size(1024, 768));

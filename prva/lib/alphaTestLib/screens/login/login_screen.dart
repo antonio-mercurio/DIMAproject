@@ -76,9 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                       icon: Icon(
                         Icons.person,
                         color: backgroundColor,
-                        size: MediaQuery.sizeOf(context).width < widthSize
-                            ? MediaQuery.sizeOf(context).height * 0.03
-                            : MediaQuery.sizeOf(context).height * 0.032,
+                        size: MediaQuery.sizeOf(context).height * 0.032,
                       ),
                       label: Text(
                         'Sign In',
@@ -321,6 +319,7 @@ class _LoginPageState extends State<LoginPage> {
                                                   contentPadding:
                                                       const EdgeInsets.all(24),
                                                   suffixIcon: InkWell(
+                                                    key: Key('hidePwd'),
                                                     onTap: () => setState(
                                                       () => _model
                                                               .passwordVisibility =
@@ -430,6 +429,7 @@ class _LoginPageState extends State<LoginPage> {
                                                   contentPadding:
                                                       const EdgeInsets.all(24),
                                                   suffixIcon: InkWell(
+                                                    key: Key('hideConfirmPwd'),
                                                     onTap: () => setState(
                                                       () => _model
                                                               .confirmPasswordVisibility =

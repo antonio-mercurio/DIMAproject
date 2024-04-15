@@ -91,9 +91,13 @@ void main() {
     await tester.enterText(find.byKey(name), 'nameTest');
     await tester.enterText(find.byKey(surname), 'surnameTest');
     await tester.enterText(find.byKey(description), 'descriptionTest');
-
+    final selDateFinder = find.byKey(Key('selDate'));
     //await tester.enterText(find.byKey(name), 'nameTest');
     final listFinder = find.byKey(Key('scrollable'));
+    await tester.dragUntilVisible(
+        selDateFinder, listFinder, const Offset(-250, 0));
+    await tester.tap(selDateFinder);
+
     final updateFinder = find.byKey(update);
     expect(find.byKey(Key('deleteImg1')), findsOneWidget);
     expect(find.byKey(Key('deleteImg2')), findsOneWidget);
@@ -127,6 +131,7 @@ void main() {
     final deleteProfile = find.byKey(Key('deleteProfileButton'));
     await tester.dragUntilVisible(
         deleteProfile, listFinder, const Offset(-250, 0));
+    await tester.tap(find.byKey(Key('deleteProfileButton')));
     await tester.pump();
   });
 }

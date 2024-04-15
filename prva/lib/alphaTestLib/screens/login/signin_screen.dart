@@ -5,11 +5,7 @@ import 'package:prva/screens/shared/constant.dart';
 import 'package:prva/screens/shared/loading.dart';
 import 'package:mockito/mockito.dart';
 
-class MockFirebaseAuth extends Mock implements FirebaseAuth {
-  registerWithEmailAndPassword(String email, String password) {
-    return Text(key: Key('correctLogin'), "correct");
-  }
-}
+class MockFirebaseAuth extends Mock implements FirebaseAuth {}
 
 class MockAuthResult extends Mock implements User {}
 
@@ -79,9 +75,7 @@ class _SigniInPageState extends State<SigniInPage> {
                       icon: Icon(
                         Icons.person,
                         color: backgroundColor,
-                        size: MediaQuery.sizeOf(context).width < widthSize
-                            ? MediaQuery.sizeOf(context).height * 0.03
-                            : MediaQuery.sizeOf(context).height * 0.032,
+                        size: MediaQuery.sizeOf(context).height * 0.032,
                       ),
                       label: Text(
                         'Register',
@@ -310,6 +304,7 @@ class _SigniInPageState extends State<SigniInPage> {
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                                 suffixIcon: InkWell(
+                                                  key: Key('hidePwd'),
                                                   onTap: () => setState(
                                                     () => _model
                                                             .passwordVisibility =

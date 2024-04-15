@@ -27,10 +27,10 @@ class _AllHousesListState extends State<AllHousesList> {
   final PersonalProfileAdj myProfile;
   FiltersHouseAdj filtri = FiltersHouseAdj(
       userID: "userID",
-      city: "any",
-      apartment: true,
+      city: "Milan",
+      apartment: false,
       studioApartment: true,
-      singleRoom: true,
+      singleRoom: false,
       doubleRoom: true,
       twoRoomsApartment: true,
       budget: 4000.0);
