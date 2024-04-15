@@ -3,8 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:prva/alphaTestLib/screens/house_profile/form_house_filter.dart';
-import 'package:prva/alphaTestLib/screens/personal_profile/form_personal_profile_adj.dart';
-import 'package:prva/alphaTestLib/models/personalProfile.dart';
 
 MaterialApp app = MaterialApp(
   title: 'test',

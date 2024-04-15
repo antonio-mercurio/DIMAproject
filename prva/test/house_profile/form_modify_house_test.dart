@@ -6,10 +6,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart';
 import 'package:prva/alphaTestLib/models/houseProfile.dart';
 import 'package:prva/alphaTestLib/screens/house_profile/form_modify_house.dart';
-import 'package:prva/alphaTestLib/screens/personal_profile/all_houses.dart';
-import 'package:prva/alphaTestLib/screens/personal_profile/modify_personal_profile.dart';
-
-import 'package:prva/alphaTestLib/models/personalProfile.dart';
 
 HouseProfileAdj testHouse = HouseProfileAdj(
     owner: "owner1",
