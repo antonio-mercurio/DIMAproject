@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prva/alphaTestLib/screens/shared/image.dart';
 import 'package:prva/alphaTestLib/models/houseProfile.dart';
 import 'package:prva/alphaTestLib/screens/shared/constant.dart';
-import 'package:prva/services/map/maps.dart';
 
 const LatLng cLoc = LatLng(45.48319179000315, 9.224778407607825);
 
@@ -120,6 +119,7 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
             padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 16),
             child: ElevatedButton(
               onPressed: () {
+                /*
                 LatLng houseLocation =
                     LatLng(houseProfile.latitude, houseProfile.longitude);
                 Navigator.push(
@@ -127,7 +127,8 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
                   MaterialPageRoute(
                       builder: (context) =>
                           MapSample2(location: houseLocation)),
-                );
+                );*/
+                goToTheMap();
               },
               style: ElevatedButton.styleFrom(
                 fixedSize: const Size(230, 52),
@@ -309,4 +310,7 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
       ],
     );
   }
+
+  void goToTheMap() {}
 }
+*/

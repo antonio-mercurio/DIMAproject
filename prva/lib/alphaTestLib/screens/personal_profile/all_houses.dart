@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:prva/alphaTestLib/info_house_profile.dart';
+import 'package:prva/alphaTestLib/screens/house_profile/info_house_profile.dart';
+//import 'package:prva/lib/alphaTestLib/screens/house_profile/info_house_profile.dart';
 import 'package:prva/alphaTestLib/screens/shared/swipe_between_images.dart';
 import 'package:prva/alphaTestLib/models/filters.dart';
 import 'package:prva/alphaTestLib/models/houseProfile.dart';
@@ -55,10 +56,10 @@ class _AllHousesListState extends State<AllHousesList> {
       endDay: 1,
       latitude: 43.0,
       longitude: 22.0,
-      imageURL1: "",
-      imageURL2: "'",
-      imageURL3: "",
-      imageURL4: "",
+      imageURL1: "t",
+      imageURL2: "e",
+      imageURL3: "s",
+      imageURL4: "t",
       numberNotifies: 1);
   HouseProfileAdj test2 = HouseProfileAdj(
       owner: "owner2",
@@ -79,10 +80,10 @@ class _AllHousesListState extends State<AllHousesList> {
       endDay: 1,
       latitude: 43.0,
       longitude: 22.0,
-      imageURL1: "",
-      imageURL2: "'",
-      imageURL3: "",
-      imageURL4: "",
+      imageURL1: "t",
+      imageURL2: "e",
+      imageURL3: "s",
+      imageURL4: "t",
       numberNotifies: 0);
   List<HouseProfileAdj> allHouses = [
     HouseProfileAdj(

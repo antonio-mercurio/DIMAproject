@@ -23,10 +23,10 @@ HouseProfileAdj testHouse = HouseProfileAdj(
     endDay: 1,
     latitude: 43.0,
     longitude: 22.0,
-    imageURL1: "",
-    imageURL2: "'",
-    imageURL3: "",
-    imageURL4: "",
+    imageURL1: "t",
+    imageURL2: "e",
+    imageURL3: "s",
+    imageURL4: "t",
     numberNotifies: 1);
 
 MaterialApp appTablet = MaterialApp(
@@ -74,10 +74,10 @@ MaterialApp appMobilePhone = MaterialApp(
               description: "descTest",
               gender: "male",
               employment: "student",
-              imageURL1: "",
-              imageURL2: "",
-              imageURL3: "",
-              imageURL4: ""),
+              imageURL1: "t",
+              imageURL2: "e",
+              imageURL3: "s",
+              imageURL4: "t"),
         ),
     '/viewprofile': (context) => ViewProfile(
         houseProfile: HouseProfileAdj(
@@ -99,10 +99,10 @@ MaterialApp appMobilePhone = MaterialApp(
             endDay: 1,
             latitude: 43.0,
             longitude: 22.0,
-            imageURL1: "",
-            imageURL2: "'",
-            imageURL3: "",
-            imageURL4: "",
+            imageURL1: "t",
+            imageURL2: "e",
+            imageURL3: "s",
+            imageURL4: "t",
             numberNotifies: 1)),
   },
 );
@@ -232,5 +232,8 @@ void main() {
     await tester.tap(infoFinder);
     await tester.pumpAndSettle();
     expect(find.byKey(Key("viewProfile")), findsOneWidget);
+
+    await tester.tap(find.byKey(Key('goMap')));
+    await tester.pumpAndSettle();
   });
 }
