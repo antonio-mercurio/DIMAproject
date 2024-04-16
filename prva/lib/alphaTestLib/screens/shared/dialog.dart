@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prva/screens/shared/constant.dart';
+import 'package:prva/alphaTestLib/screens/shared/constant.dart';
 
 showMyDialog(BuildContext buildContext) {
   return showDialog<void>(
