@@ -4,7 +4,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prva/alphaTestLib/models/houseProfile.dart';
 import 'package:prva/alphaTestLib/screens/shared/constant.dart';
 import 'package:prva/alphaTestLib/screens/shared/image.dart';
-import 'package:prva/services/map/maps.dart';
 
 const LatLng cLoc = LatLng(45.48319179000315, 9.224778407607825);
 

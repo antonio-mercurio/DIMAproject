@@ -2,12 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prva/alphaTestLib/models/houseProfile.dart';
-import 'package:prva/alphaTestLib/models/personalProfile.dart';
 import 'package:prva/alphaTestLib/models/preference.dart';
 import 'package:prva/alphaTestLib/screens/shared/constant.dart';
 import 'package:prva/alphaTestLib/screens/shared/empty.dart';
-import 'package:prva/services/database.dart';
-import 'package:prva/services/match/match_service.dart';
 
 class NotificationLayout extends StatefulWidget {
   final HouseProfileAdj house;

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:prva/alphaTestLib/screens/house_profile/info_house_profile.dart';
-//import 'package:prva/lib/alphaTestLib/screens/house_profile/info_house_profile.dart';
 import 'package:prva/alphaTestLib/screens/shared/swipe_between_images.dart';
 import 'package:prva/alphaTestLib/models/filters.dart';
 import 'package:prva/alphaTestLib/models/houseProfile.dart';
 import 'package:prva/alphaTestLib/models/personalProfile.dart';
-import 'package:prva/alphaTestLib/models/preference.dart';
 import 'package:prva/alphaTestLib/screens/shared/dialog.dart';
 import 'package:prva/alphaTestLib/screens/shared/constant.dart';
 import 'package:prva/alphaTestLib/screens/shared/empty.dart';

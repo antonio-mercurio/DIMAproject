@@ -3,7 +3,6 @@ import 'package:prva/alphaTestLib/screens/personal_profile/show_info_personal_pr
 import 'package:prva/alphaTestLib/models/filters.dart';
 import 'package:prva/alphaTestLib/models/houseProfile.dart';
 import 'package:prva/alphaTestLib/models/personalProfile.dart';
-import 'package:prva/alphaTestLib/models/preference.dart';
 import 'package:prva/alphaTestLib/screens/shared/constant.dart';
 import 'package:prva/alphaTestLib/screens/shared/dialog.dart';
 import 'package:prva/alphaTestLib/screens/shared/empty.dart';

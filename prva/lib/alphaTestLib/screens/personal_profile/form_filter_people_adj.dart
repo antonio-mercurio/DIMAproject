@@ -1,10 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:geocoding_resolver/geocoding_resolver.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
-import 'package:google_places_flutter/model/prediction.dart';
 import 'package:prva/alphaTestLib/models/filters.dart';
 import 'package:prva/alphaTestLib/models/user.dart';
 

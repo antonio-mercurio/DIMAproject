@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prva/alphaTestLib/screens/shared/constant.dart';
 import 'package:prva/alphaTestLib/screens/shared/empty.dart';
 import 'package:prva/alphaTestLib/models/preference.dart';
-import 'package:prva/alphaTestLib/screens/personal_profile/notificationPerson.dart';
 
 class NotificationPersonLayout extends StatefulWidget {
   String profile = "testProfile";

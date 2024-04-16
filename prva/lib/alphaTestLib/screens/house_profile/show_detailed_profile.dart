@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:provider/provider.dart';
-import 'package:prva/models/houseProfile.dart';
-import 'package:prva/screens/shared/constant.dart';
-import 'package:prva/services/map/maps.dart';
 
-import '../shared/image.dart';
+import 'package:prva/alphaTestLib/models/houseProfile.dart';
+import 'package:prva/alphaTestLib/screens/shared/constant.dart';
+import 'package:prva/alphaTestLib/screens/shared/image.dart';
 
 class DetailedHouseProfile extends StatefulWidget {
   //final HouseProfileAdj houseProfile;

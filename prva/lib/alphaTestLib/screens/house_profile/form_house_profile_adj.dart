@@ -1,14 +1,9 @@
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:geocoding_resolver/geocoding_resolver.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
-import 'package:google_places_flutter/model/prediction.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
-import 'package:prva/alphaTestLib/models/user.dart';
 import 'package:prva/alphaTestLib/screens/shared/constant.dart';
 
 class FormHouseAdj extends StatefulWidget {
