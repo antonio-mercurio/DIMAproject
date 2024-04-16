@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:prva/alphaTestLib/screens/login/signin_screen.dart';
-import 'package:prva/screens/house_profile/show_all_my_house_profile.dart';
-import 'package:prva/screens/wrapperCreationProfile.dart';
+import 'package:prva/alphaTestLib/screens/login/login_screen.dart';
+import 'package:prva/alphaTestLib/screens/personal_profile/user_homepage.dart';
+import 'package:prva/alphaTestLib/screens/house_profile/show_all_my_house_profile.dart';
+
+bool showSignIn = true;
+void toggleView() {
+  showSignIn = !showSignIn;
+}
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -11,8 +16,6 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  final MockFirebaseAuth _auth = MockFirebaseAuth();
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -26,7 +29,13 @@ class _HomepageState extends State<Homepage> {
               icon: Icon(Icons.person),
               label: Text('logout'),
               onPressed: () async {
-                //await _auth.signOut();
+                toggleView();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => LoginPage(
+                          toggleView: toggleView, key: Key('loginpage'))),
+                );
               },
             ),
           ],
@@ -51,20 +60,20 @@ class _HomepageState extends State<Homepage> {
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
                   child: InkWell(
+                    key: Key('personalButton'),
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      /*Navigator.push(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                const WrapperCreationProfile()),
-                      );*/
+                            builder: (context) => UserHomepage(
+                                tablet: false, key: Key('userhomepage'))),
+                      );
                     },
                     child: Container(
-                      key: Key('personalButton'),
                       decoration: BoxDecoration(
                         color: Colors.black,
                         image: DecorationImage(
@@ -92,20 +101,22 @@ class _HomepageState extends State<Homepage> {
                   color: Colors.black,
                 ),
                 child: Padding(
-                  key: Key('houseButton'),
                   padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
                   child: InkWell(
+                    key: Key('houseButton'),
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      /*
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ShowHomeProfile()),
-                      );*/
+                            builder: (context) => ShowHomeProfile(
+                                  key: Key('showhomeprofile'),
+                                  tablet: false,
+                                )),
+                      );
                     },
                     child: Container(
                       decoration: BoxDecoration(

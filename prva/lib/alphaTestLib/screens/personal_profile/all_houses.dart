@@ -270,7 +270,36 @@ class _AllHousesListState extends State<AllHousesList> {
                         }),
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/viewprofile');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ViewProfile(
+                                  key: Key('viewprofile'),
+                                  houseProfile: HouseProfileAdj(
+                                      owner: "owner1",
+                                      idHouse: "idHouse1",
+                                      type: "Single Room",
+                                      address: "via test",
+                                      city: "Milan",
+                                      description: "description",
+                                      price: 500.0,
+                                      floorNumber: 3,
+                                      numBath: 2,
+                                      numPlp: 2,
+                                      startYear: 2023,
+                                      endYear: 2025,
+                                      startMonth: 01,
+                                      endMonth: 01,
+                                      startDay: 01,
+                                      endDay: 1,
+                                      latitude: 43.0,
+                                      longitude: 22.0,
+                                      imageURL1: "t",
+                                      imageURL2: "e",
+                                      imageURL3: "s",
+                                      imageURL4: "t",
+                                      numberNotifies: 1))),
+                        );
                       },
                       child: const Icon(Icons.info_rounded))
                 ],

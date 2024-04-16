@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:prva/alphaTestLib/screens/home/home.dart';
 import 'package:prva/services/auth.dart';
 import 'package:prva/screens/shared/constant.dart';
 import 'package:prva/screens/shared/loading.dart';
@@ -401,6 +402,9 @@ class _SigniInPageState extends State<SigniInPage> {
   }
 
   signIn(String email, String password) async {
-    Navigator.pushNamed(context, '/homepage');
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Homepage(key: Key('home'))),
+    );
   }
 }

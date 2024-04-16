@@ -138,7 +138,8 @@ class _SearchLayoutState extends State<SearchLayout> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const FormFilterPeopleAdj(),
+                      builder: (context) => const FormFilterPeopleAdj(
+                          key: Key('formfilterpeople')),
                     ),
                   );
                 } else {
@@ -177,7 +178,8 @@ class _SearchLayoutState extends State<SearchLayout> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => NotificationPersonLayout(),
+                          builder: (context) => NotificationPersonLayout(
+                              key: Key('notificationPage')),
                         ),
                       );
                     } else {
@@ -262,6 +264,7 @@ class ProfileLayout extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => ModificaPersonalProfile(
+                                  key: Key('modifyProfile'),
                                   personalProfile: personalData,
                                 )),
                       );
@@ -533,6 +536,7 @@ Widget _buildChatListItem(
             context,
             MaterialPageRoute(
               builder: (context) => ChatPage(
+                key: Key('chatPage'),
                 senderUserID: user.uid,
                 nameReciver: "$type $city",
                 receiverUserID: idHouse,
@@ -690,6 +694,7 @@ Widget _buildUserListItem(
               context,
               MaterialPageRoute(
                 builder: (context) => ChatPage(
+                  key: Key('matchChatPage'),
                   senderUserID: user.uid,
                   nameReciver: "$type $city",
                   receiverUserID: idHouse,

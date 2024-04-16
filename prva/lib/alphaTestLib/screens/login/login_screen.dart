@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:prva/alphaTestLib/screens/home/home.dart';
 import 'package:prva/alphaTestLib/screens/shared/constant.dart';
 import 'package:prva/alphaTestLib/screens/shared/loading.dart';
 import 'package:mockito/mockito.dart';
@@ -539,6 +540,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   register(String email, String password) async {
-    Navigator.pushNamed(context, '/homepage');
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Homepage(key: Key('home'))),
+    );
   }
 }

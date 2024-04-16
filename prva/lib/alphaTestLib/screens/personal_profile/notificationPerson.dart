@@ -9,7 +9,7 @@ import 'package:prva/alphaTestLib/screens/personal_profile/notificationPerson.da
 class NotificationPersonLayout extends StatefulWidget {
   String profile = "testProfile";
   List<MatchPeople>? idmatches;
-  NotificationPersonLayout({this.idmatches});
+  NotificationPersonLayout({super.key, this.idmatches});
 
   @override
   State<NotificationPersonLayout> createState() =>

@@ -79,7 +79,7 @@ MaterialApp appMobilePhone = MaterialApp(
               imageURL3: "s",
               imageURL4: "t"),
         ),
-    '/viewprofile': (context) => ViewProfile(
+    /*'/viewprofile': (context) => ViewProfile(
         houseProfile: HouseProfileAdj(
             owner: "owner1",
             idHouse: "idHouse1",
@@ -104,6 +104,7 @@ MaterialApp appMobilePhone = MaterialApp(
             imageURL3: "s",
             imageURL4: "t",
             numberNotifies: 1)),
+  */
   },
 );
 MaterialApp allHousesTilesTest = MaterialApp(

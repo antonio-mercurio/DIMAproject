@@ -135,8 +135,9 @@ class _SearchLayoutState extends State<SearchLayout> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          FormHouseFilter(uidHouse: house.idHouse),
+                      builder: (context) => FormHouseFilter(
+                          key: Key('formHouseFilters'),
+                          uidHouse: house.idHouse),
                     ),
                   );
                 } else {
@@ -174,8 +175,8 @@ class _SearchLayoutState extends State<SearchLayout> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                NotificationLayout(house: house),
+                            builder: (context) => NotificationLayout(
+                                key: Key('notifsPage'), house: house),
                           ),
                         );
                       } else {
@@ -265,8 +266,9 @@ class _ProfileLayoutState extends State<ProfileLayout> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        ModifyHouseProfile(house: house)));
+                                    builder: (context) => ModifyHouseProfile(
+                                        key: Key('modifyHouseProfile'),
+                                        house: house)));
                           },
                           style: ElevatedButton.styleFrom(
                             fixedSize: const Size(230, 52),
@@ -544,6 +546,7 @@ class _ChatLayoutState extends State<ChatLayout> {
               context,
               MaterialPageRoute(
                 builder: (context) => ChatPage(
+                  key: Key('chatPage'),
                   senderUserID: house.idHouse,
                   nameReciver: "$name $surname",
                   receiverUserID: idPerson,
@@ -698,6 +701,7 @@ class _ChatLayoutState extends State<ChatLayout> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => ChatPage(
+                    key: Key('matchChatPage'),
                     senderUserID: house.idHouse,
                     nameReciver: "$name $surname",
                     receiverUserID: idPerson,

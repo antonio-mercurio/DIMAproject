@@ -27,7 +27,7 @@ MaterialApp signInPage = MaterialApp(
     '/': (context) => SigniInPage(
           toggleView: toggleView,
         ),
-    '/homepage': (context) => Homepage(),
+    // '/homepage': (context) => Homepage(),
   },
 );
 

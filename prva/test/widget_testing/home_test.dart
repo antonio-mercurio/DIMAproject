@@ -27,7 +27,24 @@ void main() {
     expect(find.byKey(Key('personalButton')), findsOneWidget);
     expect(find.byKey(Key('houseButton')), findsOneWidget);
     await tester.tap(find.byKey(Key('personalButton')));
+  });
+  testWidgets('homepage test', (tester) async {
+    await tester.binding.setSurfaceSize(Size(1024, 768));
+
+    await tester.pumpWidget(app);
+    expect(find.byKey(Key('logout')), findsOneWidget);
+    expect(find.byKey(Key('personalButton')), findsOneWidget);
+    expect(find.byKey(Key('houseButton')), findsOneWidget);
     await tester.tap(find.byKey(Key('houseButton')));
+  });
+  testWidgets('homepage test', (tester) async {
+    await tester.binding.setSurfaceSize(Size(1024, 768));
+
+    await tester.pumpWidget(app);
+    expect(find.byKey(Key('logout')), findsOneWidget);
+    expect(find.byKey(Key('personalButton')), findsOneWidget);
+    expect(find.byKey(Key('houseButton')), findsOneWidget);
+
     await tester.tap(find.byKey(Key('logout')));
   });
 }

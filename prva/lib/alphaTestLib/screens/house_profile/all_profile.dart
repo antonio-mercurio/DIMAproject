@@ -224,8 +224,9 @@ class _AllProfilesListState extends State<AllProfilesList> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    ViewProfile(personalProfile: profiles[0])),
+                                builder: (context) => ViewProfile(
+                                    key: Key('viewprofile'),
+                                    personalProfile: profiles[0])),
                           );
                         },
                         child: const Icon(Icons.info_rounded)),
