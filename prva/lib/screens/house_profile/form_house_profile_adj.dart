@@ -1,6 +1,7 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:geocoding_resolver/geocoding_resolver.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -153,24 +154,22 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                 Text(
+                                Text(
                                   'Create your house profile',
                                   textAlign: TextAlign.start,
                                   style: GoogleFonts.plusJakartaSans(
-                                    
                                     color: const Color(0xFF101213),
                                     fontSize: size32(context),
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                               Padding(
+                                Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 12, 0, 24),
                                   child: Text(
                                     'Start with address and type!',
                                     textAlign: TextAlign.start,
                                     style: GoogleFonts.plusJakartaSans(
-                                      
                                       color: const Color(0xFF57636C),
                                       fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
@@ -184,15 +183,14 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                     width: double.infinity,
                                     child: DropdownButtonFormField(
                                         style: GoogleFonts.plusJakartaSans(
-                                         
                                           color: const Color(0xFF101213),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
                                         ),
                                         decoration: InputDecoration(
                                           labelText: 'Type',
-                                          labelStyle: GoogleFonts.plusJakartaSans(
-                                            
+                                          labelStyle:
+                                              GoogleFonts.plusJakartaSans(
                                             color: const Color(0xFF57636C),
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
@@ -257,13 +255,14 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                             "AIzaSyD8yblyesPc-09bye4ZF9KlO95G6RhhlmA",
                                         inputDecoration: InputDecoration(
                                           labelText: 'Address',
-                                          labelStyle: GoogleFonts.plusJakartaSans(
-                                            
+                                          labelStyle:
+                                              GoogleFonts.plusJakartaSans(
                                             color: const Color(0xFF57636C),
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
                                           ),
-                                          enabledBorder: const OutlineInputBorder(
+                                          enabledBorder:
+                                              const OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color: Color(0xFFE0E3E7),
                                               width: 2,
@@ -290,7 +289,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                           ),
                                           filled: true,
                                           fillColor: Colors.white,
-                                          contentPadding: const EdgeInsets.all(24),
+                                          contentPadding:
+                                              const EdgeInsets.all(24),
                                         ),
                                         debounceTime: 800, // default 600 ms,
                                         countries: const [
@@ -398,14 +398,14 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                 Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0, 12, 0, 24),
+                                Padding(
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 12, 0, 24),
                                     child: Text(
                                       'Something about the house',
                                       textAlign: TextAlign.start,
                                       style: GoogleFonts.plusJakartaSans(
-                                       
                                         color: const Color(0xFF57636C),
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -426,7 +426,6 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                       decoration: InputDecoration(
                                         labelText: 'Description',
                                         labelStyle: GoogleFonts.plusJakartaSans(
-                                         
                                           color: const Color(0xFF57636C),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
@@ -469,7 +468,6 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                             const EdgeInsets.all(24),
                                       ),
                                       style: GoogleFonts.plusJakartaSans(
-                                       
                                         color: const Color(0xFF101213),
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -485,10 +483,9 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                   Text(
+                                    Text(
                                       'Max number of people that\ncan live in the house:',
                                       style: GoogleFonts.plusJakartaSans(
-                                        
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -543,12 +540,16 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                               ),
-                                              style: GoogleFonts.plusJakartaSans(
-                                               
+                                              style:
+                                                  GoogleFonts.plusJakartaSans(
                                                 color: const Color(0xFF101213),
                                                 fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
                                               ),
+                                              inputFormatters: <TextInputFormatter>[
+                                                FilteringTextInputFormatter
+                                                    .allow(RegExp("[0-9]")),
+                                              ],
                                               keyboardType:
                                                   TextInputType.number,
                                               validator: (val) => val!.isEmpty
@@ -565,12 +566,12 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                     Text(
+                                    Text(
                                       'Floor number of the house:',
                                       style: GoogleFonts.plusJakartaSans(
                                         color: const Color(0xFF101213),
-                                                fontSize: size16(context),
-                                                fontWeight: FontWeight.w500,
+                                        fontSize: size16(context),
+                                        fontWeight: FontWeight.w500,
                                       ),
                                     ),
                                     Expanded(
@@ -623,12 +624,16 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                               ),
-                                              style: GoogleFonts.plusJakartaSans(
-                                               
+                                              style:
+                                                  GoogleFonts.plusJakartaSans(
                                                 color: const Color(0xFF101213),
                                                 fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
                                               ),
+                                              inputFormatters: <TextInputFormatter>[
+                                                FilteringTextInputFormatter
+                                                    .allow(RegExp("[0-9]")),
+                                              ],
                                               keyboardType:
                                                   TextInputType.number,
                                               validator: (val) => val!.isEmpty
@@ -645,10 +650,9 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                     Text(
+                                    Text(
                                       'Number of bathrooms:',
                                       style: GoogleFonts.plusJakartaSans(
-                                       
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -703,12 +707,16 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                 contentPadding:
                                                     const EdgeInsets.all(24),
                                               ),
-                                              style: GoogleFonts.plusJakartaSans(
-                                               
+                                              style:
+                                                  GoogleFonts.plusJakartaSans(
                                                 color: const Color(0xFF101213),
                                                 fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
                                               ),
+                                              inputFormatters: <TextInputFormatter>[
+                                                FilteringTextInputFormatter
+                                                    .allow(RegExp("[0-9]")),
+                                              ],
                                               keyboardType:
                                                   TextInputType.number,
                                               validator: (val) => val!.isEmpty
@@ -758,14 +766,13 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                 Padding(
+                                Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 12, 0, 24),
                                   child: Text(
                                     'Something about the rent',
                                     textAlign: TextAlign.start,
                                     style: GoogleFonts.plusJakartaSans(
-                                      
                                       color: const Color(0xFF57636C),
                                       fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
@@ -796,7 +803,6 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         ),
                                         labelText: 'Start date of rent',
                                         labelStyle: GoogleFonts.plusJakartaSans(
-                                         
                                           color: const Color(0xFF57636C),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
@@ -840,7 +846,6 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                             const EdgeInsets.all(24),
                                       ),
                                       style: GoogleFonts.plusJakartaSans(
-                                       
                                         color: const Color(0xFF101213),
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -875,7 +880,6 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         ),
                                         labelText: 'End date of rent',
                                         labelStyle: GoogleFonts.plusJakartaSans(
-                                         
                                           color: const Color(0xFF57636C),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
@@ -919,7 +923,6 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                             const EdgeInsets.all(24),
                                       ),
                                       style: GoogleFonts.plusJakartaSans(
-                                        
                                         color: const Color(0xFF101213),
                                         fontSize: size16(context),
                                         fontWeight: FontWeight.w500,
@@ -939,9 +942,9 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         autofocus: true,
                                         obscureText: false,
                                         decoration: InputDecoration(
-                                          labelText: 'Price',
-                                          labelStyle: GoogleFonts.plusJakartaSans(
-                                           
+                                          labelText: 'Price (in euros)',
+                                          labelStyle:
+                                              GoogleFonts.plusJakartaSans(
                                             color: const Color(0xFF57636C),
                                             fontSize: size16(context),
                                             fontWeight: FontWeight.w500,
@@ -985,14 +988,19 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                               const EdgeInsets.all(24),
                                         ),
                                         style: GoogleFonts.plusJakartaSans(
-                                          
                                           color: const Color(0xFF101213),
                                           fontSize: size16(context),
                                           fontWeight: FontWeight.w500,
                                         ),
+                                        inputFormatters: <TextInputFormatter>[
+                                          FilteringTextInputFormatter.allow(
+                                              RegExp("([0-9.0-9])")),
+                                        ],
                                         keyboardType: const TextInputType
                                             .numberWithOptions(decimal: true),
-                                        validator: (val) => (val!.isEmpty || double.parse(val)>4000 || double.parse(val)<0)
+                                        validator: (val) => (val!.isEmpty ||
+                                                double.parse(val) > 4000 ||
+                                                double.parse(val) < 0)
                                             ? 'Please enter a valid price (range: 0-4000)'
                                             : null,
                                         onChanged: (val) => setState(() =>
@@ -1035,21 +1043,20 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                 Padding(
+                                Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 12, 0, 24),
                                   child: Text(
                                     'Almost done!',
                                     textAlign: TextAlign.start,
                                     style: GoogleFonts.plusJakartaSans(
-                                     
                                       color: const Color(0xFF57636C),
                                       fontSize: size16(context),
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                 ),
-                               Padding(
+                                Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 16),
                                   child: Row(
@@ -1058,10 +1065,11 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                     children: [
                                       Text(
                                         'Pick some photos for your profile!',
-                                        style: GoogleFonts.plusJakartaSans( color: const Color(0xFF101213),
+                                        style: GoogleFonts.plusJakartaSans(
+                                          color: const Color(0xFF101213),
                                           fontSize: size16(context),
-                                         
-                                       ), ),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -1126,8 +1134,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                               ? null
                                               : IconButton(
                                                   icon: const Icon(Icons.close),
-                                                  color:
-                                                       errorColor,
+                                                  color: errorColor,
                                                   onPressed: () async {
                                                     await FirebaseStorage
                                                         .instance
@@ -1143,9 +1150,9 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                         ),
                                       ]),
                                       SizedBox(
-                                          width:
-                                              MediaQuery.sizeOf(context).height*
-                                                  0.02),
+                                          width: MediaQuery.sizeOf(context)
+                                                  .height *
+                                              0.02),
                                       Column(children: [
                                         InkWell(
                                           splashColor: Colors.transparent,
@@ -1200,8 +1207,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                               ? null
                                               : IconButton(
                                                   icon: const Icon(Icons.close),
-                                                  color:
-                                                       errorColor,
+                                                  color: errorColor,
                                                   onPressed: () async {
                                                     await FirebaseStorage
                                                         .instance
@@ -1247,8 +1253,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                   'assets/userPhoto.jpg',
                                                   width:
                                                       MediaQuery.sizeOf(context)
-                                                            .height *
-                                                        0.15,
+                                                              .height *
+                                                          0.15,
                                                   height:
                                                       MediaQuery.sizeOf(context)
                                                               .height *
@@ -1259,8 +1265,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                   imageURLs[2],
                                                   width:
                                                       MediaQuery.sizeOf(context)
-                                                            .height *
-                                                        0.15,
+                                                              .height *
+                                                          0.15,
                                                   height:
                                                       MediaQuery.sizeOf(context)
                                                               .height *
@@ -1316,8 +1322,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                   'assets/userPhoto.jpg',
                                                   width:
                                                       MediaQuery.sizeOf(context)
-                                                            .height *
-                                                        0.15,
+                                                              .height *
+                                                          0.15,
                                                   height:
                                                       MediaQuery.sizeOf(context)
                                                               .height *
@@ -1328,8 +1334,8 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                   imageURLs[3],
                                                   width:
                                                       MediaQuery.sizeOf(context)
-                                                            .height *
-                                                        0.15,
+                                                              .height *
+                                                          0.15,
                                                   height:
                                                       MediaQuery.sizeOf(context)
                                                               .height *
@@ -1375,7 +1381,7 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                           onPressed: () async {
                             if (scaffoldKey.currentState!.validate()) {
                               if (_startDate!.isBefore(_endDate!)) {
-                                if (imageURLs[0] !='') {
+                                if (imageURLs[0] != '') {
                                   setState(() {});
 
                                   await DatabaseServiceHouseProfile(user.uid)
@@ -1426,26 +1432,27 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                               }
                             }
                           },
-                         style: ElevatedButton.styleFrom(
-                                      fixedSize: const Size(230, 52),
-                                      backgroundColor:mainColor,
-                                       elevation: 3.0,
-                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(40),
-                                       ),
-                                       side: const BorderSide(
-                                        color: Colors.transparent,
-                                        width: 1,
-                                      ),
-                                    ),
-                                    child : Text('Create!',
-                                    style: GoogleFonts.plusJakartaSans(
-                                     
-                                            color: backgroundColor,
-                                            fontSize: size16(context),
-                                            fontWeight: FontWeight.w500,
-                                    ),),
-                                          ),
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: const Size(230, 52),
+                            backgroundColor: mainColor,
+                            elevation: 3.0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            side: const BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
+                            ),
+                          ),
+                          child: Text(
+                            'Create!',
+                            style: GoogleFonts.plusJakartaSans(
+                              color: backgroundColor,
+                              fontSize: size16(context),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ],

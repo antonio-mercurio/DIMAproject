@@ -6,9 +6,15 @@ class SwipeWidget extends StatelessWidget {
   final String firstName;
   final String lastName;
   late final double? price;
-  late final int? age; 
+  late final int? age;
 
-  SwipeWidget({super.key, required this.image, required this.firstName, required this.lastName, this.price, this.age});
+  SwipeWidget(
+      {super.key,
+      required this.image,
+      required this.firstName,
+      required this.lastName,
+      this.price,
+      this.age});
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +57,9 @@ class SwipeWidget extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                       child: Text(
-                        price?.toString() ?? age.toString(),
+                        price != null ? "${price.toString()}€" : age.toString(),
                         style: GoogleFonts.plusJakartaSans(
-                           
-                            fontSize: 22,
-                            color: Colors.white),
+                            fontSize: 22, color: Colors.white),
                       ),
                     ),
                   ]),

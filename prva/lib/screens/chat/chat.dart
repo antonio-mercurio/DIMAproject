@@ -5,13 +5,13 @@ import 'package:prva/screens/shared/constant.dart';
 import 'package:prva/services/chat/chat_service.dart';
 
 class ChatPage extends StatefulWidget {
-  final String  nameReciver;
+  final String nameReciver;
   final String receiverUserID;
   final String senderUserID;
 
   const ChatPage(
       {super.key,
-      required this. nameReciver,
+      required this.nameReciver,
       required this.receiverUserID,
       required this.senderUserID});
 
@@ -36,16 +36,17 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: mainColor,
-        automaticallyImplyLeading: MediaQuery.of(context).size.width < widthSize,
-        title: Text(widget.nameReciver,
-         style: GoogleFonts.plusJakartaSans(
-                                            color: backgroundColor,
-                                            fontSize: size24(context),
-                                            fontWeight: FontWeight.w500,
+          backgroundColor: mainColor,
+          automaticallyImplyLeading:
+              MediaQuery.of(context).size.width < widthSize,
+          title: Text(
+            widget.nameReciver,
+            style: GoogleFonts.plusJakartaSans(
+              color: backgroundColor,
+              fontSize: size24(context),
+              fontWeight: FontWeight.w500,
             ),
-        )
-      ),
+          )),
       body: Column(
         children: [
           Expanded(
@@ -103,21 +104,28 @@ class _ChatPageState extends State<ChatPage> {
         crossAxisAlignment: crossAling,
         children: [
           Container(
-              decoration: BoxDecoration(
-        color: colorMsg,
-        borderRadius: BorderRadius.circular(25)
-      ),
-      constraints: BoxConstraints( minWidth: MediaQuery.sizeOf(context).height*0.1,   maxWidth: MediaQuery.sizeOf(context).height*0.4,),
-      padding: const EdgeInsets.all(16),
-      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 25),
-          child:Column(
-            crossAxisAlignment: crossAling,
-            children: [ Text(data['message'],
-          style: TextStyle( fontSize: size16(context), color: backgroundColor)),
-          Text("${data['timestamp'].toDate().hour}:${data['timestamp'].toDate().minute}",
-          style: TextStyle( fontSize: size10(context), color: backgroundColor)),
-            ]
-          ),
+            decoration: BoxDecoration(
+                color: colorMsg, borderRadius: BorderRadius.circular(25)),
+            constraints: BoxConstraints(
+              minWidth: MediaQuery.sizeOf(context).height * 0.1,
+              maxWidth: MediaQuery.sizeOf(context).height * 0.4,
+            ),
+            padding: const EdgeInsets.all(16),
+            margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 25),
+            child: Column(crossAxisAlignment: crossAling, children: [
+              Text(data['message'],
+                  style: TextStyle(
+                      fontSize: size16(context), color: backgroundColor)),
+              data['timestamp'].toDate().minute >= 10
+                  ? Text(
+                      "${data['timestamp'].toDate().hour}:${data['timestamp'].toDate().minute}",
+                      style: TextStyle(
+                          fontSize: size10(context), color: backgroundColor))
+                  : Text(
+                      "${data['timestamp'].toDate().hour}:0${data['timestamp'].toDate().minute}",
+                      style: TextStyle(
+                          fontSize: size10(context), color: backgroundColor)),
+            ]),
           ),
         ],
       ),
@@ -130,66 +138,57 @@ class _ChatPageState extends State<ChatPage> {
       children: [
         Expanded(
           child: Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(5, 0, 5, 0),
-
-          child: TextField(
-            controller: _messageController,
-            obscureText: false,
-            decoration:  InputDecoration(
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFFE0E3E7),
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(40),
-                                                ),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                    color: mainColor,
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(40),
-                                                ),
-                                                errorBorder: OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                    color: errorColor,
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(40),
-                                                ),
-                                                focusedErrorBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                    color: errorColor,
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(40),
-                                                ),
+            padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
+            child: TextField(
+              controller: _messageController,
+              obscureText: false,
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Color(0xFFE0E3E7),
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(40),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: mainColor,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(40),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: errorColor,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(40),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: errorColor,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(40),
+                ),
+              ),
             ),
           ),
         ),
-        ),
         Container(
-        decoration : BoxDecoration(
-          color: mainColor,
-          shape: BoxShape.circle,
-        ),
-        margin: const EdgeInsets.only(right: 20),
-        child: IconButton(
-          onPressed: sendMessage,
-          icon: Icon(
-            Icons.arrow_upward,
-            size: 30,
-            color: backgroundColor,
+          decoration: BoxDecoration(
+            color: mainColor,
+            shape: BoxShape.circle,
           ),
-        ),
+          margin: const EdgeInsets.only(right: 20),
+          child: IconButton(
+            onPressed: sendMessage,
+            icon: Icon(
+              Icons.arrow_upward,
+              size: 30,
+              color: backgroundColor,
+            ),
+          ),
         ),
       ],
     );

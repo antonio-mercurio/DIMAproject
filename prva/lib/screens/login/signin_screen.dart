@@ -50,25 +50,18 @@ class _SigniInPageState extends State<SigniInPage> {
             appBar: AppBar(
                 backgroundColor: mainColor,
                 elevation: 0.0,
-                title: Text(
-                  'Affinder',
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    fontFamily: 'Plus Jakarta Sans',
-                    color: backgroundColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: size32(context),
-                  ),
-                ),
                 actions: <Widget>[
                   TextButton.icon(
                       onPressed: () {
                         widget.toggleView();
                       },
-                      icon: Icon(Icons.person, color: backgroundColor,
-                      size: MediaQuery.sizeOf(context).width<widthSize 
-                  ? MediaQuery.sizeOf(context).height * 0.03
-                  :  MediaQuery.sizeOf(context).height * 0.032,),
+                      icon: Icon(
+                        Icons.person,
+                        color: backgroundColor,
+                        size: MediaQuery.sizeOf(context).width < widthSize
+                            ? MediaQuery.sizeOf(context).height * 0.03
+                            : MediaQuery.sizeOf(context).height * 0.032,
+                      ),
                       label: Text(
                         'Register',
                         style: TextStyle(
@@ -97,11 +90,11 @@ class _SigniInPageState extends State<SigniInPage> {
                               borderRadius: BorderRadius.circular(16),
                             ),
                             alignment: const AlignmentDirectional(0, 0),
-                            child:  Image.asset(
-                'assets/logo_affinder_tagliato.jpg',
-                height: MediaQuery.sizeOf(context).height * 0.4,
-                width: MediaQuery.sizeOf(context).height * 0.4,
-              )),
+                            child: Image.asset(
+                              'assets/logo_affinder_tagliato.jpg',
+                              height: MediaQuery.sizeOf(context).height * 0.4,
+                              width: MediaQuery.sizeOf(context).height * 0.4,
+                            )),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(12),
@@ -136,7 +129,7 @@ class _SigniInPageState extends State<SigniInPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                       Text(
+                                      Text(
                                         'Sign in with your account',
                                         textAlign: TextAlign.start,
                                         style: TextStyle(
@@ -146,9 +139,9 @@ class _SigniInPageState extends State<SigniInPage> {
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
-                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0, 12, 0, 24),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 12, 0, 24),
                                         child: Text(
                                           'Welcome back! We missed you.',
                                           textAlign: TextAlign.start,
@@ -171,7 +164,8 @@ class _SigniInPageState extends State<SigniInPage> {
                                                 labelStyle: TextStyle(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: const Color(0xFF57636C),
+                                                  color:
+                                                      const Color(0xFF57636C),
                                                   fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -203,8 +197,8 @@ class _SigniInPageState extends State<SigniInPage> {
                                                 ),
                                                 focusedErrorBorder:
                                                     OutlineInputBorder(
-                                                  borderSide:  BorderSide(
-                                                    color:errorColor,
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
@@ -247,7 +241,8 @@ class _SigniInPageState extends State<SigniInPage> {
                                                 labelStyle: TextStyle(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: const Color(0xFF57636C),
+                                                  color:
+                                                      const Color(0xFF57636C),
                                                   fontSize: size16(context),
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -270,8 +265,8 @@ class _SigniInPageState extends State<SigniInPage> {
                                                       BorderRadius.circular(40),
                                                 ),
                                                 errorBorder: OutlineInputBorder(
-                                                  borderSide:  BorderSide(
-                                                    color:errorColor,
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
@@ -279,8 +274,8 @@ class _SigniInPageState extends State<SigniInPage> {
                                                 ),
                                                 focusedErrorBorder:
                                                     OutlineInputBorder(
-                                                  borderSide:  BorderSide(
-                                                    color:errorColor,
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
                                                     width: 2,
                                                   ),
                                                   borderRadius:
@@ -305,7 +300,8 @@ class _SigniInPageState extends State<SigniInPage> {
                                                             .visibility_outlined
                                                         : Icons
                                                             .visibility_off_outlined,
-                                                    color: const Color(0xFF57636C),
+                                                    color:
+                                                        const Color(0xFF57636C),
                                                     size: size24(context),
                                                   ),
                                                 ),
@@ -353,8 +349,9 @@ class _SigniInPageState extends State<SigniInPage> {
                                               backgroundColor: mainColor,
                                               elevation: 3.0,
                                               shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(40),
-                                       ),
+                                                borderRadius:
+                                                    BorderRadius.circular(40),
+                                              ),
                                               side: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1,
