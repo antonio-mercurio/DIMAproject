@@ -318,10 +318,15 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
                                                         selLocation.longitude);
                                             //qui accedo ad address e prendo i dettagli che mi servono
 
-                                            _address =
-                                                "${address.addressDetails.road}, ${address.addressDetails.houseNumber}, ${address.addressDetails.postcode}, ${address.addressDetails.city}";
+                                            _address = address.displayName;
 
-                                            _city = address.addressDetails.city;
+                                            // "${address.addressDetails.road}, ${address.addressDetails.houseNumber}, ${address.addressDetails.postcode}, ${address.addressDetails.city}";
+
+                                            _city = address
+                                                        .addressDetails.city !=
+                                                    ""
+                                                ? address.addressDetails.city
+                                                : pulisci(address.displayName);
                                           }
                                         }, // this callback is called when isLatLngRequired is true
 
@@ -1461,5 +1466,10 @@ class _FormHouseAdjState extends State<FormHouseAdj> {
             ),
           ),
         ));
+  }
+
+  String pulisci(String intero) {
+    var output = intero.split(',');
+    return output[1];
   }
 }

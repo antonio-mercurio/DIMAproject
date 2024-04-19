@@ -1578,9 +1578,12 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                               onPressed: () async {
                                 await DatabaseServiceHouseProfile(house.idHouse)
                                     .deleteHouseProfileAdj();
-                                if (mounted) {
+                                /*if (mounted) {
                                   Navigator.pop(context);
-                                }
+                                }*/
+                                int count = 0;
+                                Navigator.of(context)
+                                    .popUntil((_) => count++ >= 2);
                               },
                               style: ElevatedButton.styleFrom(
                                 fixedSize: const Size(230, 52),
