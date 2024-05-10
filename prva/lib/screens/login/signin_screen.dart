@@ -338,7 +338,7 @@ class _SigniInPageState extends State<SigniInPage> {
                                                 if (result == null) {
                                                   setState(() {
                                                     error =
-                                                        'invalid credentials';
+                                                        'Invalid credentials';
                                                     loading = false;
                                                   });
                                                 }
@@ -369,6 +369,19 @@ class _SigniInPageState extends State<SigniInPage> {
                                           ),
                                         ),
                                       ),
+                                      Align(
+                                alignment: const AlignmentDirectional(0, 0),
+                                child:   
+                                Padding(
+                                padding:
+                                    const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 4),
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: Text(
+                                   textAlign: TextAlign.center, 
+                                    error, 
+                                    style: TextStyle(color: errorColor, fontSize: size14(context), fontWeight: FontWeight.bold),
+                                  ),),),)
                                     ]),
                               ),
                             ),

@@ -400,7 +400,7 @@ class _LoginPageState extends State<LoginPage> {
                                 .registerWithEmailAndPassword(email, password);
                             if (result == null) {
                               setState(() {
-                                error = 'invalid email';
+                                error = 'Invalid e-mail';
                                 loading = false;
                               });
                             }
@@ -427,10 +427,25 @@ class _LoginPageState extends State<LoginPage> {
                                     ),),
                                     ),
                                       ),
+
+                                      
                                   ),
-                                ]
+                                  Align(
+                                alignment: const AlignmentDirectional(0, 0),
+                                child:   
+                                Padding(
+                                padding:
+                                    const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 4),
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: Text(
+                                   textAlign: TextAlign.center, 
+                                    error, 
+                                    style: TextStyle(color: errorColor, fontSize: size14(context), fontWeight: FontWeight.bold),
+                                  ),),),)
+                                  ]
                               ),
-                            
+
                           ),
                         ),),
                     )   
