@@ -730,6 +730,7 @@ class _ChatLayoutState extends State<ChatLayout> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => ChatPage(
+                            withPerson: snapshot.data,
                             senderUserID: house.idHouse,
                             nameReciver: "$name $surname",
                             receiverUserID: idPerson,
@@ -738,6 +739,7 @@ class _ChatLayoutState extends State<ChatLayout> {
                       );
                     } else {
                       setState(() {
+                        personalProfileWith.value = snapshot.data!;
                         nameReciverTablet.value = "$name $surname";
                         idReciverTablet.value = idPerson;
                       });

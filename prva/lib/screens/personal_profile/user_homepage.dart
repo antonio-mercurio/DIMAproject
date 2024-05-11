@@ -298,6 +298,32 @@ class ChatLayout extends StatefulWidget {
 }
 
 class _ChatLayoutState extends State<ChatLayout> {
+  final ValueNotifier<HouseProfileAdj> houseProfileWith =
+      ValueNotifier<HouseProfileAdj>(HouseProfileAdj(
+          owner: 'owner',
+          idHouse: 'idHouse',
+          type: 'type',
+          address: 'address',
+          city: 'city',
+          description: 'description',
+          price: 0.0,
+          floorNumber: 0,
+          numBath: 0,
+          numPlp: 0,
+          startYear: 0,
+          endYear: 0,
+          startMonth: 0,
+          endMonth: 0,
+          startDay: 0,
+          endDay: 0,
+          latitude: 0,
+          longitude: 0,
+          imageURL1: 'imageURL1',
+          imageURL2: 'imageURL2',
+          imageURL3: 'imageURL3',
+          imageURL4: 'imageURL4',
+          numberNotifies: 0));
+
   final ValueNotifier<String> nameReciverTablet = ValueNotifier<String>('');
   final ValueNotifier<String> idReciverTablet = ValueNotifier<String>('');
   List<String>? matches;
@@ -352,6 +378,7 @@ class _ChatLayoutState extends State<ChatLayout> {
                     child: (nameReciverTablet.value != '' &&
                             idReciverTablet.value != '')
                         ? ChatPage(
+                            withHouse: houseProfileWith.value,
                             senderUserID: user.uid,
                             nameReciver: nameReciverTablet.value,
                             receiverUserID: idReciverTablet.value,
@@ -514,6 +541,7 @@ class _ChatLayoutState extends State<ChatLayout> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ChatPage(
+                          withHouse: snapshot.data,
                           senderUserID: user.uid,
                           nameReciver: "$type $city",
                           receiverUserID: idHouse,
@@ -522,6 +550,7 @@ class _ChatLayoutState extends State<ChatLayout> {
                     );
                   } else {
                     setState(() {
+                      houseProfileWith.value = snapshot.data!;
                       nameReciverTablet.value = "$type $city";
                       idReciverTablet.value = idHouse;
                     });
@@ -693,6 +722,7 @@ class _ChatLayoutState extends State<ChatLayout> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => ChatPage(
+                            withHouse: snapshot.data,
                             senderUserID: user.uid,
                             nameReciver: "$type $city",
                             receiverUserID: idHouse,
