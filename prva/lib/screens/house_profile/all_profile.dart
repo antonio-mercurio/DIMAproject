@@ -27,6 +27,7 @@ class AllProfilesList extends StatefulWidget {
 class _AllProfilesListState extends State<AllProfilesList> {
   List<String>? alreadySeenProfiles;
   List<PersonalProfileAdj>? profiles;
+  PersonalProfileAdj? personalProfileToShow;
   int? notifiesOther;
   final HouseProfileAdj house;
   FiltersPersonAdj? filtri;
@@ -97,14 +98,16 @@ class _AllProfilesListState extends State<AllProfilesList> {
         notifiesOther = content;
       });
 
+      personalProfileToShow = profiles[0];
+
       return MediaQuery.of(context).size.width < widthSize
           ? Column(
               children: <Widget>[
                 SwipeWidget(
-                  firstName: profiles[0].nameA,
-                  image: profiles[0].imageURL1,
-                  lastName: profiles[0].surnameA,
-                  age: _calculateAge(profiles[0]),
+                  firstName: personalProfileToShow?.nameA ?? "" ,
+                  image: personalProfileToShow?.imageURL1 ?? "",
+                  lastName: personalProfileToShow?.surnameA ?? "",
+                  age: _calculateAge(personalProfileToShow!),
                 ),
                 SizedBox(height: MediaQuery.sizeOf(context).height * 0.012),
                 Row(
@@ -128,7 +131,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
                         ),
                         onPressed: () async {
                           /* Put like */
-                          String persID = profiles[0].uidA;
+                          String persID = personalProfileToShow!.uidA;
                           await MatchService()
                               .putPrefence(myHouse.idHouse, persID, "like");
                           /* check for match */
@@ -170,7 +173,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
                         ),
                         onPressed: () async {
                           await MatchService().putPrefence(
-                              myHouse.idHouse, profiles[0].uidA, "dislike");
+                              myHouse.idHouse, personalProfileToShow!.uidA, "dislike");
                         },
                         child: const Icon(Icons.close_rounded)),
                     SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
@@ -195,7 +198,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ViewPersonalProfile(
-                                    personalProfile: profiles[0])),
+                                    personalProfile: personalProfileToShow!)),
                           );
                         },
                         child: const Icon(Icons.info_rounded)),
@@ -212,10 +215,10 @@ class _AllProfilesListState extends State<AllProfilesList> {
                       height: MediaQuery.sizeOf(context).height * 0.9,
                       child: Column(children: <Widget>[
                         SwipeWidget(
-                          firstName: profiles[0].nameA,
-                          image: profiles[0].imageURL1,
-                          lastName: profiles[0].surnameA,
-                          age: _calculateAge(profiles[0]),
+                          firstName:personalProfileToShow!.nameA,
+                          image: personalProfileToShow!.imageURL1,
+                          lastName: personalProfileToShow!.surnameA,
+                          age: _calculateAge(personalProfileToShow!),
                         ),
                         SizedBox(
                             height: MediaQuery.sizeOf(context).height * 0.012),
@@ -244,7 +247,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
                                 ),
                                 onPressed: () async {
                                   /* Put like */
-                                  String persID = profiles[0].uidA;
+                                  String persID =personalProfileToShow!.uidA;
                                   await MatchService().putPrefence(
                                       myHouse.idHouse, persID, "like");
                                   /* check for match */
@@ -292,7 +295,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
                                 onPressed: () async {
                                   await MatchService().putPrefence(
                                       myHouse.idHouse,
-                                      profiles[0].uidA,
+                                      personalProfileToShow!.uidA,
                                       "dislike");
                                 },
                                 child: const Icon(Icons.close_rounded)),
@@ -309,7 +312,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
                           Expanded(
                               child: SingleChildScrollView(
                             child: ShowDetailedPersonalProfile(
-                                personalProfile: profiles[0]),
+                                personalProfile: personalProfileToShow!),
                           ))
                         ]))),
               ],
