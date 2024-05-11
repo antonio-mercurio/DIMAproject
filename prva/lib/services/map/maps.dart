@@ -40,10 +40,10 @@ class _MapSample2State extends State<MapSample2> {
     var marker = Marker(
       markerId: MarkerId(id),
       position: location,
-      infoWindow: const InfoWindow(
-        title: 'Title of place',
-        snippet: 'description of the location',
-      ),
+      /*infoWindow: InfoWindow(
+        title: id,
+        //snippet: 'description of the location',
+      ),*/
     );
     _markers[id] = marker;
 
