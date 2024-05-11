@@ -68,7 +68,7 @@ DA:135,6
 LF:66
 LH:66
 end_of_record
-SF:lib/alphaTestLib/screens/login/login_screen.dart
+SF:lib/alphaTestLib/screens/login/register_screen.dart
 DA:14,3
 DA:16,3
 DA:17,3
@@ -3898,7 +3898,7 @@ DA:168,3
 LF:70
 LH:70
 end_of_record
-SF:lib/alphaTestLib/screens/login/signin_screen.dart
+SF:lib/alphaTestLib/screens/login/login_screen.dart
 DA:15,2
 DA:16,2
 DA:17,2

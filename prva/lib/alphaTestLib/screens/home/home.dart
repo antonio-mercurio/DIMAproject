@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prva/alphaTestLib/screens/login/login_screen.dart';
+import 'package:prva/alphaTestLib/screens/login/register_screen.dart';
 import 'package:prva/alphaTestLib/screens/personal_profile/user_homepage.dart';
 import 'package:prva/alphaTestLib/screens/house_profile/show_all_my_house_profile.dart';
 
@@ -33,7 +33,7 @@ class _HomepageState extends State<Homepage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => LoginPage(
+                      builder: (context) => RegisterPage(
                           toggleView: toggleView, key: Key('loginpage'))),
                 );
               },

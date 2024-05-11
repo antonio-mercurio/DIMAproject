@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prva/screens/login/register_screen.dart';
 import 'package:prva/screens/login/login_screen.dart';
-import 'package:prva/screens/login/signin_screen.dart';
 
 class Authenticate extends StatefulWidget {
   const Authenticate({super.key});
@@ -18,9 +18,9 @@ class _AuthenticateState extends State<Authenticate> {
   @override
   Widget build(BuildContext context) {
     if (showSignIn) {
-      return SigniInPage(toggleView: toggleView);
-    } else {
       return LoginPage(toggleView: toggleView);
+    } else {
+      return RegisterPage(toggleView: toggleView);
     }
   }
 }

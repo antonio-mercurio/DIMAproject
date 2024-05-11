@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:prva/alphaTestLib/screens/home/home.dart';
-import 'package:prva/alphaTestLib/screens/login/signin_screen.dart';
+import 'package:prva/alphaTestLib/screens/login/login_screen.dart';
 
 bool showSignIn = true;
 void toggleView() {
@@ -24,7 +24,7 @@ MaterialApp signInPage = MaterialApp(
   initialRoute: '/',
   routes: {
     // When navigating to the "/" route, build the FirstScreen widget.
-    '/': (context) => SigniInPage(
+    '/': (context) => LoginPage(
           toggleView: toggleView,
         ),
     // '/homepage': (context) => Homepage(),
