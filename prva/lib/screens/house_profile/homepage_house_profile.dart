@@ -390,7 +390,7 @@ class _ChatLayoutState extends State<ChatLayout> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                 child: Text(
                   'Chats',
                   style: GoogleFonts.plusJakartaSans(
