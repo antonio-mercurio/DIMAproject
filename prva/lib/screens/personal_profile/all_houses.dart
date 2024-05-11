@@ -25,6 +25,7 @@ class AllHousesList extends StatefulWidget {
 class _AllHousesListState extends State<AllHousesList> {
   List<String>? alreadySeenHouses;
   List<HouseProfileAdj>? houses;
+  HouseProfileAdj? houseToShow;
   List<PreferenceForMatch>? preferencesOther;
   final PersonalProfileAdj myProfile;
   FiltersHouseAdj? filtri;
@@ -87,7 +88,10 @@ class _AllHousesListState extends State<AllHousesList> {
     }
 
     if (houses.isEmpty) {
-      return const EmptyProfile(textToShow: 'You have already seen all profiles!', shapeOfIcon: Icons.check_rounded,);
+      return const EmptyProfile(
+        textToShow: 'You have already seen all profiles!',
+        shapeOfIcon: Icons.check_rounded,
+      );
     } else {
       final myUser = Provider.of<PersonalProfileAdj>(context);
       final retrievedPreferences =
@@ -100,10 +104,15 @@ class _AllHousesListState extends State<AllHousesList> {
       retrievedNotifies.listen((content) {
         myNotifies = content;
       });
-
+      houseToShow = houses[0];
       return MediaQuery.of(context).size.width < widthSize
           ? Column(children: <Widget>[
-              SwipeWidget(firstName: houses[0].type, image : houses[0].imageURL1, lastName: houses[0].city, price: houses[0].price, ),
+              SwipeWidget(
+                firstName: houseToShow!.type,
+                image: houseToShow!.imageURL1,
+                lastName: houseToShow!.city,
+                price: houseToShow!.price,
+              ),
               SizedBox(height: MediaQuery.sizeOf(context).height * 0.012),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -113,8 +122,7 @@ class _AllHousesListState extends State<AllHousesList> {
                         shape: MaterialStateProperty.all(const CircleBorder()),
                         padding: MaterialStateProperty.all(EdgeInsets.all(
                             MediaQuery.sizeOf(context).height * 0.02)),
-                        backgroundColor: MaterialStateProperty.all(
-                            mainColor), 
+                        backgroundColor: MaterialStateProperty.all(mainColor),
                         overlayColor:
                             MaterialStateProperty.resolveWith<Color?>((states) {
                           if (states.contains(MaterialState.pressed)) {
@@ -125,8 +133,8 @@ class _AllHousesListState extends State<AllHousesList> {
                       ),
                       onPressed: () async {
                         /* Put like */
-                        String hID = houses[0].idHouse;
-                        int hNotifies = houses[0].numberNotifies;
+                        String hID = houseToShow!.idHouse;
+                        int hNotifies = houseToShow!.numberNotifies;
                         await MatchService()
                             .putPrefence(myUser.uidA, hID, "like");
                         try {
@@ -164,7 +172,7 @@ class _AllHousesListState extends State<AllHousesList> {
                       ),
                       onPressed: () async {
                         await MatchService().putPrefence(
-                            myUser.uidA, houses[0].idHouse, "dislike");
+                            myUser.uidA, houseToShow!.idHouse, "dislike");
                       },
                       child: const Icon(Icons.close_rounded)),
                   SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
@@ -173,14 +181,13 @@ class _AllHousesListState extends State<AllHousesList> {
                         shape: MaterialStateProperty.all(const CircleBorder()),
                         padding: MaterialStateProperty.all(EdgeInsets.all(
                             MediaQuery.sizeOf(context).height * 0.02)),
-                        backgroundColor: MaterialStateProperty.all(
-                            mainColor), 
+                        backgroundColor: MaterialStateProperty.all(mainColor),
                         overlayColor:
                             MaterialStateProperty.resolveWith<Color?>((states) {
                           if (states.contains(MaterialState.pressed)) {
                             return errorColor;
                           }
-                          return null; 
+                          return null;
                         }),
                       ),
                       onPressed: () {
@@ -188,7 +195,7 @@ class _AllHousesListState extends State<AllHousesList> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  ViewProfile(houseProfile: houses[0])),
+                                  ViewProfile(houseProfile: houseToShow!)),
                         );
                       },
                       child: const Icon(Icons.info_rounded))
@@ -196,14 +203,19 @@ class _AllHousesListState extends State<AllHousesList> {
               ),
             ])
           : SingleChildScrollView(
-          child: Row(
+              child: Row(
               children: <Widget>[
                 Expanded(
                   child: SizedBox(
                       width: MediaQuery.sizeOf(context).width * 0.49,
-                      height: MediaQuery.sizeOf(context).height*0.9,
+                      height: MediaQuery.sizeOf(context).height * 0.9,
                       child: Column(children: <Widget>[
-                       SwipeWidget(firstName: houses[0].type, image : houses[0].imageURL1, lastName: houses[0].city, price: houses[0].price, ),
+                        SwipeWidget(
+                          firstName: houseToShow!.type,
+                          image: houseToShow!.imageURL1,
+                          lastName: houseToShow!.city,
+                          price: houseToShow!.price,
+                        ),
                         SizedBox(
                             height: MediaQuery.sizeOf(context).height * 0.012),
                         Row(
@@ -217,21 +229,22 @@ class _AllHousesListState extends State<AllHousesList> {
                                       EdgeInsets.all(
                                           MediaQuery.sizeOf(context).height *
                                               0.02)),
-                                  backgroundColor: MaterialStateProperty.all(
-                                      mainColor), 
+                                  backgroundColor:
+                                      MaterialStateProperty.all(mainColor),
                                   overlayColor:
                                       MaterialStateProperty.resolveWith<Color?>(
                                           (states) {
-                                    if (states.contains(MaterialState.pressed)) {
+                                    if (states
+                                        .contains(MaterialState.pressed)) {
                                       return errorColor;
                                     }
-                                    return null; 
+                                    return null;
                                   }),
                                 ),
                                 onPressed: () async {
                                   /* Put like */
-                                  String hID = houses[0].idHouse;
-                                  int hNotifies = houses[0].numberNotifies;
+                                  String hID = houseToShow!.idHouse;
+                                  int hNotifies = houseToShow!.numberNotifies;
                                   await MatchService()
                                       .putPrefence(myUser.uidA, hID, "like");
                                   try {
@@ -267,7 +280,8 @@ class _AllHousesListState extends State<AllHousesList> {
                                   overlayColor:
                                       MaterialStateProperty.resolveWith<Color?>(
                                           (states) {
-                                    if (states.contains(MaterialState.pressed)) {
+                                    if (states
+                                        .contains(MaterialState.pressed)) {
                                       return errorColor;
                                     }
                                     return null;
@@ -275,7 +289,7 @@ class _AllHousesListState extends State<AllHousesList> {
                                 ),
                                 onPressed: () async {
                                   await MatchService().putPrefence(myUser.uidA,
-                                      houses[0].idHouse, "dislike");
+                                      houseToShow!.idHouse, "dislike");
                                 },
                                 child: const Icon(Icons.close_rounded)),
                           ],
@@ -285,18 +299,18 @@ class _AllHousesListState extends State<AllHousesList> {
                 Expanded(
                     child: SizedBox(
                         width: MediaQuery.sizeOf(context).width * 0.49,
-                        height: MediaQuery.sizeOf(context).height*0.9,
+                        height: MediaQuery.sizeOf(context).height * 0.9,
                         child:
                             Column(mainAxisSize: MainAxisSize.max, children: [
                           Expanded(
                               child: SingleChildScrollView(
                             child: ShowDetailedHouseProfile(
-                                houseProfile: houses[0]),
+                                houseProfile: houseToShow!),
                           ))
                         ]))),
               ],
-          )
-    );}
+            ));
+    }
   }
 }
 
