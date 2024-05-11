@@ -45,7 +45,9 @@ class _UserHomepageState extends State<UserHomepage> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Utente>(context);
-
+    if (mounted) {
+      setState(() {});
+    }
     return StreamProvider<PersonalProfileAdj>.value(
         value: DatabaseService(user.uid).persProfileDataAdj,
         initialData: PersonalProfileAdj(

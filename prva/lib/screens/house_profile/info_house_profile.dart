@@ -98,6 +98,11 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
             ),
           ),
         ),
+        const Divider(
+          height: 36,
+          thickness: 1,
+          color: Colors.grey,
+        ),
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(16, 8, 0, 0),
           child: Text(
@@ -306,6 +311,9 @@ class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
             ],
           ),
         ),
+        SizedBox(
+          height: 100.0,
+        )
       ],
     );
   }

@@ -102,6 +102,11 @@ class _DetailedHouseProfileState extends State<DetailedHouseProfile> {
             ),
           ),
         ),
+        const Divider(
+          height: 36,
+          thickness: 1,
+          color: Colors.grey,
+        ),
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(16, 8, 0, 0),
           child: Text(

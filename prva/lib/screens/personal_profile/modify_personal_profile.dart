@@ -1020,6 +1020,7 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                                                 icon: const Icon(Icons.close),
                                                 color: errorColor,
                                                 onPressed: () async {
+                                                  print('csnc');
                                                   await FirebaseStorage.instance
                                                       .refFromURL(imageURLs
                                                           .elementAt(3))
@@ -1062,9 +1063,9 @@ class _ModificaPersonalProfileState extends State<ModificaPersonalProfile> {
                                         _birthDate!.month,
                                         _birthDate!.year,
                                         imageURLs[0],
-                                        imageURLs[0],
-                                        imageURLs[0],
-                                        imageURLs[0]);
+                                        imageURLs[1],
+                                        imageURLs[2],
+                                        imageURLs[3]);
                                 if (mounted) {
                                   Navigator.pop(context);
                                 }
