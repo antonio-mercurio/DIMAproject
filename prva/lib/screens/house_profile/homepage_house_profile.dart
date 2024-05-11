@@ -318,6 +318,21 @@ class ChatLayout extends StatefulWidget {
 
 class _ChatLayoutState extends State<ChatLayout> {
   final ValueNotifier<String> nameReciverTablet = ValueNotifier<String>('');
+  final ValueNotifier<PersonalProfileAdj> personalProfileWith =
+      ValueNotifier<PersonalProfileAdj>(PersonalProfileAdj(
+          day: 0,
+          month: 0,
+          year: 0,
+          uidA: 'uidA',
+          nameA: 'nameA',
+          surnameA: 'surnameA',
+          description: 'description',
+          gender: 'gender',
+          employment: 'employment',
+          imageURL1: 'imageURL1',
+          imageURL2: 'imageURL2',
+          imageURL3: 'imageURL3',
+          imageURL4: 'imageURL4'));
   final ValueNotifier<String> idReciverTablet = ValueNotifier<String>('');
   List<String>? matches;
   List<Chat>? chats;
@@ -370,6 +385,7 @@ class _ChatLayoutState extends State<ChatLayout> {
                     child: (nameReciverTablet.value != '' &&
                             idReciverTablet.value != '')
                         ? ChatPage(
+                            withPerson: personalProfileWith.value,
                             senderUserID: house.idHouse,
                             nameReciver: nameReciverTablet.value,
                             receiverUserID: idReciverTablet.value,
@@ -532,6 +548,7 @@ class _ChatLayoutState extends State<ChatLayout> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ChatPage(
+                          withPerson: snapshot.data,
                           senderUserID: house.idHouse,
                           nameReciver: "$name $surname",
                           receiverUserID: idPerson,
@@ -540,6 +557,7 @@ class _ChatLayoutState extends State<ChatLayout> {
                     );
                   } else {
                     setState(() {
+                      personalProfileWith.value = snapshot.data!;
                       nameReciverTablet.value = "$name $surname";
                       idReciverTablet.value = idPerson;
                     });

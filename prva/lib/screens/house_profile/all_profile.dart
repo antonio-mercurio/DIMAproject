@@ -194,8 +194,8 @@ class _AllProfilesListState extends State<AllProfilesList> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    ViewProfile(personalProfile: profiles[0])),
+                                builder: (context) => ViewPersonalProfile(
+                                    personalProfile: profiles[0])),
                           );
                         },
                         child: const Icon(Icons.info_rounded)),
@@ -328,10 +328,10 @@ class _AllProfilesListState extends State<AllProfilesList> {
   }
 }
 
-class ViewProfile extends StatelessWidget {
+class ViewPersonalProfile extends StatelessWidget {
   final PersonalProfileAdj personalProfile;
 
-  const ViewProfile({super.key, required this.personalProfile});
+  const ViewPersonalProfile({super.key, required this.personalProfile});
 
   @override
   Widget build(BuildContext context) {

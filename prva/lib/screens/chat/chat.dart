@@ -1,19 +1,30 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prva/models/personalProfile.dart';
+import 'package:prva/models/houseProfile.dart';
+import 'package:prva/screens/house_profile/info_house_profile.dart';
+import 'package:prva/screens/personal_profile/all_houses.dart';
+import 'package:prva/screens/personal_profile/show_info_personal_profile.dart';
 import 'package:prva/screens/shared/constant.dart';
 import 'package:prva/services/chat/chat_service.dart';
 
+import '../house_profile/all_profile.dart';
+
 class ChatPage extends StatefulWidget {
+  late HouseProfileAdj? withHouse;
+  late PersonalProfileAdj? withPerson;
   final String nameReciver;
   final String receiverUserID;
   final String senderUserID;
 
-  const ChatPage(
+  ChatPage(
       {super.key,
       required this.nameReciver,
       required this.receiverUserID,
-      required this.senderUserID});
+      required this.senderUserID,
+      this.withHouse,
+      this.withPerson});
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -39,13 +50,20 @@ class _ChatPageState extends State<ChatPage> {
           backgroundColor: mainColor,
           automaticallyImplyLeading:
               MediaQuery.of(context).size.width < widthSize,
-          title: Text(
-            widget.nameReciver,
-            style: GoogleFonts.plusJakartaSans(
-              color: backgroundColor,
-              fontSize: size24(context),
-              fontWeight: FontWeight.w500,
+          title: InkWell(
+            child: Text(
+              widget.nameReciver,
+              style: GoogleFonts.plusJakartaSans(
+                color: backgroundColor,
+                fontSize: size24(context),
+                fontWeight: FontWeight.w500,
+              ),
             ),
+            onTap: () {
+              widget.withHouse != null
+                  ? showHouseProfile()
+                  : showPersonalProfile();
+            },
           )),
       body: Column(
         children: [
@@ -192,5 +210,23 @@ class _ChatPageState extends State<ChatPage> {
         ),
       ],
     );
+  }
+
+  showHouseProfile() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ViewProfile(
+                  houseProfile: widget.withHouse!,
+                )));
+  }
+
+  showPersonalProfile() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ViewPersonalProfile(
+                  personalProfile: widget.withPerson!,
+                )));
   }
 }
