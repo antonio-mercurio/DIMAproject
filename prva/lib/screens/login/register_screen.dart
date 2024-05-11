@@ -195,7 +195,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                                   errorBorder:
                                                       OutlineInputBorder(
                                                     borderSide: BorderSide(
-                                                      color: mainColor,
+                                                      color: errorColor,
                                                       width: 2,
                                                     ),
                                                     borderRadius:
@@ -280,7 +280,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                                   errorBorder:
                                                       OutlineInputBorder(
                                                     borderSide: BorderSide(
-                                                      color: mainColor,
+                                                      color: errorColor,
                                                       width: 2,
                                                     ),
                                                     borderRadius:
@@ -387,7 +387,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                                   errorBorder:
                                                       OutlineInputBorder(
                                                     borderSide: BorderSide(
-                                                      color: mainColor,
+                                                      color: errorColor,
                                                       width: 2,
                                                     ),
                                                     borderRadius:
