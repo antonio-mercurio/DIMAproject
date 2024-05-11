@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:prva/alphaTestLib/screens/shared/constant.dart';
 
 class MapSample2 extends StatefulWidget {
   final LatLng location;
@@ -19,19 +19,21 @@ class _MapSample2State extends State<MapSample2> {
 
   @override
   Widget build(BuildContext context) {
-    return GoogleMap(
-      mapType: MapType.normal,
-      compassEnabled: true,
-      initialCameraPosition: CameraPosition(
-        target: location,
-        zoom: 20,
-      ),
-      onMapCreated: (controller) {
-        _mapController = controller;
-        addMarker('test', location);
-      },
-      markers: _markers.values.toSet(),
-    );
+    return Scaffold(
+        appBar: AppBar(backgroundColor: mainColor),
+        body: GoogleMap(
+          mapType: MapType.normal,
+          compassEnabled: true,
+          initialCameraPosition: CameraPosition(
+            target: location,
+            zoom: 20,
+          ),
+          onMapCreated: (controller) {
+            _mapController = controller;
+            addMarker('test', location);
+          },
+          markers: _markers.values.toSet(),
+        ));
   }
 
   addMarker(String id, LatLng location) {

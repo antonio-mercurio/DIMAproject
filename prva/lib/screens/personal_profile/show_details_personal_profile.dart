@@ -37,7 +37,7 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
   int _calculationAge(int year, int month, int day) {
     return (DateTime.now().difference(DateTime.utc(year, month, day)).inDays /
             365)
-        .round();
+        .floor();
   }
 
   @override
@@ -55,7 +55,6 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
               style: GoogleFonts.plusJakartaSans(
                 fontSize: size24(context),
                 color: Colors.black,
-                
                 fontWeight: FontWeight.bold,
               )),
         ),
@@ -63,7 +62,7 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
           padding: const EdgeInsetsDirectional.fromSTEB(10, 12, 0, 12),
           child: Container(
             width: double.infinity,
-            height: MediaQuery.sizeOf(context).height*0.4,
+            height: MediaQuery.sizeOf(context).height * 0.4,
             decoration: const BoxDecoration(
               color: Color(0xFFF1F4F8),
             ),
@@ -88,7 +87,6 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
             style: GoogleFonts.plusJakartaSans(
               fontSize: size18(context),
               color: Colors.black,
-             
             ),
           ),
         ),
@@ -98,9 +96,9 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
             personalProfile.description,
             maxLines: 100,
             style: GoogleFonts.plusJakartaSans(
-                fontSize:size16(context),
-                color: Colors.black,
-                ),
+              fontSize: size16(context),
+              color: Colors.black,
+            ),
           ),
         ),
         const Divider(
@@ -114,20 +112,19 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-               Text(
+              Text(
                 'Gender:',
                 style: GoogleFonts.plusJakartaSans(
                     fontSize: size20(context),
                     color: Colors.black,
-                   
                     fontWeight: FontWeight.bold),
               ),
               Text(
                 personalProfile.gender,
                 style: GoogleFonts.plusJakartaSans(
-                    fontSize:size20(context),
-                    color: Colors.black,
-                   ),
+                  fontSize: size20(context),
+                  color: Colors.black,
+                ),
               ),
             ],
           ),
@@ -138,20 +135,19 @@ class _DetailedPersonalProfileState extends State<DetailedPersonalProfile> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-               Text(
+              Text(
                 'Employment:',
                 style: GoogleFonts.plusJakartaSans(
                     fontSize: size20(context),
                     color: Colors.black,
-                    
-                    fontWeight: FontWeight.bold ),
+                    fontWeight: FontWeight.bold),
               ),
               Text(
                 personalProfile.employment,
                 style: GoogleFonts.plusJakartaSans(
-                    fontSize: size20(context),
-                    color: Colors.black,
-                    ),
+                  fontSize: size20(context),
+                  color: Colors.black,
+                ),
               ),
             ],
           ),

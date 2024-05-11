@@ -5,7 +5,6 @@ import 'package:prva/screens/shared/constant.dart';
 
 import 'package:prva/screens/shared/image.dart';
 
-
 class ShowDetailedPersonalProfile extends StatefulWidget {
   final PersonalProfileAdj personalProfile;
 
@@ -39,10 +38,11 @@ class _ShowDetailedPersonalProfileState
     }
     flag = false;
   }
+
   int _calculationAge(int year, int month, int day) {
     return (DateTime.now().difference(DateTime.utc(year, month, day)).inDays /
             365)
-        .round();
+        .floor();
   }
 
   @override
@@ -66,7 +66,7 @@ class _ShowDetailedPersonalProfileState
           padding: const EdgeInsetsDirectional.fromSTEB(10, 12, 0, 0),
           child: Container(
             width: double.infinity,
-            height: MediaQuery.sizeOf(context).height*0.4,
+            height: MediaQuery.sizeOf(context).height * 0.4,
             decoration: const BoxDecoration(
               color: Color(0xFFF1F4F8),
             ),
@@ -116,7 +116,7 @@ class _ShowDetailedPersonalProfileState
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-               Text(
+              Text(
                 'Gender:',
                 style: GoogleFonts.plusJakartaSans(
                     fontSize: size20(context),
@@ -126,9 +126,9 @@ class _ShowDetailedPersonalProfileState
               Text(
                 personalProfile.gender,
                 style: GoogleFonts.plusJakartaSans(
-                    fontSize:size20(context),
-                    color: Colors.black,
-                    ),
+                  fontSize: size20(context),
+                  color: Colors.black,
+                ),
               ),
             ],
           ),
@@ -139,27 +139,24 @@ class _ShowDetailedPersonalProfileState
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-               Text(
+              Text(
                 'Employment:',
                 style: GoogleFonts.plusJakartaSans(
                     fontSize: size20(context),
                     color: Colors.black,
-                    
-                    fontWeight: FontWeight.bold ),
+                    fontWeight: FontWeight.bold),
               ),
               Text(
                 personalProfile.employment,
                 style: GoogleFonts.plusJakartaSans(
-                    fontSize: size20(context),
-                    color: Colors.black,
-                    ),
+                  fontSize: size20(context),
+                  color: Colors.black,
+                ),
               ),
             ],
           ),
         ),
-        const SizedBox(
-            height:
-                200),
+        const SizedBox(height: 200),
       ],
     );
   }
