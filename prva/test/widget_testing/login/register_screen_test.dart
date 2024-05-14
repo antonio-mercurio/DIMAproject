@@ -38,7 +38,7 @@ void main() {
   final confirmPwdField = Key('confirmPwdField');
   final createAccountButton = Key('createAccountText');
 
-  testWidgets('LoginPage correct population', (tester) async {
+  testWidgets('RegisterPage correct population', (tester) async {
     // Create the widget by telling the tester to build it.
     await tester.pumpWidget(app);
 

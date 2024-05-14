@@ -40,7 +40,7 @@ void main() {
     expect(find.byKey(Key('displayText')), findsOneWidget);
   });
 
-  testWidgets('Loading widget', (tester) async {
+  testWidgets('Loading widget correct population', (tester) async {
     await tester.pumpWidget(loadingWidget);
     expect(find.byKey(Key('loading')), findsOneWidget);
   });

@@ -43,7 +43,7 @@ void main() {
   final pwdField = Key('pwdField');
   final signInText = Key('signInText');
 
-  testWidgets('SignIn correct population', (tester) async {
+  testWidgets('Login correct population', (tester) async {
     // Create the widget by telling the tester to build it.
     await tester.pumpWidget(signInPage);
 
