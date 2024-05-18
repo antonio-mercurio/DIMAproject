@@ -125,1176 +125,1270 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
     initStartDate();
     initEndDate();
     initLocation();
-    return Scaffold(
-        backgroundColor: backgroundColor,
-        appBar: AppBar(
-          backgroundColor: mainColor,
-          elevation: 0.0,
-        ),
-        body: SafeArea(
-          top: true,
-          child: Align(
-            alignment: const AlignmentDirectional(0, -1),
-            child: SingleChildScrollView(
-              child: Form(
-                  key: scaffoldKey,
-                  child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Container(
-                            width: double.infinity,
-                            constraints: const BoxConstraints(
-                              maxWidth: 700,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: const [
-                                BoxShadow(
-                                  blurRadius: 4,
-                                  color: Color(0x33000000),
-                                  offset: Offset(0, 2),
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: Colors.white,
-                                width: 2,
-                              ),
-                            ),
-                            child: Align(
-                              alignment: const AlignmentDirectional(0, 0),
-                              child: Padding(
-                                padding: const EdgeInsets.all(24),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Update your house profile',
-                                      textAlign: TextAlign.start,
-                                      style: GoogleFonts.plusJakartaSans(
-                                        color: const Color(0xFF101213),
-                                        fontSize: size32(context),
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0, 12, 0, 24),
-                                      child: Text(
-                                        'Modify address and type!',
-                                        textAlign: TextAlign.start,
-                                        style: GoogleFonts.plusJakartaSans(
-                                          color: const Color(0xFF57636C),
-                                          fontSize: size16(context),
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0, 0, 0, 16),
-                                      child: SizedBox(
-                                        width: double.infinity,
-                                        child: DropdownButtonFormField(
-                                            style: GoogleFonts.plusJakartaSans(
-                                              color: const Color(0xFF101213),
-                                              fontSize: size16(context),
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                            decoration: InputDecoration(
-                                              labelText: 'Type',
-                                              labelStyle:
-                                                  GoogleFonts.plusJakartaSans(
-                                                color: const Color(0xFF57636C),
-                                                fontSize: size16(context),
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: const BorderSide(
-                                                  color: Color(0xFFE0E3E7),
-                                                  width: 2,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(40),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: mainColor,
-                                                  width: 2,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(40),
-                                              ),
-                                              errorBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: errorColor,
-                                                  width: 2,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(40),
-                                              ),
-                                              focusedErrorBorder:
-                                                  OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: errorColor,
-                                                  width: 2,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(40),
-                                              ),
-                                              filled: true,
-                                              fillColor: Colors.white,
-                                              contentPadding:
-                                                  const EdgeInsets.all(24),
-                                            ),
-                                            value: _type,
-                                            items:
-                                                typeOfAppartament.map((type) {
-                                              {
-                                                return DropdownMenuItem(
-                                                  value: type,
-                                                  child: Text('$type '),
-                                                );
-                                              }
-                                            }).toList(),
-                                            onChanged: (val) =>
-                                                setState(() => _type = val)),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0, 0, 0, 16),
-                                      child: SizedBox(
-                                          width: double.infinity,
-                                          child:
-                                              GooglePlaceAutoCompleteTextField(
-                                            textEditingController: controller,
-                                            googleAPIKey:
-                                                "AIzaSyD8yblyesPc-09bye4ZF9KlO95G6RhhlmA",
-                                            inputDecoration: InputDecoration(
-                                              labelText: house.address,
-                                              labelStyle:
-                                                  GoogleFonts.plusJakartaSans(
-                                                color: const Color(0xFF57636C),
-                                                fontSize: size16(context),
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                              enabledBorder:
-                                                  const OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: Color(0xFFE0E3E7),
-                                                  width: 2,
-                                                ),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: mainColor,
-                                                  width: 2,
-                                                ),
-                                              ),
-                                              errorBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: errorColor,
-                                                  width: 2,
-                                                ),
-                                              ),
-                                              focusedErrorBorder:
-                                                  OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: errorColor,
-                                                  width: 2,
-                                                ),
-                                              ),
-                                              filled: true,
-                                              fillColor: Colors.white,
-                                              contentPadding:
-                                                  const EdgeInsets.all(24),
-                                            ),
-                                            debounceTime:
-                                                800, // default 600 ms,
-                                            countries: const [
-                                              "it",
-                                              "fr"
-                                            ], // optional by default null is set
-                                            isLatLngRequired:
-                                                true, // if you required coordinates from place detail
-                                            getPlaceDetailWithLatLng:
-                                                (Prediction prediction) async {
-                                              // this method will return latlng with place detail
-
-                                              if (prediction.lng != null &&
-                                                  prediction.lat != null) {
-                                                selLocation = LatLng(
-                                                    double.parse(prediction.lat
-                                                        .toString()),
-                                                    double.parse(prediction.lng
-                                                        .toString()));
-                                                var address = await GeoCoder()
-                                                    .getAddressFromLatLng(
-                                                        latitude: selLocation!
-                                                            .latitude,
-                                                        longitude: selLocation!
-                                                            .longitude);
-                                                //qui accedo ad address e prendo i dettagli che mi servono
-
-                                                _address =
-                                                    "${address.addressDetails.road}, ${address.addressDetails.houseNumber}, ${address.addressDetails.postcode}, ${address.addressDetails.city}";
-
-                                                _city =
-                                                    address.addressDetails.city;
-                                              }
-                                            }, // this callback is called when isLatLngRequired is true
-
-                                            itemClick: (Prediction prediction) {
-                                              controller.text =
-                                                  prediction.description!;
-                                              controller.selection =
-                                                  TextSelection.fromPosition(
-                                                      TextPosition(
-                                                          offset: prediction
-                                                              .description!
-                                                              .length));
-                                            },
-                                            // if we want to make custom list item builder
-                                            itemBuilder: (context, index,
-                                                Prediction prediction) {
-                                              return Container(
-                                                padding:
-                                                    const EdgeInsets.all(10),
-                                                child: Row(
-                                                  children: [
-                                                    const Icon(
-                                                        Icons.location_on),
-                                                    const SizedBox(
-                                                      width: 7,
-                                                    ),
-                                                    Expanded(
-                                                        child: Text(prediction
-                                                                .description ??
-                                                            ""))
-                                                  ],
-                                                ),
-                                              );
-                                            },
-                                            // if you want to add seperator between list items
-                                            seperatedBuilder: const Divider(),
-                                            // want to show close icon
-                                            isCrossBtnShown: true,
-                                            // optional container padding
-                                            //containerHorizontalPadding: 10,
-                                          )),
-                                    ),
-                                  ],
+    return GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+            backgroundColor: backgroundColor,
+            appBar: AppBar(
+              backgroundColor: mainColor,
+              elevation: 0.0,
+            ),
+            body: SafeArea(
+              top: true,
+              child: Align(
+                alignment: const AlignmentDirectional(0, -1),
+                child: SingleChildScrollView(
+                  child: Form(
+                      key: scaffoldKey,
+                      child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(12),
+                              child: Container(
+                                width: double.infinity,
+                                constraints: const BoxConstraints(
+                                  maxWidth: 700,
                                 ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Container(
-                            width: double.infinity,
-                            constraints: const BoxConstraints(
-                              maxWidth: 700,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: const [
-                                BoxShadow(
-                                  blurRadius: 4,
-                                  color: Color(0x33000000),
-                                  offset: Offset(0, 2),
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: const Color(0xFFF1F4F8),
-                                width: 2,
-                              ),
-                            ),
-                            child: Align(
-                              alignment: const AlignmentDirectional(0, 0),
-                              child: Padding(
-                                padding: const EdgeInsets.all(24),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0, 12, 0, 24),
-                                        child: Text(
-                                          'Something about the house',
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      blurRadius: 4,
+                                      color: Color(0x33000000),
+                                      offset: Offset(0, 2),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                    color: Colors.white,
+                                    width: 2,
+                                  ),
+                                ),
+                                child: Align(
+                                  alignment: const AlignmentDirectional(0, 0),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(24),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Update your house profile',
                                           textAlign: TextAlign.start,
                                           style: GoogleFonts.plusJakartaSans(
-                                            color: const Color(0xFF57636C),
-                                            fontSize: size16(context),
-                                            fontWeight: FontWeight.w500,
+                                            color: const Color(0xFF101213),
+                                            fontSize: size32(context),
+                                            fontWeight: FontWeight.w600,
                                           ),
-                                        )),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0, 0, 0, 16),
-                                      child: SizedBox(
-                                        width: double.infinity,
-                                        child: TextFormField(
-                                          maxLines: 3,
-                                          autofocus: true,
-                                          initialValue: house.description,
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            labelText: 'Description',
-                                            labelStyle:
-                                                GoogleFonts.plusJakartaSans(
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 12, 0, 24),
+                                          child: Text(
+                                            'Modify address and type!',
+                                            textAlign: TextAlign.start,
+                                            style: GoogleFonts.plusJakartaSans(
                                               color: const Color(0xFF57636C),
                                               fontSize: size16(context),
                                               fontWeight: FontWeight.w500,
                                             ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                color: Color(0xFFE0E3E7),
-                                                width: 2,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(40),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: mainColor,
-                                                width: 2,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(40),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: errorColor,
-                                                width: 2,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(40),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: errorColor,
-                                                width: 2,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(40),
-                                            ),
-                                            filled: true,
-                                            fillColor: Colors.white,
-                                            contentPadding:
-                                                const EdgeInsets.all(24),
-                                          ),
-                                          style: GoogleFonts.plusJakartaSans(
-                                            color: const Color(0xFF101213),
-                                            fontSize: size16(context),
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                          validator: (val) => val!.isEmpty
-                                              ? 'Please enter description'
-                                              : null,
-                                          onChanged: (val) => setState(
-                                              () => _description = val),
-                                        ),
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Text(
-                                          'Max number of people that\ncan live in the house:',
-                                          style: GoogleFonts.plusJakartaSans(
-                                            color: const Color(0xFF101213),
-                                            fontSize: size16(context),
                                           ),
                                         ),
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsetsDirectional
-                                                .fromSTEB(16, 0, 0, 16),
-                                            child: SizedBox(
-                                              width: double.infinity,
-                                              child: TextFormField(
-                                                  initialValue:
-                                                      house.numPlp.toString(),
-                                                  autofocus: true,
-                                                  obscureText: false,
-                                                  decoration: InputDecoration(
-                                                    enabledBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide:
-                                                          const BorderSide(
-                                                        color:
-                                                            Color(0xFFE0E3E7),
-                                                        width: 2,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              40),
-                                                    ),
-                                                    focusedBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color: mainColor,
-                                                        width: 2,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              40),
-                                                    ),
-                                                    errorBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color: errorColor,
-                                                        width: 2,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              40),
-                                                    ),
-                                                    focusedErrorBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color: errorColor,
-                                                        width: 2,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              40),
-                                                    ),
-                                                    filled: true,
-                                                    fillColor: Colors.white,
-                                                    contentPadding:
-                                                        const EdgeInsets.all(
-                                                            24),
-                                                  ),
-                                                  style: GoogleFonts
+                                        Padding(
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 16),
+                                          child: SizedBox(
+                                            width: double.infinity,
+                                            child: DropdownButtonFormField(
+                                                style:
+                                                    GoogleFonts.plusJakartaSans(
+                                                  color:
+                                                      const Color(0xFF101213),
+                                                  fontSize: size16(context),
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                                decoration: InputDecoration(
+                                                  labelText: 'Type',
+                                                  labelStyle: GoogleFonts
                                                       .plusJakartaSans(
                                                     color:
-                                                        const Color(0xFF101213),
+                                                        const Color(0xFF57636C),
                                                     fontSize: size16(context),
                                                     fontWeight: FontWeight.w500,
                                                   ),
-                                                  inputFormatters: <TextInputFormatter>[
-                                                    FilteringTextInputFormatter
-                                                        .allow(RegExp("[0-9]")),
-                                                  ],
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  validator: (val) => val!
-                                                          .isEmpty
-                                                      ? 'Please enter a number'
-                                                      : null,
-                                                  onChanged: (val) => setState(
-                                                      () => _numberPeople =
-                                                          (int.parse(val)))),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Text(
-                                          'Floor number of the house:',
-                                          style: GoogleFonts.plusJakartaSans(
-                                            color: const Color(0xFF101213),
-                                            fontSize: size16(context),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsetsDirectional
-                                                .fromSTEB(16, 0, 0, 16),
-                                            child: SizedBox(
-                                              width: double.infinity,
-                                              child: TextFormField(
-                                                  initialValue: house
-                                                      .floorNumber
-                                                      .toString(),
-                                                  autofocus: true,
-                                                  obscureText: false,
-                                                  decoration: InputDecoration(
-                                                    enabledBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide:
-                                                          const BorderSide(
-                                                        color:
-                                                            Color(0xFFE0E3E7),
-                                                        width: 2,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              40),
+                                                  enabledBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide:
+                                                        const BorderSide(
+                                                      color: Color(0xFFE0E3E7),
+                                                      width: 2,
                                                     ),
-                                                    focusedBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color: mainColor,
-                                                        width: 2,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              40),
-                                                    ),
-                                                    errorBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color: errorColor,
-                                                        width: 2,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              40),
-                                                    ),
-                                                    focusedErrorBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color: errorColor,
-                                                        width: 2,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              40),
-                                                    ),
-                                                    filled: true,
-                                                    fillColor: Colors.white,
-                                                    contentPadding:
-                                                        const EdgeInsets.all(
-                                                            24),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            40),
                                                   ),
-                                                  style: GoogleFonts
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: mainColor,
+                                                      width: 2,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            40),
+                                                  ),
+                                                  errorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: errorColor,
+                                                      width: 2,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            40),
+                                                  ),
+                                                  focusedErrorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: errorColor,
+                                                      width: 2,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            40),
+                                                  ),
+                                                  filled: true,
+                                                  fillColor: Colors.white,
+                                                  contentPadding:
+                                                      const EdgeInsets.all(24),
+                                                ),
+                                                value: _type,
+                                                items: typeOfAppartament
+                                                    .map((type) {
+                                                  {
+                                                    return DropdownMenuItem(
+                                                      value: type,
+                                                      child: Text('$type '),
+                                                    );
+                                                  }
+                                                }).toList(),
+                                                onChanged: (val) => setState(
+                                                    () => _type = val)),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 16),
+                                          child: SizedBox(
+                                              width: double.infinity,
+                                              child:
+                                                  GooglePlaceAutoCompleteTextField(
+                                                textEditingController:
+                                                    controller,
+                                                googleAPIKey:
+                                                    "AIzaSyD8yblyesPc-09bye4ZF9KlO95G6RhhlmA",
+                                                inputDecoration:
+                                                    InputDecoration(
+                                                  labelText: house.address,
+                                                  labelStyle: GoogleFonts
                                                       .plusJakartaSans(
                                                     color:
-                                                        const Color(0xFF101213),
+                                                        const Color(0xFF57636C),
                                                     fontSize: size16(context),
                                                     fontWeight: FontWeight.w500,
                                                   ),
-                                                  inputFormatters: <TextInputFormatter>[
-                                                    FilteringTextInputFormatter
-                                                        .allow(RegExp("[0-9]")),
-                                                  ],
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  validator: (val) => val!
-                                                          .isEmpty
-                                                      ? 'Please enter a number'
-                                                      : null,
-                                                  onChanged: (val) => setState(
-                                                      () => _floorNumber =
-                                                          (int.parse(val)))),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Text(
-                                          'Number of bathrooms:',
-                                          style: GoogleFonts.plusJakartaSans(
-                                            color: const Color(0xFF101213),
-                                            fontSize: size16(context),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsetsDirectional
-                                                .fromSTEB(48, 0, 0, 16),
-                                            child: SizedBox(
-                                              width: double.infinity,
-                                              child: TextFormField(
-                                                  initialValue:
-                                                      house.numBath.toString(),
-                                                  autofocus: true,
-                                                  obscureText: false,
-                                                  decoration: InputDecoration(
-                                                    enabledBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide:
-                                                          const BorderSide(
-                                                        color:
-                                                            Color(0xFFE0E3E7),
-                                                        width: 2,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              40),
+                                                  enabledBorder:
+                                                      const OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0xFFE0E3E7),
+                                                      width: 2,
                                                     ),
-                                                    focusedBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color: mainColor,
-                                                        width: 2,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              40),
+                                                  ),
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: mainColor,
+                                                      width: 2,
                                                     ),
-                                                    errorBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color: errorColor,
-                                                        width: 2,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              40),
+                                                  ),
+                                                  errorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: errorColor,
+                                                      width: 2,
                                                     ),
-                                                    focusedErrorBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color: errorColor,
-                                                        width: 2,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              40),
+                                                  ),
+                                                  focusedErrorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: errorColor,
+                                                      width: 2,
                                                     ),
-                                                    filled: true,
-                                                    fillColor: Colors.white,
-                                                    contentPadding:
+                                                  ),
+                                                  filled: true,
+                                                  fillColor: Colors.white,
+                                                  contentPadding:
+                                                      const EdgeInsets.all(24),
+                                                ),
+                                                debounceTime:
+                                                    800, // default 600 ms,
+                                                countries: const [
+                                                  "it",
+                                                  "fr"
+                                                ], // optional by default null is set
+                                                isLatLngRequired:
+                                                    true, // if you required coordinates from place detail
+                                                getPlaceDetailWithLatLng:
+                                                    (Prediction
+                                                        prediction) async {
+                                                  // this method will return latlng with place detail
+
+                                                  if (prediction.lng != null &&
+                                                      prediction.lat != null) {
+                                                    selLocation = LatLng(
+                                                        double.parse(prediction
+                                                            .lat
+                                                            .toString()),
+                                                        double.parse(prediction
+                                                            .lng
+                                                            .toString()));
+                                                    var address = await GeoCoder()
+                                                        .getAddressFromLatLng(
+                                                            latitude:
+                                                                selLocation!
+                                                                    .latitude,
+                                                            longitude:
+                                                                selLocation!
+                                                                    .longitude);
+                                                    //qui accedo ad address e prendo i dettagli che mi servono
+
+                                                    _address =
+                                                        "${address.addressDetails.road}, ${address.addressDetails.houseNumber}, ${address.addressDetails.postcode}, ${address.addressDetails.city}";
+
+                                                    _city = address
+                                                        .addressDetails.city;
+                                                  }
+                                                }, // this callback is called when isLatLngRequired is true
+
+                                                itemClick:
+                                                    (Prediction prediction) {
+                                                  controller.text =
+                                                      prediction.description!;
+                                                  controller.selection =
+                                                      TextSelection.fromPosition(
+                                                          TextPosition(
+                                                              offset: prediction
+                                                                  .description!
+                                                                  .length));
+                                                },
+                                                // if we want to make custom list item builder
+                                                itemBuilder: (context, index,
+                                                    Prediction prediction) {
+                                                  return Container(
+                                                    padding:
                                                         const EdgeInsets.all(
-                                                            24),
-                                                  ),
-                                                  style: GoogleFonts
-                                                      .plusJakartaSans(
-                                                    color:
-                                                        const Color(0xFF101213),
-                                                    fontSize: size16(context),
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                  inputFormatters: <TextInputFormatter>[
-                                                    FilteringTextInputFormatter
-                                                        .allow(RegExp("[0-9]")),
-                                                  ],
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  validator: (val) => val!
-                                                          .isEmpty
-                                                      ? 'Please enter a number'
-                                                      : null,
-                                                  onChanged: (val) => setState(
-                                                      () => _numberBathroom =
-                                                          (int.parse(val)))),
-                                            ),
-                                          ),
+                                                            10),
+                                                    child: Row(
+                                                      children: [
+                                                        const Icon(
+                                                            Icons.location_on),
+                                                        const SizedBox(
+                                                          width: 7,
+                                                        ),
+                                                        Expanded(
+                                                            child: Text(prediction
+                                                                    .description ??
+                                                                ""))
+                                                      ],
+                                                    ),
+                                                  );
+                                                },
+                                                // if you want to add seperator between list items
+                                                seperatedBuilder:
+                                                    const Divider(),
+                                                // want to show close icon
+                                                isCrossBtnShown: true,
+                                                // optional container padding
+                                                //containerHorizontalPadding: 10,
+                                              )),
                                         ),
                                       ],
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Container(
-                            width: double.infinity,
-                            constraints: const BoxConstraints(
-                              maxWidth: 700,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: const [
-                                BoxShadow(
-                                  blurRadius: 4,
-                                  color: Color(0x33000000),
-                                  offset: Offset(0, 2),
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: const Color(0xFFE0E3E7),
-                                width: 2,
-                              ),
-                            ),
-                            child: Align(
-                              alignment: const AlignmentDirectional(0, 0),
-                              child: Padding(
-                                padding: const EdgeInsets.all(24),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0, 12, 0, 24),
-                                      child: Text(
-                                        'Something about the rent',
-                                        textAlign: TextAlign.start,
-                                        style: GoogleFonts.plusJakartaSans(
-                                          color: const Color(0xFF57636C),
-                                          fontSize: size16(context),
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0, 0, 0, 16),
-                                      child: SizedBox(
-                                        width: double.infinity,
-                                        child: TextFormField(
-                                          controller: _dateStartController,
-                                          readOnly: true,
-                                          autofocus: true,
-                                          autofillHints: const [
-                                            AutofillHints.birthday
-                                          ],
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            suffixIcon: IconButton(
-                                              icon: const Icon(
-                                                  Icons.calendar_today),
-                                              onPressed: () {
-                                                // call the function to show the date picker
-                                                _selectStartDate(context);
-                                              },
-                                            ),
-                                            labelText: 'Start date of rent',
-                                            labelStyle:
-                                                GoogleFonts.plusJakartaSans(
-                                              color: const Color(0xFF57636C),
-                                              fontSize: size16(context),
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                            hintText: 'Start date of rent',
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                color: Color(0xFFE0E3E7),
-                                                width: 2,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(40),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: mainColor,
-                                                width: 2,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(40),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: errorColor,
-                                                width: 2,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(40),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: errorColor,
-                                                width: 2,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(40),
-                                            ),
-                                            filled: true,
-                                            fillColor: Colors.white,
-                                            contentPadding:
-                                                const EdgeInsets.all(24),
-                                          ),
-                                          style: GoogleFonts.plusJakartaSans(
-                                            color: const Color(0xFF101213),
-                                            fontSize: size16(context),
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                          validator: (val) => val!.isEmpty
-                                              ? 'Please enter a date'
-                                              : null,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0, 0, 0, 16),
-                                      child: SizedBox(
-                                        width: double.infinity,
-                                        child: TextFormField(
-                                          controller: _dateEndController,
-                                          readOnly: true,
-                                          autofocus: true,
-                                          autofillHints: const [
-                                            AutofillHints.birthday
-                                          ],
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            suffixIcon: IconButton(
-                                              icon: const Icon(
-                                                  Icons.calendar_today),
-                                              onPressed: () {
-                                                // call the function to show the date picker
-                                                _selectEndDate(context);
-                                              },
-                                            ),
-                                            labelText: 'End date of rent',
-                                            labelStyle:
-                                                GoogleFonts.plusJakartaSans(
-                                              color: const Color(0xFF57636C),
-                                              fontSize: size16(context),
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                            hintText: 'End date of rent',
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                color: Color(0xFFE0E3E7),
-                                                width: 2,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(40),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: mainColor,
-                                                width: 2,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(40),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: errorColor,
-                                                width: 2,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(40),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: errorColor,
-                                                width: 2,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(40),
-                                            ),
-                                            filled: true,
-                                            fillColor: Colors.white,
-                                            contentPadding:
-                                                const EdgeInsets.all(24),
-                                          ),
-                                          style: GoogleFonts.plusJakartaSans(
-                                            color: const Color(0xFF101213),
-                                            fontSize: size16(context),
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                          validator: (val) => val!.isEmpty
-                                              ? 'Please enter a date'
-                                              : null,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0, 0, 0, 16),
-                                      child: SizedBox(
-                                        width: double.infinity,
-                                        child: TextFormField(
-                                            initialValue: _price.toString(),
-                                            autofocus: true,
-                                            obscureText: false,
-                                            decoration: InputDecoration(
-                                              labelText: 'Price (in euros)',
-                                              labelStyle:
+                            Padding(
+                              padding: const EdgeInsets.all(12),
+                              child: Container(
+                                width: double.infinity,
+                                constraints: const BoxConstraints(
+                                  maxWidth: 700,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      blurRadius: 4,
+                                      color: Color(0x33000000),
+                                      offset: Offset(0, 2),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                    color: const Color(0xFFF1F4F8),
+                                    width: 2,
+                                  ),
+                                ),
+                                child: Align(
+                                  alignment: const AlignmentDirectional(0, 0),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(24),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 12, 0, 24),
+                                            child: Text(
+                                              'Something about the house',
+                                              textAlign: TextAlign.start,
+                                              style:
                                                   GoogleFonts.plusJakartaSans(
                                                 color: const Color(0xFF57636C),
                                                 fontSize: size16(context),
                                                 fontWeight: FontWeight.w500,
                                               ),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: const BorderSide(
-                                                  color: Color(0xFFE0E3E7),
-                                                  width: 2,
+                                            )),
+                                        Padding(
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 16),
+                                          child: SizedBox(
+                                            width: double.infinity,
+                                            child: TextFormField(
+                                              maxLines: 3,
+                                              autofocus: true,
+                                              initialValue: house.description,
+                                              obscureText: false,
+                                              decoration: InputDecoration(
+                                                labelText: 'Description',
+                                                labelStyle:
+                                                    GoogleFonts.plusJakartaSans(
+                                                  color:
+                                                      const Color(0xFF57636C),
+                                                  fontSize: size16(context),
+                                                  fontWeight: FontWeight.w500,
                                                 ),
-                                                borderRadius:
-                                                    BorderRadius.circular(40),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: mainColor,
-                                                  width: 2,
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                    color: Color(0xFFE0E3E7),
+                                                    width: 2,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(40),
                                                 ),
-                                                borderRadius:
-                                                    BorderRadius.circular(40),
-                                              ),
-                                              errorBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: errorColor,
-                                                  width: 2,
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: mainColor,
+                                                    width: 2,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(40),
                                                 ),
-                                                borderRadius:
-                                                    BorderRadius.circular(40),
-                                              ),
-                                              focusedErrorBorder:
-                                                  OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: errorColor,
-                                                  width: 2,
+                                                errorBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
+                                                    width: 2,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(40),
                                                 ),
-                                                borderRadius:
-                                                    BorderRadius.circular(40),
+                                                focusedErrorBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
+                                                    width: 2,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(40),
+                                                ),
+                                                filled: true,
+                                                fillColor: Colors.white,
+                                                contentPadding:
+                                                    const EdgeInsets.all(24),
                                               ),
-                                              filled: true,
-                                              fillColor: Colors.white,
-                                              contentPadding:
-                                                  const EdgeInsets.all(24),
+                                              style:
+                                                  GoogleFonts.plusJakartaSans(
+                                                color: const Color(0xFF101213),
+                                                fontSize: size16(context),
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                              validator: (val) => val!.isEmpty
+                                                  ? 'Please enter description'
+                                                  : null,
+                                              onChanged: (val) => setState(
+                                                  () => _description = val),
                                             ),
-                                            style: GoogleFonts.plusJakartaSans(
-                                              color: const Color(0xFF101213),
-                                              fontSize: size16(context),
-                                              fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Text(
+                                              'Max number of people that\ncan live in the house:',
+                                              style:
+                                                  GoogleFonts.plusJakartaSans(
+                                                color: const Color(0xFF101213),
+                                                fontSize: size16(context),
+                                              ),
                                             ),
-                                            inputFormatters: <TextInputFormatter>[
-                                              FilteringTextInputFormatter.allow(
-                                                  RegExp("([0-9.0-9])")),
-                                            ],
-                                            keyboardType: const TextInputType
-                                                .numberWithOptions(
-                                                decimal: true),
-                                            validator: (val) => (val!.isEmpty ||
-                                                    double.parse(val) > 4000 ||
-                                                    double.parse(val) < 0)
-                                                ? 'Please enter a valid price (range: 0-4000)'
-                                                : null,
-                                            onChanged: (val) => setState(() =>
-                                                _price = (double.parse(val)))),
-                                      ),
+                                            Expanded(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(16, 0, 0, 16),
+                                                child: SizedBox(
+                                                  width: double.infinity,
+                                                  child: TextFormField(
+                                                      initialValue: house.numPlp
+                                                          .toString(),
+                                                      autofocus: true,
+                                                      obscureText: false,
+                                                      decoration:
+                                                          InputDecoration(
+                                                        enabledBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              const BorderSide(
+                                                            color: Color(
+                                                                0xFFE0E3E7),
+                                                            width: 2,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(40),
+                                                        ),
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: mainColor,
+                                                            width: 2,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(40),
+                                                        ),
+                                                        errorBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: errorColor,
+                                                            width: 2,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(40),
+                                                        ),
+                                                        focusedErrorBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: errorColor,
+                                                            width: 2,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(40),
+                                                        ),
+                                                        filled: true,
+                                                        fillColor: Colors.white,
+                                                        contentPadding:
+                                                            const EdgeInsets
+                                                                .all(24),
+                                                      ),
+                                                      style: GoogleFonts
+                                                          .plusJakartaSans(
+                                                        color: const Color(
+                                                            0xFF101213),
+                                                        fontSize:
+                                                            size16(context),
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                      inputFormatters: <TextInputFormatter>[
+                                                        FilteringTextInputFormatter
+                                                            .allow(RegExp(
+                                                                "[0-9]")),
+                                                      ],
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      validator: (val) => val!
+                                                              .isEmpty
+                                                          ? 'Please enter a number'
+                                                          : null,
+                                                      onChanged:
+                                                          (val) => setState(() =>
+                                                              _numberPeople =
+                                                                  (int.parse(
+                                                                      val)))),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Text(
+                                              'Floor number of the house:',
+                                              style:
+                                                  GoogleFonts.plusJakartaSans(
+                                                color: const Color(0xFF101213),
+                                                fontSize: size16(context),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(16, 0, 0, 16),
+                                                child: SizedBox(
+                                                  width: double.infinity,
+                                                  child: TextFormField(
+                                                      initialValue: house
+                                                          .floorNumber
+                                                          .toString(),
+                                                      autofocus: true,
+                                                      obscureText: false,
+                                                      decoration:
+                                                          InputDecoration(
+                                                        enabledBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              const BorderSide(
+                                                            color: Color(
+                                                                0xFFE0E3E7),
+                                                            width: 2,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(40),
+                                                        ),
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: mainColor,
+                                                            width: 2,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(40),
+                                                        ),
+                                                        errorBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: errorColor,
+                                                            width: 2,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(40),
+                                                        ),
+                                                        focusedErrorBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: errorColor,
+                                                            width: 2,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(40),
+                                                        ),
+                                                        filled: true,
+                                                        fillColor: Colors.white,
+                                                        contentPadding:
+                                                            const EdgeInsets
+                                                                .all(24),
+                                                      ),
+                                                      style: GoogleFonts
+                                                          .plusJakartaSans(
+                                                        color: const Color(
+                                                            0xFF101213),
+                                                        fontSize:
+                                                            size16(context),
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                      inputFormatters: <TextInputFormatter>[
+                                                        FilteringTextInputFormatter
+                                                            .allow(RegExp(
+                                                                "[0-9]")),
+                                                      ],
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      validator: (val) => val!
+                                                              .isEmpty
+                                                          ? 'Please enter a number'
+                                                          : null,
+                                                      onChanged:
+                                                          (val) => setState(() =>
+                                                              _floorNumber =
+                                                                  (int.parse(
+                                                                      val)))),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Text(
+                                              'Number of bathrooms:',
+                                              style:
+                                                  GoogleFonts.plusJakartaSans(
+                                                color: const Color(0xFF101213),
+                                                fontSize: size16(context),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(48, 0, 0, 16),
+                                                child: SizedBox(
+                                                  width: double.infinity,
+                                                  child: TextFormField(
+                                                      initialValue: house
+                                                          .numBath
+                                                          .toString(),
+                                                      autofocus: true,
+                                                      obscureText: false,
+                                                      decoration:
+                                                          InputDecoration(
+                                                        enabledBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              const BorderSide(
+                                                            color: Color(
+                                                                0xFFE0E3E7),
+                                                            width: 2,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(40),
+                                                        ),
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: mainColor,
+                                                            width: 2,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(40),
+                                                        ),
+                                                        errorBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: errorColor,
+                                                            width: 2,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(40),
+                                                        ),
+                                                        focusedErrorBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: errorColor,
+                                                            width: 2,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(40),
+                                                        ),
+                                                        filled: true,
+                                                        fillColor: Colors.white,
+                                                        contentPadding:
+                                                            const EdgeInsets
+                                                                .all(24),
+                                                      ),
+                                                      style: GoogleFonts
+                                                          .plusJakartaSans(
+                                                        color: const Color(
+                                                            0xFF101213),
+                                                        fontSize:
+                                                            size16(context),
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                      inputFormatters: <TextInputFormatter>[
+                                                        FilteringTextInputFormatter
+                                                            .allow(RegExp(
+                                                                "[0-9]")),
+                                                      ],
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      validator: (val) => val!
+                                                              .isEmpty
+                                                          ? 'Please enter a number'
+                                                          : null,
+                                                      onChanged: (val) =>
+                                                          setState(() =>
+                                                              _numberBathroom =
+                                                                  (int.parse(
+                                                                      val)))),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Container(
-                            width: double.infinity,
-                            constraints: const BoxConstraints(
-                              maxWidth: 700,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: const [
-                                BoxShadow(
-                                  blurRadius: 4,
-                                  color: Color(0x33000000),
-                                  offset: Offset(0, 2),
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: const Color(0xFFF1F4F8),
-                                width: 2,
-                              ),
-                            ),
-                            child: Align(
-                              alignment: const AlignmentDirectional(0, 0),
-                              child: Padding(
-                                padding: const EdgeInsets.all(24),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0, 12, 0, 24),
-                                      child: Text(
-                                        'Almost done!',
-                                        textAlign: TextAlign.start,
-                                        style: GoogleFonts.plusJakartaSans(
-                                          color: const Color(0xFF57636C),
-                                          fontSize: size16(context),
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0, 0, 0, 16),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Pick some photos for your profile!',
+                            Padding(
+                              padding: const EdgeInsets.all(12),
+                              child: Container(
+                                width: double.infinity,
+                                constraints: const BoxConstraints(
+                                  maxWidth: 700,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      blurRadius: 4,
+                                      color: Color(0x33000000),
+                                      offset: Offset(0, 2),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                    color: const Color(0xFFE0E3E7),
+                                    width: 2,
+                                  ),
+                                ),
+                                child: Align(
+                                  alignment: const AlignmentDirectional(0, 0),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(24),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 12, 0, 24),
+                                          child: Text(
+                                            'Something about the rent',
+                                            textAlign: TextAlign.start,
                                             style: GoogleFonts.plusJakartaSans(
-                                              color: const Color(0xFF101213),
+                                              color: const Color(0xFF57636C),
                                               fontSize: size16(context),
+                                              fontWeight: FontWeight.w500,
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0, 0, 0, 16),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Column(children: [
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                if (imageURLs[0] == "") {
-                                                  imageURLs[0] =
-                                                      await SchermiProva()
-                                                          .uploadFile();
-                                                  if (mounted) {
-                                                    setState(() {});
-                                                  }
-                                                }
-                                              },
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                                child: imageURLs[0] == ''
-                                                    ? Image.asset(
-                                                        'assets/userPhoto.jpg',
-                                                        width:
-                                                            MediaQuery.sizeOf(
-                                                                        context)
-                                                                    .height *
-                                                                0.15,
-                                                        height:
-                                                            MediaQuery.sizeOf(
-                                                                        context)
-                                                                    .height *
-                                                                0.20,
-                                                        fit: BoxFit.cover,
-                                                      )
-                                                    : Image.network(
-                                                        imageURLs[0],
-                                                        width:
-                                                            MediaQuery.sizeOf(
-                                                                        context)
-                                                                    .height *
-                                                                0.15,
-                                                        height:
-                                                            MediaQuery.sizeOf(
-                                                                        context)
-                                                                    .height *
-                                                                0.20,
-                                                        fit: BoxFit.cover,
-                                                      ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 16),
+                                          child: SizedBox(
+                                            width: double.infinity,
+                                            child: TextFormField(
+                                              controller: _dateStartController,
+                                              readOnly: true,
+                                              autofocus: true,
+                                              autofillHints: const [
+                                                AutofillHints.birthday
+                                              ],
+                                              obscureText: false,
+                                              decoration: InputDecoration(
+                                                suffixIcon: IconButton(
+                                                  icon: const Icon(
+                                                      Icons.calendar_today),
+                                                  onPressed: () {
+                                                    // call the function to show the date picker
+                                                    _selectStartDate(context);
+                                                  },
+                                                ),
+                                                labelText: 'Start date of rent',
+                                                labelStyle:
+                                                    GoogleFonts.plusJakartaSans(
+                                                  color:
+                                                      const Color(0xFF57636C),
+                                                  fontSize: size16(context),
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                                hintText: 'Start date of rent',
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                    color: Color(0xFFE0E3E7),
+                                                    width: 2,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(40),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: mainColor,
+                                                    width: 2,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(40),
+                                                ),
+                                                errorBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
+                                                    width: 2,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(40),
+                                                ),
+                                                focusedErrorBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
+                                                    width: 2,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(40),
+                                                ),
+                                                filled: true,
+                                                fillColor: Colors.white,
+                                                contentPadding:
+                                                    const EdgeInsets.all(24),
                                               ),
+                                              style:
+                                                  GoogleFonts.plusJakartaSans(
+                                                color: const Color(0xFF101213),
+                                                fontSize: size16(context),
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                              validator: (val) => val!.isEmpty
+                                                  ? 'Please enter a date'
+                                                  : null,
                                             ),
-                                            Align(
-                                              alignment: Alignment.topRight,
-                                              child: imageURLs[0] == ''
-                                                  ? null
-                                                  : IconButton(
-                                                      icon: const Icon(
-                                                          Icons.close),
-                                                      color: errorColor,
-                                                      onPressed: () async {
-                                                        await FirebaseStorage
-                                                            .instance
-                                                            .refFromURL(
-                                                                imageURLs[0])
-                                                            .delete();
-
-                                                        imageURLs[0] = '';
-                                                        if (mounted) {
-                                                          setState(() {});
-                                                        }
-                                                      },
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 16),
+                                          child: SizedBox(
+                                            width: double.infinity,
+                                            child: TextFormField(
+                                              controller: _dateEndController,
+                                              readOnly: true,
+                                              autofocus: true,
+                                              autofillHints: const [
+                                                AutofillHints.birthday
+                                              ],
+                                              obscureText: false,
+                                              decoration: InputDecoration(
+                                                suffixIcon: IconButton(
+                                                  icon: const Icon(
+                                                      Icons.calendar_today),
+                                                  onPressed: () {
+                                                    // call the function to show the date picker
+                                                    _selectEndDate(context);
+                                                  },
+                                                ),
+                                                labelText: 'End date of rent',
+                                                labelStyle:
+                                                    GoogleFonts.plusJakartaSans(
+                                                  color:
+                                                      const Color(0xFF57636C),
+                                                  fontSize: size16(context),
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                                hintText: 'End date of rent',
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                    color: Color(0xFFE0E3E7),
+                                                    width: 2,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(40),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: mainColor,
+                                                    width: 2,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(40),
+                                                ),
+                                                errorBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
+                                                    width: 2,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(40),
+                                                ),
+                                                focusedErrorBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: errorColor,
+                                                    width: 2,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(40),
+                                                ),
+                                                filled: true,
+                                                fillColor: Colors.white,
+                                                contentPadding:
+                                                    const EdgeInsets.all(24),
+                                              ),
+                                              style:
+                                                  GoogleFonts.plusJakartaSans(
+                                                color: const Color(0xFF101213),
+                                                fontSize: size16(context),
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                              validator: (val) => val!.isEmpty
+                                                  ? 'Please enter a date'
+                                                  : null,
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 16),
+                                          child: SizedBox(
+                                            width: double.infinity,
+                                            child: TextFormField(
+                                                initialValue: _price.toString(),
+                                                autofocus: true,
+                                                obscureText: false,
+                                                decoration: InputDecoration(
+                                                  labelText: 'Price (in euros)',
+                                                  labelStyle: GoogleFonts
+                                                      .plusJakartaSans(
+                                                    color:
+                                                        const Color(0xFF57636C),
+                                                    fontSize: size16(context),
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                  enabledBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide:
+                                                        const BorderSide(
+                                                      color: Color(0xFFE0E3E7),
+                                                      width: 2,
                                                     ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            40),
+                                                  ),
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: mainColor,
+                                                      width: 2,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            40),
+                                                  ),
+                                                  errorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: errorColor,
+                                                      width: 2,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            40),
+                                                  ),
+                                                  focusedErrorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: errorColor,
+                                                      width: 2,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            40),
+                                                  ),
+                                                  filled: true,
+                                                  fillColor: Colors.white,
+                                                  contentPadding:
+                                                      const EdgeInsets.all(24),
+                                                ),
+                                                style:
+                                                    GoogleFonts.plusJakartaSans(
+                                                  color:
+                                                      const Color(0xFF101213),
+                                                  fontSize: size16(context),
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                                inputFormatters: <TextInputFormatter>[
+                                                  FilteringTextInputFormatter
+                                                      .allow(RegExp(
+                                                          "([0-9.0-9])")),
+                                                ],
+                                                keyboardType:
+                                                    const TextInputType
+                                                        .numberWithOptions(
+                                                        decimal: true),
+                                                validator: (val) => (val!
+                                                            .isEmpty ||
+                                                        double.parse(val) >
+                                                            4000 ||
+                                                        double.parse(val) < 0)
+                                                    ? 'Please enter a valid price (range: 0-4000)'
+                                                    : null,
+                                                onChanged: (val) => setState(
+                                                    () => _price =
+                                                        (double.parse(val)))),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(12),
+                              child: Container(
+                                width: double.infinity,
+                                constraints: const BoxConstraints(
+                                  maxWidth: 700,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      blurRadius: 4,
+                                      color: Color(0x33000000),
+                                      offset: Offset(0, 2),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                    color: const Color(0xFFF1F4F8),
+                                    width: 2,
+                                  ),
+                                ),
+                                child: Align(
+                                  alignment: const AlignmentDirectional(0, 0),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(24),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 12, 0, 24),
+                                          child: Text(
+                                            'Almost done!',
+                                            textAlign: TextAlign.start,
+                                            style: GoogleFonts.plusJakartaSans(
+                                              color: const Color(0xFF57636C),
+                                              fontSize: size16(context),
+                                              fontWeight: FontWeight.w500,
                                             ),
-                                          ]),
-                                          SizedBox(
-                                              width: MediaQuery.sizeOf(context)
-                                                      .height *
-                                                  0.02),
-                                          Column(children: [
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                if (imageURLs[1].isEmpty) {
-                                                  imageURLs[1] =
-                                                      await SchermiProva()
-                                                          .uploadFile();
-                                                  if (mounted) {
-                                                    setState(() {});
-                                                  }
-                                                }
-                                              },
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                                child: imageURLs
-                                                        .elementAt(1)
-                                                        .isEmpty
-                                                    ? Image.asset(
-                                                        'assets/userPhoto.jpg',
-                                                        width:
-                                                            MediaQuery.sizeOf(
-                                                                        context)
-                                                                    .height *
-                                                                0.15,
-                                                        height:
-                                                            MediaQuery.sizeOf(
-                                                                        context)
-                                                                    .height *
-                                                                0.20,
-                                                        fit: BoxFit.cover,
-                                                      )
-                                                    : Image.network(
-                                                        imageURLs[1],
-                                                        width:
-                                                            MediaQuery.sizeOf(
-                                                                        context)
-                                                                    .height *
-                                                                0.15,
-                                                        height:
-                                                            MediaQuery.sizeOf(
-                                                                        context)
-                                                                    .height *
-                                                                0.20,
-                                                        fit: BoxFit.cover,
-                                                      ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 16),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'Pick some photos for your profile!',
+                                                style:
+                                                    GoogleFonts.plusJakartaSans(
+                                                  color:
+                                                      const Color(0xFF101213),
+                                                  fontSize: size16(context),
+                                                ),
                                               ),
-                                            ),
-                                            Align(
-                                              alignment: Alignment.topRight,
-                                              child:
-                                                  imageURLs.elementAt(1).isEmpty
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 16),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Column(children: [
+                                                InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    if (imageURLs[0] == "") {
+                                                      imageURLs[0] =
+                                                          await SchermiProva()
+                                                              .uploadFile();
+                                                      if (mounted) {
+                                                        setState(() {});
+                                                      }
+                                                    }
+                                                  },
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                    child: imageURLs[0] == ''
+                                                        ? Image.asset(
+                                                            'assets/userPhoto.jpg',
+                                                            width: MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .height *
+                                                                0.15,
+                                                            height: MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .height *
+                                                                0.20,
+                                                            fit: BoxFit.cover,
+                                                          )
+                                                        : Image.network(
+                                                            imageURLs[0],
+                                                            width: MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .height *
+                                                                0.15,
+                                                            height: MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .height *
+                                                                0.20,
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                  ),
+                                                ),
+                                                Align(
+                                                  alignment: Alignment.topRight,
+                                                  child: imageURLs[0] == ''
+                                                      ? null
+                                                      : IconButton(
+                                                          icon: const Icon(
+                                                              Icons.close),
+                                                          color: errorColor,
+                                                          onPressed: () async {
+                                                            await FirebaseStorage
+                                                                .instance
+                                                                .refFromURL(
+                                                                    imageURLs[
+                                                                        0])
+                                                                .delete();
+
+                                                            imageURLs[0] = '';
+                                                            if (mounted) {
+                                                              setState(() {});
+                                                            }
+                                                          },
+                                                        ),
+                                                ),
+                                              ]),
+                                              SizedBox(
+                                                  width:
+                                                      MediaQuery.sizeOf(context)
+                                                              .height *
+                                                          0.02),
+                                              Column(children: [
+                                                InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    if (imageURLs[1].isEmpty) {
+                                                      imageURLs[1] =
+                                                          await SchermiProva()
+                                                              .uploadFile();
+                                                      if (mounted) {
+                                                        setState(() {});
+                                                      }
+                                                    }
+                                                  },
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                    child:
+                                                        imageURLs
+                                                                .elementAt(1)
+                                                                .isEmpty
+                                                            ? Image.asset(
+                                                                'assets/userPhoto.jpg',
+                                                                width: MediaQuery.sizeOf(
+                                                                            context)
+                                                                        .height *
+                                                                    0.15,
+                                                                height: MediaQuery.sizeOf(
+                                                                            context)
+                                                                        .height *
+                                                                    0.20,
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              )
+                                                            : Image.network(
+                                                                imageURLs[1],
+                                                                width: MediaQuery.sizeOf(
+                                                                            context)
+                                                                        .height *
+                                                                    0.15,
+                                                                height: MediaQuery.sizeOf(
+                                                                            context)
+                                                                        .height *
+                                                                    0.20,
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              ),
+                                                  ),
+                                                ),
+                                                Align(
+                                                  alignment: Alignment.topRight,
+                                                  child: imageURLs
+                                                          .elementAt(1)
+                                                          .isEmpty
                                                       ? null
                                                       : IconButton(
                                                           icon: const Icon(
@@ -1314,304 +1408,327 @@ class _ModifyHouseProfileState extends State<ModifyHouseProfile> {
                                                             }
                                                           },
                                                         ),
-                                            ),
-                                          ]),
-                                        ],
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Column(children: [
-                                          InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              if (imageURLs[2].isEmpty) {
-                                                imageURLs[2] =
-                                                    await SchermiProva()
-                                                        .uploadFile();
+                                                ),
+                                              ]),
+                                            ],
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Column(children: [
+                                              InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  if (imageURLs[2].isEmpty) {
+                                                    imageURLs[2] =
+                                                        await SchermiProva()
+                                                            .uploadFile();
 
-                                                if (mounted) {
-                                                  setState(() {});
-                                                }
-                                              }
-                                            },
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              child: imageURLs
-                                                      .elementAt(2)
-                                                      .isEmpty
-                                                  ? Image.asset(
-                                                      'assets/userPhoto.jpg',
-                                                      width: MediaQuery.sizeOf(
-                                                                  context)
-                                                              .height *
-                                                          0.15,
-                                                      height: MediaQuery.sizeOf(
-                                                                  context)
-                                                              .height *
-                                                          0.20,
-                                                      fit: BoxFit.cover,
-                                                    )
-                                                  : Image.network(
-                                                      imageURLs[2],
-                                                      width: MediaQuery.sizeOf(
-                                                                  context)
-                                                              .height *
-                                                          0.15,
-                                                      height: MediaQuery.sizeOf(
-                                                                  context)
-                                                              .height *
-                                                          0.20,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: Alignment.topRight,
-                                            child: imageURLs
-                                                    .elementAt(2)
-                                                    .isEmpty
-                                                ? null
-                                                : IconButton(
-                                                    icon:
-                                                        const Icon(Icons.close),
-                                                    color: errorColor,
-                                                    onPressed: () async {
-                                                      await FirebaseStorage
-                                                          .instance
-                                                          .refFromURL(imageURLs
-                                                              .elementAt(2))
-                                                          .delete();
-                                                      imageURLs[2] = "";
-                                                      if (mounted) {
-                                                        setState(() {});
-                                                      }
-                                                    },
-                                                  ),
-                                          ),
-                                        ]),
-                                        SizedBox(
-                                            width: MediaQuery.sizeOf(context)
-                                                    .height *
-                                                0.02),
-                                        Column(children: [
-                                          InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              if (imageURLs[3].isEmpty) {
-                                                imageURLs[3] =
-                                                    await SchermiProva()
-                                                        .uploadFile();
-                                                if (mounted) {
-                                                  setState(() {});
-                                                }
-                                              }
-                                            },
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              child: imageURLs
-                                                      .elementAt(3)
-                                                      .isEmpty
-                                                  ? Image.asset(
-                                                      'assets/userPhoto.jpg',
-                                                      width: MediaQuery.sizeOf(
-                                                                  context)
-                                                              .height *
-                                                          0.15,
-                                                      height: MediaQuery.sizeOf(
-                                                                  context)
-                                                              .height *
-                                                          0.20,
-                                                      fit: BoxFit.cover,
-                                                    )
-                                                  : Image.network(
-                                                      imageURLs[3],
-                                                      width: MediaQuery.sizeOf(
-                                                                  context)
-                                                              .height *
-                                                          0.15,
-                                                      height: MediaQuery.sizeOf(
-                                                                  context)
-                                                              .height *
-                                                          0.20,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: Alignment.topRight,
-                                            child: imageURLs
-                                                    .elementAt(3)
-                                                    .isEmpty
-                                                ? null
-                                                : IconButton(
-                                                    icon:
-                                                        const Icon(Icons.close),
-                                                    color: errorColor,
-                                                    onPressed: () async {
-                                                      await FirebaseStorage
-                                                          .instance
-                                                          .refFromURL(imageURLs
-                                                              .elementAt(3))
-                                                          .delete();
-                                                      imageURLs[3] = "";
-                                                      if (mounted) {
-                                                        setState(() {});
-                                                      }
-                                                    },
-                                                  ),
-                                          ),
-                                        ]),
+                                                    if (mounted) {
+                                                      setState(() {});
+                                                    }
+                                                  }
+                                                },
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  child: imageURLs
+                                                          .elementAt(2)
+                                                          .isEmpty
+                                                      ? Image.asset(
+                                                          'assets/userPhoto.jpg',
+                                                          width:
+                                                              MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .height *
+                                                                  0.15,
+                                                          height:
+                                                              MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .height *
+                                                                  0.20,
+                                                          fit: BoxFit.cover,
+                                                        )
+                                                      : Image.network(
+                                                          imageURLs[2],
+                                                          width:
+                                                              MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .height *
+                                                                  0.15,
+                                                          height:
+                                                              MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .height *
+                                                                  0.20,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                ),
+                                              ),
+                                              Align(
+                                                alignment: Alignment.topRight,
+                                                child: imageURLs
+                                                        .elementAt(2)
+                                                        .isEmpty
+                                                    ? null
+                                                    : IconButton(
+                                                        icon: const Icon(
+                                                            Icons.close),
+                                                        color: errorColor,
+                                                        onPressed: () async {
+                                                          await FirebaseStorage
+                                                              .instance
+                                                              .refFromURL(
+                                                                  imageURLs
+                                                                      .elementAt(
+                                                                          2))
+                                                              .delete();
+                                                          imageURLs[2] = "";
+                                                          if (mounted) {
+                                                            setState(() {});
+                                                          }
+                                                        },
+                                                      ),
+                                              ),
+                                            ]),
+                                            SizedBox(
+                                                width:
+                                                    MediaQuery.sizeOf(context)
+                                                            .height *
+                                                        0.02),
+                                            Column(children: [
+                                              InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  if (imageURLs[3].isEmpty) {
+                                                    imageURLs[3] =
+                                                        await SchermiProva()
+                                                            .uploadFile();
+                                                    if (mounted) {
+                                                      setState(() {});
+                                                    }
+                                                  }
+                                                },
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  child: imageURLs
+                                                          .elementAt(3)
+                                                          .isEmpty
+                                                      ? Image.asset(
+                                                          'assets/userPhoto.jpg',
+                                                          width:
+                                                              MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .height *
+                                                                  0.15,
+                                                          height:
+                                                              MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .height *
+                                                                  0.20,
+                                                          fit: BoxFit.cover,
+                                                        )
+                                                      : Image.network(
+                                                          imageURLs[3],
+                                                          width:
+                                                              MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .height *
+                                                                  0.15,
+                                                          height:
+                                                              MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .height *
+                                                                  0.20,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                ),
+                                              ),
+                                              Align(
+                                                alignment: Alignment.topRight,
+                                                child: imageURLs
+                                                        .elementAt(3)
+                                                        .isEmpty
+                                                    ? null
+                                                    : IconButton(
+                                                        icon: const Icon(
+                                                            Icons.close),
+                                                        color: errorColor,
+                                                        onPressed: () async {
+                                                          await FirebaseStorage
+                                                              .instance
+                                                              .refFromURL(
+                                                                  imageURLs
+                                                                      .elementAt(
+                                                                          3))
+                                                              .delete();
+                                                          imageURLs[3] = "";
+                                                          if (mounted) {
+                                                            setState(() {});
+                                                          }
+                                                        },
+                                                      ),
+                                              ),
+                                            ]),
+                                          ],
+                                        ),
                                       ],
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                        Align(
-                          alignment: const AlignmentDirectional(0, 0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0, 0, 0, 16),
-                            child: ElevatedButton(
-                              onPressed: () async {
-                                if (scaffoldKey.currentState!.validate()) {
-                                  if (_startDate!.isBefore(_endDate!)) {
-                                    if (imageURLs[0] != '') {
-                                      await DatabaseServiceHouseProfile(
-                                              house.idHouse)
-                                          .updateHouseProfileAdj(
-                                              house.owner,
-                                              _type ?? house.type,
-                                              _address ?? house.address,
-                                              _city ?? house.city,
-                                              _description ?? house.description,
-                                              _price ?? house.price,
-                                              _floorNumber ?? house.floorNumber,
-                                              _numberBathroom ?? house.numBath,
-                                              _numberPeople ?? house.numPlp,
-                                              _startDate?.year ??
-                                                  house.startYear,
-                                              _startDate?.month ??
-                                                  house.startMonth,
-                                              _startDate?.day ?? house.startDay,
-                                              _endDate?.year ?? house.endYear,
-                                              _endDate?.month ?? house.endMonth,
-                                              _endDate?.day ?? house.endDay,
-                                              selLocation?.latitude ??
-                                                  house.latitude,
-                                              selLocation?.longitude ??
-                                                  house.longitude,
-                                              imageURLs[0],
-                                              imageURLs[1],
-                                              imageURLs[2],
-                                              imageURLs[3],
-                                              house.numberNotifies);
-                                      if (mounted) {
-                                        Navigator.pop(context);
-                                      }
-                                    } else {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          content: Text(
-                                            'Insert the photos!',
+                            Align(
+                              alignment: const AlignmentDirectional(0, 0),
+                              child: Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 0, 0, 16),
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    if (scaffoldKey.currentState!.validate()) {
+                                      if (_startDate!.isBefore(_endDate!)) {
+                                        if (imageURLs[0] != '') {
+                                          await DatabaseServiceHouseProfile(
+                                                  house.idHouse)
+                                              .updateHouseProfileAdj(
+                                                  house.owner,
+                                                  _type ?? house.type,
+                                                  _address ?? house.address,
+                                                  _city ?? house.city,
+                                                  _description ??
+                                                      house.description,
+                                                  _price ?? house.price,
+                                                  _floorNumber ??
+                                                      house.floorNumber,
+                                                  _numberBathroom ??
+                                                      house.numBath,
+                                                  _numberPeople ?? house.numPlp,
+                                                  _startDate?.year ??
+                                                      house.startYear,
+                                                  _startDate?.month ??
+                                                      house.startMonth,
+                                                  _startDate?.day ??
+                                                      house.startDay,
+                                                  _endDate?.year ??
+                                                      house.endYear,
+                                                  _endDate?.month ??
+                                                      house.endMonth,
+                                                  _endDate?.day ?? house.endDay,
+                                                  selLocation?.latitude ??
+                                                      house.latitude,
+                                                  selLocation?.longitude ??
+                                                      house.longitude,
+                                                  imageURLs[0],
+                                                  imageURLs[1],
+                                                  imageURLs[2],
+                                                  imageURLs[3],
+                                                  house.numberNotifies);
+                                          if (mounted) {
+                                            Navigator.pop(context);
+                                          }
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text(
+                                                'Insert the photos!',
+                                              ),
+                                            ),
+                                          );
+                                          return;
+                                        }
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              'End date is before start date!',
+                                            ),
                                           ),
-                                        ),
-                                      );
-                                      return;
+                                        );
+                                        return;
+                                      }
                                     }
-                                  } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          'End date is before start date!',
-                                        ),
-                                      ),
-                                    );
-                                    return;
-                                  }
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                fixedSize: const Size(230, 52),
-                                backgroundColor: mainColor,
-                                elevation: 3.0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(40),
-                                ),
-                                side: const BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1,
-                                ),
-                              ),
-                              child: Text(
-                                'Update!',
-                                style: GoogleFonts.plusJakartaSans(
-                                  color: backgroundColor,
-                                  fontSize: size16(context),
-                                  fontWeight: FontWeight.w500,
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    fixedSize: const Size(230, 52),
+                                    backgroundColor: mainColor,
+                                    elevation: 3.0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(40),
+                                    ),
+                                    side: const BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'Update!',
+                                    style: GoogleFonts.plusJakartaSans(
+                                      color: backgroundColor,
+                                      fontSize: size16(context),
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0, 0, 0, 16),
-                            child: ElevatedButton(
-                              onPressed: () async {
-                                await DatabaseServiceHouseProfile(house.idHouse)
-                                    .deleteHouseProfileAdj();
-                                /*if (mounted) {
+                            Align(
+                              alignment: Alignment.center,
+                              child: Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 0, 0, 16),
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    await DatabaseServiceHouseProfile(
+                                            house.idHouse)
+                                        .deleteHouseProfileAdj();
+                                    /*if (mounted) {
                                   Navigator.pop(context);
                                 }*/
-                                int count = 0;
-                                Navigator.of(context)
-                                    .popUntil((_) => count++ >= 2);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                fixedSize: const Size(230, 52),
-                                backgroundColor: mainColor,
-                                elevation: 3.0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(40),
-                                ),
-                                side: const BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1,
-                                ),
-                              ),
-                              child: Text(
-                                'Delete',
-                                style: GoogleFonts.plusJakartaSans(
-                                  color: Colors.white,
-                                  fontSize: size16(context),
-                                  fontWeight: FontWeight.w500,
+                                    int count = 0;
+                                    Navigator.of(context)
+                                        .popUntil((_) => count++ >= 2);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    fixedSize: const Size(230, 52),
+                                    backgroundColor: mainColor,
+                                    elevation: 3.0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(40),
+                                    ),
+                                    side: const BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'Delete',
+                                    style: GoogleFonts.plusJakartaSans(
+                                      color: Colors.white,
+                                      fontSize: size16(context),
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                      ])),
-            ),
-          ),
-        ));
+                          ])),
+                ),
+              ),
+            )));
   }
 
   initImg1() {
