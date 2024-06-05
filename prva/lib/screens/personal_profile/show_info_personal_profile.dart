@@ -5,23 +5,13 @@ import 'package:prva/screens/shared/constant.dart';
 
 import 'package:prva/screens/shared/image.dart';
 
-class ShowDetailedPersonalProfile extends StatefulWidget {
+class ShowDetailedPersonalProfile extends StatelessWidget {
   final PersonalProfileAdj personalProfile;
 
-  const ShowDetailedPersonalProfile({super.key, required this.personalProfile});
+  ShowDetailedPersonalProfile({super.key, required this.personalProfile});
 
-  @override
-  State<ShowDetailedPersonalProfile> createState() =>
-      _ShowDetailedPersonalProfileState(personalProfile: personalProfile);
-}
-
-class _ShowDetailedPersonalProfileState
-    extends State<ShowDetailedPersonalProfile> {
-  final PersonalProfileAdj personalProfile;
   List<String> images = [];
   bool flag = true;
-
-  _ShowDetailedPersonalProfileState({required this.personalProfile});
 
   void getImages(String im1, String im2, String im3, String im4) {
     if (im1 != "" && flag) {

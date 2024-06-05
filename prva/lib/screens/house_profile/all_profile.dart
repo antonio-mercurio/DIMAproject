@@ -104,7 +104,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
           ? Column(
               children: <Widget>[
                 SwipeWidget(
-                  firstName: personalProfileToShow?.nameA ?? "" ,
+                  firstName: personalProfileToShow?.nameA ?? "",
                   image: personalProfileToShow?.imageURL1 ?? "",
                   lastName: personalProfileToShow?.surnameA ?? "",
                   age: _calculateAge(personalProfileToShow!),
@@ -172,8 +172,8 @@ class _AllProfilesListState extends State<AllProfilesList> {
                           }),
                         ),
                         onPressed: () async {
-                          await MatchService().putPrefence(
-                              myHouse.idHouse, personalProfileToShow!.uidA, "dislike");
+                          await MatchService().putPrefence(myHouse.idHouse,
+                              personalProfileToShow!.uidA, "dislike");
                         },
                         child: const Icon(Icons.close_rounded)),
                     SizedBox(width: MediaQuery.sizeOf(context).width * 0.15),
@@ -215,7 +215,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
                       height: MediaQuery.sizeOf(context).height * 0.9,
                       child: Column(children: <Widget>[
                         SwipeWidget(
-                          firstName:personalProfileToShow!.nameA,
+                          firstName: personalProfileToShow!.nameA,
                           image: personalProfileToShow!.imageURL1,
                           lastName: personalProfileToShow!.surnameA,
                           age: _calculateAge(personalProfileToShow!),
@@ -247,7 +247,7 @@ class _AllProfilesListState extends State<AllProfilesList> {
                                 ),
                                 onPressed: () async {
                                   /* Put like */
-                                  String persID =personalProfileToShow!.uidA;
+                                  String persID = personalProfileToShow!.uidA;
                                   await MatchService().putPrefence(
                                       myHouse.idHouse, persID, "like");
                                   /* check for match */
