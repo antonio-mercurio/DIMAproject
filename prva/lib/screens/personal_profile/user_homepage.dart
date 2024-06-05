@@ -731,6 +731,7 @@ class _ChatLayoutState extends State<ChatLayout> {
                       );
                     } else {
                       setState(() {
+                        houseProfileWith.value = snapshot.data!;
                         nameReciverTablet.value = "$type $city";
                         idReciverTablet.value = idHouse;
                       });
