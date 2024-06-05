@@ -263,7 +263,7 @@ class _ProfileLayoutState extends State<ProfileLayout> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const DetailedHouseProfile(),
+            DetailedHouseProfile(),
             const SizedBox(
               height: 20,
             ),
