@@ -8,22 +8,13 @@ import 'package:prva/services/map/maps.dart';
 
 const LatLng cLoc = LatLng(45.48319179000315, 9.224778407607825);
 
-class ShowDetailedHouseProfile extends StatefulWidget {
+class ShowDetailedHouseProfile extends StatelessWidget {
   final HouseProfileAdj houseProfile;
 
-  const ShowDetailedHouseProfile({super.key, required this.houseProfile});
+  ShowDetailedHouseProfile({super.key, required this.houseProfile});
 
-  @override
-  State<ShowDetailedHouseProfile> createState() =>
-      _ShowDetailedHouseProfileState(houseProfile: houseProfile);
-}
-
-class _ShowDetailedHouseProfileState extends State<ShowDetailedHouseProfile> {
-  final HouseProfileAdj houseProfile;
   List<String> images = [];
   bool flag = true;
-
-  _ShowDetailedHouseProfileState({required this.houseProfile});
 
   void getImages(String im1, String im2, String im3, String im4) {
     if (im1 != "" && flag) {

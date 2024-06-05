@@ -8,14 +8,21 @@ import 'package:prva/services/map/maps.dart';
 
 import '../shared/image.dart';
 
-class DetailedHouseProfile extends StatelessWidget {
+class DetailedHouseProfile extends StatefulWidget {
   //final HouseProfileAdj houseProfile;
 
-  DetailedHouseProfile({
+  const DetailedHouseProfile({
     super.key,
     /*required this.houseProfile*/
   });
 
+  @override
+  State<DetailedHouseProfile> createState() =>
+      _DetailedHouseProfileState(/*houseProfile: houseProfile*/);
+}
+
+class _DetailedHouseProfileState extends State<DetailedHouseProfile> {
+  //final HouseProfileAdj houseProfile;
   List<String> images = [];
   bool flag = true;
 
