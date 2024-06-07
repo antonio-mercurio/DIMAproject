@@ -106,7 +106,8 @@ class _AllHousesListState extends State<AllHousesList> {
       });
       houseToShow = houses[0];
       return MediaQuery.of(context).size.width < widthSize
-          ? Column(children: <Widget>[
+          ? SingleChildScrollView(
+              child: Column(children: <Widget>[
               SwipeWidget(
                 firstName: houseToShow!.type,
                 image: houseToShow!.imageURL1,
@@ -201,7 +202,7 @@ class _AllHousesListState extends State<AllHousesList> {
                       child: const Icon(Icons.info_rounded))
                 ],
               ),
-            ])
+            ]))
           : SingleChildScrollView(
               child: Row(
               children: <Widget>[
