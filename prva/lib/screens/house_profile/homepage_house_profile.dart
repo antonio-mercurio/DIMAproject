@@ -280,7 +280,7 @@ class _ProfileLayoutState extends State<ProfileLayout> {
                                 ModifyHouseProfile(house: house)));
                   },
                   style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(230, 52),
+                    fixedSize: const Size(300, 52),
                     backgroundColor: mainColor,
                     elevation: 3.0,
                     shape: RoundedRectangleBorder(
